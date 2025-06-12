@@ -35,7 +35,7 @@ export function CounterpartyListItem({
     onClick(counterparty)
   }
 
-  // Format the outbound total with comma separators for better readability
+  // Format the outbound total with comma separators
   const formattedOutboundTotal = counterparty.outboundTotal.toLocaleString('en-US', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2

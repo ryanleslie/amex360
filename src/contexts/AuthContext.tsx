@@ -1,5 +1,6 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { supabase } from '@/integrations/supabase/client';
 
 interface User {
   user_id: string;
@@ -35,80 +36,207 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
-// Mock users for demo purposes
-const mockUsers = {
-  'ryan': {
-    user_id: 'ryan',
-    password: 'wpcreditm@xguest-ryan',
-    email: 'ryan@creditmaxguest.com',
-    display_name: 'Ryan',
-    first_name: 'Ryan',
-    role: 'user'
-  },
-  'w3althplan': {
-    user_id: 'w3althplan',
-    password: 'dmm2020$',
-    email: 'admin@wealthplan.com',
-    display_name: 'WealthPlan Admin',
-    first_name: 'Admin',
-    role: 'admin'
-  }
-};
-
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check for stored session
-    const storedUser = localStorage.getItem('mock_user');
-    if (storedUser) {
-      const userData = JSON.parse(storedUser);
-      setUser(userData);
-    }
-    setLoading(false);
+    checkSession();
   }, []);
 
-  const signIn = async (userId: string, password: string): Promise<{ error?: string }> => {
-    const mockUser = mockUsers[userId as keyof typeof mockUsers];
-    
-    if (!mockUser || mockUser.password !== password) {
-      return { error: 'Invalid user ID or password' };
-    }
+  const getUserWithRole = async (userId: string) => {
+    // Get user profile
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('user_id', userId)
+      .single();
 
-    const userData = {
-      user_id: mockUser.user_id,
-      email: mockUser.email,
-      display_name: mockUser.display_name,
-      first_name: mockUser.first_name,
-      role: mockUser.role
+    // Get user role
+    const { data: roleData } = await supabase
+      .from('user_roles')
+      .select('role')
+      .eq('user_id', userId)
+      .single();
+
+    return {
+      user_id: userId,
+      ...profile,
+      role: roleData?.role || 'user'
     };
+  };
 
-    setUser(userData);
-    localStorage.setItem('mock_user', JSON.stringify(userData));
-    
-    return {};
+  const checkSession = async () => {
+    try {
+      const sessionToken = localStorage.getItem('session_token');
+      if (!sessionToken) {
+        setLoading(false);
+        return;
+      }
+
+      // Check if session is valid
+      const { data: session, error } = await supabase
+        .from('user_sessions')
+        .select('user_id, expires_at')
+        .eq('session_token', sessionToken)
+        .single();
+
+      if (error || !session) {
+        localStorage.removeItem('session_token');
+        setLoading(false);
+        return;
+      }
+
+      // Check if session is expired
+      if (new Date(session.expires_at) < new Date()) {
+        localStorage.removeItem('session_token');
+        await supabase
+          .from('user_sessions')
+          .delete()
+          .eq('session_token', sessionToken);
+        setLoading(false);
+        return;
+      }
+
+      // Get user with role
+      const userData = await getUserWithRole(session.user_id);
+      setUser(userData);
+    } catch (error) {
+      console.error('Session check error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const signIn = async (userId: string, password: string): Promise<{ error?: string }> => {
+    try {
+      // Verify user credentials
+      const { data: user, error: userError } = await supabase
+        .from('users')
+        .select('user_id, password_hash')
+        .eq('user_id', userId)
+        .single();
+
+      if (userError || !user) {
+        return { error: 'Invalid user ID or password' };
+      }
+
+      // Verify password
+      const { data: isValid, error: verifyError } = await supabase
+        .rpc('verify_password', {
+          password: password,
+          hash: user.password_hash
+        });
+
+      if (verifyError || !isValid) {
+        return { error: 'Invalid user ID or password' };
+      }
+
+      // Create session
+      const sessionToken = crypto.randomUUID();
+      const expiresAt = new Date();
+      expiresAt.setDate(expiresAt.getDate() + 7); // 7 days
+
+      const { error: sessionError } = await supabase
+        .from('user_sessions')
+        .insert({
+          user_id: userId,
+          session_token: sessionToken,
+          expires_at: expiresAt.toISOString()
+        });
+
+      if (sessionError) {
+        return { error: 'Failed to create session' };
+      }
+
+      // Update last login
+      await supabase
+        .from('users')
+        .update({ last_login: new Date().toISOString() })
+        .eq('user_id', userId);
+
+      // Store session token
+      localStorage.setItem('session_token', sessionToken);
+
+      // Get user with role
+      const userData = await getUserWithRole(userId);
+      setUser(userData);
+
+      return {};
+    } catch (error) {
+      console.error('Sign in error:', error);
+      return { error: 'An unexpected error occurred' };
+    }
   };
 
   const signUp = async (userId: string, password: string, email?: string): Promise<{ error?: string }> => {
-    // For demo purposes, just simulate successful signup
-    const userData = {
-      user_id: userId,
-      email: email,
-      display_name: userId,
-      first_name: userId,
-      role: 'user'
-    };
+    try {
+      // Check if user already exists
+      const { data: existingUser } = await supabase
+        .from('users')
+        .select('user_id')
+        .eq('user_id', userId)
+        .single();
 
-    setUser(userData);
-    localStorage.setItem('mock_user', JSON.stringify(userData));
-    
-    return {};
+      if (existingUser) {
+        return { error: 'User ID already exists' };
+      }
+
+      // Hash password
+      const { data: hashedPassword, error: hashError } = await supabase
+        .rpc('hash_password', { password });
+
+      if (hashError || !hashedPassword) {
+        return { error: 'Failed to process password' };
+      }
+
+      // Create user
+      const { error: userError } = await supabase
+        .from('users')
+        .insert({
+          user_id: userId,
+          password_hash: hashedPassword,
+          email: email
+        });
+
+      if (userError) {
+        if (userError.code === '23505') {
+          return { error: 'Email already registered' };
+        }
+        return { error: 'Failed to create user' };
+      }
+
+      // Create profile
+      await supabase
+        .from('profiles')
+        .insert({
+          user_id: userId
+        });
+
+      // Auto sign in after registration
+      return await signIn(userId, password);
+    } catch (error) {
+      console.error('Sign up error:', error);
+      return { error: 'An unexpected error occurred' };
+    }
   };
 
   const signOut = async () => {
-    setUser(null);
-    localStorage.removeItem('mock_user');
+    try {
+      const sessionToken = localStorage.getItem('session_token');
+      if (sessionToken) {
+        // Delete session from database
+        await supabase
+          .from('user_sessions')
+          .delete()
+          .eq('session_token', sessionToken);
+      }
+
+      localStorage.removeItem('session_token');
+      setUser(null);
+    } catch (error) {
+      console.error('Sign out error:', error);
+    }
   };
 
   const hasRole = (role: string): boolean => {

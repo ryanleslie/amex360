@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -7,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const AuthPage = () => {
   const [userId, setUserId] = useState("");
@@ -29,8 +31,17 @@ const AuthPage = () => {
           variant: "destructive",
         });
       } else {
+        // Fetch user profile to get first name for personalized message
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('first_name, display_name')
+          .eq('user_id', userId)
+          .single();
+
+        const firstName = profile?.first_name || profile?.display_name || userId;
+        
         toast({
-          title: "Welcome back!",
+          title: `Welcome, ${firstName}!`,
           description: "You have been signed in successfully.",
         });
         navigate("/dashboard");

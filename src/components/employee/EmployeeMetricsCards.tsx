@@ -4,7 +4,6 @@ import { TrendingUp, CreditCard } from "lucide-react"
 import { StatCard } from "@/components/StatCard"
 import { EmployeeTransaction } from "./EmployeeTransactionColumns"
 import { useEmployeeBonus } from "@/hooks/useEmployeeBonusContext"
-import { employeeCardBonuses } from "@/data/staticEmployeeCards"
 
 interface EmployeeMetricsCardsProps {
   filteredTransactions: EmployeeTransaction[]
@@ -39,19 +38,6 @@ export function EmployeeMetricsCards({
   const metrics = React.useMemo(() => {
     return getAdjustedMetrics(filteredTransactions, selectedCardType, selectedLastFive)
   }, [filteredTransactions, selectedCardType, selectedLastFive, getAdjustedMetrics])
-
-  // Calculate pending award count based on current filter state
-  const pendingAwardCount = React.useMemo(() => {
-    if (selectedCardType && selectedCardType !== "all") {
-      // Filter pending cards by the selected card type
-      return employeeCardBonuses.filter(card => 
-        !card.hasBonus && card.cardType === selectedCardType
-      ).length
-    } else {
-      // Show total pending count for all cards
-      return employeeCardBonuses.filter(card => !card.hasBonus).length
-    }
-  }, [selectedCardType])
 
   const cardData = [
     {
@@ -89,8 +75,8 @@ export function EmployeeMetricsCards({
       value: metrics.totalCards,
       badge: "Cards",
       icon: CreditCard,
-      footer: "Employee card(s)",
-      description: `Cards pending bonus: ${pendingAwardCount}`,
+      footer: "Unique cards",
+      description: "Total unique employee cards",
       formatAsPoints: false,
       isPointMultiple: false
     }

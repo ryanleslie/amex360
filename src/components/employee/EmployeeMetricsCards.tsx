@@ -1,4 +1,3 @@
-
 import React from "react"
 import { TrendingUp, CreditCard } from "lucide-react"
 import { StatCard } from "@/components/StatCard"
@@ -40,8 +39,14 @@ export function EmployeeMetricsCards({
     return getAdjustedMetrics(filteredTransactions, selectedCardType, selectedLastFive)
   }, [filteredTransactions, selectedCardType, selectedLastFive, getAdjustedMetrics])
 
-  // Calculate bonus awards count based on selected card type
+  // Calculate bonus awards count based on selected card type and specific card selection
   const bonusAwardsCount = React.useMemo(() => {
+    // If both card type and last five are selected (State C - specific card selected)
+    if (selectedCardType && selectedCardType !== "all" && selectedLastFive && selectedLastFive !== "all") {
+      return 1 // Only one card is selected, so the count is always 1
+    }
+    
+    // Otherwise, filter by card type (State B or State A)
     let filteredBonuses = employeeCardBonuses.filter(card => card.hasBonus)
     
     // If a card type is selected and it's not "all", filter by that card type
@@ -50,7 +55,7 @@ export function EmployeeMetricsCards({
     }
     
     return filteredBonuses.length
-  }, [selectedCardType])
+  }, [selectedCardType, selectedLastFive])
 
   const cardData = [
     {

@@ -10,14 +10,12 @@ interface EmployeeMetricsCardsProps {
   filteredTransactions: EmployeeTransaction[]
   selectedCardType?: string
   selectedLastFive?: string
-  onTotalCardsClick?: () => void
 }
 
 export function EmployeeMetricsCards({ 
   filteredTransactions, 
   selectedCardType, 
-  selectedLastFive,
-  onTotalCardsClick
+  selectedLastFive 
 }: EmployeeMetricsCardsProps) {
   const [isVisible, setIsVisible] = React.useState(false)
   const [numbersKey, setNumbersKey] = React.useState(0)
@@ -56,8 +54,7 @@ export function EmployeeMetricsCards({
       footer: "Points earned",
       description: "Total points accumulated",
       formatAsPoints: true,
-      isPointMultiple: false,
-      clickable: false
+      isPointMultiple: false
     },
     {
       title: "Total Spend",
@@ -67,8 +64,7 @@ export function EmployeeMetricsCards({
       footer: "Employee spending",
       description: "Total amount spent",
       formatAsPoints: false,
-      isPointMultiple: false,
-      clickable: false
+      isPointMultiple: false
     },
     {
       title: "Avg Points/Dollar",
@@ -78,8 +74,7 @@ export function EmployeeMetricsCards({
       footer: "Points per dollar",
       description: "Average points earned per dollar",
       formatAsPoints: false,
-      isPointMultiple: true,
-      clickable: false
+      isPointMultiple: true
     },
     {
       title: "Total Cards",
@@ -87,11 +82,9 @@ export function EmployeeMetricsCards({
       badge: "Cards",
       icon: CreditCard,
       footer: "Employee card(s)",
-      description: `Cards pending award: ${pendingAwardCount}`,
+      description: `Cards pending bonus: ${pendingAwardCount}`,
       formatAsPoints: false,
-      isPointMultiple: false,
-      clickable: true,
-      onClick: onTotalCardsClick
+      isPointMultiple: false
     }
   ]
 
@@ -113,8 +106,6 @@ export function EmployeeMetricsCards({
           isPointMultiple={card.isPointMultiple}
           showBadge={false}
           showHover={true}
-          clickable={card.clickable}
-          onClick={card.onClick}
         />
       ))}
     </div>

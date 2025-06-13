@@ -40,17 +40,25 @@ export function EmployeeMetricsCards({
     return getAdjustedMetrics(filteredTransactions, selectedCardType, selectedLastFive)
   }, [filteredTransactions, selectedCardType, selectedLastFive, getAdjustedMetrics])
 
-  // Calculate bonus awards count based on selected card type
+  // Calculate bonus awards count based on selected card type and specific card
   const bonusAwardsCount = React.useMemo(() => {
+    // If a specific card is selected (both card type and last five), check that specific card's bonus status
+    if (selectedCardType && selectedCardType !== "all" && selectedLastFive && selectedLastFive !== "all") {
+      const specificCard = employeeCardBonuses.find(card => 
+        card.cardType === selectedCardType && card.lastFive === selectedLastFive
+      )
+      return specificCard?.hasBonus ? 1 : 0
+    }
+    
+    // If only card type is selected, filter by that card type
     let filteredBonuses = employeeCardBonuses.filter(card => card.hasBonus)
     
-    // If a card type is selected and it's not "all", filter by that card type
     if (selectedCardType && selectedCardType !== "all") {
       filteredBonuses = filteredBonuses.filter(card => card.cardType === selectedCardType)
     }
     
     return filteredBonuses.length
-  }, [selectedCardType])
+  }, [selectedCardType, selectedLastFive])
 
   const cardData = [
     {

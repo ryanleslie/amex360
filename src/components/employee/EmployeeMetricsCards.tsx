@@ -82,7 +82,7 @@ export function EmployeeMetricsCards({
       badge: "Cards",
       icon: CreditCard,
       footer: "Employee card(s)",
-      description: `Cards pending award: ${pendingAwardCount}`,
+      description: `Cards pending bonus: ${pendingAwardCount}`,
       formatAsPoints: false,
       isPointMultiple: false
     }

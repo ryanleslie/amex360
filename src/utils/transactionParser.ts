@@ -12,8 +12,17 @@ export const parseTransactionData = (data?: string) => {
     // Handle CSV parsing with potential commas in quoted fields
     const values = parseCSVLine(line);
     
-    // Map CSV columns to expected format
-    const transaction: any = {};
+    // Map CSV columns to expected format with default values
+    const transaction: any = {
+      date: '',
+      description: '',
+      amount: 0,
+      account_type: '',
+      last_five: '', // Default empty string instead of undefined
+      category: '',
+      point_multiple: 1.0
+    };
+    
     headers.forEach((header, index) => {
       const value = values[index]?.replace(/"/g, '').trim() || '';
       

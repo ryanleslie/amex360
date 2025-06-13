@@ -1,3 +1,4 @@
+
 import React from "react"
 import { EmployeeHeader } from "@/components/employee/EmployeeHeader"
 import { EmployeeMetricsCards } from "@/components/employee/EmployeeMetricsCards"
@@ -51,8 +52,9 @@ const Employee = () => {
     
     // Filter out primary cards
     const filteredTransactions = rawTransactions.filter(transaction => {
-      // Normalize last five digits by removing any leading dash
-      const normalizedLastFive = transaction.last_five.replace(/^-/, '')
+      // Ensure last_five exists and normalize by removing any leading dash
+      const lastFive = transaction.last_five || ''
+      const normalizedLastFive = lastFive.replace(/^-/, '')
       
       // Check if this card type and last five combination is a primary card
       const isPrimary = primaryCardsConfig.some(primaryCard => 
@@ -61,7 +63,7 @@ const Employee = () => {
         primaryCard.isPrimary
       )
       
-      console.log(`Transaction: ${transaction.account_type} - ${transaction.last_five}, normalized: ${normalizedLastFive}, isPrimary: ${isPrimary}`)
+      console.log(`Transaction: ${transaction.account_type} - ${transaction.last_five || 'NO_LAST_FIVE'}, normalized: ${normalizedLastFive}, isPrimary: ${isPrimary}`)
       
       return !isPrimary // Only include non-primary cards
     })
@@ -72,7 +74,7 @@ const Employee = () => {
       date: transaction.date,
       description: transaction.description,
       card_type: transaction.account_type, // Map account_type to card_type
-      last_five: transaction.last_five,
+      last_five: transaction.last_five || '', // Ensure last_five is never undefined
       amount: transaction.amount,
       point_multiple: transaction.point_multiple || 1.0
     }))

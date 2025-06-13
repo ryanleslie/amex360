@@ -1,4 +1,3 @@
-
 import React from "react"
 import {
   Card,
@@ -63,6 +62,8 @@ export function EmployeeCardList({
     return `calc(100% - ${searchBarHeight}px)`
   }, [isSpecificCardSelected])
 
+  const cardImageUrl = cardImageType ? getCardImage(cardImageType) : null
+
   const handleCardClick = (card: any) => {
     if (!onCardClick) return
     
@@ -88,10 +89,10 @@ export function EmployeeCardList({
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <CardTitle className="text-xl font-semibold">Employee cards</CardTitle>
-          {cardImageType && (
+          {cardImageUrl && (
             <div className="flex-shrink-0">
               <img 
-                src={getCardImage(cardImageType)} 
+                src={cardImageUrl} 
                 alt={cardImageType}
                 className="h-12 w-19 object-cover rounded"
               />

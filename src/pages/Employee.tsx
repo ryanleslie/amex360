@@ -93,8 +93,7 @@ const Employee = () => {
     handleTotalCardsClick,
     getCardsToShow,
     getFilterDisplayText,
-    getCardDropdownDisplayText,
-    showPendingCardsOnly
+    getCardDropdownDisplayText
   } = useEmployeeFilters(employeeTransactions)
 
   if (isLoading) {
@@ -151,7 +150,6 @@ const Employee = () => {
               handleCardClick={handleCardClick}
               cardsToShow={getCardsToShow()}
               selectedCardType={filters.selectedCardType}
-              showPendingCardsOnly={showPendingCardsOnly}
             />
           </div>
         </div>

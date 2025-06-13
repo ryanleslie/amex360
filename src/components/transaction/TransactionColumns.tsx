@@ -4,12 +4,15 @@ import { ColumnDef } from "@tanstack/react-table"
 import { ChevronsUpDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Transaction } from "@/types/transaction"
+import { useAuth } from "@/contexts/AuthContext"
 
 interface TransactionColumnsProps {
   hideLastFive?: boolean
 }
 
 export const useTransactionColumns = ({ hideLastFive = false }: TransactionColumnsProps = {}): ColumnDef<Transaction>[] => {
+  const { isAdmin } = useAuth()
+
   return React.useMemo(() => {
     const columns: ColumnDef<Transaction>[] = [
       {
@@ -38,8 +41,12 @@ export const useTransactionColumns = ({ hideLastFive = false }: TransactionColum
           );
         },
         size: 60,
-      },
-      {
+      }
+    ];
+
+    // Only show description column for admin users
+    if (isAdmin()) {
+      columns.push({
         accessorKey: "description",
         header: ({ column }) => {
           return (
@@ -58,17 +65,19 @@ export const useTransactionColumns = ({ hideLastFive = false }: TransactionColum
           </div>
         ),
         filterFn: "includesString",
-      },
-      {
-        accessorKey: "account_type",
-        header: "Card",
-        cell: ({ row }) => (
-          <div className="text-sm text-muted-foreground">
-            {row.getValue("account_type")}
-          </div>
-        ),
-      }
-    ];
+      });
+    }
+
+    // Add card type column
+    columns.push({
+      accessorKey: "account_type",
+      header: "Card",
+      cell: ({ row }) => (
+        <div className="text-sm text-muted-foreground">
+          {row.getValue("account_type")}
+        </div>
+      ),
+    });
 
     // Conditionally add last_five column
     if (!hideLastFive) {
@@ -132,5 +141,5 @@ export const useTransactionColumns = ({ hideLastFive = false }: TransactionColum
     );
 
     return columns;
-  }, [hideLastFive]);
+  }, [hideLastFive, isAdmin]);
 }

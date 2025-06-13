@@ -1,3 +1,5 @@
+
+
 import React from "react"
 import {
   Card,
@@ -11,23 +13,15 @@ import { EmployeeTransaction } from "./EmployeeTransactionColumns"
 import { EmployeeCardItem } from "./EmployeeCardItem"
 import { EmployeeCardSearch } from "./EmployeeCardSearch"
 import { useEmployeeCardData } from "@/hooks/useEmployeeCardData"
-import { getCardImage } from "@/utils/cardImageUtils"
 
 interface EmployeeCardListProps {
   selectedCard?: string
   onCardClick?: (lastFive: string, cardType?: string) => void
   transactions: EmployeeTransaction[]
   selectedCardType?: string
-  cardImageType?: string | null
 }
 
-export function EmployeeCardList({ 
-  selectedCard, 
-  onCardClick, 
-  transactions, 
-  selectedCardType,
-  cardImageType 
-}: EmployeeCardListProps) {
+export function EmployeeCardList({ selectedCard, onCardClick, transactions, selectedCardType }: EmployeeCardListProps) {
   const [lastFiveFilter, setLastFiveFilter] = React.useState("")
 
   // Clear search filter when a specific card is selected
@@ -62,8 +56,6 @@ export function EmployeeCardList({
     return `calc(100% - ${searchBarHeight}px)`
   }, [isSpecificCardSelected])
 
-  const cardImageUrl = cardImageType ? getCardImage(cardImageType) : null
-
   const handleCardClick = (card: any) => {
     if (!onCardClick) return
     
@@ -87,18 +79,7 @@ export function EmployeeCardList({
       style={{ height: `${dynamicHeight}px` }}
     >
       <CardHeader className="pb-2">
-        <div className="flex items-center justify-between">
-          <CardTitle className="text-xl font-semibold">Employee cards</CardTitle>
-          {cardImageUrl && (
-            <div className="flex-shrink-0">
-              <img 
-                src={cardImageUrl} 
-                alt={cardImageType}
-                className="h-12 w-19 object-cover rounded"
-              />
-            </div>
-          )}
-        </div>
+        <CardTitle className="text-xl font-semibold">Employee cards</CardTitle>
         <CardDescription>
           Total spending by card (last 5 digits)
         </CardDescription>

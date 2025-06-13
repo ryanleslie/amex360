@@ -35,5 +35,5 @@ export const getCardImage = (cardName: string) => {
     }
     return "https://i.imgur.com/QLjcloI.jpeg"; // fallback for other gold cards
   }
-  return null; // No default image - return null instead
+  return "https://i.imgur.com/4zwqhph.jpeg"; // default image
 };

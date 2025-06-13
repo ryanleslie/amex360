@@ -2,6 +2,7 @@
 export const staticRwdData = `date	award_code	card	reward_description	points	required_spend
 2025-06-05	K3L3:0005	Business Platinum Card (-2007)	Employee Card Spend	15000	4000
 2025-05-27	K3L3:0005	Business Platinum Card (-2007)	Employee Card Spend	15000	4000
+2025-05-25	K3L3:0005	Business Platinum Card (-2007)	Employee Card Spend	15000	4000
 2025-05-23	K3L3:0005	Business Platinum Card (-2007)	Employee Card Spend	15000	4000
 2025-05-22	K3L3:0005	Business Platinum Card (-2007)	Employee Card Spend	15000	4000
 2025-05-19	K3L3:0005	Business Platinum Card (-2007)	Employee Card Spend	15000	4000

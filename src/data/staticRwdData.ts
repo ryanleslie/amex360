@@ -39,6 +39,7 @@ export const staticRwdData = `date	award_code	card	reward_description	points	req
 2025-02-07	K4IY:0006	Business Gold Card (-1000)	Employee Card Spend	15000	4000
 2025-04-27	K84O:0006	Business Gold Card (-1000)	Referral	20000	
 2025-04-09	K84O:0006	Business Gold Card (-1000)	Referral	20000
+2025-06-12	K4IY:0006	Blue Business Plus Card (-1009)	Employee Card Spend	15000	4000
 2025-06-09	K4IY:0006	Blue Business Plus Card (-1000)	Employee Card Spend	15000	4000
 2025-06-05	K4IY:0006	Blue Business Plus Card (-1000)	Employee Card Spend	15000	4000
 2025-05-30	K4IY:0006	Blue Business Plus Card (-1000)	Employee Card Spend	15000	4000

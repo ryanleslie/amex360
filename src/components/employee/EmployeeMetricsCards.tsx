@@ -40,10 +40,18 @@ export function EmployeeMetricsCards({
     return getAdjustedMetrics(filteredTransactions, selectedCardType, selectedLastFive)
   }, [filteredTransactions, selectedCardType, selectedLastFive, getAdjustedMetrics])
 
-  // Calculate pending award count
+  // Calculate pending award count based on current filter state
   const pendingAwardCount = React.useMemo(() => {
-    return employeeCardBonuses.filter(card => !card.hasBonus).length
-  }, [])
+    if (selectedCardType && selectedCardType !== "all") {
+      // Filter pending cards by the selected card type
+      return employeeCardBonuses.filter(card => 
+        !card.hasBonus && card.cardType === selectedCardType
+      ).length
+    } else {
+      // Show total pending count for all cards
+      return employeeCardBonuses.filter(card => !card.hasBonus).length
+    }
+  }, [selectedCardType])
 
   const cardData = [
     {

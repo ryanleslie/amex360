@@ -6,7 +6,6 @@ import { EmployeeTransactionSection } from "@/components/employee/EmployeeTransa
 import { EmployeeCardSection } from "@/components/employee/EmployeeCardSection"
 import { EmployeeBonusProvider } from "@/hooks/useEmployeeBonusContext"
 import { useEmployeeFilters } from "@/hooks/useEmployeeFilters"
-import { staticTxnData } from "@/data/staticTxnData"
 import { parseTransactionData } from "@/utils/transactionParser"
 import { primaryCardsConfig } from "@/data/staticPrimaryCards"
 import Lottie from "lottie-react"
@@ -43,11 +42,12 @@ const Employee = () => {
     return () => clearTimeout(initialDelay)
   }, [])
 
-  // Parse the static transaction data and map to employee transaction format
+  // Parse the CSV transaction data directly (no parameter needed)
   const employeeTransactions = React.useMemo(() => {
-    const rawTransactions = parseTransactionData(staticTxnData)
+    const rawTransactions = parseTransactionData() // Use CSV file directly
     
     console.log('Raw transactions count:', rawTransactions.length)
+    console.log('Sample raw transaction:', rawTransactions[0])
     console.log('Primary cards config:', primaryCardsConfig)
     
     // Filter out primary cards

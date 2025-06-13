@@ -4,6 +4,7 @@ import { TrendingUp, CreditCard } from "lucide-react"
 import { StatCard } from "@/components/StatCard"
 import { EmployeeTransaction } from "./EmployeeTransactionColumns"
 import { useEmployeeBonus } from "@/hooks/useEmployeeBonusContext"
+import { employeeCardBonuses } from "@/data/staticEmployeeCards"
 
 interface EmployeeMetricsCardsProps {
   filteredTransactions: EmployeeTransaction[]
@@ -38,6 +39,18 @@ export function EmployeeMetricsCards({
   const metrics = React.useMemo(() => {
     return getAdjustedMetrics(filteredTransactions, selectedCardType, selectedLastFive)
   }, [filteredTransactions, selectedCardType, selectedLastFive, getAdjustedMetrics])
+
+  // Calculate bonus awards count based on selected card type
+  const bonusAwardsCount = React.useMemo(() => {
+    let filteredBonuses = employeeCardBonuses.filter(card => card.hasBonus)
+    
+    // If a card type is selected and it's not "all", filter by that card type
+    if (selectedCardType && selectedCardType !== "all") {
+      filteredBonuses = filteredBonuses.filter(card => card.cardType === selectedCardType)
+    }
+    
+    return filteredBonuses.length
+  }, [selectedCardType])
 
   const cardData = [
     {
@@ -75,8 +88,8 @@ export function EmployeeMetricsCards({
       value: metrics.totalCards,
       badge: "Cards",
       icon: CreditCard,
-      footer: "Unique cards",
-      description: "Total unique employee cards",
+      footer: "Employee card(s)",
+      description: `Card bonus awards: ${bonusAwardsCount}`,
       formatAsPoints: false,
       isPointMultiple: false
     }

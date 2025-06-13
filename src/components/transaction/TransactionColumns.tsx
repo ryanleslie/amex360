@@ -1,21 +1,16 @@
+
 import * as React from "react"
 import { ColumnDef } from "@tanstack/react-table"
 import { ChevronsUpDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Transaction } from "@/types/transaction"
-import { useAuth } from "@/contexts/AuthContext"
 
-interface UseTransactionColumnsOptions {
+interface TransactionColumnsProps {
   hideLastFive?: boolean
 }
 
-export const useTransactionColumns = (options: UseTransactionColumnsOptions = {}): ColumnDef<Transaction>[] => {
-  const { isAdmin } = useAuth()
-  const { hideLastFive = false } = options
-
+export const useTransactionColumns = ({ hideLastFive = false }: TransactionColumnsProps = {}): ColumnDef<Transaction>[] => {
   return React.useMemo(() => {
-    console.log("Building transaction columns, isAdmin:", isAdmin());
-    
     const columns: ColumnDef<Transaction>[] = [
       {
         accessorKey: "date",
@@ -43,13 +38,8 @@ export const useTransactionColumns = (options: UseTransactionColumnsOptions = {}
           );
         },
         size: 60,
-      }
-    ];
-
-    // Only show description column for admin users
-    if (isAdmin()) {
-      console.log("Adding description column for admin user");
-      columns.push({
+      },
+      {
         accessorKey: "description",
         header: ({ column }) => {
           return (
@@ -68,45 +58,28 @@ export const useTransactionColumns = (options: UseTransactionColumnsOptions = {}
           </div>
         ),
         filterFn: "includesString",
-      });
-    } else {
-      console.log("Skipping description column for non-admin user");
-    }
-
-    // Add remaining columns - these should show for ALL users
-    console.log("Adding account_type column for all users");
-    columns.push({
-      accessorKey: "account_type",
-      header: "Card Type",
-      cell: ({ row }) => {
-        // Support both new account_type and legacy card_type fields
-        const accountType = row.getValue("account_type") as string | undefined;
-        const cardType = row.getValue("card_type") as string | undefined;
-        const displayValue = accountType || cardType;
-        console.log("Rendering account_type:", displayValue);
-        return (
-          <div className="text-sm text-muted-foreground">
-            {displayValue || "N/A"}
-          </div>
-        );
       },
-    });
+      {
+        accessorKey: "account_type",
+        header: "Card",
+        cell: ({ row }) => (
+          <div className="text-sm text-muted-foreground">
+            {row.getValue("account_type")}
+          </div>
+        ),
+      }
+    ];
 
-    // Only add last_five column if not hidden
+    // Conditionally add last_five column
     if (!hideLastFive) {
-      console.log("Adding last_five column");
       columns.push({
         accessorKey: "last_five",
         header: "Last 5",
-        cell: ({ row }) => {
-          const lastFive = row.getValue("last_five") as string | undefined;
-          console.log("Rendering last_five:", lastFive);
-          return (
-            <div className="text-sm font-mono">
-              {lastFive || "N/A"}
-            </div>
-          );
-        },
+        cell: ({ row }) => (
+          <div className="text-sm font-mono">
+            {row.getValue("last_five")}
+          </div>
+        ),
       });
     }
 
@@ -140,17 +113,24 @@ export const useTransactionColumns = (options: UseTransactionColumnsOptions = {}
         accessorKey: "point_multiple",
         header: () => <div className="text-right">Multiple</div>,
         cell: ({ row }) => {
-          const multiple = row.getValue("point_multiple") as number | undefined
+          const amount = parseFloat(row.getValue("amount"))
+          const multiple = row.getValue("point_multiple") as number
+          
+          // If amount is positive (credit), show blank
+          if (amount >= 0) {
+            return <div className="text-right font-medium"></div>
+          }
+          
+          // If amount is negative (charge), show the multiple
           return (
             <div className="text-right font-medium">
-              {multiple ? `${multiple}x` : "1.0x"}
+              {multiple}x
             </div>
           )
         },
       }
     );
 
-    console.log("Final columns array length:", columns.length);
     return columns;
-  }, [isAdmin, hideLastFive]);
+  }, [hideLastFive]);
 }

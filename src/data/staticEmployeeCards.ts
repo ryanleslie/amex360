@@ -71,7 +71,7 @@ export let employeeCardBonuses: EmployeeCardBonus[] = [
   { cardKey: "Business Platinum Card--52221", cardType: "Business Platinum Card", lastFive: "-52221", hasBonus: true },
   { cardKey: "Business Platinum Card--52239", cardType: "Business Platinum Card", lastFive: "-52239", hasBonus: true },
   { cardKey: "Business Platinum Card--52247", cardType: "Business Platinum Card", lastFive: "-52247", hasBonus: true },
-  { cardKey: "Business Platinum Card--52254", cardType: "Business Platinum Card", lastFive: "-52254", hasBonus: false },
+  { cardKey: "Business Platinum Card--52254", cardType: "Business Platinum Card", lastFive: "-52254", hasBonus: true },
 
   // Business Rose Gold cards - sorted by last five digits in ascending order
   { cardKey: "Business Rose Gold--01018", cardType: "Business Rose Gold", lastFive: "-01018", hasBonus: true },

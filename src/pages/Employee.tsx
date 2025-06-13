@@ -90,6 +90,7 @@ const Employee = () => {
     handleClearAllFilters,
     handleCardDropdownChange,
     handleCardClick,
+    handleTotalCardsClick,
     getCardsToShow,
     getFilterDisplayText,
     getCardDropdownDisplayText
@@ -123,6 +124,7 @@ const Employee = () => {
             filteredTransactions={filteredTransactions}
             selectedCardType={filters.selectedCardType}
             selectedLastFive={filters.selectedLastFive}
+            onTotalCardsClick={handleTotalCardsClick}
           />
         </div>
         

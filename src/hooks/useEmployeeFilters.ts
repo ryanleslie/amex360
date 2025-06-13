@@ -2,9 +2,11 @@
 import React from 'react'
 import { useFilterState } from './useFilterState'
 import { EmployeeTransaction } from '@/components/employee/EmployeeTransactionColumns'
+import { employeeCardBonuses } from '@/data/staticEmployeeCards'
 
 export function useEmployeeFilters(employeeTransactions: EmployeeTransaction[]) {
   const { filters, updateFilter, updateMultipleFilters } = useFilterState()
+  const [showPendingCardsOnly, setShowPendingCardsOnly] = React.useState(false)
 
   // Get unique card types for the dropdown
   const uniqueCardTypes = React.useMemo(() => {
@@ -39,13 +41,14 @@ export function useEmployeeFilters(employeeTransactions: EmployeeTransaction[]) 
   const isStateB = (filters.selectedCardType && filters.selectedCardType !== "all") && (!filters.selectedLastFive || filters.selectedLastFive === "all")
   const isStateC = (filters.selectedCardType && filters.selectedCardType !== "all") && (filters.selectedLastFive && filters.selectedLastFive !== "all")
 
-  const hasAnyFilter = !isStateA
+  const hasAnyFilter = !isStateA || showPendingCardsOnly
 
   const handleClearAllFilters = () => {
     updateMultipleFilters({
       selectedCardType: 'all',
       selectedLastFive: 'all'
     })
+    setShowPendingCardsOnly(false)
   }
 
   const handleCardDropdownChange = (cardSelection: string) => {
@@ -93,24 +96,52 @@ export function useEmployeeFilters(employeeTransactions: EmployeeTransaction[]) 
     }
   }
 
-  // Calculate which cards to show in the list based on current state
-  const getCardsToShow = () => {
-    if (isStateA) {
-      // State A: Show all cards
-      return employeeTransactions
-    } else if (isStateB) {
-      // State B: Show only cards of the selected type
-      return employeeTransactions.filter(t => t.card_type === filters.selectedCardType)
-    } else {
-      // State C: Show only the selected card (matching both type and last five)
-      return employeeTransactions.filter(t => 
-        t.card_type === filters.selectedCardType && t.last_five === filters.selectedLastFive
-      )
+  const handleTotalCardsClick = () => {
+    // Toggle the pending cards filter
+    setShowPendingCardsOnly(!showPendingCardsOnly)
+    // Clear other filters when showing pending cards
+    if (!showPendingCardsOnly) {
+      updateMultipleFilters({
+        selectedCardType: 'all',
+        selectedLastFive: 'all'
+      })
     }
   }
 
+  // Calculate which cards to show in the list based on current state
+  const getCardsToShow = () => {
+    let cardsToShow = employeeTransactions
+
+    if (showPendingCardsOnly) {
+      // Filter to only show cards with hasBonus: false
+      const pendingCardKeys = employeeCardBonuses
+        .filter(card => !card.hasBonus)
+        .map(card => card.cardKey)
+      
+      cardsToShow = employeeTransactions.filter(transaction => {
+        const cardKey = `${transaction.card_type}-${transaction.last_five}`
+        return pendingCardKeys.includes(cardKey)
+      })
+    } else if (isStateA) {
+      // State A: Show all cards
+      cardsToShow = employeeTransactions
+    } else if (isStateB) {
+      // State B: Show only cards of the selected type
+      cardsToShow = employeeTransactions.filter(t => t.card_type === filters.selectedCardType)
+    } else {
+      // State C: Show only the selected card (matching both type and last five)
+      cardsToShow = employeeTransactions.filter(t => 
+        t.card_type === filters.selectedCardType && t.last_five === filters.selectedLastFive
+      )
+    }
+
+    return cardsToShow
+  }
+
   const getFilterDisplayText = () => {
-    if (isStateA) {
+    if (showPendingCardsOnly) {
+      return "Cards pending award"
+    } else if (isStateA) {
       return ""
     } else if (isStateB) {
       return `Business ${filters.selectedCardType}` || ""
@@ -140,8 +171,10 @@ export function useEmployeeFilters(employeeTransactions: EmployeeTransaction[]) 
     handleClearAllFilters,
     handleCardDropdownChange,
     handleCardClick,
+    handleTotalCardsClick,
     getCardsToShow,
     getFilterDisplayText,
-    getCardDropdownDisplayText
+    getCardDropdownDisplayText,
+    showPendingCardsOnly
   }
 }

@@ -24,7 +24,7 @@ interface StatCardProps {
   showHover?: boolean
   cardType?: string
   topCardAccount?: string
-  onClick?: (cardType: string, topCardAccount?: string) => void
+  onClick?: (cardType?: string, topCardAccount?: string) => void
   formatAsPoints?: boolean
   showBadge?: boolean
   isPointMultiple?: boolean
@@ -50,7 +50,7 @@ export function StatCard({
   isPointMultiple = false
 }: StatCardProps) {
   const handleClick = () => {
-    if (clickable && cardType && onClick) {
+    if (clickable && onClick) {
       onClick(cardType, topCardAccount);
     }
   };

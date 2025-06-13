@@ -1,6 +1,4 @@
-
 import { Transaction } from "@/types/transaction"
-import { staticTxnData } from "@/data/staticTxnData"
 import { parseTransactionData } from "@/utils/transactionParser"
 
 export class TransactionDataProcessor {
@@ -19,7 +17,9 @@ export class TransactionDataProcessor {
   }
 
   public static processStaticData(): Transaction[] {
-    const rawTransactions = parseTransactionData(staticTxnData)
+    // Use the parseTransactionData function which now loads from CSV
+    const rawTransactions = parseTransactionData()
+    
     return rawTransactions
       .sort((a, b) => b.date.localeCompare(a.date))
       .map((transaction, index) => ({

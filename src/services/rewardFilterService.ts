@@ -1,4 +1,3 @@
-
 import { Reward } from "@/types/reward"
 import { FilterState } from "@/hooks/useFilterState"
 // Remove import { staticRwdData } from "@/data/staticRwdData"
@@ -74,6 +73,17 @@ export class RewardFilterService {
     if (!selectedCard || selectedCard === "all") {
       return rewards
     }
+
+    // Check if the selectedCard fits our "Card Name (-lastfive)" format
+    const lastFiveMatch = selectedCard.match(/^(.*) \(([-\d]+)\)$/)
+    if (lastFiveMatch) {
+      const cardName = lastFiveMatch[1].trim()
+      const lastFive = lastFiveMatch[2].trim()
+      return rewards.filter(reward =>
+        reward.card === cardName && reward.last_five === lastFive
+      )
+    }
+    // Otherwise fall back to filtering by card name only
     return rewards.filter(reward => 
       reward.card === selectedCard
     )
@@ -87,10 +97,26 @@ export class RewardFilterService {
   }
 
   public getUniqueCardAccounts(): string[] {
-    const uniqueCards = Array.from(new Set(this.allRewards.map(r => r.card)))
-      .filter(card => card.length > 0)
-      .sort()
-    return uniqueCards
+    // Build a set of unique "card + last_five" combos for rewards that have last_five,
+    // otherwise just card name
+    const seen = new Set<string>()
+    const combos: string[] = []
+
+    for (const reward of this.allRewards) {
+      let display: string
+
+      if (reward.last_five && reward.last_five.length > 0) {
+        display = `${reward.card} (${reward.last_five})`
+      } else {
+        display = reward.card
+      }
+      if (display.length && !seen.has(display)) {
+        combos.push(display)
+        seen.add(display)
+      }
+    }
+    // Always sort for UI stability
+    return combos.sort()
   }
 }
 

@@ -1,7 +1,6 @@
-
 import { Reward } from "@/types/reward"
 
-export function parseRewardData(rawData: string): Reward[] {
+export function parseRewardData(rawData: string): any[] {
   const lines = rawData.trim().split('\n')
   const headers = lines[0].split('\t')
   

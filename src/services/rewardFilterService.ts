@@ -1,19 +1,21 @@
 
 import { Reward } from "@/types/reward"
 import { FilterState } from "@/hooks/useFilterState"
-import { staticRwdData } from "@/data/staticRwdData"
-import { parseRewardData } from "@/utils/rewardParser"
+// Remove import { staticRwdData } from "@/data/staticRwdData"
+import bonusAwardsCsv from "@/data/bonus_awards.csv?raw";
+import { parseBonusAwardsCsv } from "@/utils/bonusAwardsParser"
 
 export class RewardFilterService {
   private static instance: RewardFilterService
   private allRewards: Reward[]
 
   private constructor() {
-    const rawRewards = parseRewardData(staticRwdData)
+    // Use the CSV parser for the new bonus awards file
+    const rawRewards = parseBonusAwardsCsv(bonusAwardsCsv)
     this.allRewards = rawRewards
       .sort((a, b) => b.date.localeCompare(a.date))
       .map((reward, index) => ({
-        id: `rwd-${index}`,
+        id: `bonus-rwd-${index}`,
         ...reward
       }))
   }
@@ -32,16 +34,13 @@ export class RewardFilterService {
   public getFilteredRewards(filters: FilterState): Reward[] {
     let filtered = [...this.allRewards]
     
-    // Apply either time range OR date filter (mutually exclusive)
     if (filters.selectedDate) {
       filtered = this.applyDateFilter(filtered, filters.selectedDate)
     } else {
       filtered = this.applyTimeRangeFilter(filtered, filters.selectedTimeRange)
     }
     
-    // Apply card filter
     filtered = this.applyCardFilter(filtered, filters.selectedCard)
-    
     return filtered
   }
 
@@ -55,20 +54,18 @@ export class RewardFilterService {
     
     const today = new Date()
     let startDate: Date
-    
     if (timeRange === "90d") {
       startDate = new Date(today)
       startDate.setDate(startDate.getDate() - 90)
     } else if (timeRange === "30d") {
       startDate = new Date(today)
-      startDate.setDate(startDate.getDate() - 30)
+      startDate.setDate(today.getDate() - 30)
     } else if (timeRange === "7d") {
       startDate = new Date(today)
-      startDate.setDate(startDate.getDate() - 7)
+      startDate.setDate(today.getDate() - 7)
     } else {
       return rewards
     }
-    
     const startDateString = startDate.toISOString().split('T')[0]
     return rewards.filter(reward => reward.date >= startDateString)
   }
@@ -77,7 +74,6 @@ export class RewardFilterService {
     if (!selectedCard || selectedCard === "all") {
       return rewards
     }
-    
     return rewards.filter(reward => 
       reward.card === selectedCard
     )
@@ -87,7 +83,6 @@ export class RewardFilterService {
     if (!selectedDate) {
       return rewards
     }
-    
     return rewards.filter(reward => reward.date === selectedDate)
   }
 

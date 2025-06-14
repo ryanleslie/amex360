@@ -16,18 +16,13 @@ interface CardFilterDropdownProps {
   showBusinessPrefix?: boolean // New prop to control business prefix
 }
 
+// Accept new display format with last five for every card
 export function CardFilterDropdown({ selectedCard, creditCards, onCardChange, showBusinessPrefix = false }: CardFilterDropdownProps) {
   const getDisplayText = () => {
     if (!selectedCard || selectedCard === "all") {
       return "All Cards"
     }
-    // Check if it's a combined format like "Card Type (12345)"
-    if (selectedCard.includes('(') && selectedCard.includes(')')) {
-      const [cardType, lastFive] = selectedCard.split(' (')
-      const prefix = showBusinessPrefix ? "Business " : ""
-      return `${prefix}${cardType} (${lastFive}`
-    }
-    // Add Business prefix only when showBusinessPrefix is true
+    // Already formatted as "Card Name (-XXXXX)"
     const prefix = showBusinessPrefix ? "Business " : ""
     return `${prefix}${selectedCard}`
   }

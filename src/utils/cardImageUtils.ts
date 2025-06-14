@@ -11,7 +11,7 @@ export const getCardImage = (cardName: string) => {
     return "https://www.aexp-static.com/online/myca/shared/summary/cardasset/images/NUS000000251_480x304_STRAIGHT_96.jpg";
   } else if (lowerCardName.includes('business platinum')) {
     return "https://i.imgur.com/PO79ixr.jpeg";
-  } else if (lowerCardName.includes('platinum') && !lowerCardName.includes('schwab')) {
+  } else if (lowerCardName.includes('platinum')) {
     return "https://i.imgur.com/VCAxMbY.png";
   } else if (lowerCardName.includes('blue')) {
     return "https://i.imgur.com/DOm8KGF.jpeg";

@@ -86,6 +86,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-04-01,ONLINE PAYMENT - THANK YOU,1421.69,Bonvoy Business Amex,-31009,,
 2025-03-07,THE NEW YORK EDITIONNEW YORK CITY       NY,-272.19,Bonvoy Business Amex,-31009,,
 2025-02-25,THE NEW YORK EDITIONNEW YORK CITY       NY,-1149.50,Bonvoy Business Amex,-31009,,
+2025-06-14,ONLINE PAYMENT - THANK YOU,1981.15,Business Blue Plus I,-01000,,
 2025-06-11,TWILIO INC          SAN FRANCISCO       CA,-230.00,Business Blue Plus I,-01109,,
 2025-06-05,TWILIO INC          SAN FRANCISCO       CA,-191.20,Business Blue Plus I,-01158,,
 2025-06-05,TWILIO INC          SAN FRANCISCO       CA,-197.22,Business Blue Plus I,-01158,,
@@ -304,6 +305,8 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-02-21,NETFLIX.COM         866-579-7172        CA,-25.03,Business Blue Plus II,-11009,,2
 2025-02-16,TALLY.SO            GENT                OO,-29.00,Business Blue Plus II,-11009,,2
 2025-02-15,PAYPAL *XAVIER KEYZ 4029357733          IL,-2300.00,Business Blue Plus II,-11009,,2
+2025-06-14,ONLINE PAYMENT - THANK YOU,3104.38,Business Classic Gold,-71002,,
+2025-06-14,TWILIO INC          SAN FRANCISCO       CA,-90.00,Business Classic Gold,-71002,,
 2025-06-13,TWILIO INC          SAN FRANCISCO       CA,-40.97,Business Classic Gold,-71002,,
 2025-06-12,TWILIO INC          SAN FRANCISCO       CA,-20.54,Business Classic Gold,-72158,,
 2025-06-12,TWILIO INC          SAN FRANCISCO       CA,-20.77,Business Classic Gold,-72158,,
@@ -742,6 +745,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-03,PAYPAL *LINDAJANEKAN4029357733          DE,-3436.60,Business Platinum Card,-51017,,
 2025-01-03,PAYPAL *SPXOPTIONTR 5418961779          OR,-199.95,Business Platinum Card,-51017,,
 2025-01-02,WOJO MEDIA 567140113DAYTONA BEACH       FL,-54.00,Business Platinum Card,-51017,,
+2025-06-14,ONLINE PAYMENT - THANK YOU,6271.04,Business Rose Gold,-02008,,
 2025-06-12,TWILIO INC SAN FRANCISCO CA,-590.04,Business Rose Gold,-02008,,
 2025-06-11,TWILIO INC SAN FRANCISCO CA,-390.03,Business Rose Gold,-02008,,
 2025-06-11,TWILIO INC SAN FRANCISCO CA,-590.38,Business Rose Gold,-02008,,
@@ -1011,6 +1015,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-06,"TWILIO, INC.        SAN FRANCISCO",-701.70,Business Rose Gold,-01018,,4
 2025-01-05,"TWILIO, INC.        SAN FRANCISCO",-651.93,Business Rose Gold,-01018,,4
 2025-01-04,"TWILIO, INC.        SAN FRANCISCO",-400.00,Business Rose Gold,-01018,,4
+2025-06-14,ONLINE PAYMENT - THANK YOU,703.12,Business White Gold,-41000,,
 2025-06-14,BE MORE DO MORE APP,-703.12,Business White Gold,-41000,,
 2025-06-13,MANYCHAT.COM        SAN FRANCISCO       CA,-15.00,Business White Gold,-41000,,
 2025-06-13,PAYPAL *TWENTYFOURA,-1000.00,Business White Gold,-41000,,

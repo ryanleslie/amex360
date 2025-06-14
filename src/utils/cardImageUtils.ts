@@ -12,7 +12,7 @@ export const getCardImage = (cardName: string) => {
   } else if (lowerCardName.includes('business platinum')) {
     return "https://i.imgur.com/PO79ixr.jpeg";
   } else if (lowerCardName.includes('platinum') && !lowerCardName.includes('schwab')) {
-    return "https://i.imgur.com/AcNXSvZ.png";
+    return "https://i.imgur.com/VCAxMbY.png";
   } else if (lowerCardName.includes('blue')) {
     return "https://i.imgur.com/DOm8KGF.jpeg";
   } else if (lowerCardName.includes('green')) {

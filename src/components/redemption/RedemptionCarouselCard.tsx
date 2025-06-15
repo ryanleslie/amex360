@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
@@ -55,7 +56,7 @@ export function RedemptionCarouselCard() {
     <Card className="bg-gradient-to-b from-white to-gray-100">
       <CardHeader>
         <CardTitle className="text-xl font-semibold" style={{ color: '#00175a' }}>
-          Popular Destinations
+          Popular destinations
         </CardTitle>
       </CardHeader>
       <CardContent className="px-0">

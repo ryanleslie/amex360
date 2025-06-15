@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -110,7 +111,7 @@ export function RedemptionCard({
         <div className="flex justify-between items-start">
           <div className="flex-1">
             <CardTitle className="text-xl font-semibold" style={{ color: '#00175a' }}>
-              Recent Redemptions
+              Recent redemptions
             </CardTitle>
             
             <RedemptionFilterIndicator

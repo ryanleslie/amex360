@@ -44,7 +44,7 @@ export function RedemptionCarouselCard() {
       name: "Paris",
       image: "https://corporate.airfrance.com/sites/default/files/styles/wide/public/media-image/2024/12/16052023_recompenses.png?itok=40ipwBfG",
       description: "City of Light"
-    }
+    },
     {
       name: "New York",
       image: "https://www.aman.com/sites/default/files/styles/carousel_cards_extra_large/public/2022-11/Aman%20New%20York%2C%20USA%20-%20Spa%20%26%20Wellness%2C%20Pool%202.jpg?itok=DBMc8qlk",

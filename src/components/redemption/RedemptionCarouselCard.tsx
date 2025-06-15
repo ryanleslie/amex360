@@ -9,7 +9,6 @@ export function RedemptionCarouselCard() {
       image: "https://www.aman.com/sites/default/files/2022-12/Aman%20New%20York%2C%20USA%2011.jpg",
       description: "Gateway to Europe"
     },
-
     {
       name: "Phoenix",
       image: "https://www.aman.com/sites/default/files/styles/media_text_side_by_side_portrait_xwide_up/public/2023-08/aman_new_york_usa_-_three-bedroom_home_bathroom.jpg?itok=C3oFbV3i",
@@ -39,11 +38,6 @@ export function RedemptionCarouselCard() {
       name: "Bodrum",
       image: "https://www.aman.com/sites/default/files/2022-08/Amanruya%2C%20Turkey%20-%20Accommodation%2C%20Garden%20View%20Pavilion%20Portrait%20-%20Pool%20.jpg",
       description: "Turkish Riviera"
-    },
-    {
-      name: "Paris",
-      image: "https://corporate.airfrance.com/sites/default/files/styles/wide/public/media-image/2024/12/16052023_recompenses.png?itok=40ipwBfG",
-      description: "City of Light"
     },
     {
       name: "New York",

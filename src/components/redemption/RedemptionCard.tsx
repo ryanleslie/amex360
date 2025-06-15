@@ -65,7 +65,7 @@ export function RedemptionCard({
   };
 
   const currentPartner = onPartnerChange ? selectedPartner : internalSelectedPartner;
-  const hasAnyFilter = (currentPartner && currentPartner !== "all") || searchFilter;
+  const hasAnyFilter = Boolean((currentPartner && currentPartner !== "all") || searchFilter);
 
   const getFilterDisplayText = () => {
     const parts = [];

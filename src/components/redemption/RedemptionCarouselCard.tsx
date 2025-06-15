@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
@@ -40,7 +41,7 @@ export function RedemptionCarouselCard() {
       </CardHeader>
       <CardContent className="px-0">
         <Carousel 
-          className="w-full max-w-6xl mx-auto"
+          className="w-full px-6"
           opts={{
             align: "center",
             loop: true,

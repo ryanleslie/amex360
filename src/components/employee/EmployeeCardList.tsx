@@ -92,17 +92,17 @@ export function EmployeeCardList({ selectedCard, onCardClick, transactions, sele
           <div className="space-y-4 pt-3 pb-6">
             {filteredCardData.map((card, index) => {
               const isCardSelected = selectedCard === card.lastFive && selectedCardType === card.cardType
-              
               return (
-                <EmployeeCardItem
-                  key={card.cardKey}
-                  card={card}
-                  index={index}
-                  isCardSelected={isCardSelected}
-                  selectedCard={selectedCard}
-                  selectedCardType={selectedCardType}
-                  onCardClick={handleCardClick}
-                />
+                <div key={card.cardKey} className="p-1">
+                  <EmployeeCardItem
+                    card={card}
+                    index={index}
+                    isCardSelected={isCardSelected}
+                    selectedCard={selectedCard}
+                    selectedCardType={selectedCardType}
+                    onCardClick={handleCardClick}
+                  />
+                </div>
               )
             })}
           </div>

@@ -53,13 +53,15 @@ export function RedemptionCarouselCard() {
                       }}
                     />
                     <div className="absolute inset-0 bg-black/40 transition-opacity duration-300 group-hover:bg-black/50" />
-                    <CardContent className="relative z-10 flex flex-col items-center justify-center h-full p-6 text-center">
-                      <h3 className="text-xl font-bold text-white mb-2 drop-shadow-lg">
-                        {destination.name}
-                      </h3>
-                      <p className="text-sm text-white/90 drop-shadow-md">
-                        {destination.description}
-                      </p>
+                    <CardContent className="relative z-10 flex flex-col justify-end items-start h-full p-4">
+                      <div className="text-left">
+                        <h3 className="text-xl font-bold text-white drop-shadow-lg leading-tight">
+                          {destination.name}
+                        </h3>
+                        <p className="text-sm text-white/90 drop-shadow-md leading-tight mt-0.5">
+                          {destination.description}
+                        </p>
+                      </div>
                     </CardContent>
                   </Card>
                 </div>

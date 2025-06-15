@@ -1,4 +1,3 @@
-
 import redemptionsCSV from "@/data/redemptions.csv?raw";
 
 export interface RedemptionData {
@@ -23,31 +22,21 @@ export function parseRedemptionsCSV(): RedemptionData[] {
   const lines = redemptionsCSV.trim().split('\n');
   
   return lines.slice(1).map((line, index) => {
-    // Split by comma or tab to handle different CSV formats
-    const values = line.split(/[,\t]/);
+    // Split by comma to handle CSV format
+    const values = line.split(',');
     
     console.log(`Row ${index + 1}:`, values);
     
-    // The points value appears to be split across columns 4 and 5 due to comma in the number
-    // Reconstruct the points value by combining the split parts
-    let pointsString = '';
-    if (values[4] && values[5]) {
-      // Remove quotes and carriage returns, then combine
-      const part1 = values[4].replace(/"/g, '').replace(/\r/g, '');
-      const part2 = values[5].replace(/"/g, '').replace(/\r/g, '');
-      pointsString = part1 + part2;
-    } else if (values[4]) {
-      pointsString = values[4].replace(/"/g, '').replace(/\r/g, '');
-    }
-    
+    // The points value is in the 4th column (index 3)
+    const pointsString = values[3]?.trim() || '0';
     const pointsValue = parseFloat(pointsString);
     
     console.log(`Points string: "${pointsString}", parsed: ${pointsValue}, isNaN: ${isNaN(pointsValue)}`);
     
     return {
-      date: values[0]?.trim(),
-      description: values[1]?.trim(),
-      category: values[2]?.trim(),
+      date: values[0]?.trim() || '',
+      description: values[1]?.trim() || '',
+      category: values[2]?.trim() || '',
       points: Math.abs(pointsValue) // Apply absolute value to convert negative to positive
     };
   }).filter(redemption => {

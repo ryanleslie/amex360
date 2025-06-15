@@ -53,23 +53,23 @@ export function RedemptionMetricsCards({
       formatAsPoints: true
     },
     {
-      title: "Airfare Redemptions",
+      title: "Total Airfare",
       value: stats.airfarePoints,
       badge: `${airfarePercentage}%`,
       icon: Plane,
       footer: "Flight bookings",
-      description: `Airfare redemptions ${getTimeRangeDescription(filters.selectedTimeRange)}`,
+      description: `Total redemptions ${getTimeRangeDescription(filters.selectedTimeRange)}`,
       clickable: true,
       cardType: "airfare-redemptions",
       formatAsPoints: true
     },
     {
-      title: "Accommodation Redemptions",
+      title: "Total Accommodation",
       value: stats.accommodationPoints,
       badge: `${accommodationPercentage}%`,
       icon: MapPin,
       footer: "Hotel bookings",
-      description: `Accommodation redemptions ${getTimeRangeDescription(filters.selectedTimeRange)}`,
+      description: `Total redemptions ${getTimeRangeDescription(filters.selectedTimeRange)}`,
       clickable: true,
       cardType: "accommodation-redemptions",
       formatAsPoints: true

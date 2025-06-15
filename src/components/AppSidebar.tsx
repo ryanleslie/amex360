@@ -42,6 +42,11 @@ const menuItems = [
     icon: Crown,
     section: "creditmax" as DashboardSection,
   },
+  {
+    title: "Redemptions",
+    icon: Plane,
+    section: "redemptions" as DashboardSection,
+  },
 ]
 
 export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps) {
@@ -94,18 +99,6 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
                 </SidebarMenuButton>
               </SidebarMenuItem>
             ))}
-            {/* Redemptions: Only show to admin users, under "CreditMax" */}
-            {isAdmin() && (
-              <SidebarMenuItem key="Redemptions">
-                <SidebarMenuButton
-                  onClick={() => handleItemClick("redemptions")}
-                  className={`gap-3 ${activeSection === "redemptions" ? "bg-gray-100" : ""}`}
-                >
-                  <Plane className="h-4 w-4" />
-                  <span>Redemptions</span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            )}
           </SidebarMenu>
         </SidebarGroup>
 

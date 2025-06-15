@@ -5,11 +5,11 @@ import { parseRedemptionsCSV, getTopDestinations } from "@/utils/redemptionParse
 
 // Static destination images mapping
 const destinationImages: Record<string, string> = {
-  "Frankfurt": "https://images.unsplash.com/photo-1539650116574-75c0c6d36b3c?w=100&h=80&fit=crop",
-  "New York": "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=100&h=80&fit=crop",
-  "Los Angeles": "https://images.unsplash.com/photo-1534190239940-9ba8944ea261?w=100&h=80&fit=crop",
-  "Phoenix": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=100&h=80&fit=crop",
-  "Stuttgart": "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=100&h=80&fit=crop"
+  "Frankfurt": "https://images.unsplash.com/photo-1539650116574-75c0c6d36b3c?w=100&h=100&fit=crop",
+  "New York": "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=100&h=100&fit=crop",
+  "Los Angeles": "https://images.unsplash.com/photo-1534190239940-9ba8944ea261?w=100&h=100&fit=crop",
+  "Phoenix": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=100&h=100&fit=crop",
+  "Stuttgart": "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=100&h=100&fit=crop"
 };
 
 export function RedemptionDestinationList() {
@@ -39,9 +39,9 @@ export function RedemptionDestinationList() {
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div className="flex items-center gap-4 flex-1">
                       <img
-                        src={destinationImages[destination.name] || "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=100&h=80&fit=crop"}
+                        src={destinationImages[destination.name] || "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=100&h=100&fit=crop"}
                         alt={destination.name}
-                        className="w-16 h-10 object-cover rounded"
+                        className="w-12 h-12 object-cover rounded-full"
                       />
                       <div className="text-sm font-medium leading-tight whitespace-pre-line">
                         <div className="mb-1">

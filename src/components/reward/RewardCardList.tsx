@@ -129,15 +129,13 @@ export function RewardCardList({ filters, onCardClick }: RewardCardListProps) {
             {cardData.map((card, index) => (
               <div key={card.name} className="p-1">
                 <Card
-                  // Remove the ring from focus/active states
-                  className={`bg-gradient-to-b from-white to-gray-50 cursor-pointer transition-all hover:shadow-md animate-fade-in ring-0 focus:ring-0 focus-visible:ring-0 ${
-                    getSelectedCard(card) ? "ring-2 ring-primary" : ""
-                  }`}
+                  // Remove ANY ring for selection/focus/active
+                  className="bg-gradient-to-b from-white to-gray-50 cursor-pointer transition-all hover:shadow-md animate-fade-in ring-0 focus:ring-0 focus-visible:ring-0"
                   style={{
                     animationDelay: `${index * 100}ms`,
                     animationFillMode: 'both'
                   }}
-                  tabIndex={0} // Allows keyboard navigation (optional)
+                  tabIndex={0}
                   onClick={() => handleCardClick(card)}
                 >
                   <CardContent className="p-4">

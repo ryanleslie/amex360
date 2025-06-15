@@ -82,6 +82,7 @@ export function RedemptionMetricsCards({
       footer: "Points per redemption",
       description: `Average redemption ${getTimeRangeDescription(filters.selectedTimeRange)}`,
       clickable: false,
+      showHover: true,
       cardType: "avg-redemption",
       formatAsPoints: true
     }

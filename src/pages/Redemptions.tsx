@@ -49,7 +49,7 @@ const Redemptions = () => {
 
   React.useEffect(() => {
     // Load the loader-diamond-spin animation
-    fetch("/loader-diamond-spin.json")
+    fetch("/loader-diamond.json")
       .then(response => response.json())
       .then(data => setAnimationData(data))
       .catch(error => console.error("Failed to load animation:", error));

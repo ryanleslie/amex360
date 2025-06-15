@@ -42,7 +42,7 @@ export function RedemptionCarouselCard() {
     },
     {
       name: "Dubai",
-      image: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=400&h=300&fit=crop",
+      image: "https://www.aman.com/sites/default/files/styles/media_text_side_by_side_x_wide/public/2025-01/aman_residences_dubai_-_external_terrace.jpg?itok=j3HhMH9e",
       description: "Desert Oasis"
     },
     {

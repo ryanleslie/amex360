@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 export function RedemptionCarouselCard() {
   const destinations = [
@@ -24,6 +24,11 @@ export function RedemptionCarouselCard() {
       name: "Phoenix",
       image: "https://www.aman.com/sites/default/files/styles/media_text_side_by_side_portrait_xwide_up/public/2023-08/aman_new_york_usa_-_three-bedroom_home_bathroom.jpg?itok=C3oFbV3i",
       description: "Desert Metropolis"
+    },
+    {
+      name: "Barcelona",
+      image: "https://www.aman.com/sites/default/files/2022-12/Aman%20New%20York%2C%20USA%2011.jpg",
+      description: "Mediterranean Charm"
     }
   ];
 
@@ -63,6 +68,8 @@ export function RedemptionCarouselCard() {
               </CarouselItem>
             ))}
           </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
         </Carousel>
       </CardContent>
     </Card>

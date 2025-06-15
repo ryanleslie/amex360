@@ -1,9 +1,12 @@
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import type { CarouselApi } from "@/components/ui/carousel";
 
 export function RedemptionCarouselCard() {
+  const [api, setApi] = React.useState<CarouselApi>();
+
   const destinations = [
     {
       name: "Frankfurt",
@@ -47,6 +50,19 @@ export function RedemptionCarouselCard() {
     },
   ];
 
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    // Scroll to the starting position (first slide) on page load
+    const timer = setTimeout(() => {
+      api.scrollTo(0);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [api]);
+
   return (
     <Card className="bg-gradient-to-b from-white to-gray-100 hidden lg:block">
       <CardHeader className="pb-2">
@@ -57,6 +73,7 @@ export function RedemptionCarouselCard() {
       <CardContent className="px-0 pt-2">
         <Carousel 
           className="w-full px-6"
+          setApi={setApi}
           opts={{
             align: "center",
             loop: true,

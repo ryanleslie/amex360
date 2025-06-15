@@ -67,7 +67,7 @@ export const useSwapTransactionColumns = (): ColumnDef<SwapTransaction>[] => {
       accessorKey: "card",
       header: "Card",
       cell: ({ row }) => {
-        const cardValue = row.getValue("card")
+        const cardValue = row.getValue("card") as string
         // Show nothing if empty or falsy, else show the value
         return (
           <div className="text-sm">

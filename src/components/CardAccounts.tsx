@@ -1,3 +1,4 @@
+
 import { staticTxnData } from "@/data/staticTxnData";
 import { getTimeRangeDescription } from "@/utils/cardDataUtils";
 import { getPrimaryCardByType, generateDisplayNameWithLastFive } from "@/data/staticPrimaryCards";
@@ -147,7 +148,7 @@ export function CardAccounts({
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 overflow-hidden">
-        <ScrollArea className="h-full">
+        <ScrollArea className="h-full pr-4">
           <div className="space-y-4 pb-6">
             {cardData.map((card, index) => (
               <CardAccountItem

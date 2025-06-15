@@ -1,3 +1,4 @@
+
 import {
   Card,
   CardContent,
@@ -26,33 +27,30 @@ export function RewardCardList({ filters, onCardClick }: RewardCardListProps) {
       ...filters,
       selectedCard: "all" // Always show all cards
     }).reduce((acc, reward) => {
-      // Use card + last_five for uniqueness
-      const cardKey = reward.last_five && reward.last_five.length > 0
-        ? `${reward.card} (${reward.last_five})`
-        : reward.card;
+      // KEY CHANGE: use just card name as the key, ignore last_five for filtering/grouping
+      const cardKey = reward.card;
       acc[cardKey] = (acc[cardKey] || 0) + reward.points;
       return acc;
     }, {} as Record<string, number>);
 
     return Object.entries(cardTotals)
       .map(([card, points]) => ({
-        name: card.replace(/\bcard\b/gi, '').replace(/\(-\d+\)/g, '').trim(),
-        fullName: card,    // fullName with last_five embedded
+        name: card.replace(/\bcard\b/gi, '').trim(),
+        fullName: card,  // Now just the card name
         points,
         displayName: card.replace(/\bcard\b/gi, '').trim().replace(/\s*(\([^)]+\))/, '\n$1')
       }))
       .sort((a, b) => b.points - a.points)
   }, [filters])
 
-  // Filter cards based on selected card
+  // Filter cards based on selected card name only, not last_five
   const cardData = React.useMemo(() => {
     if (filters.selectedCard === "all") {
       return allCardData
     }
-    
-    // For comparison, ensure we match the fullName exactly
-    // filters.selectedCard is in the format "Business Checking (-08552)"
-    return allCardData.filter(card => card.fullName === filters.selectedCard)
+    // Remove last_five pattern if present in filters.selectedCard
+    const cardOnly = filters.selectedCard.replace(/\s*\(-?\d{5}\)$/, "").trim()
+    return allCardData.filter(card => card.fullName === cardOnly)
   }, [allCardData, filters.selectedCard])
 
   // Calculate dynamic height based on filtered card count
@@ -68,13 +66,14 @@ export function RewardCardList({ filters, onCardClick }: RewardCardListProps) {
   const handleCardClick = (card: any) => {
     if (!onCardClick) return
     
-    const isSelected = card.fullName === filters.selectedCard
-    
+    const isSelected = card.fullName === filters.selectedCard ||
+      card.fullName === filters.selectedCard.replace(/\s*\(-?\d{5}\)$/, "").trim();
+
     if (isSelected) {
       // If this card is already selected, toggle to "all"
       onCardClick('all')
     } else {
-      // If this card is not selected, select it
+      // Select by card name only
       onCardClick(card.fullName)
     }
   }
@@ -82,7 +81,8 @@ export function RewardCardList({ filters, onCardClick }: RewardCardListProps) {
   // Determine which card is selected
   const getSelectedCard = (card: any) => {
     if (filters.selectedCard === "all") return false
-    return card.fullName === filters.selectedCard
+    const cardOnly = filters.selectedCard.replace(/\s*\(-?\d{5}\)$/, "").trim()
+    return card.fullName === cardOnly
   }
 
   const getTimeRangeDescription = () => {
@@ -169,3 +169,4 @@ export function RewardCardList({ filters, onCardClick }: RewardCardListProps) {
     </Card>
   )
 }
+

@@ -147,7 +147,7 @@ export function CardAccounts({
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 overflow-hidden">
-        <ScrollArea className="h-full pr-4">
+        <ScrollArea className="h-full pr-2">
           <div className="space-y-4 pb-6">
             {cardData.map((card, index) => (
               <div key={card.fullName} className="p-1">

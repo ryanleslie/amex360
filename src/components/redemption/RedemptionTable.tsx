@@ -55,7 +55,7 @@ export function RedemptionTable({ redemptions }: RedemptionTableProps) {
     },
     initialState: {
       pagination: {
-        pageSize: 10,
+        pageSize: 4,
       },
     },
   })
@@ -67,7 +67,7 @@ export function RedemptionTable({ redemptions }: RedemptionTableProps) {
 
   const handleShowPaginated = () => {
     setShowAll(false)
-    table.setPageSize(10)
+    table.setPageSize(4)
   }
 
   const filteredRowCount = table.getFilteredRowModel().rows.length

@@ -42,7 +42,7 @@ export function RedemptionPagination({
             : `Showing ${table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1} to ${Math.min((table.getState().pagination.pageIndex + 1) * table.getState().pagination.pageSize, filteredRowCount)} of ${filteredRowCount} results`
           }
         </p>
-        {!showAll && filteredRowCount > 10 && (
+        {!showAll && filteredRowCount > 4 && (
           <Button
             variant="outline"
             size="sm"

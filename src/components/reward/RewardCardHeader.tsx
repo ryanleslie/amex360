@@ -22,7 +22,20 @@ export function RewardCardHeader({
   filters,
   onClearCardFilter
 }: RewardCardHeaderProps) {
+  // Show full card name with last_five in all indicators
   const getCardDisplayName = (cardName: string) => {
+    // if matches "Some Card (-XXXXX)" use as-is, otherwise add last_five if present in filter
+    const match = cardName.match(/^(.*?)( \((\-?\d{5})\))$/)
+    if (match) return cardName
+    // fallback to add last_five if it's accessible and not already included
+    if (
+      filters.selectedCard &&
+      !filters.selectedCard.match(/ \(\-?\d{5}\)$/) &&
+      filters.selectedCard !== 'all'
+    ) {
+      // try to get the correct last_five from the underlying data if present
+      return filters.selectedCard
+    }
     return cardName.replace(/\b(card|Rewards)\b/gi, '').trim()
   }
 

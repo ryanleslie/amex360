@@ -10,6 +10,11 @@ const partnerImages: Record<string, string> = {
   "AIR FRANCE": "https://i.imgur.com/cVxZ2Z6.jpeg"
 };
 
+// Helper function to format partner names with proper capitalization
+const formatPartnerName = (name: string): string => {
+  return name.toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
+};
+
 export function RedemptionPartnerList() {
   const redemptions = parseRedemptionsCSV();
   const topPartners = getTopPartners(redemptions, 5);
@@ -43,7 +48,7 @@ export function RedemptionPartnerList() {
                       />
                       <div className="text-sm font-medium leading-tight whitespace-pre-line">
                         <div className="mb-1">
-                          <span className="font-medium">{partner.name}</span>
+                          <span className="font-medium">{formatPartnerName(partner.name)}</span>
                         </div>
                         <p className="text-xs text-muted-foreground">
                           {partner.redemptions} redemption{partner.redemptions !== 1 ? 's' : ''}

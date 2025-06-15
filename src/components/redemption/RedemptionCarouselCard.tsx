@@ -43,6 +43,11 @@ export function RedemptionCarouselCard() {
       name: "Seoul",
       image: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=400&h=300&fit=crop",
       description: "Korean Capital"
+    },
+    {
+      name: "Paris",
+      image: "https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=400&h=300&fit=crop",
+      description: "City of Light"
     }
   ];
 

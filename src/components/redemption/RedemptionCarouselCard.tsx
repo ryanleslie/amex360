@@ -30,11 +30,6 @@ export function RedemptionCarouselCard() {
       description: "Floating City"
     },
     {
-      name: "Barcelona",
-      image: "https://www.aman.com/sites/default/files/2022-12/Aman%20New%20York%2C%20USA%2011.jpg",
-      description: "Mediterranean Charm"
-    },
-    {
       name: "Dubai",
       image: "https://www.aman.com/sites/default/files/styles/media_text_side_by_side_x_wide/public/2025-01/aman_residences_dubai_-_external_terrace.jpg?itok=j3HhMH9e",
       description: "Desert Oasis"

@@ -50,7 +50,7 @@ export function RedemptionCarouselCard() {
   return (
     <Card className="bg-gradient-to-b from-white to-gray-100 hidden lg:block">
       <CardHeader className="pb-2">
-        <CardTitle className="text-xl font-semibold" style={{ color: '#00175a' }}>
+        <CardTitle className="text-xl font-semibold">
           Popular destinations
         </CardTitle>
       </CardHeader>

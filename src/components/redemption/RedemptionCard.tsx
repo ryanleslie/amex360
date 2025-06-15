@@ -112,7 +112,7 @@ export function RedemptionCard({
       <CardHeader>
         <div className="flex justify-between items-start">
           <div className="flex-1">
-            <CardTitle className="text-xl font-semibold" style={{ color: '#00175a' }}>
+            <CardTitle className="text-xl font-semibold">
               Recent redemptions
             </CardTitle>
             

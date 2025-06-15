@@ -46,7 +46,7 @@ export function RedemptionPartnerList({
   return (
     <Card className="bg-gradient-to-b from-white to-gray-100 flex flex-col">
       <CardHeader>
-        <CardTitle className="text-xl font-semibold" style={{ color: '#00175a' }}>
+        <CardTitle className="text-xl font-semibold">
           Top partners
         </CardTitle>
         <p className="text-sm text-muted-foreground">

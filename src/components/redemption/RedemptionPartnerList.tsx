@@ -61,9 +61,7 @@ export function RedemptionPartnerList({
             return (
               <div key={partner.name} className="p-1">
                 <Card
-                  className={`bg-gradient-to-b from-white to-gray-50 cursor-pointer transition-all hover:shadow-md animate-fade-in ring-0 focus:ring-0 focus-visible:ring-0 ${
-                    isSelected ? 'ring-2 ring-blue-500 shadow-md' : ''
-                  }`}
+                  className="bg-gradient-to-b from-white to-gray-50 cursor-pointer transition-all hover:shadow-md animate-fade-in ring-0 focus:ring-0 focus-visible:ring-0"
                   style={{
                     animationDelay: `${index * 100}ms`,
                     animationFillMode: 'both'

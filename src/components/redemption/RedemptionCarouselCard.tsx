@@ -33,6 +33,11 @@ export function RedemptionCarouselCard() {
       name: "Madrid",
       image: "https://images.unsplash.com/photo-1466442929976-97f336a657be?w=400&h=300&fit=crop",
       description: "Spanish Capital"
+    },
+    {
+      name: "Dubai",
+      image: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=400&h=300&fit=crop",
+      description: "Desert Oasis"
     }
   ];
 

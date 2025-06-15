@@ -148,7 +148,7 @@ export function CardAccounts({
       </CardHeader>
       <CardContent className="flex-1 overflow-hidden">
         <ScrollArea className="h-full pr-2">
-          <div className="space-y-4 pb-6">
+          <div className="space-y-2 pb-6">
             {cardData.map((card, index) => (
               <div key={card.fullName} className="p-1">
                 <CardAccountItem

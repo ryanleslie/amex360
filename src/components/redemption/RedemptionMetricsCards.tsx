@@ -45,7 +45,8 @@ export function RedemptionMetricsCards({
       description: `Points redeemed ${getTimeRangeDescription(filters.selectedTimeRange)}`,
       clickable: false,
       showHover: true,
-      cardType: "total-redeemed"
+      cardType: "total-redeemed",
+      formatAsPoints: true
     },
     {
       title: "Airfare Redemptions",
@@ -55,7 +56,8 @@ export function RedemptionMetricsCards({
       footer: "Flight bookings",
       description: `Airfare redemptions ${getTimeRangeDescription(filters.selectedTimeRange)}`,
       clickable: true,
-      cardType: "airfare-redemptions"
+      cardType: "airfare-redemptions",
+      formatAsPoints: true
     },
     {
       title: "Accommodation Redemptions",
@@ -65,7 +67,8 @@ export function RedemptionMetricsCards({
       footer: "Hotel bookings",
       description: `Accommodation redemptions ${getTimeRangeDescription(filters.selectedTimeRange)}`,
       clickable: true,
-      cardType: "accommodation-redemptions"
+      cardType: "accommodation-redemptions",
+      formatAsPoints: true
     },
     {
       title: "Avg Redemption",
@@ -75,7 +78,8 @@ export function RedemptionMetricsCards({
       footer: "Points per redemption",
       description: `Average redemption ${getTimeRangeDescription(filters.selectedTimeRange)}`,
       clickable: false,
-      cardType: "avg-redemption"
+      cardType: "avg-redemption",
+      formatAsPoints: true
     }
   ];
 
@@ -96,7 +100,7 @@ export function RedemptionMetricsCards({
           clickable={card.clickable}
           showHover={card.showHover}
           cardType={card.cardType}
-          formatAsPoints={card.title.includes("Points") || card.title.includes("Avg")}
+          formatAsPoints={card.formatAsPoints}
           showBadge={true}
         />
       ))}

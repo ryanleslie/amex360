@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useFilterState } from "@/hooks/useFilterState";
 import { RedemptionsLoader } from "@/components/redemption/RedemptionsLoader";
@@ -48,8 +47,8 @@ const Redemptions = () => {
   }, []); // Empty dependency array since destinationImages is now stable
 
   React.useEffect(() => {
-    // Load the loader-diamond-spin-bounce animation
-    fetch("/loader-diamond-spin-bounce.json")
+    // Load the loader-globe-outline animation
+    fetch("/loader-globe-outline.json")
       .then(response => response.json())
       .then(data => setAnimationData(data))
       .catch(error => console.error("Failed to load animation:", error));

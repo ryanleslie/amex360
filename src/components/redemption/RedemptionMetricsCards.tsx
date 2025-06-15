@@ -8,12 +8,16 @@ interface RedemptionMetricsCardsProps {
   filters: FilterState;
   isVisible: boolean;
   numbersKey: number;
+  onCategoryFilter?: (category: string) => void;
+  selectedCategory?: string;
 }
 
 export function RedemptionMetricsCards({ 
   filters, 
   isVisible, 
-  numbersKey 
+  numbersKey,
+  onCategoryFilter,
+  selectedCategory
 }: RedemptionMetricsCardsProps) {
   const redemptions = parseRedemptionsCSV();
   const stats = calculateRedemptionStats(redemptions);
@@ -39,6 +43,18 @@ export function RedemptionMetricsCards({
     ? Math.round((stats.averageRedemption / stats.totalPointsRedeemed) * 100)
     : 0;
 
+  const handleCardClick = (cardType: string) => {
+    if (!onCategoryFilter) return;
+    
+    if (cardType === "airfare-redemptions") {
+      const newCategory = selectedCategory === "Airfare" ? "all" : "Airfare";
+      onCategoryFilter(newCategory);
+    } else if (cardType === "accommodation-redemptions") {
+      const newCategory = selectedCategory === "Accommodation" ? "all" : "Accommodation";
+      onCategoryFilter(newCategory);
+    }
+  };
+
   const cardData = [
     {
       title: "Points Redeemed",
@@ -61,7 +77,8 @@ export function RedemptionMetricsCards({
       description: `Total redemptions ${getTimeRangeDescription(filters.selectedTimeRange)}`,
       clickable: true,
       cardType: "airfare-redemptions",
-      formatAsPoints: true
+      formatAsPoints: true,
+      isSelected: selectedCategory === "Airfare"
     },
     {
       title: "Total Accommodation",
@@ -72,7 +89,8 @@ export function RedemptionMetricsCards({
       description: `Total redemptions ${getTimeRangeDescription(filters.selectedTimeRange)}`,
       clickable: true,
       cardType: "accommodation-redemptions",
-      formatAsPoints: true
+      formatAsPoints: true,
+      isSelected: selectedCategory === "Accommodation"
     },
     {
       title: "Avg Redemption",
@@ -107,6 +125,7 @@ export function RedemptionMetricsCards({
           cardType={card.cardType}
           formatAsPoints={card.formatAsPoints}
           showBadge={true}
+          onClick={card.clickable ? () => handleCardClick(card.cardType) : undefined}
         />
       ))}
     </div>

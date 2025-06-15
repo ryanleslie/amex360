@@ -24,10 +24,11 @@ interface StatCardProps {
   showHover?: boolean
   cardType?: string
   topCardAccount?: string
-  onClick?: (cardType: string, topCardAccount?: string) => void
+  onClick?: (cardType?: string, topCardAccount?: string) => void
   formatAsPoints?: boolean
   showBadge?: boolean
   isPointMultiple?: boolean
+  isSelected?: boolean
 }
 
 export function StatCard({
@@ -47,10 +48,11 @@ export function StatCard({
   onClick,
   formatAsPoints = false,
   showBadge = true,
-  isPointMultiple = false
+  isPointMultiple = false,
+  isSelected = false
 }: StatCardProps) {
   const handleClick = () => {
-    if (clickable && cardType && onClick) {
+    if (clickable && onClick) {
       onClick(cardType, topCardAccount);
     }
   };
@@ -80,7 +82,8 @@ export function StatCard({
     const baseClasses = "relative bg-gradient-to-b from-white to-gray-100";
     
     if (clickable) {
-      return `${baseClasses} cursor-pointer hover:shadow-lg transition-shadow duration-200`;
+      const selectedClasses = isSelected ? "ring-2 ring-blue-500 shadow-md" : "";
+      return `${baseClasses} cursor-pointer hover:shadow-lg transition-all duration-200 ${selectedClasses}`;
     } else if (showHover) {
       return `${baseClasses} hover:shadow-lg transition-shadow duration-200`;
     }

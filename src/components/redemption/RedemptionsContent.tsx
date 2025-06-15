@@ -25,9 +25,14 @@ export function RedemptionsContent({
   showContent
 }: RedemptionsContentProps) {
   const [selectedPartner, setSelectedPartner] = useState<string>("all");
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
   const handlePartnerChange = (partner: string) => {
     setSelectedPartner(partner);
+  };
+
+  const handleCategoryFilter = (category: string) => {
+    setSelectedCategory(category);
   };
 
   return (
@@ -40,6 +45,8 @@ export function RedemptionsContent({
           filters={filters}
           isVisible={isVisible}
           numbersKey={numbersKey}
+          onCategoryFilter={handleCategoryFilter}
+          selectedCategory={selectedCategory}
         />
 
         {/* Destinations Carousel - Full Width */}
@@ -53,6 +60,8 @@ export function RedemptionsContent({
               filters={filters}
               selectedPartner={selectedPartner}
               onPartnerChange={handlePartnerChange}
+              selectedCategory={selectedCategory}
+              onCategoryChange={handleCategoryFilter}
             />
           </div>
           

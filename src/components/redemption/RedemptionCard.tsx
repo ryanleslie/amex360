@@ -12,12 +12,16 @@ interface RedemptionCardProps {
   filters: FilterState;
   selectedPartner?: string;
   onPartnerChange?: (partner: string) => void;
+  selectedCategory?: string;
+  onCategoryChange?: (category: string) => void;
 }
 
 export function RedemptionCard({ 
   filters, 
   selectedPartner = "all",
-  onPartnerChange 
+  onPartnerChange,
+  selectedCategory = "all",
+  onCategoryChange
 }: RedemptionCardProps) {
   const [searchFilter, setSearchFilter] = useState("");
   const [internalSelectedPartner, setInternalSelectedPartner] = useState(selectedPartner);
@@ -31,7 +35,7 @@ export function RedemptionCard({
     return partners;
   }, []);
 
-  // Filter redemptions based on partner and search
+  // Filter redemptions based on partner, category, and search
   const filteredRedemptions = useMemo(() => {
     let filtered = formattedRedemptions;
 
@@ -40,6 +44,13 @@ export function RedemptionCard({
     if (currentPartner && currentPartner !== "all") {
       filtered = filtered.filter(redemption => 
         redemption.partner.toUpperCase() === currentPartner.toUpperCase()
+      );
+    }
+
+    // Filter by selected category
+    if (selectedCategory && selectedCategory !== "all") {
+      filtered = filtered.filter(redemption => 
+        redemption.category === selectedCategory
       );
     }
 
@@ -54,7 +65,7 @@ export function RedemptionCard({
     }
 
     return filtered;
-  }, [formattedRedemptions, selectedPartner, internalSelectedPartner, searchFilter, onPartnerChange]);
+  }, [formattedRedemptions, selectedPartner, internalSelectedPartner, selectedCategory, searchFilter, onPartnerChange]);
 
   const handlePartnerChange = (partner: string) => {
     if (onPartnerChange) {
@@ -65,12 +76,19 @@ export function RedemptionCard({
   };
 
   const currentPartner = onPartnerChange ? selectedPartner : internalSelectedPartner;
-  const hasAnyFilter = Boolean((currentPartner && currentPartner !== "all") || searchFilter);
+  const hasAnyFilter = Boolean(
+    (currentPartner && currentPartner !== "all") || 
+    (selectedCategory && selectedCategory !== "all") || 
+    searchFilter
+  );
 
   const getFilterDisplayText = () => {
     const parts = [];
     if (currentPartner && currentPartner !== "all") {
       parts.push(`Partner: ${currentPartner}`);
+    }
+    if (selectedCategory && selectedCategory !== "all") {
+      parts.push(`Category: ${selectedCategory}`);
     }
     if (searchFilter) {
       parts.push(`Search: "${searchFilter}"`);
@@ -80,6 +98,9 @@ export function RedemptionCard({
 
   const handleClearAllFilters = () => {
     handlePartnerChange("all");
+    if (onCategoryChange) {
+      onCategoryChange("all");
+    }
     setSearchFilter("");
   };
 

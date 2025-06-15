@@ -1,5 +1,5 @@
 
-import { Building2, ChevronDown, PlaneTakeoff } from "lucide-react"
+import { ChevronDown, PlaneTakeoff } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -35,11 +35,7 @@ export function PartnerFilterDropdown({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" className="w-full md:w-auto md:ml-auto focus:ring-0 focus:ring-offset-0">
-          {(!selectedPartner || selectedPartner === "all") ? (
-            <PlaneTakeoff className="mr-2 h-4 w-4" />
-          ) : (
-            <Building2 className="mr-2 h-4 w-4" />
-          )}
+          <PlaneTakeoff className="mr-2 h-4 w-4" />
           {getDisplayText()}
           <ChevronDown className="ml-2 h-4 w-4" />
         </Button>

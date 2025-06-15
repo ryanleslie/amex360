@@ -38,6 +38,11 @@ export function RedemptionPartnerList({
     }
   };
 
+  // Filter partners based on selection - show all if "all" is selected, otherwise show only the selected partner
+  const displayedPartners = selectedPartner === "all" 
+    ? topPartners 
+    : topPartners.filter(partner => partner.name === selectedPartner);
+
   return (
     <Card className="bg-gradient-to-b from-white to-gray-100 flex flex-col">
       <CardHeader>
@@ -47,7 +52,7 @@ export function RedemptionPartnerList({
       </CardHeader>
       <CardContent className="flex-1 overflow-hidden">
         <div className="space-y-2 pb-6">
-          {topPartners.map((partner, index) => {
+          {displayedPartners.map((partner, index) => {
             const isSelected = selectedPartner === partner.name;
             
             return (

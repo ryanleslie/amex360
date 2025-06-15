@@ -46,7 +46,7 @@ export function RedemptionCarouselCard() {
     },
     {
       name: "Las Vegas",
-      image: "https://www.aman.com/sites/default/files/styles/media_text_side_by_side_x_wide/public/2024-02/aman_new_york_usa_-_aman_residences_new_york_entrance.jpg?itok=VGxlDQTG",
+      image: "https://media.cntraveler.com/photos/6837a2a8f22ce346ad2ae6c3/16:9/w_1600,c_limit/GettyImages-1370742577.jpg",
       description: "Entertainment Capital"
     },
   ];

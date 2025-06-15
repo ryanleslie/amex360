@@ -57,7 +57,7 @@ export function RedemptionCarouselCard() {
     },
     {
       name: "Bodrum",
-      image: "https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?w=400&h=300&fit=crop",
+      image: "https://www.aman.com/sites/default/files/2022-08/Amanruya%2C%20Turkey%20-%20Accommodation%2C%20Garden%20View%20Pavilion%20Portrait%20-%20Pool%20.jpg",
       description: "Turkish Riviera"
     }
   ];

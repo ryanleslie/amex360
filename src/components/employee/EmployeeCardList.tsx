@@ -1,5 +1,3 @@
-
-
 import React from "react"
 import {
   Card,
@@ -90,7 +88,7 @@ export function EmployeeCardList({ selectedCard, onCardClick, transactions, sele
           onChange={setLastFiveFilter}
           isVisible={!isSpecificCardSelected}
         />
-        <ScrollArea className="pr-4" style={{ height: scrollAreaHeight }}>
+        <ScrollArea className="pr-2" style={{ height: scrollAreaHeight }}>
           <div className="space-y-4 pt-3 pb-6">
             {filteredCardData.map((card, index) => {
               const isCardSelected = selectedCard === card.lastFive && selectedCardType === card.cardType

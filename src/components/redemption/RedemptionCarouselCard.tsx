@@ -4,17 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 
 export function RedemptionCarouselCard() {
-  const [isVisible, setIsVisible] = React.useState(false);
-
-  React.useEffect(() => {
-    // Start the animation after component mounts
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   const destinations = [
     {
       name: "Frankfurt",
@@ -75,17 +64,7 @@ export function RedemptionCarouselCard() {
         >
           <CarouselContent className="-ml-1 md:-ml-2">
             {destinations.map((destination, index) => (
-              <CarouselItem 
-                key={index} 
-                className={`pl-1 md:pl-2 basis-4/5 md:basis-1/4 transition-all duration-700 ease-out ${
-                  isVisible 
-                    ? 'opacity-100 translate-x-0' 
-                    : 'opacity-0 translate-x-8'
-                }`}
-                style={{
-                  transitionDelay: `${index * 100}ms`
-                }}
-              >
+              <CarouselItem key={index} className="pl-1 md:pl-2 basis-4/5 md:basis-1/4">
                 <div className="p-1">
                   <Card className="relative overflow-hidden h-48 group cursor-pointer">
                     <div 

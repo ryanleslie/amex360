@@ -14,7 +14,7 @@ export function RedemptionsLoader({ animationData, showLottie }: RedemptionsLoad
         {animationData && showLottie && (
           <Lottie
             animationData={animationData}
-            className="w-32 h-32 mx-auto"
+            className="w-32 h-32 mx-auto transform rotate-[10deg]"
             loop={true}
             autoplay={true}
           />

@@ -1,4 +1,5 @@
 
+
 import redemptionsCSV from "@/data/redemptions.csv?raw";
 
 export interface RedemptionData {
@@ -20,13 +21,20 @@ export interface RedemptionStats {
 }
 
 export function parseRedemptionsCSV(): RedemptionData[] {
+  // Debug: Log the raw CSV content to see what we're actually getting
+  console.log("Raw CSV content:", redemptionsCSV);
+  console.log("First 500 characters:", redemptionsCSV.substring(0, 500));
+  
   const lines = redemptionsCSV.trim().split('\n');
+  console.log("Number of lines:", lines.length);
+  console.log("Header line:", lines[0]);
   
   return lines.slice(1).map((line, index) => {
     // Split by comma to handle CSV format
     const values = line.split(',');
     
     console.log(`Row ${index + 1}:`, values);
+    console.log(`Row ${index + 1} length:`, values.length);
     
     // The points value is split across columns 4 and 5 due to comma in the number
     // Reconstruct the points value by combining the split parts

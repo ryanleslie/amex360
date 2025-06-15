@@ -1,10 +1,12 @@
 
 import React from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { useFilterState } from "@/hooks/useFilterState";
 import { RedemptionsLoader } from "@/components/redemption/RedemptionsLoader";
 import { RedemptionsContent } from "@/components/redemption/RedemptionsContent";
 
 const Redemptions = () => {
+  const isMobile = useIsMobile();
   const { filters, updateFilter, updateMultipleFilters } = useFilterState("ytd");
   const [isVisible, setIsVisible] = React.useState(false);
   const [numbersKey, setNumbersKey] = React.useState(0);
@@ -39,6 +41,11 @@ const Redemptions = () => {
 
     return () => clearTimeout(initialDelay);
   }, []);
+
+  // Add effect to log time range changes - always call this hook
+  React.useEffect(() => {
+    console.log("selectedTimeRange state changed to:", filters.selectedTimeRange, "isMobile:", isMobile);
+  }, [filters.selectedTimeRange, isMobile]);
 
   React.useEffect(() => {
     setNumbersKey(prev => prev + 1);

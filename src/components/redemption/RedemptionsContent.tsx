@@ -36,41 +36,47 @@ export function RedemptionsContent({
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-6 mb-8">
+    <div className="max-w-7xl mx-auto px-4 lg:px-6 mb-8">
       <RedemptionsHeader />
       
-      <div className={`space-y-6 ${showContent ? 'animate-fade-in' : 'opacity-0'}`}>
-        {/* Metrics Cards */}
-        <RedemptionMetricsCards 
-          filters={filters}
-          isVisible={isVisible}
-          numbersKey={numbersKey}
-          onCategoryFilter={handleCategoryFilter}
-          selectedCategory={selectedCategory}
-        />
+      <div className={`space-y-6 transition-all duration-700 delay-100 ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+        {/* Metrics Cards with same responsive pattern as Index */}
+        <div className="px-0">
+          <RedemptionMetricsCards 
+            filters={filters}
+            isVisible={isVisible}
+            numbersKey={numbersKey}
+            onCategoryFilter={handleCategoryFilter}
+            selectedCategory={selectedCategory}
+          />
+        </div>
 
-        {/* Destinations Carousel - Full Width */}
-        <RedemptionCarouselCard />
+        {/* Destinations Carousel - Full Width with consistent padding */}
+        <div className={`transition-all duration-700 delay-200 ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <RedemptionCarouselCard />
+        </div>
 
-        {/* Table and Partner List Row - 2/3, 1/3 split */}
-        <div className="grid gap-6 lg:grid-cols-3">
-          {/* Redemption Table - 2/3 width */}
-          <div className="lg:col-span-2">
-            <RedemptionCard 
-              filters={filters}
-              selectedPartner={selectedPartner}
-              onPartnerChange={handlePartnerChange}
-              selectedCategory={selectedCategory}
-              onCategoryChange={handleCategoryFilter}
-            />
-          </div>
-          
-          {/* Top Partners List - 1/3 width */}
-          <div className="lg:col-span-1">
-            <RedemptionPartnerList 
-              selectedPartner={selectedPartner}
-              onPartnerClick={handlePartnerChange}
-            />
+        {/* Table and Partner List Row - Consistent with Index page layout */}
+        <div className={`transition-all duration-700 delay-300 ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <div className="grid gap-6 lg:grid-cols-3">
+            {/* Redemption Table - 2/3 width */}
+            <div className="lg:col-span-2">
+              <RedemptionCard 
+                filters={filters}
+                selectedPartner={selectedPartner}
+                onPartnerChange={handlePartnerChange}
+                selectedCategory={selectedCategory}
+                onCategoryChange={handleCategoryFilter}
+              />
+            </div>
+            
+            {/* Top Partners List - 1/3 width */}
+            <div className="lg:col-span-1">
+              <RedemptionPartnerList 
+                selectedPartner={selectedPartner}
+                onPartnerClick={handlePartnerChange}
+              />
+            </div>
           </div>
         </div>
       </div>

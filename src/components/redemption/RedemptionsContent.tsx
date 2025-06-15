@@ -36,10 +36,10 @@ export function RedemptionsContent({
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-8">
+    <div className="max-w-7xl mx-auto px-6 mb-8">
       <RedemptionsHeader />
       
-      <div className={`space-y-4 sm:space-y-6 ${showContent ? 'animate-fade-in' : 'opacity-0'}`}>
+      <div className={`space-y-6 ${showContent ? 'animate-fade-in' : 'opacity-0'}`}>
         {/* Metrics Cards */}
         <RedemptionMetricsCards 
           filters={filters}
@@ -52,10 +52,10 @@ export function RedemptionsContent({
         {/* Destinations Carousel - Full Width */}
         <RedemptionCarouselCard />
 
-        {/* Table and Partner List Row - Responsive Layout */}
-        <div className="grid gap-4 sm:gap-6 lg:grid-cols-3">
-          {/* Redemption Table - Full width on mobile, 2/3 on desktop */}
-          <div className="lg:col-span-2 order-2 lg:order-1">
+        {/* Table and Partner List Row - 2/3, 1/3 split */}
+        <div className="grid gap-6 lg:grid-cols-3">
+          {/* Redemption Table - 2/3 width */}
+          <div className="lg:col-span-2">
             <RedemptionCard 
               filters={filters}
               selectedPartner={selectedPartner}
@@ -65,8 +65,8 @@ export function RedemptionsContent({
             />
           </div>
           
-          {/* Top Partners List - Full width on mobile, 1/3 on desktop */}
-          <div className="lg:col-span-1 order-1 lg:order-2">
+          {/* Top Partners List - 1/3 width */}
+          <div className="lg:col-span-1">
             <RedemptionPartnerList 
               selectedPartner={selectedPartner}
               onPartnerClick={handlePartnerChange}

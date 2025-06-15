@@ -62,7 +62,7 @@ export function RedemptionMetricsCards({
       badge: "100%",
       icon: () => <img src="https://i.imgur.com/dTz9vVm.png" alt="Points" className="h-4 w-4" />,
       footer: "Award travel",
-      description: `Total redemptions ${getTimeRangeDescription(filters.selectedTimeRange)}`,
+      description: `${stats.totalBookings} total redemptions ${getTimeRangeDescription(filters.selectedTimeRange)}`,
       clickable: false,
       showHover: true,
       cardType: "total-redeemed",

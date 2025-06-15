@@ -69,7 +69,7 @@ export function RedemptionMetricsCards({
       formatAsPoints: true
     },
     {
-      title: "Total Airfare",
+      title: "Airfare",
       value: stats.airfarePoints,
       badge: `${airfarePercentage}%`,
       icon: Plane,
@@ -81,7 +81,7 @@ export function RedemptionMetricsCards({
       isSelected: selectedCategory === "Airfare"
     },
     {
-      title: "Total Accommodation",
+      title: "Accommodation",
       value: stats.accommodationPoints,
       badge: `${accommodationPercentage}%`,
       icon: MapPin,

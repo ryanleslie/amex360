@@ -1,4 +1,3 @@
-
 import redemptionsCSV from "@/data/redemptions.csv?raw";
 
 export interface RedemptionData {
@@ -25,13 +24,15 @@ export function parseRedemptionsCSV(): RedemptionData[] {
   
   return lines.slice(1).map((line, index) => {
     const values = line.split(',');
+    const pointsValue = parseFloat(values[3]);
+    
     return {
       date: values[0],
       description: values[1],
       category: values[2],
-      points: Math.abs(parseInt(values[3])) // Apply absolute value to convert negative to positive
+      points: Math.abs(pointsValue) // Apply absolute value to convert negative to positive
     };
-  });
+  }).filter(redemption => !isNaN(redemption.points)); // Filter out any NaN values
 }
 
 export function calculateRedemptionStats(redemptions: RedemptionData[]): RedemptionStats {

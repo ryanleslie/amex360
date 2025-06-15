@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -54,13 +53,14 @@ export function RedemptionCard({
       );
     }
 
-    // Filter by search
+    // Filter by search - include points in search
     if (searchFilter) {
       const search = searchFilter.toLowerCase();
       filtered = filtered.filter(redemption =>
         redemption.partner.toLowerCase().includes(search) ||
         redemption.category.toLowerCase().includes(search) ||
-        redemption.date.toLowerCase().includes(search)
+        redemption.date.toLowerCase().includes(search) ||
+        redemption.redemptionAmount.toString().includes(search)
       );
     }
 

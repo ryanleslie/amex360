@@ -29,7 +29,7 @@ export function parseRedemptionsCSV(): RedemptionData[] {
       date: values[0],
       description: values[1],
       category: values[2],
-      points: Math.abs(parseInt(values[3])) // Convert to positive number
+      points: Math.abs(parseInt(values[3])) // Apply absolute value to convert negative to positive
     };
   });
 }

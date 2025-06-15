@@ -36,19 +36,23 @@ export function RedemptionsContent({
           numbersKey={numbersKey}
         />
 
-        {/* Chart and Table Row */}
-        <div className="grid gap-6 lg:grid-cols-2">
-          {/* Carousel Card */}
-          <RedemptionCarouselCard />
-          
-          {/* Redemption Table */}
-          <RedemptionCard 
-            filters={filters}
-          />
-        </div>
+        {/* Destinations Carousel - Full Width */}
+        <RedemptionCarouselCard />
 
-        {/* Destination List */}
-        <RedemptionDestinationList />
+        {/* Table and Destination List Row - 2/3, 1/3 split */}
+        <div className="grid gap-6 lg:grid-cols-3">
+          {/* Redemption Table - 2/3 width */}
+          <div className="lg:col-span-2">
+            <RedemptionCard 
+              filters={filters}
+            />
+          </div>
+          
+          {/* Top Destinations List - 1/3 width */}
+          <div className="lg:col-span-1">
+            <RedemptionDestinationList />
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -127,41 +127,42 @@ export function RewardCardList({ filters, onCardClick }: RewardCardListProps) {
         <ScrollArea className="h-full pr-4">
           <div className="space-y-4 pb-6">
             {cardData.map((card, index) => (
-              <Card 
-                key={card.name}
-                className={`bg-gradient-to-b from-white to-gray-50 cursor-pointer transition-all hover:shadow-md animate-fade-in ${getSelectedCard(card) ? "ring-2 ring-primary" : ""}`}
-                style={{
-                  animationDelay: `${index * 100}ms`,
-                  animationFillMode: 'both'
-                }}
-                onClick={() => handleCardClick(card)}
-              >
-                <CardContent className="p-4">
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                    <div className="flex items-center gap-4 flex-1">
-                      {/* Always show image by cardOnly value */}
-                      <img 
-                        src={getCardImage(card.cardOnly)} 
-                        alt="Card placeholder" 
-                        className="w-16 h-10 object-cover rounded"
-                      />
-                      <div className="text-sm font-medium leading-tight whitespace-pre-line">
-                        {getDisplayName(card.displayName)}
+              <div key={card.name} className="p-1"> {/* <-- new padding wrapper here */}
+                <Card 
+                  className={`bg-gradient-to-b from-white to-gray-50 cursor-pointer transition-all hover:shadow-md animate-fade-in ${
+                    getSelectedCard(card) ? "ring-2 ring-primary" : ""}`}
+                  style={{
+                    animationDelay: `${index * 100}ms`,
+                    animationFillMode: 'both'
+                  }}
+                  onClick={() => handleCardClick(card)}
+                >
+                  <CardContent className="p-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                      <div className="flex items-center gap-4 flex-1">
+                        <img 
+                          src={getCardImage(card.cardOnly)} 
+                          alt="Card placeholder" 
+                          className="w-16 h-10 object-cover rounded"
+                        />
+                        <div className="text-sm font-medium leading-tight whitespace-pre-line">
+                          {getDisplayName(card.displayName)}
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex items-center justify-end sm:justify-end">
-                      <div className="text-right">
-                        <p className="text-xs text-muted-foreground">
-                          Reward points
-                        </p>
-                        <div className="text-lg font-bold tabular-nums" style={{ color: '#00175a' }}>
-                          {card.points.toLocaleString()} pts
+                      <div className="flex items-center justify-end sm:justify-end">
+                        <div className="text-right">
+                          <p className="text-xs text-muted-foreground">
+                            Reward points
+                          </p>
+                          <div className="text-lg font-bold tabular-nums" style={{ color: '#00175a' }}>
+                            {card.points.toLocaleString()} pts
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </div>
             ))}
           </div>
         </ScrollArea>

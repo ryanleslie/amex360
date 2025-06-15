@@ -58,6 +58,12 @@ export function StatCard({
   };
 
   const formatValue = (val: number) => {
+    // Add validation to prevent NaN
+    if (isNaN(val) || val === null || val === undefined) {
+      console.warn('Invalid value passed to StatCard:', val, 'for title:', title);
+      val = 0;
+    }
+    
     // Use point multiple formatting for designated cards
     if (isPointMultiple) {
       return formatPointMultiple(val);

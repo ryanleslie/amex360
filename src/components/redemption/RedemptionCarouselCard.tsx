@@ -45,9 +45,9 @@ export function RedemptionCarouselCard() {
       description: "Turkish Riviera"
     },
     {
-      name: "Kyoto",
+      name: "Paris",
       image: "https://www.aman.com/sites/default/files/2025-03/aman-kyoto-sakura_0.jpg",
-      description: "Ancient Capital"
+      description: "City of Light"
     }
   ];
 

@@ -1,3 +1,4 @@
+
 import {
   Card,
   CardContent,
@@ -22,40 +23,31 @@ export function RewardCardList({ filters, onCardClick }: RewardCardListProps) {
   
   // Get unique cards and their totals
   const allCardData = React.useMemo(() => {
-    // First, group by card + last_five (if available)
     const cardTotals = rewardFilterService.getFilteredRewards({
       ...filters,
-      selectedCard: "all"
+      selectedCard: "all" // Always show all cards
     }).reduce((acc, reward) => {
-      // Use cardNameWithLastFive as grouping key
-      const cardNameWithLastFive = reward.last_five
-        ? `${reward.card} (${reward.last_five})`
-        : reward.card
-      acc[cardNameWithLastFive] = (acc[cardNameWithLastFive] || 0) + reward.points
+      const cardName = reward.card
+      acc[cardName] = (acc[cardName] || 0) + reward.points
       return acc
     }, {} as Record<string, number>)
 
     return Object.entries(cardTotals)
-      .map(([cardWithLastFive, points]) => {
-        // DisplayName for card, and separation for name and last five
-        // e.g., Business Checking (-08552)
-        const match = cardWithLastFive.match(/^(.*?)( \((\-?\d{5})\))?$/);
-        return {
-          name: (match?.[1] || cardWithLastFive).trim(),
-          fullName: cardWithLastFive,
-          points,
-          // Add a line break before last five for better formatting
-          displayName: cardWithLastFive.replace(/(\s\(-?\d{5}\))$/, '\n$1'),
-        }
-      })
+      .map(([card, points]) => ({
+        name: card.replace(/\bcard\b/gi, '').replace(/\(-\d+\)/g, '').trim(),
+        fullName: card,
+        points,
+        displayName: card.replace(/\bcard\b/gi, '').trim().replace(/\s*(\([^)]+\))/, '\n$1')
+      }))
       .sort((a, b) => b.points - a.points)
   }, [filters])
 
-  // Filter cards based on selected card (with last_five)
+  // Filter cards based on selected card
   const cardData = React.useMemo(() => {
-    if (!filters.selectedCard || filters.selectedCard === "all") {
+    if (filters.selectedCard === "all") {
       return allCardData
     }
+    
     return allCardData.filter(card => card.fullName === filters.selectedCard)
   }, [allCardData, filters.selectedCard])
 
@@ -106,8 +98,14 @@ export function RewardCardList({ filters, onCardClick }: RewardCardListProps) {
     }
   }
 
-  // Map display name for specific cards (if needed you can further customize here)
+  // Map display name for specific cards
   const getDisplayName = (cardName: string) => {
+    if (cardName.includes('Bonvoy Business Amex')) {
+      return cardName.replace('Bonvoy Business Amex', 'Marriott Bonvoy Business')
+    }
+    if (cardName.includes('Amazon Prime')) {
+      return cardName.replace('Amazon Prime', 'Amazon Business Prime')
+    }
     return cardName
   }
 

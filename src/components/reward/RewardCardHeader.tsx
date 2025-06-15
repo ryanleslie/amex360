@@ -22,10 +22,8 @@ export function RewardCardHeader({
   filters,
   onClearCardFilter
 }: RewardCardHeaderProps) {
-  // Always show selectedCard as is (which includes last_five if present)
   const getCardDisplayName = (cardName: string) => {
-    if (!cardName || cardName === "all") return "All Cards"
-    return cardName
+    return cardName.replace(/\b(card|Rewards)\b/gi, '').trim()
   }
 
   const getTimeRangeLabel = (range: string) => {

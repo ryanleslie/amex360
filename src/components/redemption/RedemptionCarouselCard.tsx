@@ -11,9 +11,9 @@ export function RedemptionCarouselCard() {
     },
 
     {
-      name: "Providenciales",
-      image: "https://www.aman.com/sites/default/files/2024-05/amanyara_turks_caicos_-_accommodation_villa_33.jpg",
-      description: "Turks and Caicos"
+      name: "Dubai",
+      image: "https://www.aman.com/sites/default/files/styles/media_text_side_by_side_x_wide/public/2025-01/aman_residences_dubai_-_external_terrace.jpg?itok=j3HhMH9e",
+      description: "Desert Oasis"
     },
     {
       name: "Phoenix",
@@ -26,9 +26,9 @@ export function RedemptionCarouselCard() {
       description: "Floating City"
     },
     {
-      name: "Dubai",
-      image: "https://www.aman.com/sites/default/files/styles/media_text_side_by_side_x_wide/public/2025-01/aman_residences_dubai_-_external_terrace.jpg?itok=j3HhMH9e",
-      description: "Desert Oasis"
+      name: "Providenciales",
+      image: "https://www.aman.com/sites/default/files/2024-05/amanyara_turks_caicos_-_accommodation_villa_33.jpg",
+      description: "Turks and Caicos"
     },
     {
       name: "Tokyo",

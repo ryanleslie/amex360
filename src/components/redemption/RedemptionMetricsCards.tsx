@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Airplane } from "lucide-react";
+import { Airplay } from "lucide-react";
 
 interface RedemptionMetricsCardsProps {
   isVisible: boolean;
@@ -14,7 +14,7 @@ export function RedemptionMetricsCards({ isVisible, numbersKey }: RedemptionMetr
       title: "Total Redemptions",
       value: 13,
       badge: "",
-      icon: () => <Airplane size={18} />,
+      icon: () => <Airplay size={18} />,
       footer: "Trips booked",
       description: "Completed in 2025",
     },
@@ -22,7 +22,13 @@ export function RedemptionMetricsCards({ isVisible, numbersKey }: RedemptionMetr
       title: "Points Redeemed",
       value: 980_000,
       badge: "",
-      icon: () => <img src="https://i.imgur.com/dTz9vVm.png" alt="" className="h-4 w-4" />,
+      icon: () => (
+        <img
+          src="https://i.imgur.com/dTz9vVm.png"
+          alt=""
+          className="h-4 w-4"
+        />
+      ),
       footer: "Amex Points",
       description: "Total points spent",
     },
@@ -30,7 +36,7 @@ export function RedemptionMetricsCards({ isVisible, numbersKey }: RedemptionMetr
       title: "Top Partner",
       value: "Delta",
       badge: "",
-      icon: () => <Airplane size={18} />,
+      icon: () => <Airplay size={18} />,
       footer: "Airline",
       description: "Most used partner",
     },
@@ -38,7 +44,7 @@ export function RedemptionMetricsCards({ isVisible, numbersKey }: RedemptionMetr
       title: "Avg Redemption Value",
       value: "$1,856",
       badge: "",
-      icon: () => <Airplane size={18} />,
+      icon: () => <Airplay size={18} />,
       footer: "Per trip",
       description: "Average value per redemption",
     },
@@ -56,12 +62,16 @@ export function RedemptionMetricsCards({ isVisible, numbersKey }: RedemptionMetr
             <div className="flex items-center gap-2 text-base font-semibold">
               {card.icon()} {card.title}
             </div>
-            <div className="text-2xl font-bold tabular-nums">{typeof card.value === "number" ? card.value.toLocaleString() : card.value}</div>
+            <div className="text-2xl font-bold tabular-nums">
+              {typeof card.value === "number"
+                ? card.value.toLocaleString()
+                : card.value}
+            </div>
             <div className="text-xs text-muted-foreground">{card.description}</div>
             <div className="mt-1 text-xs text-muted-foreground">{card.footer}</div>
           </CardContent>
         </Card>
       ))}
     </div>
-  )
+  );
 }

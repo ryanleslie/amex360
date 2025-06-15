@@ -42,7 +42,7 @@ const Dashboard = () => {
   return (
     <>
       <AppSidebar activeSection={activeSection} setActiveSection={setActiveSection} />
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1">
         <AppHeader />
         {renderSection()}
       </div>

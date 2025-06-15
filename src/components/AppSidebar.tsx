@@ -1,6 +1,6 @@
 
 import React from "react"
-import { ChartNoAxesColumn, Award, CreditCard, Crown, LogOut, RotateCw, CircleCheck, Settings } from "lucide-react"
+import { ChartNoAxesColumn, Award, CreditCard, Crown, LogOut, RotateCw, CircleCheck, Settings, PlaneTakeoff } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { toast } from "@/components/ui/sonner"
 import { useAuth } from "@/contexts/AuthContext"
@@ -57,14 +57,11 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
   const handleRefreshData = () => {
     // Simulate data refresh
     console.log("Refreshing static data...")
-    
-    // Show success toast with blue circle-check icon
     toast.success("Dashboard refreshed", {
       description: "Latest transaction data has been loaded",
       position: "top-right",
       icon: <CircleCheck size={16} style={{ color: '#006fcf' }} />
     })
-    
     close()
   }
 
@@ -97,6 +94,18 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
                 </SidebarMenuButton>
               </SidebarMenuItem>
             ))}
+            {/* Redemptions: Only show to admin users, under "CreditMax" */}
+            {isAdmin() && (
+              <SidebarMenuItem key="Redemptions">
+                <SidebarMenuButton
+                  onClick={() => handleItemClick("redemptions")}
+                  className={`gap-3 ${activeSection === "redemptions" ? "bg-gray-100" : ""}`}
+                >
+                  <PlaneTakeoff className="h-4 w-4" />
+                  <span>Redemptions</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            )}
           </SidebarMenu>
         </SidebarGroup>
 

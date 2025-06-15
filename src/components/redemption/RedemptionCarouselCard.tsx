@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
@@ -38,7 +39,7 @@ export function RedemptionCarouselCard() {
           Popular Destinations
         </CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="px-2">
         <Carousel 
           className="w-full max-w-6xl mx-auto"
           opts={{

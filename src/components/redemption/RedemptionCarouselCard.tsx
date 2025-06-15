@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
@@ -29,6 +28,11 @@ export function RedemptionCarouselCard() {
       name: "Barcelona",
       image: "https://www.aman.com/sites/default/files/2022-12/Aman%20New%20York%2C%20USA%2011.jpg",
       description: "Mediterranean Charm"
+    },
+    {
+      name: "Madrid",
+      image: "https://images.unsplash.com/photo-1466442929976-97f336a657be?w=400&h=300&fit=crop",
+      description: "Spanish Capital"
     }
   ];
 

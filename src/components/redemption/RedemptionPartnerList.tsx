@@ -1,13 +1,12 @@
-
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { parseRedemptionsCSV, getTopPartners } from "@/utils/redemptionParser";
 
-// Static partner images mapping - using same series as carousel
+// Static partner images mapping - updated with new images
 const partnerImages: Record<string, string> = {
-  "DELTA AIRLINES": "https://www.aman.com/sites/default/files/2022-12/Aman%20New%20York%2C%20USA%2011.jpg",
-  "MARRIOTT": "https://www.aman.com/sites/default/files/styles/carousel_cards_extra_large/public/2022-11/Aman%20New%20York%2C%20USA%20-%20Spa%20%26%20Wellness%2C%20Pool%202.jpg?itok=DBMc8qlk",
-  "AIR FRANCE": "https://www.aman.com/sites/default/files/2023-08/aman-ny-vignettes-6754.jpg"
+  "DELTA AIRLINES": "https://i.imgur.com/GOB99mj.png",
+  "MARRIOTT": "https://i.imgur.com/B2aML3d.jpeg",
+  "AIR FRANCE": "https://i.imgur.com/cVxZ2Z6.jpeg"
 };
 
 export function RedemptionPartnerList() {

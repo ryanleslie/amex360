@@ -16,12 +16,12 @@ export function RedemptionCarouselCard() {
     {
       name: "Phoenix",
       image: "https://www.aman.com/sites/default/files/styles/media_text_side_by_side_portrait_xwide_up/public/2023-08/aman_new_york_usa_-_three-bedroom_home_bathroom.jpg?itok=C3oFbV3i",
-      description: "Desert Metropolis"
+      description: "Desert Retreat"
     },
     {
       name: "Dubai",
       image: "https://www.aman.com/sites/default/files/styles/media_text_side_by_side_x_wide/public/2025-01/aman_residences_dubai_-_external_terrace.jpg?itok=j3HhMH9e",
-      description: "Desert Oasis"
+      description: "Opulent Escape"
     },
     {
       name: "Venice",

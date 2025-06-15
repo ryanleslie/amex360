@@ -17,7 +17,7 @@ export function RedemptionFilterIndicator({
   const filterText = getFilterDisplayText()
 
   return (
-    <div className="mt-2">
+    <div className="mt-2 mb-4">
       <span className="inline-flex items-center gap-2 px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-md">
         Filtered by: {filterText}
         <button 

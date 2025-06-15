@@ -1,6 +1,6 @@
 
 import React from "react"
-import { ChartNoAxesColumn, Award, CreditCard, Crown, LogOut, RotateCw, CircleCheck, Settings, PlaneTakeoff } from "lucide-react"
+import { ChartNoAxesColumn, Award, CreditCard, Crown, LogOut, RotateCw, CircleCheck, Settings, Plane } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { toast } from "@/components/ui/sonner"
 import { useAuth } from "@/contexts/AuthContext"
@@ -101,7 +101,7 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
                   onClick={() => handleItemClick("redemptions")}
                   className={`gap-3 ${activeSection === "redemptions" ? "bg-gray-100" : ""}`}
                 >
-                  <PlaneTakeoff className="h-4 w-4" />
+                  <Plane className="h-4 w-4" />
                   <span>Redemptions</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>

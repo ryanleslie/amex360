@@ -53,6 +53,7 @@ export function RedemptionCarouselCard() {
         <CardTitle className="text-xl font-semibold" style={{ color: '#00175a' }}>
           Popular destinations
         </CardTitle>
+        <p className="text-sm text-gray-600 mt-1">Ranked by redemption history</p>
       </CardHeader>
       <CardContent className="px-0">
         <Carousel 

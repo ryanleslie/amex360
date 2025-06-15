@@ -86,7 +86,9 @@ export function RedemptionCard({
   const getFilterDisplayText = () => {
     const parts = [];
     if (currentPartner && currentPartner !== "all") {
-      parts.push(`Partner: ${currentPartner}`);
+      // Format partner name to only capitalize first letter
+      const formattedPartner = currentPartner.toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
+      parts.push(`Partner: ${formattedPartner}`);
     }
     if (selectedCategory && selectedCategory !== "all") {
       parts.push(`Category: ${selectedCategory}`);

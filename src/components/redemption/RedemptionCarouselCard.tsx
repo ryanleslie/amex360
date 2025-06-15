@@ -67,7 +67,7 @@ export function RedemptionCarouselCard() {
     <Card className="bg-gradient-to-b from-white to-gray-100 hidden lg:block">
       <CardHeader className="pb-2">
         <CardTitle className="text-xl font-semibold">
-          Popular destinations
+          Popular award destinations
         </CardTitle>
       </CardHeader>
       <CardContent className="px-0 pt-2">

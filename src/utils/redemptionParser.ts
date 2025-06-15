@@ -1,6 +1,4 @@
-
-
-import redemptionsCSV from "@/data/redemptions.csv?raw";
+import redemptionsCSV from "@/data/redemptions_data.csv?raw";
 
 export interface RedemptionData {
   date: string;

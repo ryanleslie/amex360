@@ -5,6 +5,12 @@ import { TimeRangeFilterIndicator } from "../transaction/TimeRangeFilterIndicato
 import { FilterState } from "@/hooks/useFilterState"
 import { X } from "lucide-react"
 
+// Helper to strip "last_five" from card display names consistently
+function getCardNameOnly(card: string) {
+  // Removes anything in parentheses at the end of the string
+  return card.replace(/\s*\([-)0-9]+\)$/, "").replace(/\b(card|Rewards)\b/gi, '').trim()
+}
+
 interface RewardCardHeaderProps {
   selectedDate?: string
   onClearDateFilter?: () => void
@@ -22,9 +28,6 @@ export function RewardCardHeader({
   filters,
   onClearCardFilter
 }: RewardCardHeaderProps) {
-  const getCardDisplayName = (cardName: string) => {
-    return cardName.replace(/\b(card|Rewards)\b/gi, '').trim()
-  }
 
   const getTimeRangeLabel = (range: string) => {
     switch (range) {
@@ -42,7 +45,7 @@ export function RewardCardHeader({
 
   // If there's a selected date and card filter, show combined filter
   if (hasDateFilter && hasCardFilter && onClearDateFilter && onClearCardFilter) {
-    const cardDisplayName = getCardDisplayName(filters.selectedCard)
+    const cardDisplayName = getCardNameOnly(filters.selectedCard)
     const formattedDate = new Date(selectedDate).toLocaleDateString('en-US', { 
       month: 'short', 
       day: 'numeric',
@@ -89,7 +92,7 @@ export function RewardCardHeader({
   // Show unified filter indicator when card filter is active (with or without time range)
   if (hasCardFilter && onClearCardFilter) {
     const timeRangeLabel = getTimeRangeLabel(selectedTimeRange || "ytd")
-    const cardDisplayName = getCardDisplayName(filters.selectedCard)
+    const cardDisplayName = getCardNameOnly(filters.selectedCard)
     
     const handleClearAll = () => {
       if (onClearCardFilter) onClearCardFilter()

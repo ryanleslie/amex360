@@ -40,10 +40,10 @@ export function RedemptionCarouselCard() {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <Carousel className="w-full max-w-4xl mx-auto">
+        <Carousel className="w-full max-w-xs mx-auto">
           <CarouselContent>
             {destinations.map((destination, index) => (
-              <CarouselItem key={index} className="md:basis-1/3">
+              <CarouselItem key={index}>
                 <div className="p-1">
                   <Card>
                     <CardContent className="flex flex-col items-center justify-center p-6">

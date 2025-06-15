@@ -26,7 +26,7 @@ export function RedemptionCarouselCard() {
     },
     {
       name: "Venice",
-      image: "https://www.aman.com/sites/default/files/2023-05/aman-venice-exterior.jpg",
+      image: "https://www.aman.com/sites/default/files/styles/two_portrait_images_extra_large/public/2022-06/DoNotUse_Meditations_Venice5.jpg?itok=90L2qOTI",
       description: "Floating City"
     },
     {

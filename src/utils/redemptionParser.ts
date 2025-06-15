@@ -22,17 +22,32 @@ export function parseRedemptionsCSV(): RedemptionData[] {
   const lines = redemptionsCSV.trim().split('\n');
   const headers = lines[0].split(',');
   
+  console.log('CSV headers:', headers);
+  console.log('First few lines:', lines.slice(0, 3));
+  
   return lines.slice(1).map((line, index) => {
     const values = line.split(',');
-    const pointsValue = parseFloat(values[3]);
+    console.log(`Row ${index + 1}:`, values);
+    
+    // Handle the points value - it might have quotes or extra whitespace
+    const pointsString = values[3]?.trim().replace(/"/g, '');
+    const pointsValue = parseFloat(pointsString);
+    
+    console.log(`Points string: "${pointsString}", parsed: ${pointsValue}, isNaN: ${isNaN(pointsValue)}`);
     
     return {
-      date: values[0],
-      description: values[1],
-      category: values[2],
+      date: values[0]?.trim().replace(/"/g, ''),
+      description: values[1]?.trim().replace(/"/g, ''),
+      category: values[2]?.trim().replace(/"/g, ''),
       points: Math.abs(pointsValue) // Apply absolute value to convert negative to positive
     };
-  }).filter(redemption => !isNaN(redemption.points)); // Filter out any NaN values
+  }).filter(redemption => {
+    const isValid = !isNaN(redemption.points) && redemption.points > 0;
+    if (!isValid) {
+      console.log('Filtering out invalid redemption:', redemption);
+    }
+    return isValid;
+  });
 }
 
 export function calculateRedemptionStats(redemptions: RedemptionData[]): RedemptionStats {

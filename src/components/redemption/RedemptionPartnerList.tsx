@@ -1,10 +1,11 @@
+
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { parseRedemptionsCSV, getTopPartners } from "@/utils/redemptionParser";
 
 // Static partner images mapping - updated with new images
 const partnerImages: Record<string, string> = {
-  "DELTA AIRLINES": "https://i.imgur.com/GOB99mj.png",
+  "DELTA AIRLINES": "https://i.imgur.com/9COmOAx.jpeg",
   "MARRIOTT": "https://i.imgur.com/B2aML3d.jpeg",
   "AIR FRANCE": "https://i.imgur.com/cVxZ2Z6.jpeg"
 };

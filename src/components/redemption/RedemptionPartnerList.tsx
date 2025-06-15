@@ -49,6 +49,9 @@ export function RedemptionPartnerList({
         <CardTitle className="text-xl font-semibold" style={{ color: '#00175a' }}>
           Top partners
         </CardTitle>
+        <p className="text-sm text-muted-foreground">
+          Redemptions by partner
+        </p>
       </CardHeader>
       <CardContent className="flex-1 overflow-hidden">
         <div className="space-y-2 pb-6">

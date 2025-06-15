@@ -7,27 +7,27 @@ export function RedemptionCarouselCard() {
   const destinations = [
     {
       name: "Frankfurt",
-      image: "https://images.unsplash.com/photo-1539650116574-75c0c6d36b3c?w=400&h=300&fit=crop",
+      image: "https://www.aman.com/sites/default/files/2022-12/Aman%20New%20York%2C%20USA%2011.jpg",
       description: "Gateway to Europe"
     },
     {
       name: "New York",
-      image: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=400&h=300&fit=crop",
+      image: "https://www.aman.com/sites/default/files/styles/carousel_cards_extra_large/public/2022-11/Aman%20New%20York%2C%20USA%20-%20Spa%20%26%20Wellness%2C%20Pool%202.jpg?itok=DBMc8qlk",
       description: "The Big Apple"
     },
     {
       name: "Los Angeles",
-      image: "https://images.unsplash.com/photo-1534190239940-9ba8944ea261?w=400&h=300&fit=crop",
+      image: "https://www.aman.com/sites/default/files/2023-08/aman-ny-vignettes-6754.jpg",
       description: "City of Angels"
     },
     {
       name: "Phoenix",
-      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop",
+      image: "https://www.aman.com/sites/default/files/styles/media_text_side_by_side_portrait_xwide_up/public/2023-08/aman_new_york_usa_-_three-bedroom_home_bathroom.jpg?itok=C3oFbV3i",
       description: "Desert Metropolis"
     },
     {
       name: "Barcelona",
-      image: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=400&h=300&fit=crop",
+      image: "https://www.aman.com/sites/default/files/2022-12/Aman%20New%20York%2C%20USA%2011.jpg",
       description: "Mediterranean Charm"
     }
   ];
@@ -40,22 +40,24 @@ export function RedemptionCarouselCard() {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <Carousel className="w-full max-w-xs mx-auto">
+        <Carousel className="w-full max-w-6xl mx-auto">
           <CarouselContent>
             {destinations.map((destination, index) => (
-              <CarouselItem key={index}>
+              <CarouselItem key={index} className="basis-full sm:basis-1/2 lg:basis-1/4">
                 <div className="p-1">
-                  <Card>
-                    <CardContent className="flex flex-col items-center justify-center p-6">
-                      <img 
-                        src={destination.image} 
-                        alt={destination.name}
-                        className="w-full h-32 object-cover rounded-lg mb-4"
-                      />
-                      <h3 className="text-lg font-semibold mb-2" style={{ color: '#00175a' }}>
+                  <Card className="relative overflow-hidden h-48 group cursor-pointer">
+                    <div 
+                      className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-105"
+                      style={{ 
+                        backgroundImage: `url(${destination.image})`,
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-black/40 transition-opacity duration-300 group-hover:bg-black/50" />
+                    <CardContent className="relative z-10 flex flex-col items-center justify-center h-full p-6 text-center">
+                      <h3 className="text-xl font-bold text-white mb-2 drop-shadow-lg">
                         {destination.name}
                       </h3>
-                      <p className="text-sm text-gray-600 text-center">
+                      <p className="text-sm text-white/90 drop-shadow-md">
                         {destination.description}
                       </p>
                     </CardContent>

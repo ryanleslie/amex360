@@ -1,4 +1,3 @@
-
 import redemptionsCSV from "@/data/redemptions.csv?raw";
 
 export interface RedemptionData {
@@ -23,15 +22,25 @@ export function parseRedemptionsCSV(): RedemptionData[] {
   const lines = redemptionsCSV.trim().split('\n');
   const headers = lines[0].split(',');
   
-  return lines.slice(1).map((line, index) => {
-    const values = line.split(',');
-    return {
-      date: values[0],
-      description: values[1],
-      category: values[2],
-      points: Math.abs(parseInt(values[3])) // Convert to positive number
-    };
-  });
+  return lines.slice(1)
+    .map((line, index) => {
+      const values = line.split(',');
+      const pointsValue = parseFloat(values[3]);
+      
+      // Skip rows with invalid points data
+      if (isNaN(pointsValue)) {
+        console.warn(`Skipping row ${index + 2}: Invalid points value "${values[3]}"`);
+        return null;
+      }
+      
+      return {
+        date: values[0],
+        description: values[1],
+        category: values[2],
+        points: Math.abs(pointsValue) // Convert negative redemptions to positive display values
+      };
+    })
+    .filter((redemption): redemption is RedemptionData => redemption !== null);
 }
 
 export function calculateRedemptionStats(redemptions: RedemptionData[]): RedemptionStats {

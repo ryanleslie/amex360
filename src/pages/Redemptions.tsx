@@ -48,8 +48,8 @@ const Redemptions = () => {
   }, []); // Empty dependency array since destinationImages is now stable
 
   React.useEffect(() => {
-    // Load the loading-cube-scale animation
-    fetch("/loading-cube-scale.json")
+    // Load the loader-diamond-spin animation
+    fetch("/loader-diamond-spin.json")
       .then(response => response.json())
       .then(data => setAnimationData(data))
       .catch(error => console.error("Failed to load animation:", error));

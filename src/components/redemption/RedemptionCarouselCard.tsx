@@ -35,24 +35,9 @@ export function RedemptionCarouselCard() {
       description: "Mediterranean Charm"
     },
     {
-      name: "Madrid",
-      image: "https://images.unsplash.com/photo-1466442929976-97f336a657be?w=400&h=300&fit=crop",
-      description: "Spanish Capital"
-    },
-    {
       name: "Dubai",
       image: "https://www.aman.com/sites/default/files/styles/media_text_side_by_side_x_wide/public/2025-01/aman_residences_dubai_-_external_terrace.jpg?itok=j3HhMH9e",
       description: "Desert Oasis"
-    },
-    {
-      name: "Seoul",
-      image: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=400&h=300&fit=crop",
-      description: "Korean Capital"
-    },
-    {
-      name: "Paris",
-      image: "https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=400&h=300&fit=crop",
-      description: "City of Light"
     },
     {
       name: "Bodrum",
@@ -61,7 +46,7 @@ export function RedemptionCarouselCard() {
     },
     {
       name: "Kyoto",
-      image: "https://images.unsplash.com/photo-1492321936769-b49830bc1d1e?w=400&h=300&fit=crop",
+      image: "https://www.aman.com/sites/default/files/2025-03/aman-kyoto-sakura_0.jpg",
       description: "Ancient Capital"
     }
   ];

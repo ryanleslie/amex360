@@ -48,14 +48,14 @@ export function RedemptionDestinationList() {
                           <span className="font-bold">{destination.name}</span>
                         </div>
                         <p className="text-xs text-gray-500">
-                          {destination.trips} trip{destination.trips !== 1 ? 's' : ''}
+                          {destination.trips} redemption{destination.trips !== 1 ? 's' : ''}
                         </p>
                       </div>
                     </div>
                     <div className="flex items-center justify-end sm:justify-end">
                       <div className="text-right">
                         <p className="text-xs text-muted-foreground">
-                          Redemption
+                          Total points
                         </p>
                         <div className="text-lg font-bold tabular-nums" style={{ color: '#00175a' }}>
                           {destination.pointsRedeemed.toLocaleString()} pts

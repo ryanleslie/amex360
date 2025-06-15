@@ -35,6 +35,10 @@ export function RedemptionMetricsCards({
     ? Math.round((stats.accommodationPoints / stats.totalPointsRedeemed) * 100)
     : 0;
 
+  const avgRedemptionPercentage = stats.totalPointsRedeemed > 0 
+    ? Math.round((stats.averageRedemption / stats.totalPointsRedeemed) * 100)
+    : 0;
+
   const cardData = [
     {
       title: "Points Redeemed",
@@ -73,7 +77,7 @@ export function RedemptionMetricsCards({
     {
       title: "Avg Redemption",
       value: stats.averageRedemption,
-      badge: `${Math.round(stats.totalPointsRedeemed / stats.totalBookings)} pts`,
+      badge: `${avgRedemptionPercentage}%`,
       icon: TrendingUp,
       footer: "Points per redemption",
       description: `Average redemption ${getTimeRangeDescription(filters.selectedTimeRange)}`,

@@ -44,6 +44,11 @@ export function RedemptionCarouselCard() {
       image: "https://www.aman.com/sites/default/files/styles/carousel_cards_extra_large/public/2022-11/Aman%20New%20York%2C%20USA%20-%20Spa%20%26%20Wellness%2C%20Pool%202.jpg?itok=DBMc8qlk",
       description: "The Big Apple"
     },
+    {
+      name: "Las Vegas",
+      image: "https://www.aman.com/sites/default/files/styles/media_text_side_by_side_x_wide/public/2024-02/aman_new_york_usa_-_aman_residences_new_york_entrance.jpg?itok=VGxlDQTG",
+      description: "Entertainment Capital"
+    },
   ];
 
   return (

@@ -56,10 +56,14 @@ export function RedemptionPartnerList({
       <CardContent className="flex-1 overflow-hidden">
         <div className="space-y-2 pb-6">
           {displayedPartners.map((partner, index) => {
+            const isSelected = selectedPartner === partner.name;
+            
             return (
               <div key={partner.name} className="p-1">
                 <Card
-                  className="bg-gradient-to-b from-white to-gray-50 cursor-pointer transition-all hover:shadow-md animate-fade-in focus:outline-none"
+                  className={`bg-gradient-to-b from-white to-gray-50 cursor-pointer transition-all hover:shadow-md animate-fade-in ring-0 focus:ring-0 focus-visible:ring-0 ${
+                    isSelected ? 'ring-2 ring-blue-500 shadow-md' : ''
+                  }`}
                   style={{
                     animationDelay: `${index * 100}ms`,
                     animationFillMode: 'both'

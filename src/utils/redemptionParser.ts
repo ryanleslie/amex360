@@ -23,27 +23,13 @@ export function parseRedemptionsCSV(): RedemptionData[] {
   const lines = redemptionsCSV.trim().split('\n');
   const headers = lines[0].split(',');
   
-  console.log('Redemptions CSV headers:', headers);
-  console.log('Total redemption lines:', lines.length);
-  
   return lines.slice(1).map((line, index) => {
     const values = line.split(',');
-    console.log(`Redemption line ${index + 1} values:`, values);
-    
-    // Parse points with better error handling
-    const pointsStr = values[3];
-    const pointsNum = parseInt(pointsStr);
-    const finalPoints = isNaN(pointsNum) ? 0 : Math.abs(pointsNum);
-    
-    if (isNaN(pointsNum)) {
-      console.warn(`Invalid points value at line ${index + 1}:`, pointsStr);
-    }
-    
     return {
-      date: values[0] || '',
-      description: values[1] || '',
-      category: values[2] || '',
-      points: finalPoints
+      date: values[0],
+      description: values[1],
+      category: values[2],
+      points: Math.abs(parseInt(values[3])) // Convert to positive number
     };
   });
 }

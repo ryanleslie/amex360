@@ -85,7 +85,7 @@ export function RedemptionDestinationList() {
                     <div className="flex items-center justify-end sm:justify-end">
                       <div className="text-right">
                         <p className="text-xs text-muted-foreground">
-                          Points redeemed
+                          Redemption
                         </p>
                         <div className="text-lg font-bold tabular-nums" style={{ color: '#00175a' }}>
                           {destination.pointsRedeemed.toLocaleString()} pts

@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 
 export function RedemptionCarouselCard() {
   const destinations = [
@@ -40,10 +40,16 @@ export function RedemptionCarouselCard() {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <Carousel className="w-full max-w-6xl mx-auto">
-          <CarouselContent>
+        <Carousel 
+          className="w-full max-w-6xl mx-auto"
+          opts={{
+            align: "center",
+            loop: false,
+          }}
+        >
+          <CarouselContent className="-ml-2 md:-ml-4">
             {destinations.map((destination, index) => (
-              <CarouselItem key={index} className="basis-full sm:basis-1/2 lg:basis-1/4">
+              <CarouselItem key={index} className="pl-2 md:pl-4 basis-4/5 md:basis-1/4">
                 <div className="p-1">
                   <Card className="relative overflow-hidden h-48 group cursor-pointer">
                     <div 
@@ -68,8 +74,6 @@ export function RedemptionCarouselCard() {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
         </Carousel>
       </CardContent>
     </Card>

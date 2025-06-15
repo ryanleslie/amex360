@@ -1,17 +1,15 @@
 
 import * as React from "react"
 import { ColumnDef } from "@tanstack/react-table"
-import { ChevronsUpDown, Plane, Hotel } from "lucide-react"
+import { ChevronsUpDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 
 interface FormattedRedemption {
   id: string;
   date: string;
   redemptionAmount: number;
   partner: string;
-  category: 'flight' | 'hotel';
-  value: string;
+  category: string;
 }
 
 export const useRedemptionColumns = (): ColumnDef<FormattedRedemption>[] => {
@@ -69,15 +67,8 @@ export const useRedemptionColumns = (): ColumnDef<FormattedRedemption>[] => {
       cell: ({ row }) => {
         const category = row.getValue("category") as string;
         return (
-          <div className="flex items-center gap-2">
-            {category === "flight" ? (
-              <Plane className="h-4 w-4 text-blue-500" />
-            ) : (
-              <Hotel className="h-4 w-4 text-green-500" />
-            )}
-            <Badge variant="outline" className="text-xs">
-              {category === "flight" ? "Flight" : "Hotel"}
-            </Badge>
+          <div className="text-sm text-muted-foreground">
+            {category}
           </div>
         );
       },
@@ -92,19 +83,6 @@ export const useRedemptionColumns = (): ColumnDef<FormattedRedemption>[] => {
         return (
           <div className="text-right font-medium tabular-nums text-sm">
             {formatted} pts
-          </div>
-        )
-      },
-    },
-    {
-      accessorKey: "value",
-      header: () => <div className="text-right">Value</div>,
-      cell: ({ row }) => {
-        const value = row.getValue("value") as string;
-
-        return (
-          <div className="text-right font-medium tabular-nums text-sm text-green-600">
-            {value}
           </div>
         )
       },

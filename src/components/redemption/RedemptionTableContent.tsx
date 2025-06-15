@@ -1,4 +1,3 @@
-
 import * as React from "react"
 import { Table as ReactTable, flexRender } from "@tanstack/react-table"
 import {
@@ -16,8 +15,7 @@ interface FormattedRedemption {
   date: string;
   redemptionAmount: number;
   partner: string;
-  category: 'flight' | 'hotel';
-  value: string;
+  category: string;
 }
 
 interface RedemptionTableContentProps {

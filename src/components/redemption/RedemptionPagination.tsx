@@ -1,4 +1,3 @@
-
 import * as React from "react"
 import { Table as ReactTable } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
@@ -14,8 +13,7 @@ interface FormattedRedemption {
   date: string;
   redemptionAmount: number;
   partner: string;
-  category: 'flight' | 'hotel';
-  value: string;
+  category: string;
 }
 
 interface RedemptionPaginationProps {

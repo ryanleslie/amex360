@@ -1,4 +1,3 @@
-
 import * as React from "react"
 import {
   useReactTable,
@@ -19,8 +18,7 @@ interface FormattedRedemption {
   date: string;
   redemptionAmount: number;
   partner: string;
-  category: 'flight' | 'hotel';
-  value: string;
+  category: string;
 }
 
 interface RedemptionTableProps {

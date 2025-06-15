@@ -5,14 +5,13 @@ export interface RedemptionData {
   date: string;
   description: string;
   category: string;
-  destination: string;
   points: number;
 }
 
 export interface RedemptionStats {
   totalPointsRedeemed: number;
   totalBookings: number;
-  uniqueDestinations: number;
+  uniquePartners: number;
   averageRedemption: number;
 }
 
@@ -26,8 +25,7 @@ export function parseRedemptionsCSV(): RedemptionData[] {
       date: values[0],
       description: values[1],
       category: values[2],
-      destination: values[3],
-      points: Math.abs(parseInt(values[4])) // Convert to positive number
+      points: Math.abs(parseInt(values[3])) // Convert to positive number
     };
   });
 }
@@ -35,34 +33,15 @@ export function parseRedemptionsCSV(): RedemptionData[] {
 export function calculateRedemptionStats(redemptions: RedemptionData[]): RedemptionStats {
   const totalPointsRedeemed = redemptions.reduce((sum, r) => sum + r.points, 0);
   const totalBookings = redemptions.length;
-  const uniqueDestinations = new Set(redemptions.map(r => r.destination)).size;
+  const uniquePartners = new Set(redemptions.map(r => r.description)).size;
   const averageRedemption = Math.round(totalPointsRedeemed / totalBookings);
 
   return {
     totalPointsRedeemed,
     totalBookings,
-    uniqueDestinations,
+    uniquePartners,
     averageRedemption
   };
-}
-
-export function getTopDestinations(redemptions: RedemptionData[], limit: number = 5) {
-  const destinationTotals = redemptions.reduce((acc, redemption) => {
-    if (!acc[redemption.destination]) {
-      acc[redemption.destination] = {
-        name: redemption.destination,
-        pointsRedeemed: 0,
-        trips: 0
-      };
-    }
-    acc[redemption.destination].pointsRedeemed += redemption.points;
-    acc[redemption.destination].trips += 1;
-    return acc;
-  }, {} as Record<string, { name: string; pointsRedeemed: number; trips: number }>);
-
-  return Object.values(destinationTotals)
-    .sort((a, b) => b.pointsRedeemed - a.pointsRedeemed)
-    .slice(0, limit);
 }
 
 export function getTopPartners(redemptions: RedemptionData[], limit: number = 5) {
@@ -90,7 +69,6 @@ export function formatRedemptionsForTable(redemptions: RedemptionData[]) {
     date: redemption.date,
     redemptionAmount: redemption.points,
     partner: redemption.description,
-    category: redemption.category.toLowerCase() === 'airfare' ? 'flight' as const : 'hotel' as const,
-    value: `$${Math.round(redemption.points * 0.012)}` // Rough estimate of 1.2 cents per point
+    category: redemption.category
   }));
 }

@@ -127,14 +127,17 @@ export function RewardCardList({ filters, onCardClick }: RewardCardListProps) {
         <ScrollArea className="h-full pr-4">
           <div className="space-y-4 pb-6">
             {cardData.map((card, index) => (
-              <div key={card.name} className="p-1"> {/* <-- new padding wrapper here */}
-                <Card 
-                  className={`bg-gradient-to-b from-white to-gray-50 cursor-pointer transition-all hover:shadow-md animate-fade-in ${
-                    getSelectedCard(card) ? "ring-2 ring-primary" : ""}`}
+              <div key={card.name} className="p-1">
+                <Card
+                  // Remove the ring from focus/active states
+                  className={`bg-gradient-to-b from-white to-gray-50 cursor-pointer transition-all hover:shadow-md animate-fade-in ring-0 focus:ring-0 focus-visible:ring-0 ${
+                    getSelectedCard(card) ? "ring-2 ring-primary" : ""
+                  }`}
                   style={{
                     animationDelay: `${index * 100}ms`,
                     animationFillMode: 'both'
                   }}
+                  tabIndex={0} // Allows keyboard navigation (optional)
                   onClick={() => handleCardClick(card)}
                 >
                   <CardContent className="p-4">

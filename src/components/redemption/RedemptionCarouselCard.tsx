@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
@@ -53,6 +54,11 @@ export function RedemptionCarouselCard() {
       name: "Paris",
       image: "https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=400&h=300&fit=crop",
       description: "City of Light"
+    },
+    {
+      name: "Bodrum",
+      image: "https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?w=400&h=300&fit=crop",
+      description: "Turkish Riviera"
     }
   ];
 

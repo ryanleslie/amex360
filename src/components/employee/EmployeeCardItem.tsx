@@ -1,7 +1,9 @@
+
 import React from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Switch } from "@/components/ui/switch"
 import { useEmployeeBonus } from "@/hooks/useEmployeeBonusContext"
+import { formatDisplayCardName } from "@/utils/transactionUtils"
 
 interface CardData {
   name: string
@@ -56,22 +58,20 @@ export function EmployeeCardItem({
     onCardClick(card)
   }
 
-  // Format the amount similar to transaction table - remove "-" and add "+" for positive
   const formatAmount = (amount: number) => {
     const absAmount = Math.abs(amount)
     const formatted = new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
     }).format(absAmount)
-    
     return amount >= 0 ? `+${formatted}` : formatted
   }
 
-  // Keep the dash in the display for card names
   const displayLastFive = card.lastFive
-
-  // Determine text color for amount
   const amountTextColor = card.amount >= 0 ? "text-[#008767]" : ""
+
+  // Apply consistent displayName formatting
+  const displayCardName = `${formatDisplayCardName(card.cardType)}\n(${displayLastFive})`
 
   return (
     <Card 
@@ -94,8 +94,7 @@ export function EmployeeCardItem({
               className="w-16 h-10 object-cover rounded"
             />
             <div className="text-sm font-medium leading-tight whitespace-pre-line">
-              {card.cardType}
-              {'\n'}({displayLastFive})
+              {displayCardName}
             </div>
           </div>
           <div className="flex items-center justify-end sm:justify-end">

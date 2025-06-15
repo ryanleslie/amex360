@@ -1,4 +1,3 @@
-
 // Custom global filter function for descriptions and amounts
 export const globalFilterFn = (row: any, columnId: string, value: string) => {
   const description = String(row.getValue("description")).toLowerCase()
@@ -33,4 +32,12 @@ export const formatAccountName = (accountName: string | undefined | null): strin
   formatted = formatted.replace(/\s+/g, ' ').trim()
   
   return formatted
+}
+
+// Standard formatter to remove "Card" and extra terms from display name
+export const formatDisplayCardName = (cardName: string | undefined | null): string => {
+  if (!cardName) return "";
+  let formatted = cardName.replace(/\bcard\b/gi, "").replace(/\s+/g, " ").trim();
+  // You can further clean up other terms here if wanted, e.g. .replace(/rewards/gi, '')
+  return formatted;
 }

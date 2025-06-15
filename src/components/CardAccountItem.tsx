@@ -2,6 +2,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { getCardImage } from "@/utils/cardImageUtils";
 import { CardData } from "@/utils/cardDataUtils";
+import { formatDisplayCardName } from "@/utils/transactionUtils";
 
 interface CardAccountItemProps {
   card: CardData;
@@ -21,21 +22,8 @@ export function CardAccountItem({ card, index, onCardClick, isSelected }: CardAc
     }
   };
 
-  // Map display name for specific cards
-  const getDisplayName = (cardName: string) => {
-    console.log("Card name being processed:", JSON.stringify(cardName));
-    if (cardName === 'Bonvoy Business Amex\n(-1009)') {
-      return 'Marriott Bonvoy Business\n(-1009)';
-    }
-    if (cardName === 'Amazon Prime\n(-2003)') {
-      return 'Amazon Business Prime\n(-2003)';
-    }
-    // Also check for the version without line break
-    if (cardName === 'Amazon Prime (-2003)') {
-      return 'Amazon Business Prime (-2003)';
-    }
-    return cardName;
-  };
+  // Use standard formatter for display name
+  const getDisplayName = (cardName: string) => formatDisplayCardName(cardName);
 
   return (
     <Card 

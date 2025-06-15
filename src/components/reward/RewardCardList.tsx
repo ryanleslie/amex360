@@ -11,6 +11,7 @@ import { useRewardCalculations } from "@/hooks/useRewardCalculations"
 import { FilterState } from "@/hooks/useFilterState"
 import { rewardFilterService } from "@/services/rewardFilterService"
 import { getCardImage } from "@/utils/cardImageUtils"
+import { formatDisplayCardName } from "@/utils/transactionUtils"
 import * as React from "react"
 
 interface RewardCardListProps {
@@ -67,7 +68,6 @@ export function RewardCardList({ filters, onCardClick }: RewardCardListProps) {
     return allCardData.filter(card => card.name === cardName);
   }, [allCardData, filters.selectedCard])
 
-  // Dynamic height stays the same
   const dynamicHeight = React.useMemo(() => {
     const baseHeight = 200
     const cardHeight = 120
@@ -76,18 +76,16 @@ export function RewardCardList({ filters, onCardClick }: RewardCardListProps) {
     return Math.min(calculatedHeight, maxHeight)
   }, [cardData.length])
 
-  // When a card is clicked, filter by card name only (ignore last five)
   const handleCardClick = (card: any) => {
     if (!onCardClick) return
     const isSelected = (filters.selectedCard !== "all") && (card.name === (filters.selectedCard.match(/^(.*?)(?: \(-?\d{5}\))?$/)?.[1]?.trim() || filters.selectedCard));
     if (isSelected) {
       onCardClick("all");
     } else {
-      onCardClick(card.name); // filter by name only, not displayName
+      onCardClick(card.name);
     }
   }
 
-  // Highlight if card name matches (ignore last five)
   const getSelectedCard = (card: any) => {
     if (!filters.selectedCard || filters.selectedCard === "all") return false;
     const cardName = filters.selectedCard.match(/^(.*?)(?: \(-?\d{5}\))?$/)?.[1]?.trim() || filters.selectedCard;
@@ -112,7 +110,7 @@ export function RewardCardList({ filters, onCardClick }: RewardCardListProps) {
 
   // Remove 'card' from display name for reward card list
   const getDisplayName = (d: string) =>
-    d.replace(/\bcard\b/gi, '').replace(/\s+/g, ' ').trim()
+    formatDisplayCardName(d)
 
   return (
     <Card 
@@ -131,7 +129,6 @@ export function RewardCardList({ filters, onCardClick }: RewardCardListProps) {
             {cardData.map((card, index) => (
               <div key={card.name} className="p-1">
                 <Card
-                  // Remove ANY ring for selection/focus/active
                   className="bg-gradient-to-b from-white to-gray-50 cursor-pointer transition-all hover:shadow-md animate-fade-in ring-0 focus:ring-0 focus-visible:ring-0"
                   style={{
                     animationDelay: `${index * 100}ms`,
@@ -173,4 +170,3 @@ export function RewardCardList({ filters, onCardClick }: RewardCardListProps) {
     </Card>
   )
 }
-

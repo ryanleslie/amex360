@@ -10,6 +10,9 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
     watch: {
+      // Use polling to avoid EMFILE errors
+      usePolling: true,
+      interval: 1000,
       // Reduce the number of files being watched
       ignored: [
         '**/node_modules/**',
@@ -25,10 +28,6 @@ export default defineConfig(({ mode }) => ({
         '**/.DS_Store',
         '**/Thumbs.db'
       ],
-      // Use polling as a fallback to reduce file descriptor usage
-      usePolling: false,
-      // Reduce the number of file watchers
-      interval: 1000,
     },
   },
   plugins: [

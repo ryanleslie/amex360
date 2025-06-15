@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
@@ -48,14 +49,14 @@ export function RedemptionCarouselCard() {
 
   return (
     <Card className="bg-gradient-to-b from-white to-gray-100">
-      <CardHeader>
-        <CardTitle className="text-xl font-semibold" style={{ color: '#00175a' }}>
+      <CardHeader className="pb-4">
+        <CardTitle className="text-lg sm:text-xl font-semibold" style={{ color: '#00175a' }}>
           Popular destinations
         </CardTitle>
       </CardHeader>
       <CardContent className="px-0">
         <Carousel 
-          className="w-full px-6"
+          className="w-full px-3 sm:px-6"
           opts={{
             align: "center",
             loop: true,
@@ -63,9 +64,9 @@ export function RedemptionCarouselCard() {
         >
           <CarouselContent className="-ml-1 md:-ml-2">
             {destinations.map((destination, index) => (
-              <CarouselItem key={index} className="pl-1 md:pl-2 basis-4/5 md:basis-1/4">
+              <CarouselItem key={index} className="pl-1 md:pl-2 basis-4/5 sm:basis-3/5 md:basis-1/3 lg:basis-1/4">
                 <div className="p-1">
-                  <Card className="relative overflow-hidden h-48 group cursor-pointer">
+                  <Card className="relative overflow-hidden h-40 sm:h-48 group cursor-pointer">
                     <div 
                       className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-105"
                       style={{ 
@@ -73,12 +74,12 @@ export function RedemptionCarouselCard() {
                       }}
                     />
                     <div className="absolute inset-0 bg-black/40 transition-opacity duration-300 group-hover:bg-black/50" />
-                    <CardContent className="relative z-10 flex flex-col justify-end items-start h-full p-4">
+                    <CardContent className="relative z-10 flex flex-col justify-end items-start h-full p-3 sm:p-4">
                       <div className="text-left">
-                        <h3 className="text-xl font-bold text-white drop-shadow-lg leading-tight">
+                        <h3 className="text-lg sm:text-xl font-bold text-white drop-shadow-lg leading-tight">
                           {destination.name}
                         </h3>
-                        <p className="text-sm text-white/90 drop-shadow-md leading-tight mt-0.5">
+                        <p className="text-xs sm:text-sm text-white/90 drop-shadow-md leading-tight mt-0.5">
                           {destination.description}
                         </p>
                       </div>

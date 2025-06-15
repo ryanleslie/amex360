@@ -54,7 +54,7 @@ const Redemptions = () => {
   }
 
   return (
-    <div className="flex-1">
+    <div className="flex-1 min-h-screen">
       <RedemptionsContent
         filters={filters}
         updateFilter={updateFilter}

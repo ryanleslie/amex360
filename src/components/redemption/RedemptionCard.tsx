@@ -107,10 +107,10 @@ export function RedemptionCard({
 
   return (
     <Card className="bg-gradient-to-b from-white to-gray-100">
-      <CardHeader>
+      <CardHeader className="pb-4">
         <div className="flex justify-between items-start">
           <div className="flex-1">
-            <CardTitle className="text-xl font-semibold" style={{ color: '#00175a' }}>
+            <CardTitle className="text-lg sm:text-xl font-semibold" style={{ color: '#00175a' }}>
               Recent redemptions
             </CardTitle>
             
@@ -128,13 +128,13 @@ export function RedemptionCard({
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-end">
-          <div>
+        <div className="flex flex-col space-y-3 sm:space-y-0 sm:flex-row sm:justify-between sm:items-end gap-3">
+          <div className="flex-1 sm:max-w-sm">
             <Input
               placeholder="Search redemptions..."
               value={searchFilter}
               onChange={(event) => setSearchFilter(event.target.value)}
-              className="max-w-sm"
+              className="w-full"
             />
           </div>
 

@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
@@ -48,24 +47,24 @@ export function RedemptionCarouselCard() {
   ];
 
   return (
-    <Card className="w-full bg-gradient-to-b from-white to-gray-100">
-      <CardHeader className="pb-4">
+    <Card className="bg-gradient-to-b from-white to-gray-100">
+      <CardHeader>
         <CardTitle className="text-xl font-semibold" style={{ color: '#00175a' }}>
           Popular destinations
         </CardTitle>
       </CardHeader>
-      <CardContent className="p-0">
+      <CardContent className="px-0">
         <Carousel 
-          className="w-full"
+          className="w-full px-6"
           opts={{
-            align: "start",
+            align: "center",
             loop: true,
           }}
         >
-          <CarouselContent className="ml-0 px-6">
+          <CarouselContent className="-ml-1 md:-ml-2">
             {destinations.map((destination, index) => (
-              <CarouselItem key={index} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
-                <div className="h-full">
+              <CarouselItem key={index} className="pl-1 md:pl-2 basis-4/5 md:basis-1/4">
+                <div className="p-1">
                   <Card className="relative overflow-hidden h-48 group cursor-pointer">
                     <div 
                       className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-105"

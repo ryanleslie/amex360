@@ -15,7 +15,7 @@ const dummyRedemptions = [
     date: "2024-06-10",
     redemptionAmount: 75000,
     partner: "Delta Airlines",
-    category: "flight",
+    category: "flight" as const,
     value: "$950"
   },
   {
@@ -23,7 +23,7 @@ const dummyRedemptions = [
     date: "2024-06-08",
     redemptionAmount: 45000,
     partner: "Marriott Hotels",
-    category: "hotel",
+    category: "hotel" as const,
     value: "$360"
   },
   {
@@ -31,7 +31,7 @@ const dummyRedemptions = [
     date: "2024-06-05",
     redemptionAmount: 25000,
     partner: "United Airlines",
-    category: "flight",
+    category: "flight" as const,
     value: "$320"
   },
   {
@@ -39,7 +39,7 @@ const dummyRedemptions = [
     date: "2024-06-03",
     redemptionAmount: 60000,
     partner: "Hilton Hotels",
-    category: "hotel",
+    category: "hotel" as const,
     value: "$480"
   },
   {
@@ -47,7 +47,7 @@ const dummyRedemptions = [
     date: "2024-06-01",
     redemptionAmount: 85000,
     partner: "American Airlines",
-    category: "flight",
+    category: "flight" as const,
     value: "$1,100"
   },
   {
@@ -55,7 +55,7 @@ const dummyRedemptions = [
     date: "2024-05-28",
     redemptionAmount: 35000,
     partner: "Hyatt Hotels",
-    category: "hotel",
+    category: "hotel" as const,
     value: "$280"
   },
   {
@@ -63,7 +63,7 @@ const dummyRedemptions = [
     date: "2024-05-25",
     redemptionAmount: 55000,
     partner: "Southwest Airlines",
-    category: "flight",
+    category: "flight" as const,
     value: "$650"
   },
   {
@@ -71,7 +71,7 @@ const dummyRedemptions = [
     date: "2024-05-22",
     redemptionAmount: 40000,
     partner: "IHG Hotels",
-    category: "hotel",
+    category: "hotel" as const,
     value: "$320"
   }
 ];

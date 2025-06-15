@@ -17,7 +17,7 @@ export function RedemptionCarouselCard() {
     },
     {
       name: "Marrakech",
-      image: "https://www.aman.com/sites/default/files/2023-08/aman-ny-vignettes-6754.jpg",
+      image: "https://www.aman.com/sites/default/files/2021-12/Amanjena_Gallery_1.jpg",
       description: "Pearl of the South"
     },
     {

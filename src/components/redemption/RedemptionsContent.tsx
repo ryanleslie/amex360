@@ -4,7 +4,7 @@ import { RedemptionsHeader } from "./RedemptionsHeader";
 import { RedemptionMetricsCards } from "./RedemptionMetricsCards";
 import { RedemptionCarouselCard } from "./RedemptionCarouselCard";
 import { RedemptionCard } from "./RedemptionCard";
-import { RedemptionDestinationList } from "./RedemptionDestinationList";
+import { RedemptionPartnerList } from "./RedemptionPartnerList";
 import { FilterState } from "@/hooks/useFilterState";
 
 interface RedemptionsContentProps {
@@ -39,7 +39,7 @@ export function RedemptionsContent({
         {/* Destinations Carousel - Full Width */}
         <RedemptionCarouselCard />
 
-        {/* Table and Destination List Row - 2/3, 1/3 split */}
+        {/* Table and Partner List Row - 2/3, 1/3 split */}
         <div className="grid gap-6 lg:grid-cols-3">
           {/* Redemption Table - 2/3 width */}
           <div className="lg:col-span-2">
@@ -48,9 +48,9 @@ export function RedemptionsContent({
             />
           </div>
           
-          {/* Top Destinations List - 1/3 width */}
+          {/* Top Partners List - 1/3 width */}
           <div className="lg:col-span-1">
-            <RedemptionDestinationList />
+            <RedemptionPartnerList />
           </div>
         </div>
       </div>

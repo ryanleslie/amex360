@@ -1,4 +1,3 @@
-
 import {
   Card,
   CardContent,
@@ -27,15 +26,18 @@ export function RewardCardList({ filters, onCardClick }: RewardCardListProps) {
       ...filters,
       selectedCard: "all" // Always show all cards
     }).reduce((acc, reward) => {
-      const cardName = reward.card
-      acc[cardName] = (acc[cardName] || 0) + reward.points
-      return acc
-    }, {} as Record<string, number>)
+      // Use card + last_five for uniqueness
+      const cardKey = reward.last_five && reward.last_five.length > 0
+        ? `${reward.card} (${reward.last_five})`
+        : reward.card;
+      acc[cardKey] = (acc[cardKey] || 0) + reward.points;
+      return acc;
+    }, {} as Record<string, number>);
 
     return Object.entries(cardTotals)
       .map(([card, points]) => ({
         name: card.replace(/\bcard\b/gi, '').replace(/\(-\d+\)/g, '').trim(),
-        fullName: card,
+        fullName: card,    // fullName with last_five embedded
         points,
         displayName: card.replace(/\bcard\b/gi, '').trim().replace(/\s*(\([^)]+\))/, '\n$1')
       }))
@@ -48,6 +50,8 @@ export function RewardCardList({ filters, onCardClick }: RewardCardListProps) {
       return allCardData
     }
     
+    // For comparison, ensure we match the fullName exactly
+    // filters.selectedCard is in the format "Business Checking (-08552)"
     return allCardData.filter(card => card.fullName === filters.selectedCard)
   }, [allCardData, filters.selectedCard])
 

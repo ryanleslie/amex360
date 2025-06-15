@@ -49,12 +49,12 @@ export function RedemptionCarouselCard() {
 
   return (
     <Card className="bg-gradient-to-b from-white to-gray-100 hidden lg:block">
-      <CardHeader>
+      <CardHeader className="pb-2">
         <CardTitle className="text-xl font-semibold" style={{ color: '#00175a' }}>
           Popular destinations
         </CardTitle>
       </CardHeader>
-      <CardContent className="px-0">
+      <CardContent className="px-0 pt-2">
         <Carousel 
           className="w-full px-6"
           opts={{

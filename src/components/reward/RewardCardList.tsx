@@ -1,4 +1,3 @@
-
 import {
   Card,
   CardContent,
@@ -20,80 +19,78 @@ interface RewardCardListProps {
 
 export function RewardCardList({ filters, onCardClick }: RewardCardListProps) {
   const calculations = useRewardCalculations(filters)
-  
-  // Updated: Get unique cards by card+last_five (like Index), and show combined display
+
+  // Group rewards by card name (ignoring last_five for filtering), but display with last five
   const allCardData = React.useMemo(() => {
-    // Group by "card + last_five" (or just card if no last_five) for uniqueness and display
-    const cardTotals = rewardFilterService.getFilteredRewards({
+    // Group by "card" only, sum points per card name
+    const byCard: Record<string, { cardName: string; points: number; lastFiveSet: Set<string> }> = {};
+    rewardFilterService.getFilteredRewards({
       ...filters,
       selectedCard: "all"
-    }).reduce((acc, reward) => {
-      const hasLastFive = reward.last_five && reward.last_five.length > 0
-      const cardKey = hasLastFive
-        ? `${reward.card} (${reward.last_five})`
-        : reward.card
-      acc[cardKey] = (acc[cardKey] || 0) + reward.points
-      return acc
-    }, {} as Record<string, number>)
-  
-    return Object.entries(cardTotals)
-      .map(([cardFull, points]) => {
-        // Extract card and last_five for image and friendly display
-        const cardNameMatch = cardFull.match(/^(.*?)(?: \((-?\d{5})\))?$/)
-        const cardName = cardNameMatch?.[1]?.trim() || cardFull
-        const lastFive = cardNameMatch?.[2] || ""
-        // For display, render as "Card Name (-12345)" or just "Card Name"
-        const displayName = lastFive
-          ? `${cardName} (${lastFive})`
-          : cardName
-        // Show last five on new line (to match subtle formatting from before)
-        const displayNameWithNewline = lastFive
-          ? `${cardName}\n(${lastFive})`
-          : cardName
-        return {
-          name: cardName,
-          fullName: cardFull,  // e.g. "Business Blue Plus I (-12345)"
-          points,
-          displayName: displayNameWithNewline,
-          cardOnly: cardName,
-          lastFive: lastFive,
+    }).forEach(reward => {
+      const key = reward.card;
+      if (!byCard[key]) {
+        byCard[key] = { cardName: key, points: 0, lastFiveSet: new Set() };
+      }
+      byCard[key].points += reward.points;
+      if (reward.last_five && reward.last_five.length > 0) {
+        byCard[key].lastFiveSet.add(reward.last_five);
+      }
+    });
+
+    return Object.values(byCard)
+      .map(item => {
+        // Prepare displayName: show all last five numbers found for card, or just card name
+        let displayName = item.cardName;
+        if (item.lastFiveSet.size > 0) {
+          displayName += ' ' + Array.from(item.lastFiveSet).map(l5 => `(${l5})`).join(', ')
         }
+        return {
+          name: item.cardName,
+          points: item.points,
+          displayName,
+          cardOnly: item.cardName,
+          lastFives: Array.from(item.lastFiveSet),
+        };
       })
       .sort((a, b) => b.points - a.points)
   }, [filters])
 
-  // Match by fullName, which includes last_five if present.
+  // Filtering by card: use only card name (ignore last five)
   const cardData = React.useMemo(() => {
-    if (filters.selectedCard === "all") {
-      return allCardData
+    if (filters.selectedCard === "all" || !filters.selectedCard) {
+      return allCardData;
     }
-    // Allow selectedCard like "Business Blue Plus I (-13579)" or just "Business Blue Plus I"
-    return allCardData.filter(card => card.fullName === filters.selectedCard)
+    // Remove any last five from selectedCard filter (e.g. "Business Blue Plus I (-12345)" -> "Business Blue Plus I")
+    const cardName = filters.selectedCard.match(/^(.*?)(?: \(-?\d{5}\))?$/)?.[1]?.trim() || filters.selectedCard;
+    return allCardData.filter(card => card.name === cardName);
   }, [allCardData, filters.selectedCard])
 
-  // Dynamic height based on filtered card count
+  // Dynamic height stays the same
   const dynamicHeight = React.useMemo(() => {
-    const baseHeight = 200 // Minimum height for header and padding
-    const cardHeight = 120 // Approximate height per card including spacing
-    const maxHeight = 830 // Maximum height
+    const baseHeight = 200
+    const cardHeight = 120
+    const maxHeight = 830
     const calculatedHeight = baseHeight + (cardData.length * cardHeight)
     return Math.min(calculatedHeight, maxHeight)
   }, [cardData.length])
 
+  // When a card is clicked, filter by card name only (ignore last five)
   const handleCardClick = (card: any) => {
     if (!onCardClick) return
-    const isSelected = card.fullName === filters.selectedCard
+    const isSelected = (filters.selectedCard !== "all") && (card.name === (filters.selectedCard.match(/^(.*?)(?: \(-?\d{5}\))?$/)?.[1]?.trim() || filters.selectedCard));
     if (isSelected) {
-      onCardClick('all')
+      onCardClick("all");
     } else {
-      onCardClick(card.fullName)
+      onCardClick(card.name); // filter by name only, not displayName
     }
   }
 
-  // Highlight if card is the selected one (match exactly, including last five)
+  // Highlight if card name matches (ignore last five)
   const getSelectedCard = (card: any) => {
-    if (filters.selectedCard === "all") return false
-    return card.fullName === filters.selectedCard
+    if (!filters.selectedCard || filters.selectedCard === "all") return false;
+    const cardName = filters.selectedCard.match(/^(.*?)(?: \(-?\d{5}\))?$/)?.[1]?.trim() || filters.selectedCard;
+    return card.name === cardName;
   }
 
   const getTimeRangeDescription = () => {
@@ -131,7 +128,7 @@ export function RewardCardList({ filters, onCardClick }: RewardCardListProps) {
           <div className="space-y-4 pb-6">
             {cardData.map((card, index) => (
               <Card 
-                key={card.fullName}
+                key={card.name}
                 className={`bg-gradient-to-b from-white to-gray-50 cursor-pointer transition-all hover:shadow-md animate-fade-in ${getSelectedCard(card) ? "ring-2 ring-primary" : ""}`}
                 style={{
                   animationDelay: `${index * 100}ms`,
@@ -142,7 +139,7 @@ export function RewardCardList({ filters, onCardClick }: RewardCardListProps) {
                 <CardContent className="p-4">
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div className="flex items-center gap-4 flex-1">
-                      {/* Always show image by cardOnly value (just name) */}
+                      {/* Always show image by cardOnly value */}
                       <img 
                         src={getCardImage(card.cardOnly)} 
                         alt="Card placeholder" 

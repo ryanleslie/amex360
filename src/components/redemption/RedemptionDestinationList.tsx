@@ -3,13 +3,13 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { parseRedemptionsCSV, getTopDestinations } from "@/utils/redemptionParser";
 
-// Static destination images mapping
+// Static destination images mapping - using same series as carousel
 const destinationImages: Record<string, string> = {
-  "Frankfurt": "https://images.unsplash.com/photo-1539650116574-75c0c6d36b3c?w=100&h=100&fit=crop",
-  "New York": "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=100&h=100&fit=crop",
-  "Los Angeles": "https://images.unsplash.com/photo-1534190239940-9ba8944ea261?w=100&h=100&fit=crop",
-  "Phoenix": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=100&h=100&fit=crop",
-  "Stuttgart": "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=100&h=100&fit=crop"
+  "Frankfurt": "https://www.aman.com/sites/default/files/2022-12/Aman%20New%20York%2C%20USA%2011.jpg",
+  "New York": "https://www.aman.com/sites/default/files/styles/carousel_cards_extra_large/public/2022-11/Aman%20New%20York%2C%20USA%20-%20Spa%20%26%20Wellness%2C%20Pool%202.jpg?itok=DBMc8qlk",
+  "Los Angeles": "https://www.aman.com/sites/default/files/2023-08/aman-ny-vignettes-6754.jpg",
+  "Phoenix": "https://www.aman.com/sites/default/files/styles/media_text_side_by_side_portrait_xwide_up/public/2023-08/aman_new_york_usa_-_three-bedroom_home_bathroom.jpg?itok=C3oFbV3i",
+  "Stuttgart": "https://www.aman.com/sites/default/files/2022-12/Aman%20New%20York%2C%20USA%2011.jpg"
 };
 
 export function RedemptionDestinationList() {

@@ -124,7 +124,7 @@ export function RewardCardList({ filters, onCardClick }: RewardCardListProps) {
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 overflow-hidden">
-        <ScrollArea className="h-full pr-4">
+        <ScrollArea className="h-full">
           <div className="space-y-4 pb-6">
             {cardData.map((card, index) => (
               <div key={card.name} className="p-1">

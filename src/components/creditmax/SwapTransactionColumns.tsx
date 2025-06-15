@@ -66,11 +66,15 @@ export const useSwapTransactionColumns = (): ColumnDef<SwapTransaction>[] => {
     {
       accessorKey: "card",
       header: "Card",
-      cell: ({ row }) => (
-        <div className="text-sm">
-          {row.getValue("card") || "N/A"}
-        </div>
-      ),
+      cell: ({ row }) => {
+        const cardValue = row.getValue("card")
+        // Show nothing if empty or falsy, else show the value
+        return (
+          <div className="text-sm">
+            {cardValue ? cardValue : ""}
+          </div>
+        )
+      },
     },
     {
       accessorKey: "amount",
@@ -93,13 +97,15 @@ export const useSwapTransactionColumns = (): ColumnDef<SwapTransaction>[] => {
       accessorKey: "multiple",
       header: () => <div className="text-right">Multiple</div>,
       cell: ({ row }) => {
-        const multiple = row.getValue("multiple") as number
+        const multiple = row.getValue("multiple") as number | undefined
+        // Show nothing if it's undefined, null, zero, or empty; else add "x"
         return (
           <div className="text-right font-medium">
-            {multiple ? `${multiple}x` : "N/A"}
+            {multiple ? `${multiple}x` : ""}
           </div>
         )
       },
     },
   ], []);
 }
+

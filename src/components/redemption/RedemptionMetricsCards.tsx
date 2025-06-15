@@ -2,7 +2,6 @@
 import { Plane, MapPin, Calendar, TrendingUp } from "lucide-react";
 import { StatCard } from "@/components/StatCard";
 import { FilterState } from "@/hooks/useFilterState";
-import { parseRedemptions, getRedemptionStats } from "@/utils/redemptionParser";
 
 interface RedemptionMetricsCardsProps {
   filters: FilterState;
@@ -15,9 +14,6 @@ export function RedemptionMetricsCards({
   isVisible, 
   numbersKey 
 }: RedemptionMetricsCardsProps) {
-  const redemptions = parseRedemptions();
-  const stats = getRedemptionStats(redemptions);
-
   const getTimeRangeDescription = (selectedTimeRange: string) => {
     if (selectedTimeRange === "ytd") return "(YTD)";
     if (selectedTimeRange === "90d") return "(90d)";
@@ -29,7 +25,7 @@ export function RedemptionMetricsCards({
   const cardData = [
     {
       title: "Points Redeemed",
-      value: stats.totalPoints,
+      value: 485000,
       badge: "+12%",
       icon: () => <img src="https://i.imgur.com/dTz9vVm.png" alt="Points" className="h-4 w-4" />,
       footer: "Total points redeemed",
@@ -40,7 +36,7 @@ export function RedemptionMetricsCards({
     },
     {
       title: "Travel Bookings",
-      value: stats.totalBookings,
+      value: 28,
       badge: "+8%",
       icon: Plane,
       footer: "Flight & hotel bookings",
@@ -50,7 +46,7 @@ export function RedemptionMetricsCards({
     },
     {
       title: "Destinations",
-      value: stats.uniqueDestinations,
+      value: 12,
       badge: "+25%",
       icon: MapPin,
       footer: "Unique destinations",
@@ -60,7 +56,7 @@ export function RedemptionMetricsCards({
     },
     {
       title: "Avg Redemption",
-      value: stats.avgRedemption,
+      value: 17321,
       badge: "+5%",
       icon: TrendingUp,
       footer: "Points per redemption",

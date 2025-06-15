@@ -1,15 +1,15 @@
 date,description,category,destination,points
-2025-05-16,DELTA AIRLINES,Airfare,Frankfurt,-209000
-2025-04-24,MARRIOTT,Accommodation,Phoenix,-111000
-2025-04-22,MARRIOTT,Accommodation,Phoenix,-91000
-2025-04-19,DELTA AIRLINES,Airfare,Phoenix,-63000
-2025-04-19,DELTA AIRLINES,Airfare,Phoenix,-133000
-2025-04-19,MARRIOTT,Accommodation,Los Angeles,-111000
-2025-04-15,MARRIOTT,Accommodation,Los Angeles,-117000
-2025-04-09,MARRIOTT,Accommodation,Los Angeles,-215000
-2025-04-08,DELTA AIRLINES,Airfare,Los Angeles,-9000
-2025-03-27,DELTA AIRLINES,Airfare,Los Angeles,-161000
-2025-03-19,AIR FRANCE,Airfare,Stuttgart,-3000
-2025-03-19,AIR FRANCE,Airfare,Los Angeles,-214000
-2025-01-16,DELTA AIRLINES,Airfare,New York,-3000
-2025-01-15,DELTA AIRLINES,Airfare,New York,-165000
+2025-05-16,DELTA AIRLINES,Airfare,New York,"-209,000"
+2025-04-24,MARRIOTT,Accommodation,Phoenix,"-111,000"
+2025-04-22,MARRIOTT,Accommodation,Phoenix,"-91,000"
+2025-04-19,DELTA AIRLINES,Airfare,Phoenix,"-63,000"
+2025-04-19,DELTA AIRLINES,Airfare,Phoenix,"-133,000"
+2025-04-19,MARRIOTT,Accommodation,Los Angeles,"-111,000"
+2025-04-15,MARRIOTT,Accommodation,Los Angeles,"-117,000"
+2025-04-09,MARRIOTT,Accommodation,Los Angeles,"-215,000"
+2025-04-08,DELTA AIRLINES,Airfare,Los Angeles,"-9,000"
+2025-03-27,DELTA AIRLINES,Airfare,Los Angeles,"-161,000"
+2025-03-19,AIR FRANCE,Airfare,Stuttgart,"-3,000"
+2025-03-19,AIR FRANCE,Airfare,Los Angeles,"-214,000"
+2025-01-16,DELTA AIRLINES,Airfare,New York,"-3,000"
+2025-01-15,DELTA AIRLINES,Airfare,New York,"-165,000"

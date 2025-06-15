@@ -1,12 +1,51 @@
 
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { parseRedemptions, getTopDestinations } from "@/utils/redemptionParser";
+
+const destinations = [
+  {
+    id: "1",
+    name: "Frankfurt",
+    image: "https://images.unsplash.com/photo-1539650116574-75c0c6d36b3c?w=100&h=80&fit=crop",
+    pointsRedeemed: 125000,
+    trips: 3,
+    category: "Europe"
+  },
+  {
+    id: "2",
+    name: "New York",
+    image: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=100&h=80&fit=crop",
+    pointsRedeemed: 95000,
+    trips: 2,
+    category: "Domestic"
+  },
+  {
+    id: "3",
+    name: "Los Angeles",
+    image: "https://images.unsplash.com/photo-1534190239940-9ba8944ea261?w=100&h=80&fit=crop",
+    pointsRedeemed: 85000,
+    trips: 2,
+    category: "Domestic"
+  },
+  {
+    id: "4",
+    name: "Phoenix",
+    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=100&h=80&fit=crop",
+    pointsRedeemed: 65000,
+    trips: 1,
+    category: "Domestic"
+  },
+  {
+    id: "5",
+    name: "Barcelona",
+    image: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=100&h=80&fit=crop",
+    pointsRedeemed: 110000,
+    trips: 2,
+    category: "Europe"
+  }
+];
 
 export function RedemptionDestinationList() {
-  const redemptions = parseRedemptions();
-  const destinations = getTopDestinations(redemptions);
-
   return (
     <Card className="bg-gradient-to-b from-white to-gray-100 flex flex-col">
       <CardHeader>

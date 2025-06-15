@@ -16,7 +16,7 @@ export function RedemptionCarouselCard() {
     },
     {
       name: "Providenciales",
-      image: "https://www.aman.com/sites/default/files/2021-12/Amanjena_Gallery_1.jpg",
+      image: "https://www.aman.com/sites/default/files/2024-05/amanyara_turks_caicos_-_accommodation_villa_33.jpg",
       description: "Turks and Caicos"
     },
     {

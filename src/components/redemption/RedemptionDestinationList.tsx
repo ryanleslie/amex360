@@ -52,40 +52,57 @@ export function RedemptionDestinationList() {
   };
 
   return (
-    <Card className="bg-gradient-to-b from-white to-gray-100">
+    <Card className="bg-gradient-to-b from-white to-gray-100 flex flex-col">
       <CardHeader>
         <CardTitle className="text-xl font-semibold" style={{ color: '#00175a' }}>
           Top Destinations
         </CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="space-y-3">
-          {destinations.map((destination) => (
-            <div
-              key={destination.id}
-              className="flex items-center gap-4 p-4 rounded-lg border bg-white hover:shadow-md transition-shadow"
-            >
-              <img
-                src={destination.image}
-                alt={destination.name}
-                className="w-16 h-12 object-cover rounded-md"
-              />
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1">
-                  <h3 className="font-semibold text-sm" style={{ color: '#00175a' }}>
-                    {destination.name}
-                  </h3>
-                  <Badge className={getCategoryColor(destination.category)}>
-                    {destination.category}
-                  </Badge>
-                </div>
-                <p className="text-xs text-gray-600 mb-1">
-                  {destination.pointsRedeemed.toLocaleString()} points redeemed
-                </p>
-                <p className="text-xs text-gray-500">
-                  {destination.trips} trip{destination.trips !== 1 ? 's' : ''}
-                </p>
-              </div>
+      <CardContent className="flex-1 overflow-hidden">
+        <div className="space-y-2 pb-6">
+          {destinations.map((destination, index) => (
+            <div key={destination.id} className="p-1">
+              <Card
+                className="bg-gradient-to-b from-white to-gray-50 cursor-pointer transition-all hover:shadow-md animate-fade-in ring-0 focus:ring-0 focus-visible:ring-0"
+                style={{
+                  animationDelay: `${index * 100}ms`,
+                  animationFillMode: 'both'
+                }}
+                tabIndex={0}
+              >
+                <CardContent className="p-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div className="flex items-center gap-4 flex-1">
+                      <img
+                        src={destination.image}
+                        alt={destination.name}
+                        className="w-16 h-10 object-cover rounded"
+                      />
+                      <div className="text-sm font-medium leading-tight whitespace-pre-line">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="font-bold">{destination.name}</span>
+                          <Badge className={getCategoryColor(destination.category)}>
+                            {destination.category}
+                          </Badge>
+                        </div>
+                        <p className="text-xs text-gray-500">
+                          {destination.trips} trip{destination.trips !== 1 ? 's' : ''}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-end sm:justify-end">
+                      <div className="text-right">
+                        <p className="text-xs text-muted-foreground">
+                          Points redeemed
+                        </p>
+                        <div className="text-lg font-bold tabular-nums" style={{ color: '#00175a' }}>
+                          {destination.pointsRedeemed.toLocaleString()} pts
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           ))}
         </div>

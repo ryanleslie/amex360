@@ -1,3 +1,4 @@
+
 import redemptionsCSV from "@/data/redemptions.csv?raw";
 
 export interface RedemptionData {
@@ -27,8 +28,18 @@ export function parseRedemptionsCSV(): RedemptionData[] {
     
     console.log(`Row ${index + 1}:`, values);
     
-    // The points value is in the 4th column (index 3)
-    const pointsString = values[3]?.trim();
+    // The points value appears to be split across columns 4 and 5 due to comma in the number
+    // Reconstruct the points value by combining the split parts
+    let pointsString = '';
+    if (values[4] && values[5]) {
+      // Remove quotes and carriage returns, then combine
+      const part1 = values[4].replace(/"/g, '').replace(/\r/g, '');
+      const part2 = values[5].replace(/"/g, '').replace(/\r/g, '');
+      pointsString = part1 + part2;
+    } else if (values[4]) {
+      pointsString = values[4].replace(/"/g, '').replace(/\r/g, '');
+    }
+    
     const pointsValue = parseFloat(pointsString);
     
     console.log(`Points string: "${pointsString}", parsed: ${pointsValue}, isNaN: ${isNaN(pointsValue)}`);

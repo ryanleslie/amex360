@@ -36,48 +36,42 @@ export function RedemptionsContent({
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 lg:px-6 mb-8">
+    <div className="max-w-7xl mx-auto px-6 mb-8">
+      {/* Header with Logo */}
       <RedemptionsHeader />
       
-      <div className={`space-y-6 transition-all duration-700 delay-100 ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-        {/* Metrics Cards with same responsive pattern as Index */}
-        <div className="px-0">
-          <RedemptionMetricsCards 
+      {/* Metrics Cards - reduced top margin to match Rewards */}
+      <div className="mt-0 px-4 lg:px-6">
+        <RedemptionMetricsCards
+          filters={filters}
+          isVisible={isVisible}
+          numbersKey={numbersKey}
+          onCategoryFilter={handleCategoryFilter}
+          selectedCategory={selectedCategory}
+        />
+      </div>
+      
+      {/* Destinations Carousel - Full Width Row with fade-in animation */}
+      <div className={`mt-8 px-4 lg:px-6 transition-all duration-700 ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+        <RedemptionCarouselCard />
+      </div>
+      
+      {/* Table and Partner List Row with staggered fade-in animations */}
+      <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6 px-4 lg:px-6">
+        <div className={`lg:col-span-2 transition-all duration-700 delay-200 ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <RedemptionCard 
             filters={filters}
-            isVisible={isVisible}
-            numbersKey={numbersKey}
-            onCategoryFilter={handleCategoryFilter}
+            selectedPartner={selectedPartner}
+            onPartnerChange={handlePartnerChange}
             selectedCategory={selectedCategory}
+            onCategoryChange={handleCategoryFilter}
           />
         </div>
-
-        {/* Destinations Carousel - Full Width with consistent padding */}
-        <div className={`transition-all duration-700 delay-200 ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-          <RedemptionCarouselCard />
-        </div>
-
-        {/* Table and Partner List Row - Consistent with Index page layout */}
-        <div className={`transition-all duration-700 delay-300 ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-          <div className="grid gap-6 lg:grid-cols-3">
-            {/* Redemption Table - 2/3 width */}
-            <div className="lg:col-span-2">
-              <RedemptionCard 
-                filters={filters}
-                selectedPartner={selectedPartner}
-                onPartnerChange={handlePartnerChange}
-                selectedCategory={selectedCategory}
-                onCategoryChange={handleCategoryFilter}
-              />
-            </div>
-            
-            {/* Top Partners List - 1/3 width */}
-            <div className="lg:col-span-1">
-              <RedemptionPartnerList 
-                selectedPartner={selectedPartner}
-                onPartnerClick={handlePartnerChange}
-              />
-            </div>
-          </div>
+        <div className={`lg:col-span-1 transition-all duration-700 delay-400 ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <RedemptionPartnerList 
+            selectedPartner={selectedPartner}
+            onPartnerClick={handlePartnerChange}
+          />
         </div>
       </div>
     </div>

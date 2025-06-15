@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { RedemptionsHeader } from "./RedemptionsHeader";
 import { RedemptionMetricsCards } from "./RedemptionMetricsCards";
 import { RedemptionCarouselCard } from "./RedemptionCarouselCard";
@@ -24,6 +24,12 @@ export function RedemptionsContent({
   numbersKey,
   showContent
 }: RedemptionsContentProps) {
+  const [selectedPartner, setSelectedPartner] = useState<string>("all");
+
+  const handlePartnerChange = (partner: string) => {
+    setSelectedPartner(partner);
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-6 mb-8">
       <RedemptionsHeader />
@@ -45,12 +51,17 @@ export function RedemptionsContent({
           <div className="lg:col-span-2">
             <RedemptionCard 
               filters={filters}
+              selectedPartner={selectedPartner}
+              onPartnerChange={handlePartnerChange}
             />
           </div>
           
           {/* Top Partners List - 1/3 width */}
           <div className="lg:col-span-1">
-            <RedemptionPartnerList />
+            <RedemptionPartnerList 
+              selectedPartner={selectedPartner}
+              onPartnerClick={handlePartnerChange}
+            />
           </div>
         </div>
       </div>

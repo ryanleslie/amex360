@@ -55,9 +55,9 @@ export function RedemptionCarouselCard() {
       return;
     }
 
-    // Scroll to the starting position (first slide) on page load
+    // Scroll to slide 3 (index 2) on page load
     const timer = setTimeout(() => {
-      api.scrollTo(0);
+      api.scrollTo(2);
     }, 100);
 
     return () => clearTimeout(timer);

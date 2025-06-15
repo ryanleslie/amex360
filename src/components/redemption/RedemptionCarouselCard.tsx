@@ -46,7 +46,7 @@ export function RedemptionCarouselCard() {
     },
     {
       name: "Paris",
-      image: "https://www.aman.com/sites/default/files/2025-03/aman-kyoto-sakura_0.jpg",
+      image: "https://corporate.airfrance.com/sites/default/files/styles/wide/public/media-image/2024/12/16052023_recompenses.png?itok=40ipwBfG",
       description: "City of Light"
     }
   ];

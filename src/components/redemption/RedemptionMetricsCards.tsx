@@ -49,7 +49,7 @@ export function RedemptionMetricsCards({
     },
     {
       title: "Airfare Redemptions",
-      value: stats.airfareRedemptions,
+      value: stats.airfarePoints,
       badge: `${airfarePercentage}%`,
       icon: Plane,
       footer: "Flight bookings",
@@ -59,7 +59,7 @@ export function RedemptionMetricsCards({
     },
     {
       title: "Accommodation Redemptions",
-      value: stats.accommodationRedemptions,
+      value: stats.accommodationPoints,
       badge: `${accommodationPercentage}%`,
       icon: MapPin,
       footer: "Hotel bookings",

@@ -1,3 +1,4 @@
+
 import {
   Card,
   CardContent,
@@ -109,8 +110,9 @@ export function RewardCardList({ filters, onCardClick }: RewardCardListProps) {
     }
   }
 
-  // Map display name for specific cards if needed
-  const getDisplayName = (d: string) => d  // Pass-thru for now; can add custom logic if needed
+  // Remove 'card' from display name for reward card list
+  const getDisplayName = (d: string) =>
+    d.replace(/\bcard\b/gi, '').replace(/\s+/g, ' ').trim()
 
   return (
     <Card 
@@ -171,3 +173,4 @@ export function RewardCardList({ filters, onCardClick }: RewardCardListProps) {
     </Card>
   )
 }
+

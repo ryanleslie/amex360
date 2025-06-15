@@ -13,6 +13,10 @@ export interface RedemptionStats {
   totalBookings: number;
   uniquePartners: number;
   averageRedemption: number;
+  airfareRedemptions: number;
+  accommodationRedemptions: number;
+  airfarePoints: number;
+  accommodationPoints: number;
 }
 
 export function parseRedemptionsCSV(): RedemptionData[] {
@@ -36,11 +40,22 @@ export function calculateRedemptionStats(redemptions: RedemptionData[]): Redempt
   const uniquePartners = new Set(redemptions.map(r => r.description)).size;
   const averageRedemption = Math.round(totalPointsRedeemed / totalBookings);
 
+  // Calculate airfare and accommodation stats
+  const airfareRedemptions = redemptions.filter(r => r.category === 'Airfare');
+  const accommodationRedemptions = redemptions.filter(r => r.category === 'Accommodation');
+  
+  const airfarePoints = airfareRedemptions.reduce((sum, r) => sum + r.points, 0);
+  const accommodationPoints = accommodationRedemptions.reduce((sum, r) => sum + r.points, 0);
+
   return {
     totalPointsRedeemed,
     totalBookings,
     uniquePartners,
-    averageRedemption
+    averageRedemption,
+    airfareRedemptions: airfareRedemptions.length,
+    accommodationRedemptions: accommodationRedemptions.length,
+    airfarePoints,
+    accommodationPoints
   };
 }
 

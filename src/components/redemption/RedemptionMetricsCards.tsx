@@ -26,11 +26,20 @@ export function RedemptionMetricsCards({
     return "(YTD)";
   };
 
+  // Calculate percentage badges
+  const airfarePercentage = stats.totalPointsRedeemed > 0 
+    ? Math.round((stats.airfarePoints / stats.totalPointsRedeemed) * 100)
+    : 0;
+  
+  const accommodationPercentage = stats.totalPointsRedeemed > 0 
+    ? Math.round((stats.accommodationPoints / stats.totalPointsRedeemed) * 100)
+    : 0;
+
   const cardData = [
     {
       title: "Points Redeemed",
       value: stats.totalPointsRedeemed,
-      badge: "+12%",
+      badge: "100%",
       icon: () => <img src="https://i.imgur.com/dTz9vVm.png" alt="Points" className="h-4 w-4" />,
       footer: "Total points redeemed",
       description: `Points redeemed ${getTimeRangeDescription(filters.selectedTimeRange)}`,
@@ -39,29 +48,29 @@ export function RedemptionMetricsCards({
       cardType: "total-redeemed"
     },
     {
-      title: "Travel Bookings",
-      value: stats.totalBookings,
-      badge: "+8%",
+      title: "Airfare Redemptions",
+      value: stats.airfareRedemptions,
+      badge: `${airfarePercentage}%`,
       icon: Plane,
-      footer: "Flight & hotel bookings",
-      description: `Travel bookings ${getTimeRangeDescription(filters.selectedTimeRange)}`,
+      footer: "Flight bookings",
+      description: `Airfare redemptions ${getTimeRangeDescription(filters.selectedTimeRange)}`,
       clickable: true,
-      cardType: "travel-bookings"
+      cardType: "airfare-redemptions"
     },
     {
-      title: "Partners",
-      value: stats.uniquePartners,
-      badge: "+25%",
+      title: "Accommodation Redemptions",
+      value: stats.accommodationRedemptions,
+      badge: `${accommodationPercentage}%`,
       icon: MapPin,
-      footer: "Unique partners",
-      description: `Partners used ${getTimeRangeDescription(filters.selectedTimeRange)}`,
+      footer: "Hotel bookings",
+      description: `Accommodation redemptions ${getTimeRangeDescription(filters.selectedTimeRange)}`,
       clickable: true,
-      cardType: "partners"
+      cardType: "accommodation-redemptions"
     },
     {
       title: "Avg Redemption",
       value: stats.averageRedemption,
-      badge: "+5%",
+      badge: `${Math.round(stats.totalPointsRedeemed / stats.totalBookings)} pts`,
       icon: TrendingUp,
       footer: "Points per redemption",
       description: `Average redemption ${getTimeRangeDescription(filters.selectedTimeRange)}`,

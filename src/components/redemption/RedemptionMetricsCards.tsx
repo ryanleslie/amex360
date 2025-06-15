@@ -49,14 +49,14 @@ export function RedemptionMetricsCards({
       cardType: "travel-bookings"
     },
     {
-      title: "Destinations",
-      value: stats.uniqueDestinations,
+      title: "Partners",
+      value: stats.uniquePartners,
       badge: "+25%",
       icon: MapPin,
-      footer: "Unique destinations",
-      description: `Destinations visited ${getTimeRangeDescription(filters.selectedTimeRange)}`,
+      footer: "Unique partners",
+      description: `Partners used ${getTimeRangeDescription(filters.selectedTimeRange)}`,
       clickable: true,
-      cardType: "destinations"
+      cardType: "partners"
     },
     {
       title: "Avg Redemption",

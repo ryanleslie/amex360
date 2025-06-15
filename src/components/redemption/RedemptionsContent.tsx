@@ -40,7 +40,7 @@ export function RedemptionsContent({
       {/* Header with Logo */}
       <RedemptionsHeader />
       
-      {/* Metrics Cards - reduced top margin to match Rewards */}
+      {/* Metrics Cards - reduced top margin */}
       <div className="mt-0 px-4 lg:px-6">
         <RedemptionMetricsCards
           filters={filters}
@@ -51,14 +51,16 @@ export function RedemptionsContent({
         />
       </div>
       
-      {/* Destinations Carousel - Full Width Row with fade-in animation */}
+      {/* Chart - Full Width Row with fade-in animation */}
       <div className={`mt-8 px-4 lg:px-6 transition-all duration-700 ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
         <RedemptionCarouselCard />
       </div>
       
-      {/* Table and Partner List Row with staggered fade-in animations */}
+      {/* Table and Card List Row with staggered fade-in animations */}
       <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6 px-4 lg:px-6">
-        <div className={`lg:col-span-2 transition-all duration-700 delay-200 ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+        <div 
+          className={`lg:col-span-2 transition-all duration-700 delay-200 ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+        >
           <RedemptionCard 
             filters={filters}
             selectedPartner={selectedPartner}

@@ -1,7 +1,6 @@
 
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 
 const destinations = [
   {
@@ -47,10 +46,6 @@ const destinations = [
 ];
 
 export function RedemptionDestinationList() {
-  const getCategoryColor = (category: string) => {
-    return category === "Europe" ? "bg-purple-100 text-purple-800" : "bg-blue-100 text-blue-800";
-  };
-
   return (
     <Card className="bg-gradient-to-b from-white to-gray-100 flex flex-col">
       <CardHeader>
@@ -79,11 +74,8 @@ export function RedemptionDestinationList() {
                         className="w-16 h-10 object-cover rounded"
                       />
                       <div className="text-sm font-medium leading-tight whitespace-pre-line">
-                        <div className="flex items-center gap-2 mb-1">
+                        <div className="mb-1">
                           <span className="font-bold">{destination.name}</span>
-                          <Badge className={getCategoryColor(destination.category)}>
-                            {destination.category}
-                          </Badge>
                         </div>
                         <p className="text-xs text-gray-500">
                           {destination.trips} trip{destination.trips !== 1 ? 's' : ''}

@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
@@ -39,7 +38,7 @@ export function RedemptionCarouselCard() {
           Popular Destinations
         </CardTitle>
       </CardHeader>
-      <CardContent className="px-2">
+      <CardContent>
         <Carousel 
           className="w-full max-w-6xl mx-auto"
           opts={{
@@ -47,9 +46,9 @@ export function RedemptionCarouselCard() {
             loop: true,
           }}
         >
-          <CarouselContent className="-ml-1 md:-ml-2">
+          <CarouselContent className="-ml-2 md:-ml-4">
             {destinations.map((destination, index) => (
-              <CarouselItem key={index} className="pl-1 md:pl-2 basis-4/5 md:basis-1/4">
+              <CarouselItem key={index} className="pl-2 md:pl-4 basis-4/5 md:basis-1/4">
                 <div className="p-1">
                   <Card className="relative overflow-hidden h-48 group cursor-pointer">
                     <div 

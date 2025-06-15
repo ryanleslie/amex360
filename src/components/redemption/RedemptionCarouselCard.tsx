@@ -35,6 +35,11 @@ export function RedemptionCarouselCard() {
       description: "Desert Oasis"
     },
     {
+      name: "Tokyo",
+      image: "https://www.aman.com/sites/default/files/2019-06/Aman%20Tokyo%2C%20Japan%20-%20Garden%20Suite%20Living%20Room.jpg",
+      description: "Modern Metropolis"
+    },
+    {
       name: "Bodrum",
       image: "https://www.aman.com/sites/default/files/2022-08/Amanruya%2C%20Turkey%20-%20Accommodation%2C%20Garden%20View%20Pavilion%20Portrait%20-%20Pool%20.jpg",
       description: "Turkish Riviera"

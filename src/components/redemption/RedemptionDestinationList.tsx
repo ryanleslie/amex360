@@ -47,7 +47,7 @@ export function RedemptionDestinationList() {
                         <div className="mb-1">
                           <span className="font-bold">{destination.name}</span>
                         </div>
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs text-muted-foreground">
                           {destination.trips} redemption{destination.trips !== 1 ? 's' : ''}
                         </p>
                       </div>

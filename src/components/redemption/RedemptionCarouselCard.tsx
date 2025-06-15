@@ -36,7 +36,7 @@ export function RedemptionCarouselCard() {
     },
     {
       name: "Tokyo",
-      image: "https://www.aman.com/sites/default/files/2019-06/Aman%20Tokyo%2C%20Japan%20-%20Garden%20Suite%20Living%20Room.jpg",
+      image: "https://www.aman.com/sites/default/files/styles/media_text_side_by_side_x_wide/public/2024-04/aman-residences-tokyo-communal-space-lounge-to-private-dining.jpg?itok=SOS7QrYB",
       description: "Modern Metropolis"
     },
     {

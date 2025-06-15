@@ -1,3 +1,4 @@
+
 import {
   Card,
   CardContent,
@@ -18,7 +19,7 @@ interface RewardCardListProps {
 }
 
 export function RewardCardList({ filters, onCardClick }: RewardCardListProps) {
-  const calculations = useRewardCalculations(filters);
+  const calculations = useRewardCalculations(filters)
   
   // Get unique cards and their totals
   const allCardData = React.useMemo(() => {
@@ -26,36 +27,29 @@ export function RewardCardList({ filters, onCardClick }: RewardCardListProps) {
       ...filters,
       selectedCard: "all" // Always show all cards
     }).reduce((acc, reward) => {
-      // Construct fullName with last_five if present
-      const fullName = reward.last_five
-        ? `${reward.card} (${reward.last_five})`
-        : reward.card;
-      acc[fullName] = (acc[fullName] || 0) + reward.points;
-      return acc;
-    }, {} as Record<string, number>);
+      const cardName = reward.card
+      acc[cardName] = (acc[cardName] || 0) + reward.points
+      return acc
+    }, {} as Record<string, number>)
 
     return Object.entries(cardTotals)
-      .map(([fullName, points]) => {
-        // displayName may add a line break for formatting
-        const name = fullName.replace(/\bcard\b/gi, '').replace(/\(-?\d+\)/g, '').trim();
-        const displayName = fullName.replace(/\bcard\b/gi, '').trim().replace(/\s*(\([^)]+\))/, '\n$1');
-        return {
-          name,
-          fullName,   // now always includes last_five if present
-          points,
-          displayName,
-        };
-      })
-      .sort((a, b) => b.points - a.points);
-  }, [filters]);
+      .map(([card, points]) => ({
+        name: card.replace(/\bcard\b/gi, '').replace(/\(-\d+\)/g, '').trim(),
+        fullName: card,
+        points,
+        displayName: card.replace(/\bcard\b/gi, '').trim().replace(/\s*(\([^)]+\))/, '\n$1')
+      }))
+      .sort((a, b) => b.points - a.points)
+  }, [filters])
 
-  // Filter cards based on selected card (which is in the form "Card Name (-XXXXX)")
+  // Filter cards based on selected card
   const cardData = React.useMemo(() => {
     if (filters.selectedCard === "all") {
-      return allCardData;
+      return allCardData
     }
-    return allCardData.filter(card => card.fullName === filters.selectedCard);
-  }, [allCardData, filters.selectedCard]);
+    
+    return allCardData.filter(card => card.fullName === filters.selectedCard)
+  }, [allCardData, filters.selectedCard])
 
   // Calculate dynamic height based on filtered card count
   const dynamicHeight = React.useMemo(() => {
@@ -65,7 +59,7 @@ export function RewardCardList({ filters, onCardClick }: RewardCardListProps) {
     
     const calculatedHeight = baseHeight + (cardData.length * cardHeight)
     return Math.min(calculatedHeight, maxHeight)
-  }, [cardData.length]);
+  }, [cardData.length])
 
   const handleCardClick = (card: any) => {
     if (!onCardClick) return

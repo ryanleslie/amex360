@@ -138,11 +138,17 @@ export function CategorySpendingChart({
               <Legend 
                 verticalAlign="bottom" 
                 height={36}
-                formatter={(value, entry) => (
-                  <span style={{ color: entry.color }}>
-                    {value} (${entry.payload?.amount.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })})
-                  </span>
-                )}
+                formatter={(value, entry) => {
+                  // Find the corresponding data item from categoryData
+                  const dataItem = categoryData.find(item => item.category === value);
+                  const amount = dataItem?.amount || 0;
+                  
+                  return (
+                    <span style={{ color: entry.color }}>
+                      {value} (${amount.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })})
+                    </span>
+                  );
+                }}
               />
             </PieChart>
           </ResponsiveContainer>

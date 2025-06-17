@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { AppHeader } from "@/components/AppHeader";
 import { AppSidebar } from "@/components/AppSidebar";
@@ -20,16 +19,9 @@ const Dashboard = () => {
         return <Index />;
       case "insights":
         return (
-          <div className="flex-1">
-            <div className="max-w-7xl mx-auto px-6 mb-8">
-              <div className="mb-8">
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">Insights</h1>
-                <p className="text-muted-foreground">Advanced analytics and insights for your spending patterns.</p>
-              </div>
-              
-              <div className="mt-8 px-4 lg:px-6">
-                <CategorySpendingChart />
-              </div>
+          <div className="p-6 pt-2">
+            <div className="max-w-7xl mx-auto">
+              <CategorySpendingChart />
             </div>
           </div>
         );

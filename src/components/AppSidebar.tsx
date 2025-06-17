@@ -21,43 +21,53 @@ interface AppSidebarProps {
   setActiveSection: (section: DashboardSection) => void
 }
 
-const menuItems = [
-  {
-    title: "Dashboard",
-    icon: ChartNoAxesColumn,
-    section: "dashboard" as DashboardSection,
-  },
-  {
-    title: "Insights",
-    icon: ChartPie,
-    section: "insights" as DashboardSection,
-  },
-  {
-    title: "Bonus Awards",
-    icon: Award,
-    section: "rewards" as DashboardSection,
-  },
-  {
-    title: "Employee Cards",
-    icon: CreditCard,
-    section: "employee" as DashboardSection,
-  },
-  {
-    title: "CreditMax",
-    icon: Crown,
-    section: "creditmax" as DashboardSection,
-  },
-  {
-    title: "Redemptions",
-    icon: Plane,
-    section: "redemptions" as DashboardSection,
-  },
-]
-
 export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps) {
   const navigate = useNavigate()
   const { close } = useSidebar()
   const { signOut, isAdmin } = useAuth()
+
+  // Base menu items available to all users
+  const baseMenuItems = [
+    {
+      title: "Dashboard",
+      icon: ChartNoAxesColumn,
+      section: "dashboard" as DashboardSection,
+    },
+    {
+      title: "Bonus Awards",
+      icon: Award,
+      section: "rewards" as DashboardSection,
+    },
+    {
+      title: "Employee Cards",
+      icon: CreditCard,
+      section: "employee" as DashboardSection,
+    },
+    {
+      title: "CreditMax",
+      icon: Crown,
+      section: "creditmax" as DashboardSection,
+    },
+    {
+      title: "Redemptions",
+      icon: Plane,
+      section: "redemptions" as DashboardSection,
+    },
+  ]
+
+  // Admin-only menu items
+  const adminMenuItems = [
+    {
+      title: "Insights",
+      icon: ChartPie,
+      section: "insights" as DashboardSection,
+    },
+  ]
+
+  // Combine menu items based on user role
+  const menuItems = isAdmin() 
+    ? [baseMenuItems[0], ...adminMenuItems, ...baseMenuItems.slice(1)]
+    : baseMenuItems
 
   const handleItemClick = (section: DashboardSection) => {
     setActiveSection(section)

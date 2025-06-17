@@ -1,5 +1,3 @@
-
-
 "use client"
 
 import * as React from "react"
@@ -78,26 +76,7 @@ export function CategorySpendingChart({
   };
 
   const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percentage }: any) => {
-    if (percentage < 5) return null; // Don't show labels for small segments
-    
-    const RADIAN = Math.PI / 180;
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-    return (
-      <text 
-        x={x} 
-        y={y} 
-        fill="white" 
-        textAnchor={x > cx ? 'start' : 'end'} 
-        dominantBaseline="central"
-        fontSize="12"
-        fontWeight="500"
-      >
-        {`${percentage.toFixed(0)}%`}
-      </text>
-    );
+    return null; // Remove all labels from the chart
   };
 
   return (
@@ -179,4 +158,3 @@ export function CategorySpendingChart({
     </Card>
   )
 }
-

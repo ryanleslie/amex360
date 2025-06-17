@@ -1,6 +1,6 @@
 
 import * as React from "react"
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts"
 import {
   ChartConfig,
   ChartContainer,
@@ -11,7 +11,7 @@ import {
 const chartConfig = {
   totalSpend: {
     label: "Total Spend",
-    color: "var(--primary)",
+    color: "hsl(var(--chart-1))",
   },
 } satisfies ChartConfig
 
@@ -32,65 +32,41 @@ export function ChartDisplay({ data, onDateClick }: ChartDisplayProps) {
   return (
     <ChartContainer
       config={chartConfig}
-      className="aspect-auto h-[250px] w-full"
+      className="aspect-auto h-[400px] w-full"
     >
-      <AreaChart data={data} onClick={handleChartClick}>
-        <defs>
-          <linearGradient id="fillTotalSpend" x1="0" y1="0" x2="0" y2="1">
-            <stop
-              offset="5%"
-              stopColor="var(--color-totalSpend)"
-              stopOpacity={0.8}
-            />
-            <stop
-              offset="95%"
-              stopColor="var(--color-totalSpend)"
-              stopOpacity={0.1}
-            />
-          </linearGradient>
-        </defs>
+      <AreaChart
+        accessibilityLayer
+        data={data}
+        margin={{
+          left: 12,
+          right: 12,
+        }}
+        onClick={handleChartClick}
+      >
         <CartesianGrid vertical={false} />
         <XAxis
           dataKey="date"
           tickLine={false}
           axisLine={false}
           tickMargin={8}
-          minTickGap={32}
-          tickFormatter={(value) => {
-            const date = new Date(value + 'T00:00:00') // Add time to prevent timezone issues
-            return date.toLocaleDateString("en-US", {
-              month: "short",
-              day: "numeric",
-            })
-          }}
+          tickFormatter={(value) => value.slice(5)}
+        />
+        <YAxis
+          tickLine={false}
+          axisLine={false}
+          tickFormatter={(value) => `$${(value / 1000).toFixed(1)}k`}
         />
         <ChartTooltip
           cursor={false}
-          defaultIndex={-1}
-          content={
-            <ChartTooltipContent
-              labelFormatter={(value) => {
-                const date = new Date(value + 'T00:00:00') // Add time to prevent timezone issues
-                return date.toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                  year: "numeric",
-                })
-              }}
-              formatter={(value) => [
-                `Total Spend: $${Number(value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
-                ""
-              ]}
-              indicator="dot"
-            />
-          }
+          content={<ChartTooltipContent />}
         />
         <Area
           dataKey="totalSpend"
-          type="monotone"
-          fill="url(#fillTotalSpend)"
-          stroke="#000000"
-          strokeWidth={1}
+          type="natural"
+          fill="var(--color-totalSpend)"
+          fillOpacity={0.4}
+          stroke="var(--color-totalSpend)"
+          stackId="a"
         />
       </AreaChart>
     </ChartContainer>

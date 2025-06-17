@@ -35,7 +35,7 @@ export function CategorySpendingChart({
     onTimeRangeChange?.(newTimeRange);
   };
 
-  const { filteredData, averageDailySpend } = useCategorySpendingData(timeRange)
+  const { filteredData, totalSpending } = useCategorySpendingData(timeRange)
 
   const getTimeRangeLabel = () => {
     if (timeRange === "ytd") return "(YTD)"
@@ -49,9 +49,9 @@ export function CategorySpendingChart({
     <Card className="bg-gradient-to-b from-white to-gray-100">
       <CardHeader className="flex flex-col space-y-4 pb-2 md:flex-row md:items-center md:justify-between md:space-y-0">
         <div className="space-y-1">
-          <CardTitle className="text-xl font-semibold">Daily spend by category</CardTitle>
+          <CardTitle className="text-xl font-semibold">Spending by category</CardTitle>
           <CardDescription>
-            Average daily spend {getTimeRangeLabel()}: ${averageDailySpend.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            Total spending {getTimeRangeLabel()}: ${totalSpending.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </CardDescription>
         </div>
         

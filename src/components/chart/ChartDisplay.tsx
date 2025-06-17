@@ -1,6 +1,6 @@
 
 import * as React from "react"
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
 import {
   ChartConfig,
   ChartContainer,
@@ -9,90 +9,67 @@ import {
 } from "@/components/ui/chart"
 
 const chartConfig = {
-  totalSpend: {
-    label: "Total Spend",
+  spending: {
+    label: "Spending",
     color: "var(--primary)",
   },
 } satisfies ChartConfig
 
 interface ChartDisplayProps {
-  data: Array<{ date: string; totalSpend: number }>
+  data: Array<{ category: string; spending: number }>
   onDateClick?: (date: string) => void
 }
 
 export function ChartDisplay({ data, onDateClick }: ChartDisplayProps) {
   const handleChartClick = (chartData: any) => {
     if (chartData && chartData.activePayload && chartData.activePayload[0] && onDateClick) {
-      const clickedDate = chartData.activePayload[0].payload.date;
-      console.log("Chart clicked, date:", clickedDate);
-      onDateClick(clickedDate);
+      const clickedCategory = chartData.activePayload[0].payload.category;
+      console.log("Chart clicked, category:", clickedCategory);
+      onDateClick(clickedCategory);
     }
   }
 
   return (
     <ChartContainer
       config={chartConfig}
-      className="aspect-auto h-[250px] w-full"
+      className="aspect-auto h-[400px] w-full"
     >
-      <AreaChart data={data} onClick={handleChartClick}>
-        <defs>
-          <linearGradient id="fillTotalSpend" x1="0" y1="0" x2="0" y2="1">
-            <stop
-              offset="5%"
-              stopColor="var(--color-totalSpend)"
-              stopOpacity={0.8}
-            />
-            <stop
-              offset="95%"
-              stopColor="var(--color-totalSpend)"
-              stopOpacity={0.1}
-            />
-          </linearGradient>
-        </defs>
-        <CartesianGrid vertical={false} />
+      <BarChart data={data} onClick={handleChartClick} margin={{ bottom: 60 }}>
+        <CartesianGrid strokeDasharray="3 3" />
         <XAxis
-          dataKey="date"
+          dataKey="category"
           tickLine={false}
           axisLine={false}
           tickMargin={8}
-          minTickGap={32}
-          tickFormatter={(value) => {
-            const date = new Date(value + 'T00:00:00') // Add time to prevent timezone issues
-            return date.toLocaleDateString("en-US", {
-              month: "short",
-              day: "numeric",
-            })
-          }}
+          angle={-45}
+          textAnchor="end"
+          height={80}
+          interval={0}
+        />
+        <YAxis
+          tickLine={false}
+          axisLine={false}
+          tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
         />
         <ChartTooltip
-          cursor={false}
-          defaultIndex={-1}
+          cursor={{ fill: 'rgba(0, 0, 0, 0.1)' }}
           content={
             <ChartTooltipContent
-              labelFormatter={(value) => {
-                const date = new Date(value + 'T00:00:00') // Add time to prevent timezone issues
-                return date.toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                  year: "numeric",
-                })
-              }}
+              labelFormatter={(value) => `Category: ${value}`}
               formatter={(value) => [
-                `Total Spend: $${Number(value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
-                ""
+                `$${Number(value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
+                "Spending"
               ]}
               indicator="dot"
             />
           }
         />
-        <Area
-          dataKey="totalSpend"
-          type="monotone"
-          fill="url(#fillTotalSpend)"
-          stroke="#000000"
-          strokeWidth={1}
+        <Bar
+          dataKey="spending"
+          fill="var(--color-spending)"
+          radius={[4, 4, 0, 0]}
         />
-      </AreaChart>
+      </BarChart>
     </ChartContainer>
   )
 }

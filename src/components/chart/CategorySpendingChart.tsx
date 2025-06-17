@@ -245,7 +245,7 @@ export function CategorySpendingChart({
                     >
                       No data available.
                     </TableCell>
-                  )}
+                  </TableRow>
                 )}
               </TableBody>
             </Table>

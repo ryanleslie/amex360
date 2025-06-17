@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -128,6 +129,8 @@ export function CategorySpendingChart({
                 innerRadius="50%"
                 fill="#8884d8"
                 dataKey="amount"
+                stroke="none"
+                strokeWidth={0}
               >
                 {categoryData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />

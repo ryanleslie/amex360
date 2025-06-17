@@ -1,4 +1,3 @@
-
 "use client"
 
 import * as React from "react"
@@ -153,9 +152,9 @@ export function CategorySpendingChart({
   });
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      {/* Donut Chart Card */}
-      <Card className="bg-gradient-to-b from-white to-gray-100">
+    <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+      {/* Donut Chart Card - Takes 3/5 of the width */}
+      <Card className="bg-gradient-to-b from-white to-gray-100 lg:col-span-3">
         <CardHeader className="flex flex-col space-y-4 pb-2 md:flex-row md:items-center md:justify-between md:space-y-0">
           <div className="space-y-1">
             <CardTitle className="text-xl font-semibold">Spending by category</CardTitle>
@@ -196,8 +195,8 @@ export function CategorySpendingChart({
         </CardContent>
       </Card>
 
-      {/* Category Table Card */}
-      <Card className="bg-gradient-to-b from-white to-gray-100">
+      {/* Category Table Card - Takes 2/5 of the width */}
+      <Card className="bg-gradient-to-b from-white to-gray-100 lg:col-span-2">
         <CardHeader>
           <CardTitle className="text-xl font-semibold">Category Breakdown</CardTitle>
           <CardDescription>

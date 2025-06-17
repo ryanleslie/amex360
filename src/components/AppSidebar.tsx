@@ -1,6 +1,6 @@
 
 import React from "react"
-import { ChartNoAxesColumn, Award, CreditCard, Crown, LogOut, RotateCw, CircleCheck, Settings, Plane } from "lucide-react"
+import { ChartNoAxesColumn, Award, CreditCard, Crown, LogOut, RotateCw, CircleCheck, Settings, Plane, ChartPie } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { toast } from "@/components/ui/sonner"
 import { useAuth } from "@/contexts/AuthContext"
@@ -26,6 +26,11 @@ const menuItems = [
     title: "Dashboard",
     icon: ChartNoAxesColumn,
     section: "dashboard" as DashboardSection,
+  },
+  {
+    title: "Insights",
+    icon: ChartPie,
+    section: "insights" as DashboardSection,
   },
   {
     title: "Bonus Awards",

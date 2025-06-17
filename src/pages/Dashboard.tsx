@@ -8,7 +8,7 @@ import Rewards from "./Rewards";
 import CreditMax from "./CreditMax";
 import Redemptions from "./Redemptions";
 
-export type DashboardSection = "dashboard" | "rewards" | "employee" | "creditmax" | "admin" | "redemptions";
+export type DashboardSection = "dashboard" | "insights" | "rewards" | "employee" | "creditmax" | "admin" | "redemptions";
 
 const Dashboard = () => {
   const [activeSection, setActiveSection] = useState<DashboardSection>("dashboard");
@@ -17,6 +17,15 @@ const Dashboard = () => {
     switch (activeSection) {
       case "dashboard":
         return <Index />;
+      case "insights":
+        return (
+          <div className="p-6 space-y-6">
+            <div className="text-center py-12">
+              <h2 className="text-2xl font-semibold text-muted-foreground">Insights</h2>
+              <p className="text-muted-foreground mt-2">Advanced analytics and insights will be added here.</p>
+            </div>
+          </div>
+        );
       case "rewards":
         return <Rewards />;
       case "employee":

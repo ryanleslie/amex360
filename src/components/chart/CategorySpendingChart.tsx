@@ -1,11 +1,9 @@
-
-
 "use client"
 
 import * as React from "react"
 import { useCategorySpendingData } from "@/hooks/useCategorySpendingData"
 import { TimeRangeSelector } from "@/components/chart/TimeRangeSelector"
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from "recharts"
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts"
 import {
   Card,
   CardContent,
@@ -136,21 +134,6 @@ export function CategorySpendingChart({
                 ))}
               </Pie>
               <Tooltip content={<CustomTooltip />} />
-              <Legend 
-                verticalAlign="bottom" 
-                height={36}
-                formatter={(value, entry) => {
-                  // Find the corresponding data item from categoryData
-                  const dataItem = categoryData.find(item => item.category === value);
-                  const amount = dataItem?.amount || 0;
-                  
-                  return (
-                    <span style={{ color: entry.color }}>
-                      {value} (${amount.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })})
-                    </span>
-                  );
-                }}
-              />
             </PieChart>
           </ResponsiveContainer>
         </div>
@@ -158,4 +141,3 @@ export function CategorySpendingChart({
     </Card>
   )
 }
-

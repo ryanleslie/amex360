@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -76,7 +77,26 @@ export function CategorySpendingChart({
   };
 
   const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percentage }: any) => {
-    return null; // Remove all labels from the chart
+    if (percentage < 5) return null; // Don't show labels for small segments
+    
+    const RADIAN = Math.PI / 180;
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+      <text 
+        x={x} 
+        y={y} 
+        fill="white" 
+        textAnchor={x > cx ? 'start' : 'end'} 
+        dominantBaseline="central"
+        fontSize="12"
+        fontWeight="500"
+      >
+        {`${percentage.toFixed(0)}%`}
+      </text>
+    );
   };
 
   return (
@@ -96,63 +116,29 @@ export function CategorySpendingChart({
       </CardHeader>
 
       <CardContent className="px-2 sm:px-6">
-        <div className="flex flex-col lg:flex-row gap-6">
-          {/* Donut Chart */}
-          <div className="flex-1 h-[400px] w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
-                <Pie
-                  data={categoryData}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  label={renderCustomizedLabel}
-                  outerRadius="90%"
-                  innerRadius="50%"
-                  fill="#8884d8"
-                  dataKey="amount"
-                  stroke="none"
-                  strokeWidth={0}
-                >
-                  {categoryData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip content={<CustomTooltip />} />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-
-          {/* Category List */}
-          <div className="flex-shrink-0 w-full lg:w-80">
-            <div className="space-y-3">
-              <h3 className="font-semibold text-lg text-gray-900">Categories</h3>
-              <div className="space-y-2 max-h-[350px] overflow-y-auto">
-                {categoryData.map((category, index) => (
-                  <div key={category.category} className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors">
-                    <div className="flex items-center gap-3">
-                      <div 
-                        className="w-4 h-4 rounded-full flex-shrink-0" 
-                        style={{ backgroundColor: COLORS[index % COLORS.length] }}
-                      />
-                      <span className="font-medium text-gray-900 truncate">{category.category}</span>
-                    </div>
-                    <div className="text-right flex-shrink-0">
-                      <div className="font-semibold text-gray-900">
-                        {category.percentage.toFixed(1)}%
-                      </div>
-                      <div className="text-sm text-gray-500">
-                        ${category.amount.toLocaleString('en-US', { 
-                          minimumFractionDigits: 2, 
-                          maximumFractionDigits: 2 
-                        })}
-                      </div>
-                    </div>
-                  </div>
+        <div className="h-[400px] w-full">
+          <ResponsiveContainer width="100%" height="100%">
+            <PieChart margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
+              <Pie
+                data={categoryData}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                label={renderCustomizedLabel}
+                outerRadius="90%"
+                innerRadius="50%"
+                fill="#8884d8"
+                dataKey="amount"
+                stroke="none"
+                strokeWidth={0}
+              >
+                {categoryData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
-              </div>
-            </div>
-          </div>
+              </Pie>
+              <Tooltip content={<CustomTooltip />} />
+            </PieChart>
+          </ResponsiveContainer>
         </div>
       </CardContent>
     </Card>

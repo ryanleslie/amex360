@@ -229,12 +229,12 @@ export function CategorySpendingChart({
                 }
               `}
             </style>
-            <div className="scroll-container overflow-y-auto" style={{ height: '364px' }}>
+            <div className="scroll-container overflow-y-auto max-h-80">
               <Table>
                 <TableBody>
                   {table.getRowModel().rows?.length ? (
                     table.getRowModel().rows.map((row) => (
-                      <TableRow key={row.id}>
+                      <TableRow key={row.id} className="h-11">
                         {row.getVisibleCells().map((cell) => (
                           <TableCell key={cell.id}>
                             {flexRender(

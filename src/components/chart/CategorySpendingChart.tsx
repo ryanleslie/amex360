@@ -1,4 +1,5 @@
 
+
 "use client"
 
 import * as React from "react"
@@ -118,15 +119,15 @@ export function CategorySpendingChart({
       <CardContent className="px-2 sm:px-6">
         <div className="h-[400px] w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
+            <PieChart margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
               <Pie
                 data={categoryData}
                 cx="50%"
                 cy="50%"
                 labelLine={false}
                 label={renderCustomizedLabel}
-                outerRadius={120}
-                innerRadius={60}
+                outerRadius="90%"
+                innerRadius="50%"
                 fill="#8884d8"
                 dataKey="amount"
               >
@@ -157,3 +158,4 @@ export function CategorySpendingChart({
     </Card>
   )
 }
+

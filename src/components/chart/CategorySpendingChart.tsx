@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -20,11 +21,9 @@ interface CategorySpendingChartProps {
   onTimeRangeChange?: (timeRange: string) => void;
 }
 
-// Colors for the donut chart segments - new professional palette
+// Colors for the donut chart segments - refined professional palette
 const COLORS = [
   '#222222', // Eerie black
-  '#333639', // Onyx
-  '#31383e', // Gunmetal
   '#2e3c48', // Charcoal
   '#27435b', // Indigo dye
   '#214b6f', // Indigo dye 2
@@ -32,6 +31,7 @@ const COLORS = [
   '#0d61a9', // Lapis Lazuli
   '#0768bc', // Green Blue
   '#006fcf', // Celtic Blue
+  '#177cd3', // Steel blue
 ]
 
 export function CategorySpendingChart({ 

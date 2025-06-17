@@ -11,14 +11,14 @@ export const useCategorySpendingData = (timeRange: string) => {
   // Process data to group by category for the donut chart
   const categoryData = React.useMemo(() => {
     // Filter to only debit transactions (expenses) with valid categories
-    const debitTransactions = allTransactions.filter(transaction => 
+    const debitTransactionsWithCategories = allTransactions.filter(transaction => 
       transaction.amount < 0 && 
       transaction.category && 
       transaction.category.trim() !== ''
     )
 
     // Group by category and sum amounts
-    const categoryTotals = debitTransactions.reduce((acc, transaction) => {
+    const categoryTotals = debitTransactionsWithCategories.reduce((acc, transaction) => {
       const category = transaction.category!
       
       if (!acc[category]) {
@@ -29,7 +29,21 @@ export const useCategorySpendingData = (timeRange: string) => {
       return acc
     }, {} as Record<string, number>)
 
-    // Calculate total spend for percentage calculations
+    // Add uncategorized transactions if they exist
+    const uncategorizedTransactions = allTransactions.filter(transaction => 
+      transaction.amount < 0 && 
+      (!transaction.category || transaction.category.trim() === '')
+    )
+
+    if (uncategorizedTransactions.length > 0) {
+      const uncategorizedTotal = uncategorizedTransactions.reduce(
+        (sum, transaction) => sum + Math.abs(transaction.amount), 
+        0
+      )
+      categoryTotals['Uncategorized'] = uncategorizedTotal
+    }
+
+    // Calculate total spend for percentage calculations (all debit transactions)
     const totalSpend = Object.values(categoryTotals).reduce((sum, amount) => sum + amount, 0)
 
     // Convert to array format for the donut chart
@@ -42,10 +56,15 @@ export const useCategorySpendingData = (timeRange: string) => {
       .sort((a, b) => b.amount - a.amount) // Sort by amount descending
   }, [allTransactions])
 
-  const totalSpend = categoryData.reduce((sum, item) => sum + item.amount, 0)
+  // Calculate total spend from all debit transactions (including uncategorized)
+  const totalSpend = React.useMemo(() => {
+    return allTransactions
+      .filter(transaction => transaction.amount < 0)
+      .reduce((sum, transaction) => sum + Math.abs(transaction.amount), 0)
+  }, [allTransactions])
 
   return {
     categoryData,
-    totalSpend
+    totalSpend: Math.round(totalSpend * 100) / 100
   }
 }

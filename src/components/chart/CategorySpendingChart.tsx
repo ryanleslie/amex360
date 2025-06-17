@@ -229,26 +229,35 @@ export function CategorySpendingChart({
                 }
               `}
             </style>
-            <div className="scroll-container overflow-y-auto max-h-80">
+            <div className="scroll-container overflow-y-auto" style={{ height: '308px' }}>
               <Table>
                 <TableBody>
-                  {table.getRowModel().rows?.length ? (
-                    table.getRowModel().rows.map((row) => (
-                      <TableRow key={row.id} className="h-11">
-                        {row.getVisibleCells().map((cell) => (
-                          <TableCell key={cell.id}>
-                            {flexRender(
-                              cell.column.columnDef.cell,
-                              cell.getContext()
-                            )}
-                          </TableCell>
-                        ))}
+                  {categoryData?.length ? (
+                    categoryData.map((category, index) => (
+                      <TableRow key={category.category} className="h-11">
+                        <TableCell>
+                          <div className="flex items-center gap-2">
+                            <div 
+                              className="w-3 h-3 rounded-full flex-shrink-0" 
+                              style={{ backgroundColor: COLORS[index % COLORS.length] }}
+                            />
+                            <span className="font-medium">{category.category}</span>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <span className="font-medium">{category.percentage}%</span>
+                        </TableCell>
+                        <TableCell>
+                          <span className="font-medium">
+                            ${category.amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                          </span>
+                        </TableCell>
                       </TableRow>
                     ))
                   ) : (
                     <TableRow>
                       <TableCell
-                        colSpan={columns.length}
+                        colSpan={3}
                         className="h-24 text-center"
                       >
                         No data available.

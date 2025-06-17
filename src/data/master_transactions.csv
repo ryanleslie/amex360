@@ -430,7 +430,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-26,CHRONOSAI           ATLANTA             GA,-2000.00,Business Classic Gold,-72075,CreditMax,
 2025-01-23,CHARGEBEE           WALNUT              CA,-1474.00,Business Classic Gold,-72067,Software,
 2025-01-23,ONLINE PAYMENT - THANK YOU,608.45,Business Classic Gold,-71002,,
-2025-01-22,BE MORE DO MORE APP GLENDALE            CA,-573.54,Business Classic Gold,-72067,Contractor salaries & wages,4
+2025-01-22,BE MORE DO MORE APP,-573.54,Business Classic Gold,-72067,Commissions,4
 2025-01-22,CHECKLESS PYMT RECEIVED-THANK YOU,573.54,Business Classic Gold,-71002,,4
 2025-01-22,ONLINE PAYMENT - THANK YOU,1474.00,Business Classic Gold,-71002,,
 2025-01-22,TWILIO INC          SAN FRANCISCO       CA,-608.45,Business Classic Gold,-72067,SuperPhone®,4
@@ -478,7 +478,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-05-28,RENEWAL MEMBERSHIP FEE,-95.00,Business Green,-82007,Fees & adjustments,
 2025-05-25,OPENAI *CHATGPT SUBSSAN FRANCISCO       CA,-20.00,Business Green,-81058,Software,
 2025-05-25,ZAPIER.COM/CHARGE   SAN FRANCISCO       CA,-29.99,Business Green,-81058,Software,
-2025-05-24,BE MORE DO MORE APP GLENDALE            CA,-922.16,Business Green,-81058,Contractor salaries & wages,
+2025-05-24,BE MORE DO MORE APP,-922.16,Business Green,-81058,Commissions,
 2025-05-24,EXPRESSVPN.COM      WILMINGTON          DE,-12.95,Business Green,-81058,Telephone & internet,
 2025-05-24,PAYPAL *FINKS LLC   4029357733          AZ,-646.80,Business Green,-81058,Contractor salaries & wages,
 2025-05-24,PAYPAL *MIRIAMSTOLL 4029357733          DE,-975.00,Business Green,-81058,Contractor salaries & wages,
@@ -602,7 +602,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-05-11,ONLINE PAYMENT - THANK YOU,1705.39,Business Platinum Card,-52007,,
 2025-05-11,ONLINE PAYMENT - THANK YOU,825.00,Business Platinum Card,-52007,,
 2025-05-10,TWILIO INC          SAN FRANCISCO       CA,-705.67,Business Platinum Card,-52197,SuperPhone®,1.5
-2025-05-09,INTELLIQUEST SOFTWARCOLUMBUS            OH,-399.76,Business Platinum Card,-52197,Contractor salaries & wages,
+2025-05-09,INTELLIQUEST SOFTWARCOLUMBUS            OH,-399.76,Business Platinum Card,-52197,Commissions,
 2025-05-09,NYS DOS CORP EBIENNIALBANY              NY,-9.00,Business Platinum Card,-52197,Taxes,
 2025-05-09,PAYPAL *SUNDAY      15122497210         DE,-31.48,Business Platinum Card,-51066,Personal,
 2025-05-09,TWILIO INC          SAN FRANCISCO       CA,-594.72,Business Platinum Card,-52197,SuperPhone®,1.5
@@ -649,7 +649,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-04-20,ONLINE PAYMENT - THANK YOU,617.40,Business Platinum Card,-52007,,
 2025-04-20,PAYPAL *FINKS LLC   4029357733          AZ,-617.40,Business Platinum Card,-52130,Contractor salaries & wages,
 2025-04-20,PAYPAL *MIRIAMSTOLL 4029357733          DE,-825.00,Business Platinum Card,-52148,Contractor salaries & wages,
-2025-04-16,BE MORE DO MORE APP GLENDALE            CA,-2329.84,Business Platinum Card,-52130,Contractor salaries & wages,1.5
+2025-04-16,BE MORE DO MORE APP,-2329.84,Business Platinum Card,-52130,Commissions,1.5
 2025-04-16,ONLINE PAYMENT - THANK YOU,2329.84,Business Platinum Card,-52007,,
 2025-04-12,ONLINE PAYMENT - THANK YOU,1000.00,Business Platinum Card,-52007,,
 2025-04-12,PAYPAL *TWENTYFOURA 4029357733          NY,-1000.00,Business Platinum Card,-52130,Contractor salaries & wages,
@@ -734,7 +734,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-17,PAYPAL *ONLINE PURC 4029357733          AR,-93.97,Business Platinum Card,-51017,Personal,
 2025-01-17,UBER TRIP           HTTPS://HELP.UBER.COCA,-346.22,Business Platinum Card,-52122,Rideshare & taxi,
 2025-01-15,CHECKLESS PYMT RECEIVED-THANK YOU,2681.91,Business Platinum Card,-52007,,
-2025-01-13,BE MORE DO MORE APP GLENDALE            CA,-387.20,Business Platinum Card,-52122,Contractor salaries & wages,1.5
+2025-01-13,BE MORE DO MORE APP,-387.20,Business Platinum Card,-52122,Commissions,1.5
 2025-01-11,GEICO AUTO          (800)841-3000       DC,-168.52,Business Platinum Card,-51017,Insurance,
 2025-01-11,ONLINE PAYMENT - THANK YOU,934.47,Business Platinum Card,-52007,,
 2025-01-11,TALLY.SO            GENT                OO,-29.00,Business Platinum Card,-51017,Marketing,
@@ -1023,7 +1023,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-05,"TWILIO, INC.        SAN FRANCISCO",-651.93,Business Rose Gold,-01018,SuperPhone®,4
 2025-01-04,"TWILIO, INC.        SAN FRANCISCO",-400.00,Business Rose Gold,-01018,SuperPhone®,4
 2025-06-14,ONLINE PAYMENT - THANK YOU,703.12,Business White Gold,-41000,,
-2025-06-14,BE MORE DO MORE APP,-703.12,Business White Gold,-41000,Contractor salaries & wages,
+2025-06-14,BE MORE DO MORE APP,-703.12,Business White Gold,-41000,Commissions,
 2025-06-13,MANYCHAT.COM        SAN FRANCISCO       CA,-15.00,Business White Gold,-41000,Marketing,
 2025-06-13,PAYPAL *TWENTYFOURA,-1000.00,Business White Gold,-41000,Contractor salaries & wages,
 2025-06-13,ONLINE PAYMENT - THANK YOU,29.99,Business White Gold,-41000,,
@@ -1068,7 +1068,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-05-03,TWILIO INC          SAN FRANCISCO       CA,-20.08,Business White Gold,-41059,SuperPhone®,4
 2025-05-02,TWILIO INC          SAN FRANCISCO       CA,-20.33,Business White Gold,-41059,SuperPhone®,4
 2025-04-30,DocuSign            SEATTLE             WA,-457.27,Business White Gold,-41000,Software,4
-2025-04-28,BE MORE DO MORE APP GLENDALE            CA,-897.93,Business White Gold,-41059,Contractor salaries & wages,4
+2025-04-28,BE MORE DO MORE APP,-897.93,Business White Gold,-41059,Commissions,4
 2025-04-28,ONLINE PAYMENT - THANK YOU,897.93,Business White Gold,-41000,,
 2025-04-28,POLYGON.IO DATA API ATLANTA             GA,-26.10,Business White Gold,-41042,App development,4
 2025-04-28,TWILIO INC          SAN FRANCISCO       CA,-20.83,Business White Gold,-41059,SuperPhone®,4
@@ -1112,7 +1112,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-04-09,BEST BUY            MESA                AZ,-357.38,Business White Gold,-41000,Office supplies,4
 2025-04-08,CALENDLY            AVONDALE ESTATES    GA,-11.70,Business White Gold,-41000,Software,4
 2025-04-08,TWILIO INC          SAN FRANCISCO       CA,-20.16,Business White Gold,-41059,SuperPhone®,4
-2025-04-05,BE MORE DO MORE APP GLENDALE            CA,-2160.23,Business White Gold,-41059,Contractor salaries & wages,4
+2025-04-05,BE MORE DO MORE APP,-2160.23,Business White Gold,-41059,Commissions,4
 2025-04-05,ONLINE PAYMENT - THANK YOU,2160.23,Business White Gold,-41000,,
 2025-04-05,ZAPIER.COM/CHARGE   SAN FRANCISCO       CA,-29.99,Business White Gold,-41000,Software,4
 2025-04-04,TWILIO INC          SAN FRANCISCO       CA,-20.48,Business White Gold,-41059,SuperPhone®,4
@@ -1133,8 +1133,8 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-03-24,TWILIO INC          SAN FRANCISCO       CA,-201.14,Business White Gold,-41034,SuperPhone®,4
 2025-03-21,TWILIO INC          SAN FRANCISCO       CA,-310.23,Business White Gold,-41034,SuperPhone®,4
 2025-03-21,TWILIO INC          SAN FRANCISCO       CA,-321.09,Business White Gold,-41034,SuperPhone®,4
-2025-03-19,BE MORE DO MORE APP GLENDALE            CA,-218.35,Business White Gold,-41042,Contractor salaries & wages,4
-2025-03-19,BE MORE DO MORE APP GLENDALE            CA,-1504.80,Business White Gold,-41042,Contractor salaries & wages,4
+2025-03-19,BE MORE DO MORE APP,-218.35,Business White Gold,-41042,Commissions,4
+2025-03-19,BE MORE DO MORE APP,-1504.80,Business White Gold,-41042,Commissions,4
 2025-03-18,OPUS CLIP           PALO ALTO           CA,-174.00,Business White Gold,-41034,Marketing,4
 2025-03-18,TWENTYFOUR AI       NEW YORK            NY,-2000.00,Business White Gold,-41042,Contractor salaries & wages,4
 2025-03-17,LOVABLE             DOVER               DE,-50.00,Business White Gold,-41034,App development,4
@@ -1223,7 +1223,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-02-10,"REPLIT, INC.        FOSTER CITY         CA",-10.21,Business White Gold,-41026,App development,4
 2025-02-10,"REPLIT, INC.        FOSTER CITY         CA",-10.22,Business White Gold,-41026,App development,4
 2025-02-10,"REPLIT, INC.        FOSTER CITY         CA",-10.23,Business White Gold,-41026,App development,4
-2025-02-09,BE MORE DO MORE APP GLENDALE            CA,-2585.40,Business White Gold,-41026,Contractor salaries & wages,4
+2025-02-09,BE MORE DO MORE APP,-2585.40,Business White Gold,-41026,Commissions,4
 2025-02-09,"REPLIT, INC.        FOSTER CITY         CA",-180.00,Business White Gold,-41026,App development,4
 2025-02-09,SUPERHUMAN          SAN FRANCISCO       CA,-30.00,Business White Gold,-41000,Outbound sales,4
 2025-02-09,VITAL AI            PEEKSKILL           NY,-582.48,Business White Gold,-41026,Contractor salaries & wages,4

@@ -229,7 +229,7 @@ export function CategorySpendingChart({
                 }
               `}
             </style>
-            <div className="scroll-container overflow-y-auto" style={{ height: '308px' }}>
+            <div className="scroll-container overflow-y-auto max-h-96">
               <Table>
                 <TableBody>
                   {categoryData?.length ? (

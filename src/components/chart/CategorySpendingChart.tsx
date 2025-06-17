@@ -4,7 +4,7 @@
 import * as React from "react"
 import { useCategorySpendingData } from "@/hooks/useCategorySpendingData"
 import { TimeRangeSelector } from "@/components/chart/TimeRangeSelector"
-import { ChartDisplay } from "@/components/chart/ChartDisplay"
+import { CategoryChartDisplay } from "@/components/chart/CategoryChartDisplay"
 import {
   Card,
   CardContent,
@@ -62,7 +62,7 @@ export function CategorySpendingChart({
       </CardHeader>
 
       <CardContent className="px-2 sm:px-6">
-        <ChartDisplay data={filteredData} onDateClick={onDateClick} />
+        <CategoryChartDisplay data={filteredData} onDateClick={onDateClick} />
       </CardContent>
     </Card>
   )

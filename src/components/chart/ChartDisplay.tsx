@@ -1,6 +1,6 @@
 
 import * as React from "react"
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts"
 import {
   ChartConfig,
   ChartContainer,
@@ -9,23 +9,23 @@ import {
 } from "@/components/ui/chart"
 
 const chartConfig = {
-  spending: {
-    label: "Spending",
-    color: "var(--primary)",
+  totalSpend: {
+    label: "Total Spend",
+    color: "hsl(var(--chart-1))",
   },
 } satisfies ChartConfig
 
 interface ChartDisplayProps {
-  data: Array<{ category: string; spending: number }>
+  data: Array<{ date: string; totalSpend: number }>
   onDateClick?: (date: string) => void
 }
 
 export function ChartDisplay({ data, onDateClick }: ChartDisplayProps) {
   const handleChartClick = (chartData: any) => {
     if (chartData && chartData.activePayload && chartData.activePayload[0] && onDateClick) {
-      const clickedCategory = chartData.activePayload[0].payload.category;
-      console.log("Chart clicked, category:", clickedCategory);
-      onDateClick(clickedCategory);
+      const clickedDate = chartData.activePayload[0].payload.date;
+      console.log("Chart clicked, date:", clickedDate);
+      onDateClick(clickedDate);
     }
   }
 
@@ -34,42 +34,41 @@ export function ChartDisplay({ data, onDateClick }: ChartDisplayProps) {
       config={chartConfig}
       className="aspect-auto h-[400px] w-full"
     >
-      <BarChart data={data} onClick={handleChartClick} margin={{ bottom: 60 }}>
-        <CartesianGrid strokeDasharray="3 3" />
+      <AreaChart
+        accessibilityLayer
+        data={data}
+        margin={{
+          left: 12,
+          right: 12,
+        }}
+        onClick={handleChartClick}
+      >
+        <CartesianGrid vertical={false} />
         <XAxis
-          dataKey="category"
+          dataKey="date"
           tickLine={false}
           axisLine={false}
           tickMargin={8}
-          angle={-45}
-          textAnchor="end"
-          height={80}
-          interval={0}
+          tickFormatter={(value) => value.slice(5)}
         />
         <YAxis
           tickLine={false}
           axisLine={false}
-          tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
+          tickFormatter={(value) => `$${(value / 1000).toFixed(1)}k`}
         />
         <ChartTooltip
-          cursor={{ fill: 'rgba(0, 0, 0, 0.1)' }}
-          content={
-            <ChartTooltipContent
-              labelFormatter={(value) => `Category: ${value}`}
-              formatter={(value) => [
-                `$${Number(value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
-                "Spending"
-              ]}
-              indicator="dot"
-            />
-          }
+          cursor={false}
+          content={<ChartTooltipContent />}
         />
-        <Bar
-          dataKey="spending"
-          fill="var(--color-spending)"
-          radius={[4, 4, 0, 0]}
+        <Area
+          dataKey="totalSpend"
+          type="natural"
+          fill="var(--color-totalSpend)"
+          fillOpacity={0.4}
+          stroke="var(--color-totalSpend)"
+          stackId="a"
         />
-      </BarChart>
+      </AreaChart>
     </ChartContainer>
   )
 }

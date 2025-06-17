@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -209,8 +210,8 @@ export function CategorySpendingChart({
         </CardHeader>
         <CardContent>
           <div className="rounded-md border">
-            <div className="max-h-80 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent hover:scrollbar-thumb-gray-400 scrollbar-thumb-rounded-full scrollbar-track-rounded-full">
-              <style jsx>{`
+            <style>
+              {`
                 .scroll-container {
                   scrollbar-width: thin;
                   scrollbar-color: transparent transparent;
@@ -232,36 +233,36 @@ export function CategorySpendingChart({
                 .scroll-container:hover::-webkit-scrollbar-thumb {
                   background-color: #d1d5db;
                 }
-              `}</style>
-              <div className="scroll-container max-h-80 overflow-y-auto">
-                <Table>
-                  <TableBody>
-                    {table.getRowModel().rows?.length ? (
-                      table.getRowModel().rows.map((row) => (
-                        <TableRow key={row.id}>
-                          {row.getVisibleCells().map((cell) => (
-                            <TableCell key={cell.id}>
-                              {flexRender(
-                                cell.column.columnDef.cell,
-                                cell.getContext()
-                              )}
-                            </TableCell>
-                          ))}
-                        </TableRow>
-                      ))
-                    ) : (
-                      <TableRow>
-                        <TableCell
-                          colSpan={columns.length}
-                          className="h-24 text-center"
-                        >
-                          No data available.
-                        </TableCell>
+              `}
+            </style>
+            <div className="scroll-container max-h-80 overflow-y-auto">
+              <Table>
+                <TableBody>
+                  {table.getRowModel().rows?.length ? (
+                    table.getRowModel().rows.map((row) => (
+                      <TableRow key={row.id}>
+                        {row.getVisibleCells().map((cell) => (
+                          <TableCell key={cell.id}>
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext()
+                            )}
+                          </TableCell>
+                        ))}
                       </TableRow>
-                    )}
-                  </TableBody>
-                </Table>
-              </div>
+                    ))
+                  ) : (
+                    <TableRow>
+                      <TableCell
+                        colSpan={columns.length}
+                        className="h-24 text-center"
+                      >
+                        No data available.
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
             </div>
           </div>
         </CardContent>

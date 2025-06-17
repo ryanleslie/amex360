@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { AppHeader } from "@/components/AppHeader";
 import { AppSidebar } from "@/components/AppSidebar";
@@ -20,7 +19,7 @@ const Dashboard = () => {
         return <Index />;
       case "insights":
         return (
-          <div className="p-6 space-y-6">
+          <div className="p-6 pt-2">
             <div className="max-w-7xl mx-auto">
               <CategorySpendingChart />
             </div>

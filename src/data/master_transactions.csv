@@ -426,7 +426,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-28,ONLINE PAYMENT - THANK YOU,1000.00,Business Classic Gold,-71002,,
 2025-01-27,ACRELYTICS.AI       CLAYTON             NC,-500.00,Business Classic Gold,-72075,CreditMax,
 2025-01-27,CON-STRUC-TION      CULVER CITY         CA,-500.00,Business Classic Gold,-72075,CreditMax,
-2025-01-27,TWENTYFOUR AI       NEW YORK            NY,-4000.00,Business Classic Gold,-72083,Contractors,4
+2025-01-27,TWENTYFOUR AI,-4000.00,Business Classic Gold,-72083,CreditMax,4
 2025-01-26,CHRONOSAI           ATLANTA             GA,-2000.00,Business Classic Gold,-72075,CreditMax,
 2025-01-23,CHARGEBEE           WALNUT              CA,-1474.00,Business Classic Gold,-72067,Software,
 2025-01-23,ONLINE PAYMENT - THANK YOU,608.45,Business Classic Gold,-71002,,

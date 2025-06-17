@@ -9,7 +9,6 @@ import {
   useReactTable,
   getCoreRowModel,
   getSortedRowModel,
-  getPaginationRowModel,
   ColumnDef,
   flexRender,
 } from "@tanstack/react-table"
@@ -141,7 +140,6 @@ export function CategorySpendingChart({
     columns,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
     initialState: {
       sorting: [
         {
@@ -149,10 +147,6 @@ export function CategorySpendingChart({
           desc: true,
         },
       ],
-      pagination: {
-        pageSize: 10,
-        pageIndex: 0,
-      },
     },
   });
 
@@ -235,7 +229,7 @@ export function CategorySpendingChart({
                 }
               `}
             </style>
-            <div className="scroll-container h-80 overflow-y-auto">
+            <div className="scroll-container overflow-y-auto" style={{ height: '364px' }}>
               <Table>
                 <TableBody>
                   {table.getRowModel().rows?.length ? (

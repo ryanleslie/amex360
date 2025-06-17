@@ -197,9 +197,9 @@ export function CategorySpendingChart({
       {/* Category Table Card - Takes 2/5 of the width */}
       <Card className="bg-gradient-to-b from-white to-gray-100 lg:col-span-2">
         <CardHeader>
-          <CardTitle className="text-xl font-semibold">Category Breakdown</CardTitle>
+          <CardTitle className="text-xl font-semibold">Categories</CardTitle>
           <CardDescription>
-            Detailed spending by category {getTimeRangeLabel()}
+            Spending detail by category {getTimeRangeLabel()}
           </CardDescription>
         </CardHeader>
         <CardContent>

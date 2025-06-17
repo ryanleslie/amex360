@@ -6,13 +6,6 @@ import { useCategorySpendingData } from "@/hooks/useCategorySpendingData"
 import { TimeRangeSelector } from "@/components/chart/TimeRangeSelector"
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts"
 import {
-  useReactTable,
-  getCoreRowModel,
-  getSortedRowModel,
-  ColumnDef,
-  flexRender,
-} from "@tanstack/react-table"
-import {
   Card,
   CardContent,
   CardDescription,
@@ -60,10 +53,30 @@ export function CategorySpendingChart({
   onTimeRangeChange 
 }: CategorySpendingChartProps) {
   const [timeRange, setTimeRange] = React.useState(selectedTimeRange)
+  const scrollContainerRef = React.useRef<HTMLDivElement>(null)
 
   React.useEffect(() => {
     setTimeRange(selectedTimeRange);
   }, [selectedTimeRange])
+
+  // Animation effect to indicate scrollable content
+  React.useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const animateScroll = () => {
+      // Small bounce animation to indicate scrollability
+      container.scrollTo({ top: 20, behavior: 'smooth' });
+      setTimeout(() => {
+        container.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 800);
+    };
+
+    // Start animation after a short delay
+    const timer = setTimeout(animateScroll, 1500);
+
+    return () => clearTimeout(timer);
+  }, [timeRange]); // Re-run when time range changes
 
   const handleTimeRangeChange = (newTimeRange: string) => {
     setTimeRange(newTimeRange);
@@ -94,61 +107,6 @@ export function CategorySpendingChart({
     }
     return null;
   };
-
-  // Table columns definition
-  const columns: ColumnDef<CategoryData>[] = [
-    {
-      accessorKey: "category",
-      header: "Category",
-      cell: ({ row, table }) => {
-        const index = table.getSortedRowModel().rows.findIndex(r => r.id === row.id);
-        const color = COLORS[index % COLORS.length];
-        return (
-          <div className="flex items-center gap-2">
-            <div 
-              className="w-3 h-3 rounded-full flex-shrink-0" 
-              style={{ backgroundColor: color }}
-            />
-            <span className="font-medium">{row.getValue("category")}</span>
-          </div>
-        );
-      },
-    },
-    {
-      accessorKey: "percentage",
-      header: "Percentage",
-      cell: ({ row }) => {
-        return <span className="font-medium">{row.getValue("percentage")}%</span>;
-      },
-    },
-    {
-      accessorKey: "amount",
-      header: `Total Spend ${getTimeRangeLabel()}`,
-      cell: ({ row }) => {
-        const amount = parseFloat(row.getValue("amount"));
-        return (
-          <span className="font-medium">
-            ${amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-          </span>
-        );
-      },
-    },
-  ];
-
-  const table = useReactTable({
-    data: categoryData,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    initialState: {
-      sorting: [
-        {
-          id: "amount",
-          desc: true,
-        },
-      ],
-    },
-  });
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
@@ -203,12 +161,13 @@ export function CategorySpendingChart({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="rounded-md border">
+          <div className="rounded-md border relative">
             <style>
               {`
                 .scroll-container {
                   scrollbar-width: thin;
                   scrollbar-color: transparent transparent;
+                  scroll-behavior: smooth;
                 }
                 .scroll-container:hover {
                   scrollbar-color: #d1d5db transparent;
@@ -227,9 +186,33 @@ export function CategorySpendingChart({
                 .scroll-container:hover::-webkit-scrollbar-thumb {
                   background-color: #d1d5db;
                 }
+                .scroll-indicator {
+                  position: absolute;
+                  right: 8px;
+                  top: 50%;
+                  transform: translateY(-50%);
+                  pointer-events: none;
+                  opacity: 0.6;
+                  animation: bounce 2s infinite;
+                  z-index: 10;
+                }
+                @keyframes bounce {
+                  0%, 20%, 50%, 80%, 100% {
+                    transform: translateY(-50%);
+                  }
+                  40% {
+                    transform: translateY(-40%);
+                  }
+                  60% {
+                    transform: translateY(-60%);
+                  }
+                }
               `}
             </style>
-            <div className="scroll-container overflow-y-auto max-h-96">
+            <div 
+              ref={scrollContainerRef}
+              className="scroll-container overflow-y-auto max-h-96"
+            >
               <Table>
                 <TableBody>
                   {categoryData?.length ? (
@@ -267,6 +250,12 @@ export function CategorySpendingChart({
                 </TableBody>
               </Table>
             </div>
+            {/* Scroll indicator - only show if there are more than 8 categories */}
+            {categoryData?.length > 8 && (
+              <div className="scroll-indicator">
+                <div className="w-2 h-4 bg-gray-400 rounded-full opacity-50" />
+              </div>
+            )}
           </div>
         </CardContent>
       </Card>

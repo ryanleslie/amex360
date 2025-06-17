@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -149,7 +150,7 @@ export function CategorySpendingChart({
         },
       ],
       pagination: {
-        pageSize: 8,
+        pageSize: 7,
         pageIndex: 0,
       },
     },

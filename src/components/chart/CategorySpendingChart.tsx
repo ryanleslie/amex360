@@ -235,7 +235,7 @@ export function CategorySpendingChart({
                 }
               `}
             </style>
-            <div className="scroll-container max-h-80 overflow-y-auto">
+            <div className="scroll-container max-h-96 overflow-y-auto">
               <Table>
                 <TableBody>
                   {table.getRowModel().rows?.length ? (

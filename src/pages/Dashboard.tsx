@@ -7,7 +7,6 @@ import Employee from "./Employee";
 import Rewards from "./Rewards";
 import CreditMax from "./CreditMax";
 import Redemptions from "./Redemptions";
-import { CategorySpendingChart } from "@/components/chart/CategorySpendingChart";
 
 export type DashboardSection = "dashboard" | "insights" | "rewards" | "employee" | "creditmax" | "admin" | "redemptions";
 
@@ -20,16 +19,10 @@ const Dashboard = () => {
         return <Index />;
       case "insights":
         return (
-          <div className="flex-1">
-            <div className="max-w-7xl mx-auto px-6 mb-8">
-              <div className="mb-8">
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">Insights</h1>
-                <p className="text-muted-foreground">Advanced analytics and insights for your spending patterns.</p>
-              </div>
-              
-              <div className="mt-8 px-4 lg:px-6">
-                <CategorySpendingChart />
-              </div>
+          <div className="p-6 space-y-6">
+            <div className="text-center py-12">
+              <h2 className="text-2xl font-semibold text-muted-foreground">Insights</h2>
+              <p className="text-muted-foreground mt-2">Advanced analytics and insights will be added here.</p>
             </div>
           </div>
         );

@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -20,18 +21,18 @@ interface CategorySpendingChartProps {
   onTimeRangeChange?: (timeRange: string) => void;
 }
 
-// Colors for the donut chart segments - blue-themed palette
+// Colors for the donut chart segments - deep blue palette
 const COLORS = [
-  '#e3f2fd', // Alice blue
-  '#bbdefb', // Uranian blue
-  '#90caf9', // Light sky blue
-  '#64b5f6', // Argentinian blue
-  '#42a5f5', // Argentinian blue (variant)
-  '#2196f3', // Dodger blue
-  '#1e88e5', // Bleu de france
-  '#1976d2', // French blue
-  '#1565c0', // Green blue
-  '#0d47a1', // Cobalt blue
+  '#012a4a', // Prussian blue
+  '#013a63', // Indigo dye
+  '#01497c', // Indigo dye (variant)
+  '#014f86', // Indigo dye (variant 2)
+  '#2a6f97', // UCLA blue
+  '#2c7da0', // Cerulean
+  '#468faf', // Air force blue
+  '#61a5c2', // Air superiority blue
+  '#89c2d9', // Sky blue
+  '#a9d6e5', // Light blue
 ]
 
 export function CategorySpendingChart({ 

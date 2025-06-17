@@ -11,8 +11,11 @@ export const useCategorySpendingData = (timeRange: string) => {
       selectedTimeRange: timeRange
     })
 
+    // Filter to only include expenses (negative amounts)
+    const expenseTransactions = allTransactions.filter(transaction => transaction.amount < 0)
+
     // Group transactions by category and sum spending
-    const categorySpending = allTransactions.reduce((acc, transaction) => {
+    const categorySpending = expenseTransactions.reduce((acc, transaction) => {
       const category = transaction.category || 'Other'
       if (!acc[category]) {
         acc[category] = 0

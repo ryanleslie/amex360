@@ -1,6 +1,6 @@
 
 import * as React from "react"
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
+import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts"
 import {
   ChartConfig,
   ChartContainer,
@@ -20,12 +20,25 @@ interface CategoryChartDisplayProps {
   onDateClick?: (date: string) => void
 }
 
+// Define colors for the donut chart segments
+const COLORS = [
+  'hsl(var(--chart-1))',
+  'hsl(var(--chart-2))',
+  'hsl(var(--chart-3))',
+  'hsl(var(--chart-4))',
+  'hsl(var(--chart-5))',
+  '#8884d8',
+  '#82ca9d',
+  '#ffc658',
+  '#ff7300',
+  '#00ff00',
+]
+
 export function CategoryChartDisplay({ data, onDateClick }: CategoryChartDisplayProps) {
-  const handleChartClick = (chartData: any) => {
-    if (chartData && chartData.activePayload && chartData.activePayload[0] && onDateClick) {
-      const clickedCategory = chartData.activePayload[0].payload.category;
-      console.log("Chart clicked, category:", clickedCategory);
-      onDateClick(clickedCategory);
+  const handleChartClick = (entry: any) => {
+    if (entry && onDateClick) {
+      console.log("Chart clicked, category:", entry.category);
+      onDateClick(entry.category);
     }
   }
 
@@ -34,42 +47,36 @@ export function CategoryChartDisplay({ data, onDateClick }: CategoryChartDisplay
       config={chartConfig}
       className="aspect-auto h-[400px] w-full"
     >
-      <BarChart data={data} onClick={handleChartClick} margin={{ bottom: 60 }}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis
-          dataKey="category"
-          tickLine={false}
-          axisLine={false}
-          tickMargin={8}
-          angle={-45}
-          textAnchor="end"
-          height={80}
-          interval={0}
-        />
-        <YAxis
-          tickLine={false}
-          axisLine={false}
-          tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
-        />
-        <ChartTooltip
-          cursor={{ fill: 'rgba(0, 0, 0, 0.1)' }}
-          content={
-            <ChartTooltipContent
-              labelFormatter={(value) => `Category: ${value}`}
-              formatter={(value) => [
-                `$${Number(value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
-                "Spending"
-              ]}
-              indicator="dot"
-            />
-          }
-        />
-        <Bar
-          dataKey="spending"
-          fill="var(--color-spending)"
-          radius={[4, 4, 0, 0]}
-        />
-      </BarChart>
+      <ResponsiveContainer width="100%" height="100%">
+        <PieChart>
+          <Pie
+            data={data}
+            cx="50%"
+            cy="50%"
+            innerRadius={60}
+            outerRadius={120}
+            paddingAngle={2}
+            dataKey="spending"
+            onClick={handleChartClick}
+          >
+            {data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
+          <ChartTooltip
+            content={
+              <ChartTooltipContent
+                labelFormatter={(value) => `Category: ${value}`}
+                formatter={(value, name, props) => [
+                  `$${Number(value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
+                  "Spending"
+                ]}
+                indicator="dot"
+              />
+            }
+          />
+        </PieChart>
+      </ResponsiveContainer>
     </ChartContainer>
   )
 }

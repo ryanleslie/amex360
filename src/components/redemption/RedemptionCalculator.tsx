@@ -3,6 +3,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Info } from "lucide-react";
 
 export function RedemptionCalculator() {
   const [points, setPoints] = useState<string>("");
@@ -118,80 +120,123 @@ export function RedemptionCalculator() {
     }
   }, [points, pointsValue]);
 
-  return (
-    <div className="space-y-6 p-6">
-      {/* Points Input */}
-      <div className="space-y-2">
-        <Label htmlFor="points">Points to Redeem</Label>
-        <div className="relative">
-          <Input
-            ref={inputRef}
-            id="points"
-            type="text"
-            placeholder="Enter points amount"
-            defaultValue=""
-            onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
-            onClick={handleClick}
-            className="text-2xl lg:text-3xl font-semibold tabular-nums h-16 px-4 text-center bg-white"
-            style={{ color: '#00175a' }}
-          />
-        </div>
-      </div>
-
-      {/* Employee Toggle */}
-      <div className="flex items-center space-x-2">
-        <Switch
-          id="employee"
-          checked={isEmployee}
-          onCheckedChange={setIsEmployee}
-        />
-        <Label htmlFor="employee">Employee card rates</Label>
-      </div>
-
-      {pointsValue > 0 && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Spend Requirements - On the left */}
-          <div className="space-y-3">
-            <h3 className="font-semibold text-lg">
-              Spend required to earn/replenish points
-            </h3>
-            <div className="grid grid-cols-1 gap-3">
-              <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
-                <span className="text-sm font-medium">Business Gold {isEmployee && "Employee Card"}</span>
-                <span className="font-semibold">{formatCurrency(goldSpend)}</span>
-              </div>
-              <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
-                <span className="text-sm font-medium">Business Blue Plus {isEmployee && "Employee Card"}</span>
-                <span className="font-semibold">{formatCurrency(blueSpend)}</span>
-              </div>
-              <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
-                <span className="text-sm font-medium">Business Platinum {isEmployee && "Employee Card"}</span>
-                <span className="font-semibold">{formatCurrency(platinumSpend)}</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Cash Values - On the right */}
-          <div className="space-y-3">
-            <h3 className="font-semibold text-lg">Cash redemption value</h3>
-            <div className="grid grid-cols-1 gap-3">
-              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                <span className="text-sm font-medium">Standard</span>
-                <span className="font-semibold">{formatCurrency(standardCash)}</span>
-              </div>
-              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                <span className="text-sm font-medium">Business Platinum</span>
-                <span className="font-semibold">{formatCurrency(businessPlatinumCash)}</span>
-              </div>
-              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                <span className="text-sm font-medium">Schwab Platinum</span>
-                <span className="font-semibold">{formatCurrency(schwabPlatinumCash)}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+  const cashTooltipContent = (
+    <div className="space-y-1 text-sm">
+      <div><strong>Standard:</strong> 10,000 points = $60.00</div>
+      <div><strong>Business Platinum:</strong> 10,000 points = $100.00</div>
+      <div><strong>Schwab Platinum:</strong> 10,000 points = $110.00</div>
     </div>
+  );
+
+  const spendTooltipContent = (
+    <div className="space-y-1 text-sm">
+      <div><strong>Business Gold:</strong> 4x points/dollar</div>
+      <div><strong>Business Blue Plus:</strong> 2x points/dollar</div>
+      <div><strong>Business Platinum:</strong> 1.5x points/dollar</div>
+      <div className="mt-2 pt-1 border-t border-gray-200">
+        <div><strong>Business Gold Employee:</strong> 7.75x points/dollar</div>
+        <div><strong>Business Blue Plus Employee:</strong> 5.75x points/dollar</div>
+        <div><strong>Business Platinum Employee:</strong> 5.25x points/dollar</div>
+      </div>
+    </div>
+  );
+
+  return (
+    <TooltipProvider>
+      <div className="space-y-6 p-6">
+        {/* Points Input */}
+        <div className="space-y-2">
+          <Label htmlFor="points">Points to Redeem</Label>
+          <div className="relative">
+            <Input
+              ref={inputRef}
+              id="points"
+              type="text"
+              placeholder="Enter points amount"
+              defaultValue=""
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+              onClick={handleClick}
+              className="text-2xl lg:text-3xl font-semibold tabular-nums h-16 px-4 text-center bg-white"
+              style={{ color: '#00175a' }}
+            />
+          </div>
+        </div>
+
+        {/* Employee Toggle */}
+        <div className="flex items-center space-x-2">
+          <Switch
+            id="employee"
+            checked={isEmployee}
+            onCheckedChange={setIsEmployee}
+          />
+          <Label htmlFor="employee">Employee card rates</Label>
+        </div>
+
+        {pointsValue > 0 && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Spend Requirements - On the left */}
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <h3 className="font-semibold text-lg">
+                  Spend required to earn/replenish points
+                </h3>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Info className="h-4 w-4 text-gray-500 hover:text-gray-700" />
+                  </TooltipTrigger>
+                  <TooltipContent side="right" className="max-w-xs">
+                    {spendTooltipContent}
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+              <div className="grid grid-cols-1 gap-3">
+                <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+                  <span className="text-sm font-medium">Business Gold {isEmployee && "Employee Card"}</span>
+                  <span className="font-semibold">{formatCurrency(goldSpend)}</span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+                  <span className="text-sm font-medium">Business Blue Plus {isEmployee && "Employee Card"}</span>
+                  <span className="font-semibold">{formatCurrency(blueSpend)}</span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+                  <span className="text-sm font-medium">Business Platinum {isEmployee && "Employee Card"}</span>
+                  <span className="font-semibold">{formatCurrency(platinumSpend)}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Cash Values - On the right */}
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <h3 className="font-semibold text-lg">Cash redemption value</h3>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Info className="h-4 w-4 text-gray-500 hover:text-gray-700" />
+                  </TooltipTrigger>
+                  <TooltipContent side="left" className="max-w-xs">
+                    {cashTooltipContent}
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+              <div className="grid grid-cols-1 gap-3">
+                <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                  <span className="text-sm font-medium">Standard</span>
+                  <span className="font-semibold">{formatCurrency(standardCash)}</span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                  <span className="text-sm font-medium">Business Platinum</span>
+                  <span className="font-semibold">{formatCurrency(businessPlatinumCash)}</span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                  <span className="text-sm font-medium">Schwab Platinum</span>
+                  <span className="font-semibold">{formatCurrency(schwabPlatinumCash)}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </TooltipProvider>
   );
 }

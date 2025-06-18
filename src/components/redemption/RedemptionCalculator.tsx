@@ -55,12 +55,13 @@ export function RedemptionCalculator() {
     const value = input.value;
     const cursorPosition = input.selectionStart || 0;
     
-    // Handle backspace and delete when cursor is at or after " pts"
+    // Handle backspace and delete when cursor is after the numeric part
     if ((e.key === 'Backspace' || e.key === 'Delete') && value.includes(" pts")) {
       const ptsIndex = value.indexOf(" pts");
-      if (cursorPosition >= ptsIndex) {
+      // Only prevent deletion if cursor is actually in the " pts" suffix (not at the boundary)
+      if (cursorPosition > ptsIndex) {
         e.preventDefault();
-        // Move cursor to end of numeric part and allow normal deletion
+        // Move cursor to end of numeric part
         setTimeout(() => {
           if (inputRef.current) {
             inputRef.current.setSelectionRange(ptsIndex, ptsIndex);
@@ -150,7 +151,7 @@ export function RedemptionCalculator() {
 
       {pointsValue > 0 && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Spend Requirements - Now on the left */}
+          {/* Spend Requirements - On the left */}
           <div className="space-y-3">
             <h3 className="font-semibold text-lg">
               Spend required to earn/replenish points {isEmployee && "(employee card)"}
@@ -171,7 +172,7 @@ export function RedemptionCalculator() {
             </div>
           </div>
 
-          {/* Cash Values - Now on the right */}
+          {/* Cash Values - On the right */}
           <div className="space-y-3">
             <h3 className="font-semibold text-lg">Cash redemption value</h3>
             <div className="grid grid-cols-1 gap-3">

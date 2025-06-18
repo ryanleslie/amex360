@@ -3,8 +3,6 @@ import React, { useState, useRef, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Crown } from "lucide-react";
 import { useCountUp } from "@/hooks/useCountUp";
 import { getCardImage } from "@/utils/cardImageUtils";
 
@@ -24,11 +22,6 @@ export function RedemptionCalculator() {
   const goldSpend = isEmployee ? pointsValue / 7.75 : pointsValue / 4;
   const blueSpend = isEmployee ? pointsValue / 5.75 : pointsValue / 2;
   const platinumSpend = isEmployee ? pointsValue / 5.25 : pointsValue / 1.5;
-
-  // CreditMax spend calculations (3% of spend values)
-  const goldCreditMaxSpend = goldSpend * 0.03;
-  const blueCreditMaxSpend = blueSpend * 0.03;
-  const platinumCreditMaxSpend = platinumSpend * 0.03;
 
   // Animated values
   const animatedStandardCash = useCountUp({ end: standardCash, duration: 600 });
@@ -136,165 +129,127 @@ export function RedemptionCalculator() {
   }, [points, pointsValue]);
 
   return (
-    <TooltipProvider>
-      <div className="space-y-6 p-6">
-        {/* Points Input */}
-        <div className="space-y-2">
-          <Label htmlFor="points">Points to Redeem</Label>
-          <div className="relative">
-            <Input
-              ref={inputRef}
-              id="points"
-              type="text"
-              placeholder="Enter points amount"
-              defaultValue=""
-              onChange={handleInputChange}
-              onKeyDown={handleKeyDown}
-              onClick={handleClick}
-              className="text-2xl lg:text-3xl font-semibold tabular-nums h-16 px-4 text-center bg-white"
-              style={{ color: '#00175a' }}
-            />
-          </div>
-        </div>
-
-        {/* Employee Toggle */}
-        <div className="flex items-center space-x-2">
-          <Switch
-            id="employee"
-            checked={isEmployee}
-            onCheckedChange={setIsEmployee}
+    <div className="space-y-6 p-6">
+      {/* Points Input */}
+      <div className="space-y-2">
+        <Label htmlFor="points">Points to Redeem</Label>
+        <div className="relative">
+          <Input
+            ref={inputRef}
+            id="points"
+            type="text"
+            placeholder="Enter points amount"
+            defaultValue=""
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+            onClick={handleClick}
+            className="text-2xl lg:text-3xl font-semibold tabular-nums h-16 px-4 text-center bg-white"
+            style={{ color: '#00175a' }}
           />
-          <Label htmlFor="employee">Employee card rates</Label>
         </div>
+      </div>
 
-        {pointsValue > 0 && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Spend Requirements - On the left */}
-            <div className="space-y-3">
-              <h3 className="font-semibold text-lg">
-                Spend required to earn/replenish points
-              </h3>
-              <div className="grid grid-cols-1 gap-3">
-                <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <img 
-                      src={getCardImage(isEmployee ? "business gold employee" : "business gold")} 
-                      alt="Business Gold Card" 
-                      className="w-10 h-6 object-cover rounded"
-                    />
-                    <span className="text-sm font-medium">
-                      Business Gold {isEmployee && "Employee Card"} <span className="text-muted-foreground">({isEmployee ? "7.75x" : "4x"})</span>
-                    </span>
-                  </div>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <span className="font-semibold transition-all duration-300 cursor-help">
-                        {formatCurrency(animatedGoldSpend)}
-                      </span>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <div className="flex items-center gap-2">
-                        <Crown className="w-4 h-4" style={{ color: "#006fcf" }} />
-                        <span>CreditMax spend at 3%: {formatCurrency(goldCreditMaxSpend)}</span>
-                      </div>
-                    </TooltipContent>
-                  </Tooltip>
+      {/* Employee Toggle */}
+      <div className="flex items-center space-x-2">
+        <Switch
+          id="employee"
+          checked={isEmployee}
+          onCheckedChange={setIsEmployee}
+        />
+        <Label htmlFor="employee">Employee card rates</Label>
+      </div>
+
+      {pointsValue > 0 && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Spend Requirements - On the left */}
+          <div className="space-y-3">
+            <h3 className="font-semibold text-lg">
+              Spend required to earn/replenish points
+            </h3>
+            <div className="grid grid-cols-1 gap-3">
+              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                <div className="flex items-center gap-3">
+                  <img 
+                    src={getCardImage(isEmployee ? "business gold employee" : "business gold")} 
+                    alt="Business Gold Card" 
+                    className="w-10 h-6 object-cover rounded"
+                  />
+                  <span className="text-sm font-medium">
+                    Business Gold {isEmployee && "Employee Card"} <span className="text-muted-foreground">({isEmployee ? "7.75x" : "4x"})</span>
+                  </span>
                 </div>
-                <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <img 
-                      src={getCardImage(isEmployee ? "business blue employee" : "business blue")} 
-                      alt="Business Blue Card" 
-                      className="w-10 h-6 object-cover rounded"
-                    />
-                    <span className="text-sm font-medium">
-                      Business Blue Plus {isEmployee && "Employee Card"} <span className="text-muted-foreground">({isEmployee ? "5.75x" : "2x"})</span>
-                    </span>
-                  </div>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <span className="font-semibold transition-all duration-300 cursor-help">
-                        {formatCurrency(animatedBlueSpend)}
-                      </span>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <div className="flex items-center gap-2">
-                        <Crown className="w-4 h-4" style={{ color: "#006fcf" }} />
-                        <span>CreditMax spend at 3%: {formatCurrency(blueCreditMaxSpend)}</span>
-                      </div>
-                    </TooltipContent>
-                  </Tooltip>
-                </div>
-                <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <img 
-                      src={getCardImage(isEmployee ? "business platinum employee" : "business platinum")} 
-                      alt="Business Platinum Card" 
-                      className="w-10 h-6 object-cover rounded"
-                    />
-                    <span className="text-sm font-medium">
-                      Business Platinum {isEmployee && "Employee Card"} <span className="text-muted-foreground">({isEmployee ? "5.25x" : "1.5x"})</span>
-                    </span>
-                  </div>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <span className="font-semibold transition-all duration-300 cursor-help">
-                        {formatCurrency(animatedPlatinumSpend)}
-                      </span>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <div className="flex items-center gap-2">
-                        <Crown className="w-4 h-4" style={{ color: "#006fcf" }} />
-                        <span>CreditMax spend at 3%: {formatCurrency(platinumCreditMaxSpend)}</span>
-                      </div>
-                    </TooltipContent>
-                  </Tooltip>
-                </div>
+                <span className="font-semibold transition-all duration-300">{formatCurrency(animatedGoldSpend)}</span>
               </div>
-            </div>
-
-            {/* Cash Values - On the right */}
-            <div className="space-y-3">
-              <h3 className="font-semibold text-lg">Cash redemption value</h3>
-              <div className="grid grid-cols-1 gap-3">
-                <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <img 
-                      src={getCardImage("standard")} 
-                      alt="Standard Redemption" 
-                      className="w-10 h-6 object-cover rounded"
-                    />
-                    <span className="text-sm font-medium">Statement credit <span className="text-muted-foreground">(10,000 points = $60.00)</span></span>
-                  </div>
-                  <span className="font-semibold transition-all duration-300">{formatCurrency(animatedStandardCash)}</span>
+              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                <div className="flex items-center gap-3">
+                  <img 
+                    src={getCardImage(isEmployee ? "business blue employee" : "business blue")} 
+                    alt="Business Blue Card" 
+                    className="w-10 h-6 object-cover rounded"
+                  />
+                  <span className="text-sm font-medium">
+                    Business Blue Plus {isEmployee && "Employee Card"} <span className="text-muted-foreground">({isEmployee ? "5.75x" : "2x"})</span>
+                  </span>
                 </div>
-                <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <img 
-                      src={getCardImage("business platinum")} 
-                      alt="Business Platinum Card" 
-                      className="w-10 h-6 object-cover rounded"
-                    />
-                    <span className="text-sm font-medium">Business Platinum <span className="text-muted-foreground">(10,000 points = $100.00)</span></span>
-                  </div>
-                  <span className="font-semibold transition-all duration-300">{formatCurrency(animatedBusinessPlatinumCash)}</span>
+                <span className="font-semibold transition-all duration-300">{formatCurrency(animatedBlueSpend)}</span>
+              </div>
+              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                <div className="flex items-center gap-3">
+                  <img 
+                    src={getCardImage(isEmployee ? "business platinum employee" : "business platinum")} 
+                    alt="Business Platinum Card" 
+                    className="w-10 h-6 object-cover rounded"
+                  />
+                  <span className="text-sm font-medium">
+                    Business Platinum {isEmployee && "Employee Card"} <span className="text-muted-foreground">({isEmployee ? "5.25x" : "1.5x"})</span>
+                  </span>
                 </div>
-                <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <img 
-                      src={getCardImage("schwab platinum")} 
-                      alt="Schwab Platinum Card" 
-                      className="w-10 h-6 object-cover rounded"
-                    />
-                    <span className="text-sm font-medium">Schwab Platinum <span className="text-muted-foreground">(10,000 points = $110.00)</span></span>
-                  </div>
-                  <span className="font-semibold transition-all duration-300">{formatCurrency(animatedSchwabPlatinumCash)}</span>
-                </div>
+                <span className="font-semibold transition-all duration-300">{formatCurrency(animatedPlatinumSpend)}</span>
               </div>
             </div>
           </div>
-        )}
-      </div>
-    </TooltipProvider>
+
+          {/* Cash Values - On the right */}
+          <div className="space-y-3">
+            <h3 className="font-semibold text-lg">Cash redemption value</h3>
+            <div className="grid grid-cols-1 gap-3">
+              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                <div className="flex items-center gap-3">
+                  <img 
+                    src={getCardImage("standard")} 
+                    alt="Standard Redemption" 
+                    className="w-10 h-6 object-cover rounded"
+                  />
+                  <span className="text-sm font-medium">Statement credit <span className="text-muted-foreground">(10,000 points = $60.00)</span></span>
+                </div>
+                <span className="font-semibold transition-all duration-300">{formatCurrency(animatedStandardCash)}</span>
+              </div>
+              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                <div className="flex items-center gap-3">
+                  <img 
+                    src={getCardImage("business platinum")} 
+                    alt="Business Platinum Card" 
+                    className="w-10 h-6 object-cover rounded"
+                  />
+                  <span className="text-sm font-medium">Business Platinum <span className="text-muted-foreground">(10,000 points = $100.00)</span></span>
+                </div>
+                <span className="font-semibold transition-all duration-300">{formatCurrency(animatedBusinessPlatinumCash)}</span>
+              </div>
+              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                <div className="flex items-center gap-3">
+                  <img 
+                    src={getCardImage("schwab platinum")} 
+                    alt="Schwab Platinum Card" 
+                    className="w-10 h-6 object-cover rounded"
+                  />
+                  <span className="text-sm font-medium">Schwab Platinum <span className="text-muted-foreground">(10,000 points = $110.00)</span></span>
+                </div>
+                <span className="font-semibold transition-all duration-300">{formatCurrency(animatedSchwabPlatinumCash)}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

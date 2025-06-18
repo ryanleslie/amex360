@@ -158,15 +158,15 @@ export function RedemptionCalculator() {
             </h3>
             <div className="grid grid-cols-1 gap-3">
               <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
-                <span className="text-sm font-medium">Gold Card</span>
+                <span className="text-sm font-medium">Business Gold</span>
                 <span className="font-semibold">{formatCurrency(goldSpend)}</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
-                <span className="text-sm font-medium">Blue Card</span>
+                <span className="text-sm font-medium">Business Blue Plus</span>
                 <span className="font-semibold">{formatCurrency(blueSpend)}</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
-                <span className="text-sm font-medium">Platinum Card</span>
+                <span className="text-sm font-medium">Business Platinum</span>
                 <span className="font-semibold">{formatCurrency(platinumSpend)}</span>
               </div>
             </div>

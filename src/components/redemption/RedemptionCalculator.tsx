@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
@@ -7,6 +7,7 @@ import { Switch } from "@/components/ui/switch";
 export function RedemptionCalculator() {
   const [points, setPoints] = useState<string>("");
   const [isEmployee, setIsEmployee] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const pointsValue = parseFloat(points) || 0;
 
@@ -31,16 +32,73 @@ export function RedemptionCalculator() {
     return new Intl.NumberFormat('en-US').format(Math.round(value));
   };
 
+  const formatDisplayValue = (value: string) => {
+    if (!value || parseFloat(value) === 0) return "";
+    const numValue = parseFloat(value);
+    return `${numValue.toLocaleString('en-US')} pts`;
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target;
+    const value = input.value;
+    const cursorPosition = input.selectionStart || 0;
+    
     // Remove non-numeric characters except for decimal points
-    const cleanValue = e.target.value.replace(/[^\d.]/g, '');
+    // Also remove " pts" suffix if present
+    const cleanValue = value.replace(/[^\d.]/g, '');
+    
+    // Update the points state
     setPoints(cleanValue);
   };
 
-  const getDisplayValue = () => {
-    if (!points || pointsValue === 0) return "";
-    return `${pointsValue.toLocaleString('en-US')} pts`;
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const input = e.target as HTMLInputElement;
+    const value = input.value;
+    const cursorPosition = input.selectionStart || 0;
+    
+    // If cursor is in the " pts" suffix area, move it before the suffix
+    if (value.includes(" pts") && cursorPosition > value.indexOf(" pts")) {
+      e.preventDefault();
+      const numericPart = value.replace(" pts", "");
+      setTimeout(() => {
+        if (inputRef.current) {
+          inputRef.current.setSelectionRange(numericPart.length, numericPart.length);
+        }
+      }, 0);
+    }
   };
+
+  const handleClick = (e: React.MouseEvent<HTMLInputElement>) => {
+    const input = e.target as HTMLInputElement;
+    const value = input.value;
+    const cursorPosition = input.selectionStart || 0;
+    
+    // If click is in the " pts" suffix area, move cursor before the suffix
+    if (value.includes(" pts") && cursorPosition > value.indexOf(" pts")) {
+      e.preventDefault();
+      const numericPart = value.replace(" pts", "");
+      setTimeout(() => {
+        if (inputRef.current) {
+          inputRef.current.setSelectionRange(numericPart.length, numericPart.length);
+        }
+      }, 0);
+    }
+  };
+
+  // Update the display value when points change
+  useEffect(() => {
+    if (inputRef.current && pointsValue > 0) {
+      const formattedValue = formatDisplayValue(points);
+      if (inputRef.current.value !== formattedValue) {
+        inputRef.current.value = formattedValue;
+        // Set cursor position before " pts"
+        const numericPart = formattedValue.replace(" pts", "");
+        inputRef.current.setSelectionRange(numericPart.length, numericPart.length);
+      }
+    } else if (inputRef.current && pointsValue === 0) {
+      inputRef.current.value = points;
+    }
+  }, [points, pointsValue]);
 
   return (
     <div className="space-y-6 p-6">
@@ -49,11 +107,14 @@ export function RedemptionCalculator() {
         <Label htmlFor="points">Points to Redeem</Label>
         <div className="relative">
           <Input
+            ref={inputRef}
             id="points"
             type="text"
             placeholder="Enter points amount"
-            value={pointsValue > 0 ? getDisplayValue() : points}
+            defaultValue=""
             onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+            onClick={handleClick}
             className="text-2xl lg:text-3xl font-semibold tabular-nums h-16 px-4 text-center bg-white"
             style={{ color: '#00175a' }}
           />

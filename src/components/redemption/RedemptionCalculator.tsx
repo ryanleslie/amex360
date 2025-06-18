@@ -159,19 +159,19 @@ export function RedemptionCalculator() {
             <div className="grid grid-cols-1 gap-3">
               <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
                 <span className="text-sm font-medium">
-                  Business Gold {isEmployee && "Employee Card"} ({isEmployee ? "7.75x" : "4x"} points/dollar)
+                  Business Gold {isEmployee && "Employee Card"} <span className="text-muted-foreground">({isEmployee ? "7.75x" : "4x"} points/dollar)</span>
                 </span>
                 <span className="font-semibold">{formatCurrency(goldSpend)}</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
                 <span className="text-sm font-medium">
-                  Business Blue Plus {isEmployee && "Employee Card"} ({isEmployee ? "5.75x" : "2x"} points/dollar)
+                  Business Blue Plus {isEmployee && "Employee Card"} <span className="text-muted-foreground">({isEmployee ? "5.75x" : "2x"} points/dollar)</span>
                 </span>
                 <span className="font-semibold">{formatCurrency(blueSpend)}</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
                 <span className="text-sm font-medium">
-                  Business Platinum {isEmployee && "Employee Card"} ({isEmployee ? "5.25x" : "1.5x"} points/dollar)
+                  Business Platinum {isEmployee && "Employee Card"} <span className="text-muted-foreground">({isEmployee ? "5.25x" : "1.5x"} points/dollar)</span>
                 </span>
                 <span className="font-semibold">{formatCurrency(platinumSpend)}</span>
               </div>
@@ -183,15 +183,15 @@ export function RedemptionCalculator() {
             <h3 className="font-semibold text-lg">Cash redemption value</h3>
             <div className="grid grid-cols-1 gap-3">
               <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                <span className="text-sm font-medium">Standard (10,000 points = $60.00)</span>
+                <span className="text-sm font-medium">Standard <span className="text-muted-foreground">(10,000 points = $60.00)</span></span>
                 <span className="font-semibold">{formatCurrency(standardCash)}</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                <span className="text-sm font-medium">Business Platinum (10,000 points = $100.00)</span>
+                <span className="text-sm font-medium">Business Platinum <span className="text-muted-foreground">(10,000 points = $100.00)</span></span>
                 <span className="font-semibold">{formatCurrency(businessPlatinumCash)}</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                <span className="text-sm font-medium">Schwab Platinum (10,000 points = $110.00)</span>
+                <span className="text-sm font-medium">Schwab Platinum <span className="text-muted-foreground">(10,000 points = $110.00)</span></span>
                 <span className="font-semibold">{formatCurrency(schwabPlatinumCash)}</span>
               </div>
             </div>

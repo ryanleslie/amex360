@@ -1,4 +1,5 @@
 
+
 import React, { useState, useRef, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -190,7 +191,7 @@ export function RedemptionCalculator() {
                 <div className="transition-all duration-300 flex items-center gap-1">
                   <span className="font-semibold">{formatCurrency(animatedGoldSpend)}</span>
                   <span>/</span>
-                  <span className="font-normal">{formatCurrency(animatedGoldCreditMaxSpend)}</span>
+                  <span className="font-normal text-sm">{formatCurrency(animatedGoldCreditMaxSpend)}</span>
                   <Crown className="h-4 w-4" style={{ color: '#006fcf' }} />
                 </div>
               </div>
@@ -208,7 +209,7 @@ export function RedemptionCalculator() {
                 <div className="transition-all duration-300 flex items-center gap-1">
                   <span className="font-semibold">{formatCurrency(animatedBlueSpend)}</span>
                   <span>/</span>
-                  <span className="font-normal">{formatCurrency(animatedBlueCreditMaxSpend)}</span>
+                  <span className="font-normal text-sm">{formatCurrency(animatedBlueCreditMaxSpend)}</span>
                   <Crown className="h-4 w-4" style={{ color: '#006fcf' }} />
                 </div>
               </div>
@@ -226,7 +227,7 @@ export function RedemptionCalculator() {
                 <div className="transition-all duration-300 flex items-center gap-1">
                   <span className="font-semibold">{formatCurrency(animatedPlatinumSpend)}</span>
                   <span>/</span>
-                  <span className="font-normal">{formatCurrency(animatedPlatinumCreditMaxSpend)}</span>
+                  <span className="font-normal text-sm">{formatCurrency(animatedPlatinumCreditMaxSpend)}</span>
                   <Crown className="h-4 w-4" style={{ color: '#006fcf' }} />
                 </div>
               </div>
@@ -277,3 +278,4 @@ export function RedemptionCalculator() {
     </div>
   );
 }
+

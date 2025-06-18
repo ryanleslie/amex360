@@ -220,7 +220,7 @@ export function RedemptionCalculator() {
                     alt="Standard Redemption" 
                     className="w-10 h-6 object-cover rounded"
                   />
-                  <span className="text-sm font-medium">Standard <span className="text-muted-foreground">(10,000 points = $60.00)</span></span>
+                  <span className="text-sm font-medium">Statement credit <span className="text-muted-foreground">(10,000 points = $60.00)</span></span>
                 </div>
                 <span className="font-semibold transition-all duration-300">{formatCurrency(animatedStandardCash)}</span>
               </div>

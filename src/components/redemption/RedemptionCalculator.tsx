@@ -41,7 +41,6 @@ export function RedemptionCalculator() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target;
     const value = input.value;
-    const cursorPosition = input.selectionStart || 0;
     
     // Remove non-numeric characters except for decimal points
     // Also remove " pts" suffix if present
@@ -56,15 +55,31 @@ export function RedemptionCalculator() {
     const value = input.value;
     const cursorPosition = input.selectionStart || 0;
     
-    // If cursor is in the " pts" suffix area, move it before the suffix
+    // Handle backspace and delete when cursor is at or after " pts"
+    if ((e.key === 'Backspace' || e.key === 'Delete') && value.includes(" pts")) {
+      const ptsIndex = value.indexOf(" pts");
+      if (cursorPosition >= ptsIndex) {
+        e.preventDefault();
+        // Move cursor to end of numeric part and allow normal deletion
+        setTimeout(() => {
+          if (inputRef.current) {
+            inputRef.current.setSelectionRange(ptsIndex, ptsIndex);
+          }
+        }, 0);
+      }
+    }
+    
+    // Prevent typing in the " pts" suffix area
     if (value.includes(" pts") && cursorPosition > value.indexOf(" pts")) {
-      e.preventDefault();
-      const numericPart = value.replace(" pts", "");
-      setTimeout(() => {
-        if (inputRef.current) {
-          inputRef.current.setSelectionRange(numericPart.length, numericPart.length);
-        }
-      }, 0);
+      if (e.key.length === 1 || e.key === 'Enter') {
+        e.preventDefault();
+        setTimeout(() => {
+          if (inputRef.current) {
+            const numericPart = value.replace(" pts", "");
+            inputRef.current.setSelectionRange(numericPart.length, numericPart.length);
+          }
+        }, 0);
+      }
     }
   };
 
@@ -90,10 +105,12 @@ export function RedemptionCalculator() {
     if (inputRef.current && pointsValue > 0) {
       const formattedValue = formatDisplayValue(points);
       if (inputRef.current.value !== formattedValue) {
+        const currentCursorPos = inputRef.current.selectionStart || 0;
         inputRef.current.value = formattedValue;
         // Set cursor position before " pts"
         const numericPart = formattedValue.replace(" pts", "");
-        inputRef.current.setSelectionRange(numericPart.length, numericPart.length);
+        const newCursorPos = Math.min(currentCursorPos, numericPart.length);
+        inputRef.current.setSelectionRange(newCursorPos, newCursorPos);
       }
     } else if (inputRef.current && pointsValue === 0) {
       inputRef.current.value = points;
@@ -133,26 +150,7 @@ export function RedemptionCalculator() {
 
       {pointsValue > 0 && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Cash Values */}
-          <div className="space-y-3">
-            <h3 className="font-semibold text-lg">Cash redemption value</h3>
-            <div className="grid grid-cols-1 gap-3">
-              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                <span className="text-sm font-medium">Standard</span>
-                <span className="font-semibold">{formatCurrency(standardCash)}</span>
-              </div>
-              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                <span className="text-sm font-medium">Business Platinum</span>
-                <span className="font-semibold">{formatCurrency(businessPlatinumCash)}</span>
-              </div>
-              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                <span className="text-sm font-medium">Schwab Platinum</span>
-                <span className="font-semibold">{formatCurrency(schwabPlatinumCash)}</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Spend Requirements */}
+          {/* Spend Requirements - Now on the left */}
           <div className="space-y-3">
             <h3 className="font-semibold text-lg">
               Spend required to earn/replenish points {isEmployee && "(employee card)"}
@@ -169,6 +167,25 @@ export function RedemptionCalculator() {
               <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
                 <span className="text-sm font-medium">Platinum Card</span>
                 <span className="font-semibold">{formatCurrency(platinumSpend)}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Cash Values - Now on the right */}
+          <div className="space-y-3">
+            <h3 className="font-semibold text-lg">Cash redemption value</h3>
+            <div className="grid grid-cols-1 gap-3">
+              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                <span className="text-sm font-medium">Standard</span>
+                <span className="font-semibold">{formatCurrency(standardCash)}</span>
+              </div>
+              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                <span className="text-sm font-medium">Business Platinum</span>
+                <span className="font-semibold">{formatCurrency(businessPlatinumCash)}</span>
+              </div>
+              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                <span className="text-sm font-medium">Schwab Platinum</span>
+                <span className="font-semibold">{formatCurrency(schwabPlatinumCash)}</span>
               </div>
             </div>
           </div>

@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -193,7 +194,7 @@ export function RedemptionCalculator() {
                     </TooltipTrigger>
                     <TooltipContent>
                       <div className="flex items-center gap-2">
-                        <Crown className="w-4 h-4 text-yellow-500" />
+                        <Crown className="w-4 h-4" style={{ color: "#006fcf" }} />
                         <span>CreditMax spend at 3%: {formatCurrency(goldCreditMaxSpend)}</span>
                       </div>
                     </TooltipContent>
@@ -218,7 +219,7 @@ export function RedemptionCalculator() {
                     </TooltipTrigger>
                     <TooltipContent>
                       <div className="flex items-center gap-2">
-                        <Crown className="w-4 h-4 text-yellow-500" />
+                        <Crown className="w-4 h-4" style={{ color: "#006fcf" }} />
                         <span>CreditMax spend at 3%: {formatCurrency(blueCreditMaxSpend)}</span>
                       </div>
                     </TooltipContent>
@@ -243,7 +244,7 @@ export function RedemptionCalculator() {
                     </TooltipTrigger>
                     <TooltipContent>
                       <div className="flex items-center gap-2">
-                        <Crown className="w-4 h-4 text-yellow-500" />
+                        <Crown className="w-4 h-4" style={{ color: "#006fcf" }} />
                         <span>CreditMax spend at 3%: {formatCurrency(platinumCreditMaxSpend)}</span>
                       </div>
                     </TooltipContent>

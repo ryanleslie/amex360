@@ -1,3 +1,4 @@
+
 import React from "react"
 import { TrendingUp, TrendingDown, Crown } from "lucide-react"
 import { StatCard } from "@/components/StatCard"
@@ -72,7 +73,12 @@ export function CreditMaxStatCards({ swapTransactions }: CreditMaxStatCardsProps
       footer: "Card charges",
       description: "Total outbound swaps via card",
       formatAsPoints: false,
-      isPointMultiple: false
+      isPointMultiple: false,
+      tooltip: {
+        icon: Crown,
+        iconColor: "#006fcf",
+        text: `CreditMax Spend (3%): ${new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(metrics.totalCardSpend * 0.03)}`
+      }
     },
     {
       title: "Actual Spend",
@@ -82,13 +88,18 @@ export function CreditMaxStatCards({ swapTransactions }: CreditMaxStatCardsProps
       footer: "Actual cost",
       description: "Card processing (3%)",
       formatAsPoints: false,
-      isPointMultiple: false
+      isPointMultiple: false,
+      tooltip: {
+        icon: Crown,
+        iconColor: "#006fcf",
+        text: `CreditMax Spend (3%): ${new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(metrics.actualSpend)}`
+      }
     },
     {
       title: "Actual Points/Dollar",
       value: metrics.truePointMultiple,
       badge: `${metrics.truePointMultiple.toFixed(1)}x`,
-      icon: Crown,
+      icon: () => <Crown className="w-4 h-4" style={{ color: "#006fcf" }} />,
       footer: "CreditMax multiple",
       description: "Points earned on actual spend",
       formatAsPoints: false,
@@ -114,6 +125,7 @@ export function CreditMaxStatCards({ swapTransactions }: CreditMaxStatCardsProps
           isPointMultiple={card.isPointMultiple}
           showBadge={true}
           showHover={true}
+          tooltip={card.tooltip}
         />
       ))}
     </div>

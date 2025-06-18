@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -7,7 +8,7 @@ import { useCountUp } from "@/hooks/useCountUp";
 import { getCardImage } from "@/utils/cardImageUtils";
 
 export function RedemptionCalculator() {
-  const [points, setPoints] = useState<string>("");
+  const [points, setPoints] = useState<string>("40000");
   const [isEmployee, setIsEmployee] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -173,8 +174,8 @@ export function RedemptionCalculator() {
             ref={inputRef}
             id="points"
             type="text"
-            placeholder="Enter points amount"
-            defaultValue=""
+            placeholder="40,000"
+            defaultValue="40000"
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
             onClick={handleClick}

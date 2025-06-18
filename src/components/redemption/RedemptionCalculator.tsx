@@ -154,19 +154,19 @@ export function RedemptionCalculator() {
           {/* Spend Requirements - On the left */}
           <div className="space-y-3">
             <h3 className="font-semibold text-lg">
-              Spend required to earn/replenish points {isEmployee && "(employee card)"}
+              Spend required to earn/replenish points
             </h3>
             <div className="grid grid-cols-1 gap-3">
               <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
-                <span className="text-sm font-medium">Business Gold</span>
+                <span className="text-sm font-medium">Business Gold {isEmployee && "(employee card)"}</span>
                 <span className="font-semibold">{formatCurrency(goldSpend)}</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
-                <span className="text-sm font-medium">Business Blue Plus</span>
+                <span className="text-sm font-medium">Business Blue Plus {isEmployee && "(employee card)"}</span>
                 <span className="font-semibold">{formatCurrency(blueSpend)}</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
-                <span className="text-sm font-medium">Business Platinum</span>
+                <span className="text-sm font-medium">Business Platinum {isEmployee && "(employee card)"}</span>
                 <span className="font-semibold">{formatCurrency(platinumSpend)}</span>
               </div>
             </div>

@@ -21,6 +21,8 @@ export const getCardImage = (cardName: string) => {
     return "https://www.aexp-static.com/online/myca/shared/summary/cardasset/images/NUS000000242_480x304_STRAIGHT_96.jpg";
   } else if (lowerCardName.includes('rose gold')) {
     return "https://i.imgur.com/4zwqhph.jpeg";
+  } else if (lowerCardName.includes('standard')) {
+    return "https://i.imgur.com/6P2YZCw.png";
   } else if (lowerCardName.includes('bloc') || lowerCardName.includes('checking')) {
     return "https://www.aexp-static.com/online/myca/shared/summary/cardasset/images/NUS000000283_S3.png";
   } else if (lowerCardName.includes('white gold')) {

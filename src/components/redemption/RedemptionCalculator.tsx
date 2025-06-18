@@ -135,7 +135,7 @@ export function RedemptionCalculator() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Cash Values */}
           <div className="space-y-3">
-            <h3 className="font-semibold text-lg">Cash Value</h3>
+            <h3 className="font-semibold text-lg">Cash redemption value</h3>
             <div className="grid grid-cols-1 gap-3">
               <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                 <span className="text-sm font-medium">Standard</span>
@@ -155,7 +155,7 @@ export function RedemptionCalculator() {
           {/* Spend Requirements */}
           <div className="space-y-3">
             <h3 className="font-semibold text-lg">
-              Spend Required to Earn Points {isEmployee && "(Employee)"}
+              Spend required to earn/replenish points {isEmployee && "(employee card)"}
             </h3>
             <div className="grid grid-cols-1 gap-3">
               <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">

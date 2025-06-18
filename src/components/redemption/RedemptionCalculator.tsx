@@ -167,7 +167,7 @@ export function RedemptionCalculator() {
               Spend required to earn/replenish points
             </h3>
             <div className="grid grid-cols-1 gap-3">
-              <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                 <div className="flex items-center gap-3">
                   <img 
                     src={getCardImage("business gold")} 
@@ -180,7 +180,7 @@ export function RedemptionCalculator() {
                 </div>
                 <span className="font-semibold transition-all duration-300">{formatCurrency(animatedGoldSpend)}</span>
               </div>
-              <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                 <div className="flex items-center gap-3">
                   <img 
                     src={getCardImage("business blue")} 
@@ -193,7 +193,7 @@ export function RedemptionCalculator() {
                 </div>
                 <span className="font-semibold transition-all duration-300">{formatCurrency(animatedBlueSpend)}</span>
               </div>
-              <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                 <div className="flex items-center gap-3">
                   <img 
                     src={getCardImage("business platinum")} 

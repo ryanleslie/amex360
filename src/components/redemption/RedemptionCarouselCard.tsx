@@ -73,22 +73,16 @@ export function RedemptionCarouselCard() {
           <CardTitle className="text-xl font-semibold">
             Popular award destinations
           </CardTitle>
-          <TabsList className="grid w-full max-w-[200px] grid-cols-2">
-            <TabsTrigger 
-              value="destinations" 
-              onClick={() => setActiveTab("destinations")}
-              className={activeTab === "destinations" ? "bg-background text-foreground shadow-sm" : ""}
-            >
-              Destinations
-            </TabsTrigger>
-            <TabsTrigger 
-              value="calculator" 
-              onClick={() => setActiveTab("calculator")}
-              className={activeTab === "calculator" ? "bg-background text-foreground shadow-sm" : ""}
-            >
-              Calculator
-            </TabsTrigger>
-          </TabsList>
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-auto">
+            <TabsList className="grid w-full max-w-[200px] grid-cols-2">
+              <TabsTrigger value="destinations">
+                Destinations
+              </TabsTrigger>
+              <TabsTrigger value="calculator">
+                Calculator
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>
         </div>
       </CardHeader>
       <CardContent className="px-0 pt-2">

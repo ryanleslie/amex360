@@ -1,6 +1,13 @@
 
 export const getCardImage = (cardName: string) => {
   const lowerCardName = cardName.toLowerCase();
+  
+  // Handle employee cards first
+  if (lowerCardName.includes('employee')) {
+    // Use the static employee card image for all employee cards in lists
+    return "https://icm.aexp-static.com/acquisition/card-art/NUS000000322_160x102_straight_withname.png";
+  }
+  
   if (lowerCardName.includes('hilton')) {
     return "https://www.aexp-static.com/online/myca/shared/summary/cardasset/images/NUS000000336_480x304_STRAIGHT_96.jpg";
   } else if (lowerCardName.includes('bonvoy') || lowerCardName.includes('marriott')) {

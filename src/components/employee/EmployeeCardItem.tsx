@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Switch } from "@/components/ui/switch"
 import { useEmployeeBonus } from "@/hooks/useEmployeeBonusContext"
 import { formatDisplayCardName } from "@/utils/transactionUtils"
+import { getCardImage } from "@/utils/cardImageUtils"
 
 interface CardData {
   name: string
@@ -24,9 +25,6 @@ interface EmployeeCardItemProps {
   selectedCardType?: string
   onCardClick: (card: CardData) => void
 }
-
-// Fixed employee card image for all cards in the list
-const EMPLOYEE_CARD_IMAGE = "https://icm.aexp-static.com/acquisition/card-art/NUS000000322_160x102_straight_withname.png"
 
 export function EmployeeCardItem({ 
   card, 
@@ -73,6 +71,9 @@ export function EmployeeCardItem({
   // Apply consistent displayName formatting
   const displayCardName = `${formatDisplayCardName(card.cardType)}\n(${displayLastFive})`
 
+  // Use the utility function to get employee card image
+  const cardImageSrc = getCardImage(`${card.cardType} employee`)
+
   return (
     <Card 
       key={card.cardKey}
@@ -89,7 +90,7 @@ export function EmployeeCardItem({
         >
           <div className="flex items-center gap-4 flex-1">
             <img 
-              src={EMPLOYEE_CARD_IMAGE} 
+              src={cardImageSrc} 
               alt="Employee card" 
               className="w-16 h-10 object-cover rounded"
             />

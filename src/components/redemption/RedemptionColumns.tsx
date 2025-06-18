@@ -29,13 +29,14 @@ export const useRedemptionColumns = (): ColumnDef<FormattedRedemption>[] => {
       },
       cell: ({ row }) => {
         const dateString = row.getValue("date") as string;
-        const date = new Date(dateString);
+        // Parse the date string directly without timezone conversion
+        const [year, month, day] = dateString.split('-').map(Number);
         const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", 
                            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
         
         return (
           <div className="text-sm text-center">
-            {monthNames[date.getMonth()]} {date.getDate()}
+            {monthNames[month - 1]} {day}
           </div>
         );
       },

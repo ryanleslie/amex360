@@ -1,5 +1,4 @@
-
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, forwardRef, useImperativeHandle } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
@@ -7,10 +6,21 @@ import { Crown } from "lucide-react";
 import { useCountUp } from "@/hooks/useCountUp";
 import { getCardImage } from "@/utils/cardImageUtils";
 
-export function RedemptionCalculator() {
+interface RedemptionCalculatorRef {
+  focusInput: () => void;
+}
+
+export const RedemptionCalculator = forwardRef<RedemptionCalculatorRef>((props, ref) => {
   const [points, setPoints] = useState<string>("40000");
   const [isEmployee, setIsEmployee] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Expose focusInput method to parent component
+  useImperativeHandle(ref, () => ({
+    focusInput: () => {
+      inputRef.current?.focus();
+    }
+  }));
 
   // Load saved values on component mount
   useEffect(() => {
@@ -304,4 +314,6 @@ export function RedemptionCalculator() {
       )}
     </div>
   );
-}
+});
+
+RedemptionCalculator.displayName = "RedemptionCalculator";

@@ -1,5 +1,4 @@
-
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
@@ -9,6 +8,7 @@ import { RedemptionCalculator } from "./RedemptionCalculator";
 export function RedemptionCarouselCard() {
   const [api, setApi] = React.useState<CarouselApi>();
   const [activeTab, setActiveTab] = React.useState("destinations");
+  const calculatorRef = useRef<{ focusInput: () => void }>(null);
 
   const destinations = [
     {
@@ -65,6 +65,17 @@ export function RedemptionCarouselCard() {
 
     return () => clearTimeout(timer);
   }, [api]);
+
+  // Focus input when calculator tab is selected
+  useEffect(() => {
+    if (activeTab === "calculator") {
+      // Small delay to ensure the tab content is rendered
+      const timer = setTimeout(() => {
+        calculatorRef.current?.focusInput();
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [activeTab]);
 
   return (
     <Card className="bg-gradient-to-b from-white to-gray-100 hidden lg:block">
@@ -126,7 +137,7 @@ export function RedemptionCarouselCard() {
             </Carousel>
           </TabsContent>
           <TabsContent value="calculator" className="mt-0">
-            <RedemptionCalculator />
+            <RedemptionCalculator ref={calculatorRef} />
           </TabsContent>
         </Tabs>
       </CardContent>

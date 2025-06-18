@@ -215,9 +215,11 @@ export function RedemptionCalculator() {
             <div className="grid grid-cols-1 gap-3">
               <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-6 bg-gray-300 rounded flex items-center justify-center">
-                    <span className="text-xs text-gray-600">MR</span>
-                  </div>
+                  <img 
+                    src={getCardImage("standard")} 
+                    alt="Standard Redemption" 
+                    className="w-10 h-6 object-cover rounded"
+                  />
                   <span className="text-sm font-medium">Standard <span className="text-muted-foreground">(10,000 points = $60.00)</span></span>
                 </div>
                 <span className="font-semibold transition-all duration-300">{formatCurrency(animatedStandardCash)}</span>

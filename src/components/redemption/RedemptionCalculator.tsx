@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useCountUp } from "@/hooks/useCountUp";
+import { getCardImage } from "@/utils/cardImageUtils";
 
 export function RedemptionCalculator() {
   const [points, setPoints] = useState<string>("");
@@ -167,21 +168,42 @@ export function RedemptionCalculator() {
             </h3>
             <div className="grid grid-cols-1 gap-3">
               <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
-                <span className="text-sm font-medium">
-                  Business Gold {isEmployee && "Employee Card"} <span className="text-muted-foreground">({isEmployee ? "7.75x" : "4x"})</span>
-                </span>
+                <div className="flex items-center gap-3">
+                  <img 
+                    src={getCardImage("business gold")} 
+                    alt="Business Gold Card" 
+                    className="w-10 h-6 object-cover rounded"
+                  />
+                  <span className="text-sm font-medium">
+                    Business Gold {isEmployee && "Employee Card"} <span className="text-muted-foreground">({isEmployee ? "7.75x" : "4x"})</span>
+                  </span>
+                </div>
                 <span className="font-semibold transition-all duration-300">{formatCurrency(animatedGoldSpend)}</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
-                <span className="text-sm font-medium">
-                  Business Blue Plus {isEmployee && "Employee Card"} <span className="text-muted-foreground">({isEmployee ? "5.75x" : "2x"})</span>
-                </span>
+                <div className="flex items-center gap-3">
+                  <img 
+                    src={getCardImage("business blue")} 
+                    alt="Business Blue Card" 
+                    className="w-10 h-6 object-cover rounded"
+                  />
+                  <span className="text-sm font-medium">
+                    Business Blue Plus {isEmployee && "Employee Card"} <span className="text-muted-foreground">({isEmployee ? "5.75x" : "2x"})</span>
+                  </span>
+                </div>
                 <span className="font-semibold transition-all duration-300">{formatCurrency(animatedBlueSpend)}</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
-                <span className="text-sm font-medium">
-                  Business Platinum {isEmployee && "Employee Card"} <span className="text-muted-foreground">({isEmployee ? "5.25x" : "1.5x"})</span>
-                </span>
+                <div className="flex items-center gap-3">
+                  <img 
+                    src={getCardImage("business platinum")} 
+                    alt="Business Platinum Card" 
+                    className="w-10 h-6 object-cover rounded"
+                  />
+                  <span className="text-sm font-medium">
+                    Business Platinum {isEmployee && "Employee Card"} <span className="text-muted-foreground">({isEmployee ? "5.25x" : "1.5x"})</span>
+                  </span>
+                </div>
                 <span className="font-semibold transition-all duration-300">{formatCurrency(animatedPlatinumSpend)}</span>
               </div>
             </div>
@@ -192,15 +214,34 @@ export function RedemptionCalculator() {
             <h3 className="font-semibold text-lg">Cash redemption value</h3>
             <div className="grid grid-cols-1 gap-3">
               <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                <span className="text-sm font-medium">Standard <span className="text-muted-foreground">(10,000 points = $60.00)</span></span>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-6 bg-gray-300 rounded flex items-center justify-center">
+                    <span className="text-xs text-gray-600">MR</span>
+                  </div>
+                  <span className="text-sm font-medium">Standard <span className="text-muted-foreground">(10,000 points = $60.00)</span></span>
+                </div>
                 <span className="font-semibold transition-all duration-300">{formatCurrency(animatedStandardCash)}</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                <span className="text-sm font-medium">Business Platinum <span className="text-muted-foreground">(10,000 points = $100.00)</span></span>
+                <div className="flex items-center gap-3">
+                  <img 
+                    src={getCardImage("business platinum")} 
+                    alt="Business Platinum Card" 
+                    className="w-10 h-6 object-cover rounded"
+                  />
+                  <span className="text-sm font-medium">Business Platinum <span className="text-muted-foreground">(10,000 points = $100.00)</span></span>
+                </div>
                 <span className="font-semibold transition-all duration-300">{formatCurrency(animatedBusinessPlatinumCash)}</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                <span className="text-sm font-medium">Schwab Platinum <span className="text-muted-foreground">(10,000 points = $110.00)</span></span>
+                <div className="flex items-center gap-3">
+                  <img 
+                    src={getCardImage("schwab platinum")} 
+                    alt="Schwab Platinum Card" 
+                    className="w-10 h-6 object-cover rounded"
+                  />
+                  <span className="text-sm font-medium">Schwab Platinum <span className="text-muted-foreground">(10,000 points = $110.00)</span></span>
+                </div>
                 <span className="font-semibold transition-all duration-300">{formatCurrency(animatedSchwabPlatinumCash)}</span>
               </div>
             </div>

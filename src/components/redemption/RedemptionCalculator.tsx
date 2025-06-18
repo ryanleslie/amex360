@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -186,8 +187,11 @@ export function RedemptionCalculator() {
                     Business Gold <span className="text-muted-foreground">({isEmployee ? "7.75x" : "4x"})</span>
                   </span>
                 </div>
-                <div className="font-semibold transition-all duration-300 flex items-center gap-1">
-                  {formatCurrency(animatedGoldSpend)} / <Crown className="h-4 w-4" style={{ color: '#006fcf' }} /> {formatCurrency(animatedGoldCreditMaxSpend)}
+                <div className="transition-all duration-300 flex items-center gap-1">
+                  <span className="font-semibold">{formatCurrency(animatedGoldSpend)}</span>
+                  <span>/</span>
+                  <span className="font-normal">{formatCurrency(animatedGoldCreditMaxSpend)}</span>
+                  <Crown className="h-4 w-4" style={{ color: '#006fcf' }} />
                 </div>
               </div>
               <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
@@ -201,8 +205,11 @@ export function RedemptionCalculator() {
                     Business Blue Plus <span className="text-muted-foreground">({isEmployee ? "5.75x" : "2x"})</span>
                   </span>
                 </div>
-                <div className="font-semibold transition-all duration-300 flex items-center gap-1">
-                  {formatCurrency(animatedBlueSpend)} / <Crown className="h-4 w-4" style={{ color: '#006fcf' }} /> {formatCurrency(animatedBlueCreditMaxSpend)}
+                <div className="transition-all duration-300 flex items-center gap-1">
+                  <span className="font-semibold">{formatCurrency(animatedBlueSpend)}</span>
+                  <span>/</span>
+                  <span className="font-normal">{formatCurrency(animatedBlueCreditMaxSpend)}</span>
+                  <Crown className="h-4 w-4" style={{ color: '#006fcf' }} />
                 </div>
               </div>
               <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
@@ -216,8 +223,11 @@ export function RedemptionCalculator() {
                     Business Platinum <span className="text-muted-foreground">({isEmployee ? "5.25x" : "1.5x"})</span>
                   </span>
                 </div>
-                <div className="font-semibold transition-all duration-300 flex items-center gap-1">
-                  {formatCurrency(animatedPlatinumSpend)} / <Crown className="h-4 w-4" style={{ color: '#006fcf' }} /> {formatCurrency(animatedPlatinumCreditMaxSpend)}
+                <div className="transition-all duration-300 flex items-center gap-1">
+                  <span className="font-semibold">{formatCurrency(animatedPlatinumSpend)}</span>
+                  <span>/</span>
+                  <span className="font-normal">{formatCurrency(animatedPlatinumCreditMaxSpend)}</span>
+                  <Crown className="h-4 w-4" style={{ color: '#006fcf' }} />
                 </div>
               </div>
             </div>

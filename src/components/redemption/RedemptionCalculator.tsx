@@ -173,7 +173,7 @@ export function RedemptionCalculator() {
             ref={inputRef}
             id="points"
             type="text"
-            placeholder="40,000"
+            placeholder="Enter points amount"
             defaultValue=""
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}

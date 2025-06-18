@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { useCountUp } from "@/hooks/useCountUp";
 
 export function RedemptionCalculator() {
   const [points, setPoints] = useState<string>("");
@@ -20,6 +21,14 @@ export function RedemptionCalculator() {
   const goldSpend = isEmployee ? pointsValue / 7.75 : pointsValue / 4;
   const blueSpend = isEmployee ? pointsValue / 5.75 : pointsValue / 2;
   const platinumSpend = isEmployee ? pointsValue / 5.25 : pointsValue / 1.5;
+
+  // Animated values
+  const animatedStandardCash = useCountUp({ end: standardCash, duration: 600 });
+  const animatedBusinessPlatinumCash = useCountUp({ end: businessPlatinumCash, duration: 600 });
+  const animatedSchwabPlatinumCash = useCountUp({ end: schwabPlatinumCash, duration: 600 });
+  const animatedGoldSpend = useCountUp({ end: goldSpend, duration: 600 });
+  const animatedBlueSpend = useCountUp({ end: blueSpend, duration: 600 });
+  const animatedPlatinumSpend = useCountUp({ end: platinumSpend, duration: 600 });
 
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('en-US', {
@@ -161,19 +170,19 @@ export function RedemptionCalculator() {
                 <span className="text-sm font-medium">
                   Business Gold {isEmployee && "Employee Card"} <span className="text-muted-foreground">({isEmployee ? "7.75x" : "4x"})</span>
                 </span>
-                <span className="font-semibold">{formatCurrency(goldSpend)}</span>
+                <span className="font-semibold transition-all duration-300">{formatCurrency(animatedGoldSpend)}</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
                 <span className="text-sm font-medium">
                   Business Blue Plus {isEmployee && "Employee Card"} <span className="text-muted-foreground">({isEmployee ? "5.75x" : "2x"})</span>
                 </span>
-                <span className="font-semibold">{formatCurrency(blueSpend)}</span>
+                <span className="font-semibold transition-all duration-300">{formatCurrency(animatedBlueSpend)}</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
                 <span className="text-sm font-medium">
                   Business Platinum {isEmployee && "Employee Card"} <span className="text-muted-foreground">({isEmployee ? "5.25x" : "1.5x"})</span>
                 </span>
-                <span className="font-semibold">{formatCurrency(platinumSpend)}</span>
+                <span className="font-semibold transition-all duration-300">{formatCurrency(animatedPlatinumSpend)}</span>
               </div>
             </div>
           </div>
@@ -184,15 +193,15 @@ export function RedemptionCalculator() {
             <div className="grid grid-cols-1 gap-3">
               <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                 <span className="text-sm font-medium">Standard <span className="text-muted-foreground">(10,000 points = $60.00)</span></span>
-                <span className="font-semibold">{formatCurrency(standardCash)}</span>
+                <span className="font-semibold transition-all duration-300">{formatCurrency(animatedStandardCash)}</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                 <span className="text-sm font-medium">Business Platinum <span className="text-muted-foreground">(10,000 points = $100.00)</span></span>
-                <span className="font-semibold">{formatCurrency(businessPlatinumCash)}</span>
+                <span className="font-semibold transition-all duration-300">{formatCurrency(animatedBusinessPlatinumCash)}</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                 <span className="text-sm font-medium">Schwab Platinum <span className="text-muted-foreground">(10,000 points = $110.00)</span></span>
-                <span className="font-semibold">{formatCurrency(schwabPlatinumCash)}</span>
+                <span className="font-semibold transition-all duration-300">{formatCurrency(animatedSchwabPlatinumCash)}</span>
               </div>
             </div>
           </div>

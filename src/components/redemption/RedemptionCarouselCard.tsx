@@ -8,6 +8,7 @@ import { RedemptionCalculator } from "./RedemptionCalculator";
 
 export function RedemptionCarouselCard() {
   const [api, setApi] = React.useState<CarouselApi>();
+  const [activeTab, setActiveTab] = React.useState("destinations");
 
   const destinations = [
     {
@@ -72,16 +73,26 @@ export function RedemptionCarouselCard() {
           <CardTitle className="text-xl font-semibold">
             Popular award destinations
           </CardTitle>
-          <Tabs defaultValue="destinations" className="w-auto">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="destinations">Destinations</TabsTrigger>
-              <TabsTrigger value="calculator">Calculator</TabsTrigger>
-            </TabsList>
-          </Tabs>
+          <TabsList className="grid w-full max-w-[200px] grid-cols-2">
+            <TabsTrigger 
+              value="destinations" 
+              onClick={() => setActiveTab("destinations")}
+              className={activeTab === "destinations" ? "bg-background text-foreground shadow-sm" : ""}
+            >
+              Destinations
+            </TabsTrigger>
+            <TabsTrigger 
+              value="calculator" 
+              onClick={() => setActiveTab("calculator")}
+              className={activeTab === "calculator" ? "bg-background text-foreground shadow-sm" : ""}
+            >
+              Calculator
+            </TabsTrigger>
+          </TabsList>
         </div>
       </CardHeader>
       <CardContent className="px-0 pt-2">
-        <Tabs defaultValue="destinations" className="w-full">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsContent value="destinations" className="mt-0">
             <Carousel 
               className="w-full px-6"

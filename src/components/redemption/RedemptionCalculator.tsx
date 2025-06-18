@@ -132,7 +132,7 @@ export function RedemptionCalculator() {
       </div>
 
       {pointsValue > 0 && (
-        <>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Cash Values */}
           <div className="space-y-3">
             <h3 className="font-semibold text-lg">Cash Value</h3>
@@ -172,7 +172,7 @@ export function RedemptionCalculator() {
               </div>
             </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

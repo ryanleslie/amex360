@@ -31,16 +31,15 @@ export function RedemptionCalculator() {
     return new Intl.NumberFormat('en-US').format(Math.round(value));
   };
 
-  const formatInputValue = (value: string) => {
-    const numValue = parseFloat(value) || 0;
-    if (numValue === 0) return "";
-    return `${numValue.toLocaleString('en-US')} pts`;
-  };
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // Remove non-numeric characters except for decimal points
     const cleanValue = e.target.value.replace(/[^\d.]/g, '');
     setPoints(cleanValue);
+  };
+
+  const getDisplayValue = () => {
+    if (!points || pointsValue === 0) return "";
+    return `${pointsValue.toLocaleString('en-US')} pts`;
   };
 
   return (
@@ -53,26 +52,11 @@ export function RedemptionCalculator() {
             id="points"
             type="text"
             placeholder="Enter points amount"
-            value={points}
+            value={pointsValue > 0 ? getDisplayValue() : points}
             onChange={handleInputChange}
-            className="text-2xl lg:text-3xl font-semibold tabular-nums h-16 px-4 text-center"
+            className="text-2xl lg:text-3xl font-semibold tabular-nums h-16 px-4 text-center bg-white"
             style={{ color: '#00175a' }}
           />
-          {pointsValue > 0 && (
-            <div 
-              className="absolute inset-0 flex items-center justify-center pointer-events-none text-2xl lg:text-3xl font-semibold tabular-nums"
-              style={{ color: '#00175a' }}
-            >
-              {formatInputValue(points)}
-            </div>
-          )}
-          {pointsValue > 0 && (
-            <input
-              className="absolute inset-0 opacity-0 text-2xl lg:text-3xl font-semibold tabular-nums h-16 px-4 text-center"
-              value={points}
-              onChange={handleInputChange}
-            />
-          )}
         </div>
       </div>
 

@@ -13,6 +13,33 @@ export function RedemptionCalculator() {
   const [isEmployee, setIsEmployee] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // Load saved values on component mount
+  useEffect(() => {
+    const savedPoints = localStorage.getItem('redemption-calculator-points');
+    const savedIsEmployee = localStorage.getItem('redemption-calculator-employee');
+    
+    if (savedPoints) {
+      setPoints(savedPoints);
+    }
+    if (savedIsEmployee) {
+      setIsEmployee(savedIsEmployee === 'true');
+    }
+  }, []);
+
+  // Save points value to localStorage whenever it changes
+  useEffect(() => {
+    if (points) {
+      localStorage.setItem('redemption-calculator-points', points);
+    } else {
+      localStorage.removeItem('redemption-calculator-points');
+    }
+  }, [points]);
+
+  // Save employee toggle to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('redemption-calculator-employee', isEmployee.toString());
+  }, [isEmployee]);
+
   const pointsValue = parseFloat(points) || 0;
 
   // Cash values

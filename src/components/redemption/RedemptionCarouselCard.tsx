@@ -71,7 +71,7 @@ export function RedemptionCarouselCard() {
       <CardHeader className="pb-2">
         <div className="flex justify-between items-center">
           <CardTitle className="text-xl font-semibold">
-            Popular award destinations
+            {activeTab === "calculator" ? "Redemption calculator" : "Popular award destinations"}
           </CardTitle>
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-auto">
             <TabsList className="grid w-full max-w-[200px] grid-cols-2">

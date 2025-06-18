@@ -172,7 +172,7 @@ export function RedemptionCalculator() {
           {/* Spend Requirements - On the left */}
           <div className="space-y-3">
             <h3 className="font-semibold text-lg">
-              Spend required to earn/replenish points {isEmployee && "(Employee card)"} 
+              {isEmployee && "(Employee Card)"} Spend required to earn/replenish points 
             </h3>
             <div className="grid grid-cols-1 gap-3">
               <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">

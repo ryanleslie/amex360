@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
@@ -7,6 +7,7 @@ import { Switch } from "@/components/ui/switch";
 export function RedemptionCalculator() {
   const [points, setPoints] = useState<string>("");
   const [isEmployee, setIsEmployee] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const pointsValue = parseFloat(points) || 0;
 
@@ -32,9 +33,34 @@ export function RedemptionCalculator() {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Remove non-numeric characters except for decimal points
-    const cleanValue = e.target.value.replace(/[^\d.]/g, '');
+    const inputValue = e.target.value;
+    
+    // If the input ends with ' pts', remove it before processing
+    const cleanValue = inputValue.replace(/ pts$/, '').replace(/[^\d.]/g, '');
     setPoints(cleanValue);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const input = e.currentTarget;
+    const cursorPosition = input.selectionStart || 0;
+    const inputValue = input.value;
+    
+    // If backspace is pressed and cursor is after ' pts', move cursor before ' pts'
+    if (e.key === 'Backspace' && inputValue.endsWith(' pts') && cursorPosition >= inputValue.length - 4) {
+      e.preventDefault();
+      const newValue = inputValue.replace(/ pts$/, '');
+      const cleanValue = newValue.replace(/[^\d.]/g, '');
+      setPoints(cleanValue);
+      
+      // Set cursor position after state update
+      setTimeout(() => {
+        if (inputRef.current) {
+          const newDisplayValue = cleanValue ? `${parseFloat(cleanValue).toLocaleString('en-US')} pts` : cleanValue;
+          const newCursorPos = Math.max(0, newDisplayValue.length - 4);
+          inputRef.current.setSelectionRange(newCursorPos, newCursorPos);
+        }
+      }, 0);
+    }
   };
 
   const getDisplayValue = () => {
@@ -49,11 +75,13 @@ export function RedemptionCalculator() {
         <Label htmlFor="points">Points to Redeem</Label>
         <div className="relative">
           <Input
+            ref={inputRef}
             id="points"
             type="text"
             placeholder="Enter points amount"
             value={pointsValue > 0 ? getDisplayValue() : points}
             onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
             className="text-2xl lg:text-3xl font-semibold tabular-nums h-16 px-4 text-center bg-white"
             style={{ color: '#00175a' }}
           />

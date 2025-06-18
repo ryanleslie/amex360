@@ -170,7 +170,7 @@ export function RedemptionCalculator() {
               <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                 <div className="flex items-center gap-3">
                   <img 
-                    src={getCardImage("business gold")} 
+                    src={getCardImage(isEmployee ? "business gold employee" : "business gold")} 
                     alt="Business Gold Card" 
                     className="w-10 h-6 object-cover rounded"
                   />
@@ -183,7 +183,7 @@ export function RedemptionCalculator() {
               <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                 <div className="flex items-center gap-3">
                   <img 
-                    src={getCardImage("business blue")} 
+                    src={getCardImage(isEmployee ? "business blue employee" : "business blue")} 
                     alt="Business Blue Card" 
                     className="w-10 h-6 object-cover rounded"
                   />
@@ -196,7 +196,7 @@ export function RedemptionCalculator() {
               <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                 <div className="flex items-center gap-3">
                   <img 
-                    src={getCardImage("business platinum")} 
+                    src={getCardImage(isEmployee ? "business platinum employee" : "business platinum")} 
                     alt="Business Platinum Card" 
                     className="w-10 h-6 object-cover rounded"
                   />

@@ -167,7 +167,7 @@ export function RedemptionCalculator() {
     <div className="space-y-6 p-6">
       {/* Points Input */}
       <div className="space-y-2">
-        <Label htmlFor="points">Points to earn/redeem/recoup</Label>
+        <Label htmlFor="points">Points to earn/redeem:</Label>
         <div className="relative">
           <Input
             ref={inputRef}

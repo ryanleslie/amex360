@@ -105,15 +105,15 @@ export function RedemptionCalculator() {
     if (inputRef.current && pointsValue > 0) {
       const formattedValue = formatDisplayValue(points);
       if (inputRef.current.value !== formattedValue) {
-        const currentCursorPos = inputRef.current.selectionStart || 0;
         inputRef.current.value = formattedValue;
-        // Set cursor position before " pts"
+        // Always set cursor position at the end of the numeric part (before " pts")
         const numericPart = formattedValue.replace(" pts", "");
-        const newCursorPos = Math.min(currentCursorPos, numericPart.length);
-        inputRef.current.setSelectionRange(newCursorPos, newCursorPos);
+        inputRef.current.setSelectionRange(numericPart.length, numericPart.length);
       }
     } else if (inputRef.current && pointsValue === 0) {
       inputRef.current.value = points;
+      // Set cursor at the end of the input when no formatting is applied
+      inputRef.current.setSelectionRange(points.length, points.length);
     }
   }, [points, pointsValue]);
 

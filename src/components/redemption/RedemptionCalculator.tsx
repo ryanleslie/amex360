@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -185,19 +184,9 @@ export function RedemptionCalculator() {
         </div>
       </div>
 
-      {/* Employee Toggle - Moved to the right */}
-      <div className="flex items-center justify-end space-x-2">
-        <Label htmlFor="employee">Employee card rates</Label>
-        <Switch
-          id="employee"
-          checked={isEmployee}
-          onCheckedChange={setIsEmployee}
-        />
-      </div>
-
       {pointsValue > 0 && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Cash Values - Moved to the left */}
+          {/* Cash Values - Left column */}
           <div className="space-y-3">
             <h3 className="font-semibold text-lg">Cash redemption value</h3>
             <div className="grid grid-cols-1 gap-3">
@@ -237,11 +226,22 @@ export function RedemptionCalculator() {
             </div>
           </div>
 
-          {/* Spend Requirements - Moved to the right */}
+          {/* Spend Requirements - Right column */}
           <div className="space-y-3">
-            <h3 className="font-semibold text-lg">
-              {isEmployee ? "Employee card spend" : "Spend"} required
-            </h3>
+            {/* Header with employee toggle */}
+            <div className="flex items-center justify-between">
+              <h3 className="font-semibold text-lg">
+                {isEmployee ? "Employee card spend" : "Spend"} required
+              </h3>
+              <div className="flex items-center space-x-2">
+                <Label htmlFor="employee">Employee card rates</Label>
+                <Switch
+                  id="employee"
+                  checked={isEmployee}
+                  onCheckedChange={setIsEmployee}
+                />
+              </div>
+            </div>
             <div className="grid grid-cols-1 gap-3">
               <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                 <div className="flex items-center gap-3">

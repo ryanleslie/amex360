@@ -172,7 +172,7 @@ export function RedemptionCalculator() {
           {/* Spend Requirements - On the left */}
           <div className="space-y-3">
             <h3 className="font-semibold text-lg">
-              Spend required to earn/replenish points
+              Spend required to earn/replenish points {isEmployee && "(Employee card)"} 
             </h3>
             <div className="grid grid-cols-1 gap-3">
               <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
@@ -183,7 +183,7 @@ export function RedemptionCalculator() {
                     className="w-10 h-6 object-cover rounded"
                   />
                   <span className="text-sm font-medium">
-                    Business Gold {isEmployee && "Employee Card"} <span className="text-muted-foreground">({isEmployee ? "7.75x" : "4x"})</span>
+                    Business Gold <span className="text-muted-foreground">({isEmployee ? "7.75x" : "4x"})</span>
                   </span>
                 </div>
                 <div className="font-semibold transition-all duration-300 flex items-center gap-1">
@@ -198,7 +198,7 @@ export function RedemptionCalculator() {
                     className="w-10 h-6 object-cover rounded"
                   />
                   <span className="text-sm font-medium">
-                    Business Blue Plus {isEmployee && "Employee Card"} <span className="text-muted-foreground">({isEmployee ? "5.75x" : "2x"})</span>
+                    Business Blue Plus <span className="text-muted-foreground">({isEmployee ? "5.75x" : "2x"})</span>
                   </span>
                 </div>
                 <div className="font-semibold transition-all duration-300 flex items-center gap-1">
@@ -213,7 +213,7 @@ export function RedemptionCalculator() {
                     className="w-10 h-6 object-cover rounded"
                   />
                   <span className="text-sm font-medium">
-                    Business Platinum {isEmployee && "Employee Card"} <span className="text-muted-foreground">({isEmployee ? "5.25x" : "1.5x"})</span>
+                    Business Platinum <span className="text-muted-foreground">({isEmployee ? "5.25x" : "1.5x"})</span>
                   </span>
                 </div>
                 <div className="font-semibold transition-all duration-300 flex items-center gap-1">

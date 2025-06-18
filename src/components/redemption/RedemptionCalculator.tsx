@@ -146,7 +146,7 @@ export function RedemptionCalculator() {
           checked={isEmployee}
           onCheckedChange={setIsEmployee}
         />
-        <Label htmlFor="employee">Employee rates</Label>
+        <Label htmlFor="employee">Employee card rates</Label>
       </div>
 
       {pointsValue > 0 && (
@@ -158,15 +158,15 @@ export function RedemptionCalculator() {
             </h3>
             <div className="grid grid-cols-1 gap-3">
               <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
-                <span className="text-sm font-medium">Business Gold {isEmployee && "(employee card)"}</span>
+                <span className="text-sm font-medium">Business Gold {isEmployee && "Employee Card"}</span>
                 <span className="font-semibold">{formatCurrency(goldSpend)}</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
-                <span className="text-sm font-medium">Business Blue Plus {isEmployee && "(employee card)"}</span>
+                <span className="text-sm font-medium">Business Blue Plus {isEmployee && "Employee Card"}</span>
                 <span className="font-semibold">{formatCurrency(blueSpend)}</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
-                <span className="text-sm font-medium">Business Platinum {isEmployee && "(employee card)"}</span>
+                <span className="text-sm font-medium">Business Platinum {isEmployee && "Employee Card"}</span>
                 <span className="font-semibold">{formatCurrency(platinumSpend)}</span>
               </div>
             </div>

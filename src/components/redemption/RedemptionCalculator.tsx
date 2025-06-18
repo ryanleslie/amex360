@@ -231,7 +231,7 @@ export function RedemptionCalculator() {
             {/* Header with employee toggle */}
             <div className="flex items-center justify-between">
               <h3 className="font-semibold text-lg">
-                {isEmployee ? "Employee card spend" : "Spend"} required
+                Card spend required
               </h3>
               <div className="flex items-center space-x-2">
                 <Label htmlFor="employee">Employee card rates</Label>

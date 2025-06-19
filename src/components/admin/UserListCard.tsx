@@ -23,7 +23,7 @@ export function UserListCard() {
 
   const fetchUsers = async () => {
     try {
-      // Get users with their profiles and roles
+      // Get users with their profiles and roles, ordered by last_login descending
       const { data: usersData, error: usersError } = await supabase
         .from('users')
         .select(`
@@ -36,7 +36,8 @@ export function UserListCard() {
           user_roles (
             role
           )
-        `);
+        `)
+        .order('last_login', { ascending: false, nullsLast: true });
 
       if (usersError) {
         console.error('Error fetching users:', usersError);

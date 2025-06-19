@@ -66,7 +66,7 @@ export function UserCreationForm() {
   };
 
   return (
-    <Card className="p-6 max-w-md mx-auto">
+    <Card className="p-6 max-w-md">
       <div className="space-y-4">
         <div>
           <h3 className="text-lg font-semibold">Create New User</h3>

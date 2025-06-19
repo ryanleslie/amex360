@@ -254,7 +254,7 @@ export function QuickMetricsCards() {
         <PopoverTrigger asChild>
           {cardContent}
         </PopoverTrigger>
-        <PopoverContent side="bottom" className="max-w-sm">
+        <PopoverContent side="bottom" className="w-auto min-w-[8rem]">
           <MetricPopoverContent metric={metric} />
         </PopoverContent>
       </Popover>

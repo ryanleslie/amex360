@@ -1,3 +1,4 @@
+
 import React, { useState } from "react"
 import { Card } from "@/components/ui/card"
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover"
@@ -83,7 +84,7 @@ const cardDetails = {
 
 const MetricPopoverContent = ({ metric }: { metric: any }) => (
   <div className="space-y-3 max-w-xs">
-    <div className="font-medium">{metric.title}</div>
+    <div className="font-medium text-sm">{metric.title}</div>
     <div className="text-sm text-muted-foreground">{metric.description}</div>
     
     {metric.cardData && (

@@ -108,7 +108,7 @@ export function UserListCard() {
           </Badge>
         </div>
 
-        <ScrollArea className="h-[480px]">
+        <ScrollArea className="h-[32rem]">
           <div className="space-y-3 pr-4">
             {users.length === 0 ? (
               <div className="text-center text-muted-foreground py-4">

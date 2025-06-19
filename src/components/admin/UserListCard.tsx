@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -37,7 +38,7 @@ export function UserListCard() {
             role
           )
         `)
-        .order('last_login', { ascending: false, nullsLast: true });
+        .order('last_login', { ascending: false, nullsFirst: false });
 
       if (usersError) {
         console.error('Error fetching users:', usersError);

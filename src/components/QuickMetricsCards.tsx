@@ -83,7 +83,7 @@ const cardDetails = {
 }
 
 const MetricPopoverContent = ({ metric }: { metric: any }) => (
-  <div className="space-y-3 max-w-xs">
+  <div className="space-y-3">
     <div className="font-medium text-sm">{metric.title}</div>
     <div className="text-sm text-muted-foreground">{metric.description}</div>
     

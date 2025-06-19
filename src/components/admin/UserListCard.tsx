@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -97,50 +98,52 @@ export function UserListCard() {
   }
 
   return (
-    <Card className="p-6 flex flex-col h-full">
-      <div className="flex items-center gap-2 mb-4">
-        <User className="h-5 w-5" />
-        <h3 className="text-lg font-semibold">User List</h3>
-        <Badge variant="outline" className="ml-auto">
-          {users.length} users
-        </Badge>
-      </div>
-
-      <ScrollArea className="flex-1">
-        <div className="space-y-3 pr-4">
-          {users.length === 0 ? (
-            <div className="text-center text-muted-foreground py-4">
-              No users found
-            </div>
-          ) : (
-            users.map((user) => (
-              <div
-                key={user.user_id}
-                className="p-3 border rounded-lg bg-gray-50 space-y-2"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="font-medium text-sm">
-                    {user.display_name || user.first_name || user.user_id}
-                  </div>
-                  <Badge variant={getRoleBadgeVariant(user.role || 'user')}>
-                    <Shield className="h-3 w-3 mr-1" />
-                    {user.role || 'user'}
-                  </Badge>
-                </div>
-                
-                <div className="text-xs text-muted-foreground">
-                  ID: {user.user_id}
-                </div>
-                
-                <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                  <Clock className="h-3 w-3" />
-                  Last login: {formatLastLogin(user.last_login)}
-                </div>
-              </div>
-            ))
-          )}
+    <Card className="p-6">
+      <div className="space-y-4">
+        <div className="flex items-center gap-2">
+          <User className="h-5 w-5" />
+          <h3 className="text-lg font-semibold">User List</h3>
+          <Badge variant="outline" className="ml-auto">
+            {users.length} users
+          </Badge>
         </div>
-      </ScrollArea>
+
+        <ScrollArea className="h-96">
+          <div className="space-y-3 pr-4">
+            {users.length === 0 ? (
+              <div className="text-center text-muted-foreground py-4">
+                No users found
+              </div>
+            ) : (
+              users.map((user) => (
+                <div
+                  key={user.user_id}
+                  className="p-3 border rounded-lg bg-gray-50 space-y-2"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="font-medium text-sm">
+                      {user.display_name || user.first_name || user.user_id}
+                    </div>
+                    <Badge variant={getRoleBadgeVariant(user.role || 'user')}>
+                      <Shield className="h-3 w-3 mr-1" />
+                      {user.role || 'user'}
+                    </Badge>
+                  </div>
+                  
+                  <div className="text-xs text-muted-foreground">
+                    ID: {user.user_id}
+                  </div>
+                  
+                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                    <Clock className="h-3 w-3" />
+                    Last login: {formatLastLogin(user.last_login)}
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </ScrollArea>
+      </div>
     </Card>
   );
 }

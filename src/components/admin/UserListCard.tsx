@@ -4,7 +4,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { supabase } from '@/integrations/supabase/client';
-import { User, Clock, Shield } from 'lucide-react';
+import { Clock, Shield } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 
 interface UserData {
@@ -87,10 +87,7 @@ export function UserListCard() {
     return (
       <Card className="p-6">
         <div className="space-y-4">
-          <div className="flex items-center gap-2">
-            <User className="h-5 w-5" />
-            <h3 className="text-lg font-semibold">User List</h3>
-          </div>
+          <h3 className="text-lg font-semibold">User List</h3>
           <div className="text-center text-muted-foreground">Loading users...</div>
         </div>
       </Card>
@@ -101,7 +98,6 @@ export function UserListCard() {
     <Card className="p-6">
       <div className="space-y-4">
         <div className="flex items-center gap-2">
-          <User className="h-5 w-5" />
           <h3 className="text-lg font-semibold">User List</h3>
           <Badge variant="outline" className="ml-auto">
             {users.length} users

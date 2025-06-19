@@ -39,7 +39,7 @@ const Dashboard = () => {
       case "admin":
         return (
           <div className="p-6 pt-0">
-            <div className="flex flex-wrap justify-center max-w-5xl mx-auto gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-7xl mx-auto">
               <UserCreationForm />
               <UserListCard />
             </div>

@@ -85,7 +85,7 @@ export function UserListCard() {
 
   if (loading) {
     return (
-      <Card className="p-6">
+      <Card className="p-6 bg-gradient-to-b from-white to-gray-100">
         <div className="space-y-4">
           <h3 className="text-lg font-semibold">User List</h3>
           <div className="text-center text-muted-foreground">Loading users...</div>
@@ -95,7 +95,7 @@ export function UserListCard() {
   }
 
   return (
-    <Card className="p-6">
+    <Card className="p-6 bg-gradient-to-b from-white to-gray-100">
       <div className="space-y-4">
         <div className="flex items-center gap-2">
           <h3 className="text-lg font-semibold">User List</h3>
@@ -114,7 +114,7 @@ export function UserListCard() {
               users.map((user) => (
                 <div
                   key={user.user_id}
-                  className="p-3 border rounded-lg bg-gray-50 space-y-2"
+                  className="p-3 border rounded-lg bg-gradient-to-b from-white to-gray-50 space-y-2"
                 >
                   <div className="flex items-center justify-between">
                     <div className="font-medium text-sm">

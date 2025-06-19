@@ -1,8 +1,8 @@
 
-
 import React, { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { supabase } from '@/integrations/supabase/client';
 import { User, Clock, Shield } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
@@ -108,41 +108,42 @@ export function UserListCard() {
           </Badge>
         </div>
 
-        <div className="space-y-3 max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-transparent hover:scrollbar-thumb-gray-400 scrollbar-track-transparent">
-          {users.length === 0 ? (
-            <div className="text-center text-muted-foreground py-4">
-              No users found
-            </div>
-          ) : (
-            users.map((user) => (
-              <div
-                key={user.user_id}
-                className="p-3 border rounded-lg bg-gray-50 space-y-2"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="font-medium text-sm">
-                    {user.display_name || user.first_name || user.user_id}
-                  </div>
-                  <Badge variant={getRoleBadgeVariant(user.role || 'user')}>
-                    <Shield className="h-3 w-3 mr-1" />
-                    {user.role || 'user'}
-                  </Badge>
-                </div>
-                
-                <div className="text-xs text-muted-foreground">
-                  ID: {user.user_id}
-                </div>
-                
-                <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                  <Clock className="h-3 w-3" />
-                  Last login: {formatLastLogin(user.last_login)}
-                </div>
+        <ScrollArea className="h-96">
+          <div className="space-y-3 pr-4">
+            {users.length === 0 ? (
+              <div className="text-center text-muted-foreground py-4">
+                No users found
               </div>
-            ))
-          )}
-        </div>
+            ) : (
+              users.map((user) => (
+                <div
+                  key={user.user_id}
+                  className="p-3 border rounded-lg bg-gray-50 space-y-2"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="font-medium text-sm">
+                      {user.display_name || user.first_name || user.user_id}
+                    </div>
+                    <Badge variant={getRoleBadgeVariant(user.role || 'user')}>
+                      <Shield className="h-3 w-3 mr-1" />
+                      {user.role || 'user'}
+                    </Badge>
+                  </div>
+                  
+                  <div className="text-xs text-muted-foreground">
+                    ID: {user.user_id}
+                  </div>
+                  
+                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                    <Clock className="h-3 w-3" />
+                    Last login: {formatLastLogin(user.last_login)}
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </ScrollArea>
       </div>
     </Card>
   );
 }
-

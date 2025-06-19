@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { AppHeader } from "@/components/AppHeader";
 import { AppSidebar } from "@/components/AppSidebar";
@@ -39,7 +38,7 @@ const Dashboard = () => {
       case "admin":
         return (
           <div className="p-6 pt-0">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
               <UserCreationForm />
               <UserListCard />
             </div>

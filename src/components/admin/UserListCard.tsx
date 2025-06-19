@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -83,7 +82,7 @@ export function UserListCard() {
 
   if (loading) {
     return (
-      <Card className="p-6 max-w-md">
+      <Card className="p-6 max-w-lg">
         <div className="space-y-4">
           <div className="flex items-center gap-2">
             <User className="h-5 w-5" />
@@ -96,7 +95,7 @@ export function UserListCard() {
   }
 
   return (
-    <Card className="p-6 max-w-md">
+    <Card className="p-6 max-w-lg">
       <div className="space-y-4">
         <div className="flex items-center gap-2">
           <User className="h-5 w-5" />

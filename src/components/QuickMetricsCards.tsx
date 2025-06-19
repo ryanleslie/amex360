@@ -1,6 +1,7 @@
+
 import React, { useState } from "react"
 import { Card } from "@/components/ui/card"
-import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover"
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { Info } from "lucide-react"
@@ -81,7 +82,7 @@ const cardDetails = {
   ]
 }
 
-const MetricPopoverContent = ({ metric }: { metric: any }) => (
+const MetricTooltipContent = ({ metric }: { metric: any }) => (
   <div className="space-y-3 max-w-xs">
     <div className="font-medium">{metric.title}</div>
     <div className="text-sm text-muted-foreground">{metric.description}</div>
@@ -171,7 +172,6 @@ export function QuickMetricsCards() {
     return transactionFilterService.getUniqueCardAccounts().length
   }, [])
 
-  // ... keep existing code (metricsData array definition)
   const metricsData = [
     {
       title: "Active Card Accounts",
@@ -205,7 +205,7 @@ export function QuickMetricsCards() {
       value: "$2M",
       description: "Total available business line of credit",
       dataSource: "Underwriting System",
-      lastUpdated: "Real-time",  
+      lastUpdated: "Real-time",
       calculationMethod: "Sum of (credit limit - current balance)",
       cardData: cardDetails.businessCreditLimit
     },
@@ -249,14 +249,16 @@ export function QuickMetricsCards() {
     }
 
     return (
-      <Popover key={metric.title}>
-        <PopoverTrigger asChild>
-          {cardContent}
-        </PopoverTrigger>
-        <PopoverContent side="bottom" className="max-w-sm">
-          <MetricPopoverContent metric={metric} />
-        </PopoverContent>
-      </Popover>
+      <TooltipProvider key={metric.title}>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            {cardContent}
+          </TooltipTrigger>
+          <TooltipContent side="bottom" className="max-w-sm">
+            <MetricTooltipContent metric={metric} />
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     )
   }
 

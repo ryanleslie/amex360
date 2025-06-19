@@ -82,7 +82,7 @@ export function UserListCard() {
 
   if (loading) {
     return (
-      <Card className="p-6 max-w-lg">
+      <Card className="p-6 max-w-xl">
         <div className="space-y-4">
           <div className="flex items-center gap-2">
             <User className="h-5 w-5" />
@@ -95,7 +95,7 @@ export function UserListCard() {
   }
 
   return (
-    <Card className="p-6 max-w-lg">
+    <Card className="p-6 max-w-xl">
       <div className="space-y-4">
         <div className="flex items-center gap-2">
           <User className="h-5 w-5" />

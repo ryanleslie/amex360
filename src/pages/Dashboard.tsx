@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { AppHeader } from "@/components/AppHeader";
 import { AppSidebar } from "@/components/AppSidebar";
@@ -38,13 +39,9 @@ const Dashboard = () => {
       case "admin":
         return (
           <div className="p-6 pt-0">
-            <div className="flex flex-col justify-center max-w-6xl mx-auto gap-6">
-              <div className="flex justify-center">
-                <UserCreationForm />
-              </div>
-              <div className="flex justify-center">
-                <UserListCard />
-              </div>
+            <div className="flex flex-wrap justify-center max-w-4xl mx-auto gap-6">
+              <UserCreationForm />
+              <UserListCard />
             </div>
           </div>
         );

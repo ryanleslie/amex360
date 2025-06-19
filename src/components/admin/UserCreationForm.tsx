@@ -66,7 +66,7 @@ export function UserCreationForm() {
   };
 
   return (
-    <Card className="p-6 max-w-2xl w-full">
+    <Card className="p-6 max-w-md">
       <div className="space-y-4">
         <div>
           <h3 className="text-lg font-semibold">Create New User</h3>
@@ -91,99 +91,89 @@ export function UserCreationForm() {
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <div className="grid grid-cols-2 gap-6">
-              {/* Column 1 */}
-              <div className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="userId"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>User ID</FormLabel>
-                      <FormControl>
-                        <Input placeholder="cwhertel" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+            <FormField
+              control={form.control}
+              name="userId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>User ID</FormLabel>
+                  <FormControl>
+                    <Input placeholder="cwhertel" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-                <FormField
-                  control={form.control}
-                  name="passwordSuffix"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Password Suffix</FormLabel>
-                      <FormControl>
-                        <Input placeholder="clay" {...field} />
-                      </FormControl>
-                      <div className="text-xs text-muted-foreground">
-                        Full password will be: @mex360guest-{field.value || '[suffix]'}
-                      </div>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+            <FormField
+              control={form.control}
+              name="passwordSuffix"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password Suffix</FormLabel>
+                  <FormControl>
+                    <Input placeholder="clay" {...field} />
+                  </FormControl>
+                  <div className="text-xs text-muted-foreground">
+                    Full password will be: @mex360guest-{field.value || '[suffix]'}
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-                <FormField
-                  control={form.control}
-                  name="emailPrefix"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email Prefix</FormLabel>
-                      <FormControl>
-                        <Input placeholder="clay" {...field} />
-                      </FormControl>
-                      <div className="text-xs text-muted-foreground">
-                        Full email will be: {field.value || '[prefix]'}@guest.local
-                      </div>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
+            <FormField
+              control={form.control}
+              name="emailPrefix"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email Prefix</FormLabel>
+                  <FormControl>
+                    <Input placeholder="clay" {...field} />
+                  </FormControl>
+                  <div className="text-xs text-muted-foreground">
+                    Full email will be: {field.value || '[prefix]'}@guest.local
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-              {/* Column 2 */}
-              <div className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="displayName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Display Name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Clay Hertel" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+            <FormField
+              control={form.control}
+              name="displayName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Display Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Clay Hertel" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-                <FormField
-                  control={form.control}
-                  name="firstName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>First Name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Clay" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+            <FormField
+              control={form.control}
+              name="firstName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>First Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Clay" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-                <div className="pt-4">
-                  <Button 
-                    type="submit" 
-                    className="w-full" 
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? 'Creating User...' : 'Create User'}
-                  </Button>
-                </div>
-              </div>
-            </div>
+            <Button 
+              type="submit" 
+              className="w-full" 
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Creating User...' : 'Create User'}
+            </Button>
           </form>
         </Form>
       </div>

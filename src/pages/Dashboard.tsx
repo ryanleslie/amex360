@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { AppHeader } from "@/components/AppHeader";
 import { AppSidebar } from "@/components/AppSidebar";
@@ -7,6 +8,7 @@ import Rewards from "./Rewards";
 import CreditMax from "./CreditMax";
 import Redemptions from "./Redemptions";
 import { CategorySpendingChart } from "@/components/chart/CategorySpendingChart";
+import { UserCreationForm } from "@/components/admin/UserCreationForm";
 
 export type DashboardSection = "dashboard" | "insights" | "rewards" | "employee" | "creditmax" | "admin" | "redemptions";
 
@@ -36,10 +38,11 @@ const Dashboard = () => {
       case "admin":
         return (
           <div className="p-6 space-y-6">
-            <div className="text-center py-12">
-              <h2 className="text-2xl font-semibold text-muted-foreground">Admin Panel</h2>
-              <p className="text-muted-foreground mt-2">Admin functionality will be added here.</p>
+            <div className="text-center">
+              <h2 className="text-2xl font-semibold mb-2">Admin Panel</h2>
+              <p className="text-muted-foreground mb-8">Manage users and system settings</p>
             </div>
+            <UserCreationForm />
           </div>
         );
       default:

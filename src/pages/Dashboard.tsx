@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { AppHeader } from "@/components/AppHeader";
 import { AppSidebar } from "@/components/AppSidebar";
@@ -39,7 +38,7 @@ const Dashboard = () => {
       case "admin":
         return (
           <div className="p-6 pt-0">
-            <div className="flex gap-6 flex-wrap">
+            <div className="flex flex-wrap">
               <UserCreationForm />
               <UserListCard />
             </div>

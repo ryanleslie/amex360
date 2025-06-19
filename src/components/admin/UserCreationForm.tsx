@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -65,7 +66,7 @@ export function UserCreationForm() {
   };
 
   return (
-    <Card className="p-6">
+    <Card className="p-6 bg-gradient-to-b from-white to-gray-100">
       <div className="space-y-4">
         <div>
           <h3 className="text-lg font-semibold">Create New User</h3>

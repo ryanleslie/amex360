@@ -9,6 +9,7 @@ import CreditMax from "./CreditMax";
 import Redemptions from "./Redemptions";
 import { CategorySpendingChart } from "@/components/chart/CategorySpendingChart";
 import { UserCreationForm } from "@/components/admin/UserCreationForm";
+import { UserListCard } from "@/components/admin/UserListCard";
 
 export type DashboardSection = "dashboard" | "insights" | "rewards" | "employee" | "creditmax" | "admin" | "redemptions";
 
@@ -38,7 +39,10 @@ const Dashboard = () => {
       case "admin":
         return (
           <div className="p-6 pt-0">
-            <UserCreationForm />
+            <div className="flex gap-6 flex-wrap">
+              <UserCreationForm />
+              <UserListCard />
+            </div>
           </div>
         );
       default:

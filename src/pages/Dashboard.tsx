@@ -37,7 +37,7 @@ const Dashboard = () => {
         return <Redemptions />;
       case "admin":
         return (
-          <div className="p-6 pt-4">
+          <div className="p-6 pt-0">
             <UserCreationForm />
           </div>
         );

@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -107,7 +108,7 @@ export function UserListCard() {
           </Badge>
         </div>
 
-        <div className="space-y-3 max-h-96 overflow-y-auto">
+        <div className="space-y-3 max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-transparent hover:scrollbar-thumb-gray-400 scrollbar-track-transparent">
           {users.length === 0 ? (
             <div className="text-center text-muted-foreground py-4">
               No users found
@@ -144,3 +145,4 @@ export function UserListCard() {
     </Card>
   );
 }
+

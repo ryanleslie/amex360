@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -7,6 +8,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
+type UserRole = 'user' | 'admin' | 'moderator';
+
 export function UserCreationForm() {
   const [isVisible, setIsVisible] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -15,7 +18,7 @@ export function UserCreationForm() {
     password: '',
     firstName: '',
     displayName: '',
-    role: 'user'
+    role: 'user' as UserRole
   });
   const { toast } = useToast();
 
@@ -59,7 +62,7 @@ export function UserCreationForm() {
         // Update user_roles table with the selected role
         const { error: roleError } = await supabase
           .from('user_roles')
-          .insert([{ user_id: authData.user.id, role: formData.role }]);
+          .insert({ user_id: authData.user.id, role: formData.role });
 
         if (roleError) {
           console.error('Error assigning role:', roleError);
@@ -80,7 +83,7 @@ export function UserCreationForm() {
           password: '',
           firstName: '',
           displayName: '',
-          role: 'user'
+          role: 'user' as UserRole
         });
       }
     } catch (error: any) {
@@ -165,7 +168,7 @@ export function UserCreationForm() {
           </div>
           <div>
             <Label htmlFor="role">Role</Label>
-            <Select onValueChange={(value) => setFormData(prevState => ({ ...prevState, role: value }))}>
+            <Select onValueChange={(value: UserRole) => setFormData(prevState => ({ ...prevState, role: value }))}>
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select a role" defaultValue={formData.role} />
               </SelectTrigger>

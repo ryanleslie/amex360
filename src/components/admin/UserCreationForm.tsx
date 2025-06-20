@@ -1,182 +1,186 @@
-
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-import { Card } from '@/components/ui/card';
+import React, { useState, useEffect } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { useAuth } from '@/contexts/AuthContext';
-import { CheckCircle, AlertCircle } from 'lucide-react';
-
-const userCreationSchema = z.object({
-  userId: z.string().min(1, 'User ID is required'),
-  passwordSuffix: z.string().min(1, 'Password suffix is required'),
-  emailPrefix: z.string().min(1, 'Email prefix is required'),
-  displayName: z.string().min(1, 'Display name is required'),
-  firstName: z.string().min(1, 'First name is required'),
-});
-
-type UserCreationForm = z.infer<typeof userCreationSchema>;
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
 export function UserCreationForm() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const { signUp } = useAuth();
-
-  const form = useForm<UserCreationForm>({
-    resolver: zodResolver(userCreationSchema),
-    defaultValues: {
-      userId: '',
-      passwordSuffix: '',
-      emailPrefix: '',
-      displayName: '',
-      firstName: '',
-    },
+  const [isVisible, setIsVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    firstName: '',
+    displayName: '',
+    role: 'user'
   });
+  const { toast } = useToast();
 
-  const onSubmit = async (data: UserCreationForm) => {
-    setIsSubmitting(true);
-    setSuccessMessage(null);
-    setErrorMessage(null);
+  useEffect(() => {
+    // Trigger animation after component mounts
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 50);
+    
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
 
     try {
-      const fullPassword = `@mex360guest-${data.passwordSuffix}`;
-      const fullEmail = `${data.emailPrefix}@guest.local`;
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+        options: {
+          data: {
+            first_name: formData.firstName,
+            display_name: formData.displayName,
+            role: formData.role
+          }
+        }
+      });
 
-      const result = await signUp(data.userId, fullPassword, fullEmail);
-      
-      if (result.error) {
-        setErrorMessage(result.error);
-      } else {
-        setSuccessMessage(
-          `${data.firstName} can now sign in to the application using the credentials:\n\nUser ID: ${data.userId}\nPassword: @mex360guest-${data.passwordSuffix}\n\nThe account has been set up with the same permissions as other guest users`
-        );
-        form.reset();
+      if (authError) {
+        console.error('Authentication error:', authError);
+        toast({
+          title: 'Error creating user',
+          description: authError.message,
+          variant: 'destructive'
+        });
+        return;
       }
-    } catch (error) {
-      setErrorMessage('An unexpected error occurred while creating the user');
+
+      if (authData.user) {
+        // Update user_roles table with the selected role
+        const { error: roleError } = await supabase
+          .from('user_roles')
+          .insert([{ user_id: authData.user.id, role: formData.role }]);
+
+        if (roleError) {
+          console.error('Error assigning role:', roleError);
+          toast({
+            title: 'Error assigning role',
+            description: roleError.message,
+            variant: 'destructive'
+          });
+          return;
+        }
+
+        toast({
+          title: 'User created successfully',
+          description: `User ${formData.email} has been created with role ${formData.role}.`
+        });
+        setFormData({
+          email: '',
+          password: '',
+          firstName: '',
+          displayName: '',
+          role: 'user'
+        });
+      }
+    } catch (error: any) {
+      console.error('Error creating user:', error);
+      toast({
+        title: 'Error creating user',
+        description: error.message,
+        variant: 'destructive'
+      });
     } finally {
-      setIsSubmitting(false);
+      setLoading(false);
     }
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
   return (
-    <Card className="p-6 bg-gradient-to-b from-white to-gray-100">
-      <div className="space-y-4">
-        <div>
-          <h3 className="text-lg font-semibold">Create New User</h3>
-          <p className="text-sm text-muted-foreground">Add a new guest user to the system</p>
-        </div>
-
-        {successMessage && (
-          <Alert className="border-green-200 bg-green-50">
-            <CheckCircle className="h-4 w-4 text-green-600" />
-            <AlertDescription className="text-green-800 whitespace-pre-line">
-              {successMessage}
-            </AlertDescription>
-          </Alert>
-        )}
-
-        {errorMessage && (
-          <Alert variant="destructive">
-            <AlertCircle className="h-4 w-4" />
-            <AlertDescription>{errorMessage}</AlertDescription>
-          </Alert>
-        )}
-
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormField
-              control={form.control}
-              name="userId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>User ID</FormLabel>
-                  <FormControl>
-                    <Input placeholder="cwhertel" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+    <Card className={`p-6 bg-gradient-to-b from-white to-gray-100 transition-all duration-500 ${
+      isVisible 
+        ? 'opacity-100 translate-y-0' 
+        : 'opacity-0 translate-y-4'
+    }`}>
+      <CardHeader className="pb-4">
+        <CardTitle className="text-lg font-semibold">Create New User</CardTitle>
+        <CardDescription>Add a new user to the system</CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <Label htmlFor="email">Email</Label>
+            <Input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              required
+              placeholder="user@example.com"
             />
-
-            <FormField
-              control={form.control}
-              name="passwordSuffix"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password Suffix</FormLabel>
-                  <FormControl>
-                    <Input placeholder="clay" {...field} />
-                  </FormControl>
-                  <div className="text-xs text-muted-foreground">
-                    Full password will be: @mex360guest-{field.value || '[suffix]'}
-                  </div>
-                  <FormMessage />
-                </FormItem>
-              )}
+          </div>
+          <div>
+            <Label htmlFor="password">Password</Label>
+            <Input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              required
+              placeholder="Password"
             />
-
-            <FormField
-              control={form.control}
-              name="emailPrefix"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email Prefix</FormLabel>
-                  <FormControl>
-                    <Input placeholder="clay" {...field} />
-                  </FormControl>
-                  <div className="text-xs text-muted-foreground">
-                    Full email will be: {field.value || '[prefix]'}@guest.local
-                  </div>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="displayName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Display Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Clay Hertel" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="firstName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>First Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Clay" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <Button 
-              type="submit" 
-              className="w-full" 
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? 'Creating User...' : 'Create User'}
-            </Button>
-          </form>
-        </Form>
-      </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="firstName">First Name</Label>
+              <Input
+                type="text"
+                id="firstName"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleInputChange}
+                placeholder="First Name"
+              />
+            </div>
+            <div>
+              <Label htmlFor="displayName">Display Name</Label>
+              <Input
+                type="text"
+                id="displayName"
+                name="displayName"
+                value={formData.displayName}
+                onChange={handleInputChange}
+                placeholder="Display Name"
+              />
+            </div>
+          </div>
+          <div>
+            <Label htmlFor="role">Role</Label>
+            <Select onValueChange={(value) => setFormData(prevState => ({ ...prevState, role: value }))}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select a role" defaultValue={formData.role} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="user">User</SelectItem>
+                <SelectItem value="moderator">Moderator</SelectItem>
+                <SelectItem value="admin">Admin</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <Button type="submit" disabled={loading}>
+            {loading ? 'Creating...' : 'Create User'}
+          </Button>
+        </form>
+      </CardContent>
     </Card>
   );
 }

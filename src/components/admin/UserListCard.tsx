@@ -19,16 +19,9 @@ export function UserListCard() {
   const [users, setUsers] = useState<UserData[]>([]);
   const [loading, setLoading] = useState(true);
   const [showUsers, setShowUsers] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     fetchUsers();
-    // Trigger main card animation
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 100);
-    
-    return () => clearTimeout(timer);
   }, []);
 
   const fetchUsers = async () => {
@@ -96,11 +89,7 @@ export function UserListCard() {
 
   if (loading) {
     return (
-      <Card className={`p-6 bg-gradient-to-b from-white to-gray-100 transition-all duration-500 ${
-        isVisible 
-          ? 'opacity-100 translate-y-0' 
-          : 'opacity-0 translate-y-4'
-      }`}>
+      <Card className="p-6 bg-gradient-to-b from-white to-gray-100">
         <div className="space-y-4">
           <h3 className="text-lg font-semibold">User List</h3>
           <div className="text-center text-muted-foreground animate-pulse">Loading users...</div>
@@ -110,11 +99,7 @@ export function UserListCard() {
   }
 
   return (
-    <Card className={`p-6 bg-gradient-to-b from-white to-gray-100 transition-all duration-500 ${
-      isVisible 
-        ? 'opacity-100 translate-y-0' 
-        : 'opacity-0 translate-y-4'
-    }`} style={{ transitionDelay: '150ms' }}>
+    <Card className="p-6 bg-gradient-to-b from-white to-gray-100">
       <div className="space-y-4">
         <div className="flex items-center gap-2 animate-fade-in">
           <h3 className="text-lg font-semibold">User List</h3>

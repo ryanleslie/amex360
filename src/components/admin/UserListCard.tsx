@@ -18,6 +18,7 @@ interface UserData {
 export function UserListCard() {
   const [users, setUsers] = useState<UserData[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showUsers, setShowUsers] = useState(false);
 
   useEffect(() => {
     fetchUsers();
@@ -56,6 +57,9 @@ export function UserListCard() {
       })) || [];
 
       setUsers(transformedUsers);
+      
+      // Trigger staggered animations after data is loaded
+      setTimeout(() => setShowUsers(true), 100);
     } catch (error) {
       console.error('Error fetching users:', error);
     } finally {
@@ -88,7 +92,7 @@ export function UserListCard() {
       <Card className="p-6 bg-gradient-to-b from-white to-gray-100">
         <div className="space-y-4">
           <h3 className="text-lg font-semibold">User List</h3>
-          <div className="text-center text-muted-foreground">Loading users...</div>
+          <div className="text-center text-muted-foreground animate-pulse">Loading users...</div>
         </div>
       </Card>
     );
@@ -97,7 +101,7 @@ export function UserListCard() {
   return (
     <Card className="p-6 bg-gradient-to-b from-white to-gray-100">
       <div className="space-y-4">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 animate-fade-in">
           <h3 className="text-lg font-semibold">User List</h3>
           <Badge variant="outline" className="ml-auto">
             {users.length} users
@@ -107,14 +111,21 @@ export function UserListCard() {
         <ScrollArea className="h-[560px]">
           <div className="space-y-3 pr-4">
             {users.length === 0 ? (
-              <div className="text-center text-muted-foreground py-4">
+              <div className="text-center text-muted-foreground py-4 animate-fade-in">
                 No users found
               </div>
             ) : (
-              users.map((user) => (
+              users.map((user, index) => (
                 <div
                   key={user.user_id}
-                  className="p-3 border rounded-lg bg-gradient-to-b from-white to-gray-50 space-y-2"
+                  className={`p-3 border rounded-lg bg-gradient-to-b from-white to-gray-50 space-y-2 transition-all duration-500 ${
+                    showUsers 
+                      ? 'opacity-100 translate-y-0' 
+                      : 'opacity-0 translate-y-4'
+                  }`}
+                  style={{
+                    transitionDelay: `${index * 100}ms`
+                  }}
                 >
                   <div className="flex items-center justify-between">
                     <div className="font-medium text-sm">

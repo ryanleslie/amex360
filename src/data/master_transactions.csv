@@ -211,6 +211,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-04,ONLINE PAYMENT - THANK YOU,3000.00,Business Blue Plus I,-01000,,
 2025-01-01,ENTRECENTER         MIAMI BEACH         FL,-2000.00,Business Blue Plus I,-01026,Contractors,2
 2025-01-01,ENTRECENTER         MIAMI BEACH         FL,-4000.00,Business Blue Plus I,-01018,Contractors,2
+2025-06-21,NETFLIX.COM         866-579-7172        CA,-27.21,Business Blue Plus II,-11009,Streaming services,
 2025-06-19,LOVABLE             DOVER               DE,-25.00,Business Blue Plus II,-11041,App development,2
 2025-06-19,LOVABLE             DOVER               DE,180.00,Business Blue Plus II,-11041,App development,2
 2025-06-15,ONLINE PAYMENT - THANK YOU,50.00,Business Blue Plus II,-11009,,
@@ -310,6 +311,8 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-02-21,NETFLIX.COM         866-579-7172        CA,-25.03,Business Blue Plus II,-11009,Streaming services,2
 2025-02-16,TALLY.SO            GENT                OO,-29.00,Business Blue Plus II,-11009,Marketing,2
 2025-02-15,PAYPAL *XAVIER KEYZ 4029357733,-2300.00,Business Blue Plus II,-11009,CreditMax,2
+2025-06-20,ADOBE Adobe Systems SAN JOSE            CA,-29.99,Business Classic Gold,-71002,Software,
+2025-06-20,TWILIO INC          SAN FRANCISCO       CA,-47.39,Business Classic Gold,-71002,SuperPhone®,
 2025-06-19,TWILIO INC          SAN FRANCISCO       CA,-40.94,Business Classic Gold,-71002,SuperPhone®,4
 2025-06-18,TWILIO INC          SAN FRANCISCO       CA,-40.51,Business Classic Gold,-71002,SuperPhone®,4
 2025-06-18,ONLINE PAYMENT - THANK YOU,407.70,Business Classic Gold,-71002,,
@@ -759,6 +762,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-03,PAYPAL *LINDAJANEKAN4029357733          DE,-3436.60,Business Platinum Card,-51017,Contractors,
 2025-01-03,PAYPAL *SPXOPTIONTR 5418961779          OR,-199.95,Business Platinum Card,-51017,Charting & journaling,
 2025-01-02,WOJO MEDIA 567140113DAYTONA BEACH       FL,-54.00,Business Platinum Card,-51017,Advertising,
+2025-06-20,TWILIO INC SAN FRANCISCO CA,-593.20,Business Rose Gold,-02008,SuperPhone®,
 2025-06-19,TWILIO INC SAN FRANCISCO CA,-390.02,Business Rose Gold,-02008,SuperPhone®,
 2025-06-19,TWILIO INC SAN FRANCISCO CA,-591.08,Business Rose Gold,-02008,SuperPhone®,
 2025-06-18,TWILIO INC SAN FRANCISCO CA,-400.83,Business Rose Gold,-02008,SuperPhone®,
@@ -1040,6 +1044,8 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-06,"TWILIO, INC.        SAN FRANCISCO",-701.70,Business Rose Gold,-01018,SuperPhone®,4
 2025-01-05,"TWILIO, INC.        SAN FRANCISCO",-651.93,Business Rose Gold,-01018,SuperPhone®,4
 2025-01-04,"TWILIO, INC.        SAN FRANCISCO",-400.00,Business Rose Gold,-01018,SuperPhone®,4
+2025-06-20,VITAL AI            PEEKSKILL,-1164.96,Business White Gold,-41000,Commissions,
+2025-06-20,PAYPAL *TWENTYFOURA,-1000.00,Business White Gold,-41000,Contractors,
 2025-06-16,CALENDLY            AVONDALE ESTATES    GA,-11.70,Business White Gold,-41000,Software,4
 2025-06-14,ONLINE PAYMENT - THANK YOU,703.12,Business White Gold,-41000,,
 2025-06-14,BE MORE DO MORE APP,-703.12,Business White Gold,-41000,Commissions,4
@@ -1398,7 +1404,10 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-06-01,ONLINE PAYMENT - THANK YOU,195.00,Hilton Honors Business,-91003,,
 2025-06-01,PAYPAL *LINDAJANEKAN4029357733          DE,-4750.00,Hilton Honors Business,-91003,Contractors,
 2025-05-20,MEMBERSHIP FEE,-195.00,Hilton Honors Business,-91003,Fees & adjustments,
+2025-06-20,REWE CZERLINSKI,-56.38,Platinum Card,-71003,Personal,
 2025-06-18,REWE CZERLINSKI,-69.03,Platinum Card,-71003,Personal,
+2025-06-17,MEM RWDS AIRLINE TAX OFFSET FEE,-71.40,Platinum Card,-71003,Fees & adjustments,
+2025-06-17,MEM RWDS AIRLINE TAX OFFSET FEE,-96.00,Platinum Card,-71003,Fees & adjustments,
 2025-06-16,DM-DROGERIE MARKT 70,-33.70,Platinum Card,-71003,Personal,
 2025-06-16,EDEKA KROMBHOLZ STUTTGART DE,-32.44,Platinum Card,-71003,Personal,
 2025-06-15,AMEJEWS,-217.13,Platinum Card,-71003,Personal,

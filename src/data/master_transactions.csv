@@ -211,9 +211,9 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-04,ONLINE PAYMENT - THANK YOU,3000.00,Business Blue Plus I,-01000,,
 2025-01-01,ENTRECENTER         MIAMI BEACH         FL,-2000.00,Business Blue Plus I,-01026,Contractors,2
 2025-01-01,ENTRECENTER         MIAMI BEACH         FL,-4000.00,Business Blue Plus I,-01018,Contractors,2
-2025-06-21,NETFLIX.COM         866-579-7172        CA,-27.21,Business Blue Plus II,-11009,Streaming services,
+2025-06-21,NETFLIX.COM         866-579-7172        CA,-27.21,Business Blue Plus II,-11009,Streaming services,2
 2025-06-19,LOVABLE             DOVER               DE,-25.00,Business Blue Plus II,-11041,App development,2
-2025-06-19,LOVABLE             DOVER               DE,180.00,Business Blue Plus II,-11041,App development,2
+2025-06-19,LOVABLE             DOVER               DE,180.00,Business Blue Plus II,-11041,App development,
 2025-06-15,ONLINE PAYMENT - THANK YOU,50.00,Business Blue Plus II,-11009,,
 2025-06-11,ONLINE PAYMENT - THANK YOU,404.00,Business Blue Plus II,-11009,,
 2025-06-11,ONLINE PAYMENT - THANK YOU,351.62,Business Blue Plus II,-11009,,
@@ -763,6 +763,10 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-03,PAYPAL *LINDAJANEKAN4029357733          DE,-3436.60,Business Platinum Card,-51017,Contractors,
 2025-01-03,PAYPAL *SPXOPTIONTR 5418961779          OR,-199.95,Business Platinum Card,-51017,Charting & journaling,
 2025-01-02,WOJO MEDIA 567140113DAYTONA BEACH       FL,-54.00,Business Platinum Card,-51017,Advertising,
+2025-06-23,TWILIO INC SAN FRANCISCO CA,-390.01,Business Rose Gold,-02008,SuperPhone®,
+2025-06-23,TWILIO INC SAN FRANCISCO CA,-596.31,Business Rose Gold,-02008,SuperPhone®,
+2025-06-23,TWILIO INC SAN FRANCISCO CA,-628.68,Business Rose Gold,-02008,SuperPhone®,
+2025-06-22,TWILIO INC SAN FRANCISCO CA,-590.51,Business Rose Gold,-02008,SuperPhone®,
 2025-06-21,TWILIO INC SAN FRANCISCO CA,-590.06,Business Rose Gold,-02008,SuperPhone®,
 2025-06-20,TWILIO INC SAN FRANCISCO CA,-593.20,Business Rose Gold,-02008,SuperPhone®,
 2025-06-19,TWILIO INC SAN FRANCISCO CA,-591.08,Business Rose Gold,-02008,SuperPhone®,
@@ -1046,6 +1050,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-06,"TWILIO, INC.        SAN FRANCISCO",-701.70,Business Rose Gold,-01018,SuperPhone®,4
 2025-01-05,"TWILIO, INC.        SAN FRANCISCO",-651.93,Business Rose Gold,-01018,SuperPhone®,4
 2025-01-04,"TWILIO, INC.        SAN FRANCISCO",-400.00,Business Rose Gold,-01018,SuperPhone®,4
+2025-06-23,TOPSTEPTRADER LLC   CHICAGO             IL,-49.00,Business White Gold,-41000,Trading,
 2025-06-20,PAYPAL *TWENTYFOURA,-1000.00,Business White Gold,-41000,Contractors,
 2025-06-20,VITAL AI            PEEKSKILL,-1164.96,Business White Gold,-41000,Commissions,
 2025-06-16,CALENDLY            AVONDALE ESTATES    GA,-11.70,Business White Gold,-41000,Software,4
@@ -1301,6 +1306,9 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-05,ONLINE PAYMENT - THANK YOU,920.34,Business White Gold,-41000,,
 2025-01-05,ONLINE PAYMENT - THANK YOU,255.86,Business White Gold,-41000,,
 2025-01-05,ZAPIER.COM/CHARGE   SAN FRANCISCO       CA,-29.99,Business White Gold,-41000,Software,4
+2025-06-23,UBER TRIP           HTTPS://HELP.UBER.COCA,-361.52,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
+2025-06-23,UBER TRIP           HTTPS://HELP.UBER.COCA,-10.17,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
+2025-06-22,UBER TRIP           HTTPS://HELP.UBER.COCA,-86.79,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
 2025-06-21,D J*WSJ             800-568-7625        NJ,-7.62,Charles Schwab Platinum Card,-71000,News & media,
 2025-06-18,AMZN MKTP DE        AMAZON.DE,-1151.37,Charles Schwab Platinum Card,-71000,Office supplies,
 2025-05-30,ONLINE PAYMENT - THANK YOU,518.31,Charles Schwab Platinum Card,-71000,,
@@ -1400,6 +1408,9 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-26,ONLINE PAYMENT - THANK YOU,153.31,Delta Skymiles Reserve,-41006,,
 2025-01-17,DELTA AIR LINES     ATLANTA,-0.60,Delta Skymiles Reserve,-41006,Airfare,
 2025-01-17,DELTA AIR LINES,-152.71,Delta Skymiles Reserve,-41006,Airfare,
+2025-06-23,PAYPAL *MILES       3083799699          DE,-16.15,Hilton Honors Business,-91003,Rideshare & taxi,
+2025-06-23,PAYPAL *MILES       3083799699          DE,-21.89,Hilton Honors Business,-91003,Rideshare & taxi,
+2025-06-23,PAYPAL *WOLT        1748854307          DE,-43.98,Hilton Honors Business,-91003,Delivery,
 2025-06-19,PAYPAL *FREE2MOVE 30330831110 DE,-10.10,Hilton Honors Business,-91003,Rideshare & taxi,
 2025-06-12,PAYPAL *XXXLUTZDE 1130255493100 DE,-595.12,Hilton Honors Business,-91003,Personal,
 2025-06-04,BE MORE DO MORE APP GLENDALE            CA,-4000.00,Hilton Honors Business,-91003,Contractors,
@@ -1407,7 +1418,8 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-06-01,ONLINE PAYMENT - THANK YOU,195.00,Hilton Honors Business,-91003,,
 2025-06-01,PAYPAL *LINDAJANEKAN4029357733          DE,-4750.00,Hilton Honors Business,-91003,Contractors,
 2025-05-20,MEMBERSHIP FEE,-195.00,Hilton Honors Business,-91003,Fees & adjustments,
-2025-06-21,IDEE CREATIVMARKT,-71.91,Platinum Card,-71003,Marketing,
+2025-06-23,REWE CZERLINSKI,-52.71,Platinum Card,-71003,Personal,
+2025-06-21,IDEE CREATIVMARKT,-72.03,Platinum Card,-71003,Marketing,
 2025-06-20,REWE CZERLINSKI,-56.43,Platinum Card,-71003,Personal,
 2025-06-18,REWE CZERLINSKI,-69.03,Platinum Card,-71003,Personal,
 2025-06-17,MEM RWDS AIRLINE TAX OFFSET FEE,-71.40,Platinum Card,-71003,Fees & adjustments,

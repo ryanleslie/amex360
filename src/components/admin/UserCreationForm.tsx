@@ -6,11 +6,11 @@ import * as z from 'zod';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useAuth } from '@/contexts/AuthContext';
 import { CheckCircle, AlertCircle } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 const userCreationSchema = z.object({
   userId: z.string().min(1, 'User ID is required'),
@@ -26,7 +26,14 @@ export function UserCreationForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [showForm, setShowForm] = useState(false);
   const { signUp } = useAuth();
+
+  // Trigger animation after component mounts
+  React.useEffect(() => {
+    const timer = setTimeout(() => setShowForm(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   const form = useForm<UserCreationForm>({
     resolver: zodResolver(userCreationSchema),
@@ -48,17 +55,49 @@ export function UserCreationForm() {
       const fullPassword = `@mex360guest-${data.passwordSuffix}`;
       const fullEmail = `${data.emailPrefix}@guest.local`;
 
+      // First, create the user
       const result = await signUp(data.userId, fullPassword, fullEmail);
       
       if (result.error) {
         setErrorMessage(result.error);
-      } else {
-        setSuccessMessage(
-          `${data.firstName} can now sign in to the application using the credentials:\n\nUser ID: ${data.userId}\nPassword: @mex360guest-${data.passwordSuffix}\n\nThe account has been set up with the same permissions as other guest users`
-        );
-        form.reset();
+        return;
       }
+
+      // Update the profile with display name and first name
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .update({
+          display_name: data.displayName,
+          first_name: data.firstName,
+        })
+        .eq('user_id', data.userId);
+
+      if (profileError) {
+        console.error('Profile update error:', profileError);
+        setErrorMessage('User created but failed to update profile information');
+        return;
+      }
+
+      // Create user role (default to 'user')
+      const { error: roleError } = await supabase
+        .from('user_roles')
+        .insert({
+          user_id: data.userId,
+          role: 'user'
+        });
+
+      if (roleError) {
+        console.error('Role creation error:', roleError);
+        setErrorMessage('User created but failed to assign role');
+        return;
+      }
+
+      setSuccessMessage(
+        `${data.firstName} can now sign in to the application using the credentials:\n\nUser ID: ${data.userId}\nPassword: @mex360guest-${data.passwordSuffix}\n\nThe account has been set up with the same permissions as other guest users`
+      );
+      form.reset();
     } catch (error) {
+      console.error('User creation error:', error);
       setErrorMessage('An unexpected error occurred while creating the user');
     } finally {
       setIsSubmitting(false);
@@ -66,7 +105,9 @@ export function UserCreationForm() {
   };
 
   return (
-    <Card className="p-6 bg-gradient-to-b from-white to-gray-100">
+    <Card className={`p-6 bg-gradient-to-b from-white to-gray-100 transition-all duration-500 ${
+      showForm ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+    }`}>
       <div className="space-y-4">
         <div>
           <h3 className="text-lg font-semibold">Create New User</h3>

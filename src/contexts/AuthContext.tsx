@@ -16,6 +16,7 @@ interface AuthContextType {
   user: User | null;
   signIn: (userId: string, password: string) => Promise<{ error?: string }>;
   signUp: (userId: string, password: string, email?: string) => Promise<{ error?: string }>;
+  createUser: (userId: string, password: string, email?: string) => Promise<{ error?: string }>;
   signOut: () => Promise<void>;
   loading: boolean;
   hasRole: (role: string) => boolean;
@@ -221,6 +222,58 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const createUser = async (userId: string, password: string, email?: string): Promise<{ error?: string }> => {
+    try {
+      // Check if user already exists
+      const { data: existingUser } = await supabase
+        .from('users')
+        .select('user_id')
+        .eq('user_id', userId)
+        .single();
+
+      if (existingUser) {
+        return { error: 'User ID already exists' };
+      }
+
+      // Hash password
+      const { data: hashedPassword, error: hashError } = await supabase
+        .rpc('hash_password', { password });
+
+      if (hashError || !hashedPassword) {
+        return { error: 'Failed to process password' };
+      }
+
+      // Create user
+      const { error: userError } = await supabase
+        .from('users')
+        .insert({
+          user_id: userId,
+          password_hash: hashedPassword,
+          email: email
+        });
+
+      if (userError) {
+        if (userError.code === '23505') {
+          return { error: 'Email already registered' };
+        }
+        return { error: 'Failed to create user' };
+      }
+
+      // Create profile
+      await supabase
+        .from('profiles')
+        .insert({
+          user_id: userId
+        });
+
+      // Don't auto sign in - just return success
+      return {};
+    } catch (error) {
+      console.error('Create user error:', error);
+      return { error: 'An unexpected error occurred' };
+    }
+  };
+
   const signOut = async () => {
     try {
       const sessionToken = localStorage.getItem('session_token');
@@ -252,6 +305,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       user, 
       signIn, 
       signUp, 
+      createUser,
       signOut, 
       loading, 
       hasRole, 

@@ -27,7 +27,7 @@ export function UserCreationForm() {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [showForm, setShowForm] = useState(false);
-  const { signUp } = useAuth();
+  const { createUser } = useAuth();
 
   // Trigger animation after component mounts
   React.useEffect(() => {
@@ -55,8 +55,8 @@ export function UserCreationForm() {
       const fullPassword = `@mex360guest-${data.passwordSuffix}`;
       const fullEmail = `${data.emailPrefix}@guest.local`;
 
-      // First, create the user
-      const result = await signUp(data.userId, fullPassword, fullEmail);
+      // First, create the user (without auto sign-in)
+      const result = await createUser(data.userId, fullPassword, fullEmail);
       
       if (result.error) {
         setErrorMessage(result.error);

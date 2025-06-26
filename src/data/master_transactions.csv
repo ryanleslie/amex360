@@ -1,5 +1,7 @@
 date,description,amount,account_type,last_five,category,point_multiple
+2025-06-26,AMZN MKTP DE        AMAZON.DE,-324.75,Amazon Business Prime,-52003,Office supplies,
 2025-06-24,AMAZON PAY YOUR CHARGES CREDIT,115.34,Amazon Business Prime,-52003,Office supplies,
+2025-06-24,AMZN MKTP DE        AMAZON.DE,-10.38,Amazon Business Prime,-52004,Office supplies,
 2025-06-18,AMAZON DIGITAL DOWNLOADS,-2.99,Amazon Business Prime,-52003,Streaming services,
 2025-06-12,AMAZON MARKEPLACE NA PA,-115.34,Amazon Business Prime,-52003,Office supplies,5
 2025-06-10,AMAZON.COM AMZN.COM/BILL WA,-5.54,Amazon Business Prime,-52003,Office supplies,5
@@ -312,6 +314,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-02-21,NETFLIX.COM         866-579-7172        CA,-25.03,Business Blue Plus II,-11009,Streaming services,2
 2025-02-16,TALLY.SO            GENT                OO,-29.00,Business Blue Plus II,-11009,Marketing,2
 2025-02-15,PAYPAL *XAVIER KEYZ 4029357733,-2300.00,Business Blue Plus II,-11009,CreditMax,2
+2025-06-25,TWILIO INC          SAN FRANCISCO       CA,-40.56,Business Classic Gold,-71002,SuperPhone®,
 2025-06-24,TWILIO INC          SAN FRANCISCO       CA,-40.02,Business Classic Gold,-71002,SuperPhone®,
 2025-06-22,TWILIO INC          SAN FRANCISCO       CA,-40.54,Business Classic Gold,-71002,SuperPhone®,
 2025-06-20,ADOBE Adobe Systems SAN JOSE            CA,-29.99,Business Classic Gold,-71002,Software,
@@ -766,12 +769,13 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-03,PAYPAL *SPXOPTIONTR 5418961779          OR,-199.95,Business Platinum Card,-51017,Charting & journaling,
 2025-01-02,WOJO MEDIA 567140113DAYTONA BEACH       FL,-54.00,Business Platinum Card,-51017,Advertising,
 2025-06-25,ONLINE PAYMENT - THANK YOU,3053.80,Business Rose Gold,-02008,,
+2025-06-25,TWILIO INC SAN FRANCISCO CA,-395.23,Business Rose Gold,-02008,SuperPhone®,
 2025-06-24,TWILIO INC SAN FRANCISCO CA,-590.36,Business Rose Gold,-02008,SuperPhone®,
-2025-06-23,TWILIO INC SAN FRANCISCO CA,-390.01,Business Rose Gold,-02008,SuperPhone®,
 2025-06-23,TWILIO INC SAN FRANCISCO CA,-596.31,Business Rose Gold,-02008,SuperPhone®,
 2025-06-23,TWILIO INC SAN FRANCISCO CA,-628.68,Business Rose Gold,-02008,SuperPhone®,
 2025-06-23,ONLINE PAYMENT - THANK YOU,3132.51,Business Rose Gold,-02008,,
 2025-06-23,ONLINE PAYMENT - THANK YOU,1180.86,Business Rose Gold,-02008,,
+2025-06-23,TWILIO INC SAN FRANCISCO CA,-390.01,Business Rose Gold,-02008,SuperPhone®,
 2025-06-22,TWILIO INC SAN FRANCISCO CA,-590.51,Business Rose Gold,-02008,SuperPhone®,
 2025-06-21,TWILIO INC SAN FRANCISCO CA,-590.06,Business Rose Gold,-02008,SuperPhone®,
 2025-06-20,TWILIO INC SAN FRANCISCO CA,-593.20,Business Rose Gold,-02008,SuperPhone®,
@@ -1420,11 +1424,14 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-26,ONLINE PAYMENT - THANK YOU,153.31,Delta Skymiles Reserve,-41006,,
 2025-01-17,DELTA AIR LINES     ATLANTA,-0.60,Delta Skymiles Reserve,-41006,Airfare,
 2025-01-17,DELTA AIR LINES,-152.71,Delta Skymiles Reserve,-41006,Airfare,
-2025-06-24,PAYPAL *FLINK SE PO_03057714700         DE,-53.04,Hilton Honors Business,-91003,Personal,
-2025-06-24,PAYPAL *WOLT        1748854307          DE,-39.97,Hilton Honors Business,-91003,Delivery,
-2025-06-23,PAYPAL *MILES       3083799699          DE,-16.15,Hilton Honors Business,-91003,Rideshare & taxi,
-2025-06-23,PAYPAL *MILES       3083799699          DE,-21.89,Hilton Honors Business,-91003,Rideshare & taxi,
-2025-06-23,PAYPAL *WOLT        1748854307          DE,-43.98,Hilton Honors Business,-91003,Delivery,
+2025-06-25,PAYPAL *FREE2MOVE 30330831110 DE,-4.61,Hilton Honors Business,-91003,Rideshare & taxi,
+2025-06-25,PAYPAL *FREE2MOVE 30330831110 DE,-7.50,Hilton Honors Business,-91003,Rideshare & taxi,
+2025-06-25,PAYPAL *WOLT        1748854307          DE,-48.04,Hilton Honors Business,-91003,Delivery,
+2025-06-24,PAYPAL *FLINK SE PO_03057714700         DE,-53.11,Hilton Honors Business,-91003,Personal,
+2025-06-24,PAYPAL *WOLT        1748854307          DE,-40.02,Hilton Honors Business,-91003,Delivery,
+2025-06-23,PAYPAL *MILES       3083799699          DE,-16.18,Hilton Honors Business,-91003,Rideshare & taxi,
+2025-06-23,PAYPAL *MILES       3083799699          DE,-21.94,Hilton Honors Business,-91003,Rideshare & taxi,
+2025-06-23,PAYPAL *WOLT        1748854307          DE,-44.06,Hilton Honors Business,-91003,Delivery,
 2025-06-19,PAYPAL *FREE2MOVE 30330831110 DE,-10.10,Hilton Honors Business,-91003,Rideshare & taxi,
 2025-06-12,PAYPAL *XXXLUTZDE 1130255493100 DE,-595.12,Hilton Honors Business,-91003,Personal,
 2025-06-04,BE MORE DO MORE APP GLENDALE            CA,-4000.00,Hilton Honors Business,-91003,Contractors,

@@ -214,9 +214,10 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-04,ONLINE PAYMENT - THANK YOU,3000.00,Business Blue Plus I,-01000,,
 2025-01-01,ENTRECENTER         MIAMI BEACH         FL,-2000.00,Business Blue Plus I,-01026,Contractors,2
 2025-01-01,ENTRECENTER         MIAMI BEACH         FL,-4000.00,Business Blue Plus I,-01018,Contractors,2
+2025-06-25,ONLINE PAYMENT - THANK YOU,170.02,Business Blue Plus II,-11009,,
 2025-06-21,NETFLIX.COM         866-579-7172        CA,-27.21,Business Blue Plus II,-11009,Streaming services,2
-2025-06-19,LOVABLE             DOVER               DE,-25.00,Business Blue Plus II,-11041,App development,2
 2025-06-19,LOVABLE             DOVER               DE,180.00,Business Blue Plus II,-11041,App development,
+2025-06-19,LOVABLE             DOVER               DE,-25.00,Business Blue Plus II,-11041,App development,2
 2025-06-15,ONLINE PAYMENT - THANK YOU,50.00,Business Blue Plus II,-11009,,
 2025-06-11,ONLINE PAYMENT - THANK YOU,404.00,Business Blue Plus II,-11009,,
 2025-06-11,ONLINE PAYMENT - THANK YOU,351.62,Business Blue Plus II,-11009,,
@@ -1424,6 +1425,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-26,ONLINE PAYMENT - THANK YOU,153.31,Delta Skymiles Reserve,-41006,,
 2025-01-17,DELTA AIR LINES     ATLANTA,-0.60,Delta Skymiles Reserve,-41006,Airfare,
 2025-01-17,DELTA AIR LINES,-152.71,Delta Skymiles Reserve,-41006,Airfare,
+2025-06-26,PAYPAL *WOLT        1748854307          DE,-40.22,Hilton Honors Business,-91003,Delivery,
 2025-06-25,PAYPAL *FREE2MOVE 30330831110 DE,-4.61,Hilton Honors Business,-91003,Rideshare & taxi,
 2025-06-25,PAYPAL *FREE2MOVE 30330831110 DE,-7.50,Hilton Honors Business,-91003,Rideshare & taxi,
 2025-06-25,PAYPAL *WOLT        1748854307          DE,-48.04,Hilton Honors Business,-91003,Delivery,
@@ -1439,10 +1441,12 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-06-01,ONLINE PAYMENT - THANK YOU,195.00,Hilton Honors Business,-91003,,
 2025-06-01,PAYPAL *LINDAJANEKAN4029357733          DE,-4750.00,Hilton Honors Business,-91003,Contractors,
 2025-05-20,MEMBERSHIP FEE,-195.00,Hilton Honors Business,-91003,Fees & adjustments,
+2025-06-25,DM-DROGERIE MARKT 70,-6.46,Platinum Card,-71003,Personal,
+2025-06-25,TEGUT 2448,-7.56,Platinum Card,-71003,Personal,
+2025-06-24,ZARAHOME.COM,-100.08,Platinum Card,-71003,Personal,
 2025-06-24,ONLINE PAYMENT - THANK YOU,217.13,Platinum Card,-71003,,
 2025-06-24,ONLINE PAYMENT - THANK YOU,167.40,Platinum Card,-71003,,
-2025-06-24,ZARAHOME.COM,-52.71,Platinum Card,-71003,Personal,
-2025-06-23,REWE CZERLINSKI,-52.71,Platinum Card,-71003,Personal,
+2025-06-23,REWE CZERLINSKI,-52.80,Platinum Card,-71003,Personal,
 2025-06-21,IDEE CREATIVMARKT,-72.03,Platinum Card,-71003,Marketing,
 2025-06-20,REWE CZERLINSKI,-56.43,Platinum Card,-71003,Personal,
 2025-06-18,REWE CZERLINSKI,-69.03,Platinum Card,-71003,Personal,

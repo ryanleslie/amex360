@@ -1067,13 +1067,14 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-06,"TWILIO, INC.        SAN FRANCISCO",-701.70,Business Rose Gold,-01018,SuperPhone®,4
 2025-01-05,"TWILIO, INC.        SAN FRANCISCO",-651.93,Business Rose Gold,-01018,SuperPhone®,4
 2025-01-04,"TWILIO, INC.        SAN FRANCISCO",-400.00,Business Rose Gold,-01018,SuperPhone®,4
-2025-06-28,ONLINE PAYMENT - THANK YOU,1746.16,Business White Gold,-41000,,
-2025-06-28,ONLINE PAYMENT - THANK YOU,1212.26,Business White Gold,-41000,,
+2025-06-29,TWILIO INC          SAN FRANCISCO       CA,-633.89,Business White Gold,-41000,SuperPhone®,
 2025-06-28,TWILIO INC          SAN FRANCISCO       CA,-421.25,Business White Gold,-41000,SuperPhone®,
 2025-06-28,TWILIO INC          SAN FRANCISCO       CA,-446.38,Business White Gold,-41000,SuperPhone®,
 2025-06-28,TWILIO INC          SAN FRANCISCO       CA,-449.32,Business White Gold,-41000,SuperPhone®,
 2025-06-28,TWILIO INC          SAN FRANCISCO       CA,-590.60,Business White Gold,-41000,SuperPhone®,
 2025-06-28,TWILIO INC          SAN FRANCISCO       CA,-621.32,Business White Gold,-41000,SuperPhone®,
+2025-06-28,ONLINE PAYMENT - THANK YOU,1746.16,Business White Gold,-41000,,
+2025-06-28,ONLINE PAYMENT - THANK YOU,1212.26,Business White Gold,-41000,,
 2025-06-27,PAYPAL *TWENTYFOURA,-1000.00,Business White Gold,-41000,Contractors,
 2025-06-27,TWILIO INC          SAN FRANCISCO       CA,-429.21,Business White Gold,-41000,SuperPhone®,
 2025-06-26,TWILIO INC          SAN FRANCISCO       CA,-590.94,Business White Gold,-41000,SuperPhone®,
@@ -1441,6 +1442,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-26,ONLINE PAYMENT - THANK YOU,153.31,Delta Skymiles Reserve,-41006,,
 2025-01-17,DELTA AIR LINES     ATLANTA,-0.60,Delta Skymiles Reserve,-41006,Airfare,
 2025-01-17,DELTA AIR LINES,-152.71,Delta Skymiles Reserve,-41006,Airfare,
+2025-06-29,PAYPAL *FREE2MOVE 30330831110 DE,-2.47,Hilton Honors Business,-91003,Rideshare & taxi,
 2025-06-27,PAYPAL *MILES       3083799699          DE,-13.57,Hilton Honors Business,-91003,Rideshare & taxi,
 2025-06-26,PAYPAL *WOLT        1748854307          DE,-40.30,Hilton Honors Business,-91003,Delivery,5
 2025-06-25,PAYPAL *FREE2MOVE 30330831110 DE,-4.62,Hilton Honors Business,-91003,Rideshare & taxi,5
@@ -1458,6 +1460,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-06-01,ONLINE PAYMENT - THANK YOU,195.00,Hilton Honors Business,-91003,,
 2025-06-01,PAYPAL *LINDAJANEKAN4029357733          DE,-4750.00,Hilton Honors Business,-91003,Contractors,
 2025-05-20,MEMBERSHIP FEE,-195.00,Hilton Honors Business,-91003,Fees & adjustments,
+2025-06-29,TATTI STAY AND SEE,-21.92,Platinum Card,-71002,Personal,
 2025-06-25,DM-DROGERIE MARKT 70,-6.46,Platinum Card,-71003,Personal,
 2025-06-25,TEGUT 2448,-7.56,Platinum Card,-71003,Personal,
 2025-06-24,ZARAHOME.COM,-100.08,Platinum Card,-71003,Personal,

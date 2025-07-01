@@ -97,4 +97,5 @@ export const staticSwapData = `date	counterparty	amount	direction	multiple	card
 2025-04-02 18:12:02+00	Nolan Smith	4000	SWAP_OUT	4	Gold
 2025-04-12 18:15:51+00	Nolan Smith	100	SWAP_OUT	4	Gold
 2025-04-12 18:16:15+00	Nolan Smith	100	SWAP_OUT	4	Gold
-2025-04-14 13:09:03+00	Nolan Smith	3300	SWAP_OUT	4	Gold`;
+2025-04-14 13:09:03+00	Nolan Smith	3300	SWAP_OUT	4	Gold
+2025-07-01 05:00:00+00	Xavier Keyz	3000	SWAP_OUT	1	Gold`;

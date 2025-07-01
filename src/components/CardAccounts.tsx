@@ -1,4 +1,4 @@
-import { staticTxnData } from "@/data/staticTxnData";
+
 import { getTimeRangeDescription } from "@/utils/cardDataUtils";
 import { getPrimaryCardByType, generateDisplayNameWithLastFive } from "@/data/staticPrimaryCards";
 import {

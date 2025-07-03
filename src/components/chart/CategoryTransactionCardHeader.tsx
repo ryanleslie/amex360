@@ -23,15 +23,16 @@ export function CategoryTransactionCardHeader({
       <div className="flex items-start justify-between">
         <div className="space-y-1">
           <CardTitle>Transaction History</CardTitle>
-          <CardDescription>
-            Recent transaction activity
-          </CardDescription>
-          {hasFilter && (
+          {hasFilter ? (
             <div className="mt-2">
               <span className="inline-flex items-center gap-2 px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-md">
                 Filtered by: {timeRange}, {selectedCategory}
               </span>
             </div>
+          ) : (
+            <CardDescription>
+              Recent transaction activity
+            </CardDescription>
           )}
         </div>
       </div>

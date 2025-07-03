@@ -7,6 +7,7 @@ import {
 import { CategoryTransactionCardHeader } from "./CategoryTransactionCardHeader"
 import { CategoryTransactionCardControls } from "./CategoryTransactionCardControls"
 import { CategoryTransactionTable } from "./CategoryTransactionTable"
+import { TimeRangeSelector } from "./TimeRangeSelector"
 import { useCategoryTransactionData } from "@/hooks/useCategoryTransactionData"
 
 interface CategoryTransactionCardProps {
@@ -55,7 +56,11 @@ export function CategoryTransactionCard({
         onClearTimeRangeFilter={handleClearTimeRangeFilter}
       />
       <CardContent>
-        <div className="w-full">
+        <div className="w-full space-y-4">
+          <TimeRangeSelector
+            selectedTimeRange={timeRange}
+            onTimeRangeChange={onTimeRangeChange || (() => {})}
+          />
           <CategoryTransactionCardControls
             globalFilter={globalFilter}
             onGlobalFilterChange={setGlobalFilter}

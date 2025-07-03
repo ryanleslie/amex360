@@ -19,7 +19,7 @@ export function CategoryTransactionCardControls({
   onCategoryChange,
 }: CategoryTransactionCardControlsProps) {
   return (
-    <div className="flex items-center justify-between py-4">
+    <div className="flex items-center justify-between py-2">
       <Input
         placeholder="Filter transactions..."
         value={globalFilter ?? ""}

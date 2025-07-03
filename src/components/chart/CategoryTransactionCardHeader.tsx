@@ -5,18 +5,29 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 import { X } from "lucide-react"
 
 interface CategoryTransactionCardHeaderProps {
   timeRange: string
   selectedCategory?: string
+  onClearFilter?: () => void
 }
 
 export function CategoryTransactionCardHeader({
   timeRange,
-  selectedCategory
+  selectedCategory,
+  onClearFilter
 }: CategoryTransactionCardHeaderProps) {
   const hasFilter = selectedCategory && selectedCategory !== "all"
+
+  const getTimeRangeShort = () => {
+    if (timeRange === "YTD") return "YTD"
+    if (timeRange === "Last 90 days") return "90d"
+    if (timeRange === "Last 30 days") return "30d"
+    if (timeRange === "Last 7 days") return "7d"
+    return timeRange
+  }
 
   return (
     <CardHeader>
@@ -26,12 +37,22 @@ export function CategoryTransactionCardHeader({
           {hasFilter ? (
             <div className="mt-2">
               <span className="inline-flex items-center gap-2 px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-md">
-                Filtered by: {timeRange}, {selectedCategory}
+                Filtered by: {getTimeRangeShort()}, {selectedCategory}
+                {onClearFilter && (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-4 w-4 p-0 hover:bg-gray-200"
+                    onClick={onClearFilter}
+                  >
+                    <X className="h-3 w-3" />
+                  </Button>
+                )}
               </span>
             </div>
           ) : (
             <CardDescription>
-              Recent transaction activity
+              Recent transaction activity ({getTimeRangeShort()})
             </CardDescription>
           )}
         </div>

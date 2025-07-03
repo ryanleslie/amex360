@@ -35,11 +35,16 @@ export function CategoryTransactionCard({
     return "90 days"
   }
 
+  const handleClearFilter = () => {
+    onCategoryChange?.("all")
+  }
+
   return (
     <Card className="bg-gradient-to-b from-white to-gray-100">
       <CategoryTransactionCardHeader
         timeRange={getTimeRangeLabel()}
         selectedCategory={selectedCategory}
+        onClearFilter={handleClearFilter}
       />
       <CardContent>
         <div className="w-full">

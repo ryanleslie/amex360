@@ -63,6 +63,7 @@ export function CategoryChartCard({
                 dataKey="amount"
                 stroke="none"
                 strokeWidth={0}
+                outline="none"
               >
                 {categoryData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />

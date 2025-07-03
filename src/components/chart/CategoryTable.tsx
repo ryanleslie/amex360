@@ -67,17 +67,6 @@ export function CategoryTable({
               .scroll-container:hover::-webkit-scrollbar-thumb {
                 background-color: #d1d5db;
               }
-              .animate-row {
-                animation: fadeInUp 0.4s ease-out forwards;
-                opacity: 0;
-                transform: translateY(10px);
-              }
-              @keyframes fadeInUp {
-                to {
-                  opacity: 1;
-                  transform: translateY(0);
-                }
-              }
             `}
           </style>
           <div className="scroll-container overflow-y-auto max-h-96">
@@ -87,39 +76,30 @@ export function CategoryTable({
                   categoryData.map((category, index) => (
                     <TableRow 
                       key={category.category} 
-                      className={`h-11 cursor-pointer transition-all duration-200 ease-in-out animate-row ${
+                      className={`h-11 cursor-pointer transition-colors ${
                         selectedCategory === category.category 
-                          ? 'bg-blue-50 border-blue-200 scale-[1.02]' 
-                          : 'hover:bg-gray-50 hover:scale-[1.01]'
+                          ? 'bg-blue-50 border-blue-200' 
+                          : 'hover:bg-gray-50'
                       }`}
-                      style={{ 
-                        animationDelay: `${index * 50}ms`,
-                        transformOrigin: 'center'
-                      }}
                       onClick={() => onCategoryClick?.(category.category)}
                     >
                       <TableCell>
                         <div className="flex items-center gap-2">
                           <div 
-                            className="w-3 h-3 rounded-full flex-shrink-0 transition-all duration-200" 
+                            className="w-3 h-3 rounded-full flex-shrink-0" 
                             style={{ 
                               backgroundColor: colors[index % colors.length],
-                              border: selectedCategory === category.category ? '2px solid #000' : 'none',
-                              transform: selectedCategory === category.category ? 'scale(1.2)' : 'scale(1)'
+                              border: selectedCategory === category.category ? '2px solid #000' : 'none'
                             }}
                           />
-                          <span className="font-medium transition-colors duration-200">
-                            {category.category}
-                          </span>
+                          <span className="font-medium">{category.category}</span>
                         </div>
                       </TableCell>
                       <TableCell className="text-right">
-                        <span className="font-medium transition-colors duration-200">
-                          {category.percentage}%
-                        </span>
+                        <span className="font-medium">{category.percentage}%</span>
                       </TableCell>
                       <TableCell className="text-right">
-                        <span className="font-medium transition-colors duration-200">
+                        <span className="font-medium">
                           ${category.amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                         </span>
                       </TableCell>
@@ -129,7 +109,7 @@ export function CategoryTable({
                   <TableRow>
                     <TableCell
                       colSpan={3}
-                      className="h-24 text-center animate-fade-in"
+                      className="h-24 text-center"
                     >
                       No data available.
                     </TableCell>

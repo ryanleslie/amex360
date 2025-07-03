@@ -76,10 +76,10 @@ export function CategoryTable({ categoryData, colors, timeRangeLabel }: Category
                           <span className="font-medium">{category.category}</span>
                         </div>
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="text-right">
                         <span className="font-medium">{category.percentage}%</span>
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="text-right">
                         <span className="font-medium">
                           ${category.amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                         </span>

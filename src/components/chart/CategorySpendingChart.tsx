@@ -1,81 +1,102 @@
 
-import React from "react";
-import { CategoryChartCard } from "./CategoryChartCard";
-import { CategoryTransactionCard } from "./CategoryTransactionCard";
-import { TimeRangeSelector } from "./TimeRangeSelector";
-import { useCategorySpendingData } from "@/hooks/useCategorySpendingData";
-import { useFilterState } from "@/hooks/useFilterState";
+"use client"
 
-export function CategorySpendingChart() {
-  const { filters, updateFilter, clearAllFilters } = useFilterState("ytd");
-  const { 
-    chartData, 
-    categories, 
-    totalSpend, 
-    transactionCount,
-    swapTransactions 
-  } = useCategorySpendingData(filters.selectedTimeRange);
+import * as React from "react"
+import { useCategorySpendingData } from "@/hooks/useCategorySpendingData"
+import { CategoryChartCard } from "@/components/chart/CategoryChartCard"
+import { CategoryTable } from "@/components/chart/CategoryTable"
+import { CategoryTransactionCard } from "@/components/chart/CategoryTransactionCard"
+
+export const description = "A donut chart showing spending breakdown by category"
+
+// Colors for the donut chart segments - deep blue palette
+const COLORS = [
+  '#012a4a', // Prussian blue
+  '#013a63', // Indigo dye
+  '#01497c', // Indigo dye (variant)
+  '#014f86', // Indigo dye (variant 2)
+  '#2a6f97', // UCLA blue
+  '#2c7da0', // Cerulean
+  '#468faf', // Air force blue
+  '#61a5c2', // Air superiority blue
+  '#89c2d9', // Sky blue
+  '#a9d6e5', // Light blue
+]
+
+interface CategorySpendingChartProps {
+  onDateClick?: (date: string) => void;
+  selectedTimeRange?: string;
+  onTimeRangeChange?: (timeRange: string) => void;
+}
+
+export function CategorySpendingChart({ 
+  onDateClick, 
+  selectedTimeRange = "ytd", 
+  onTimeRangeChange 
+}: CategorySpendingChartProps) {
+  const [timeRange, setTimeRange] = React.useState(selectedTimeRange)
+  const [selectedCategory, setSelectedCategory] = React.useState<string>("all")
+
+  React.useEffect(() => {
+    setTimeRange(selectedTimeRange);
+  }, [selectedTimeRange])
 
   const handleTimeRangeChange = (newTimeRange: string) => {
-    console.log("CategorySpendingChart: Time range changing to:", newTimeRange);
-    updateFilter("selectedTimeRange", newTimeRange);
+    setTimeRange(newTimeRange);
+    onTimeRangeChange?.(newTimeRange);
   };
 
-  const handleCategoryChange = (category: string) => {
-    console.log("CategorySpendingChart: Category changing to:", category);
-    updateFilter("selectedCard", category);
-  };
-
-  const getTimeRangeLabel = () => {
-    if (filters.selectedTimeRange === "ytd") return "YTD"
-    if (filters.selectedTimeRange === "90d") return "Last 90 days"
-    if (filters.selectedTimeRange === "30d") return "Last 30 days"
-    if (filters.selectedTimeRange === "7d") return "Last 7 days"
-    return "90 days"
+  const handleCategoryClick = (category: string) => {
+    setSelectedCategory(category === selectedCategory ? "all" : category)
   }
 
-  const colors = [
-    "#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884D8",
-    "#82CA9D", "#FFC658", "#FF7C7C", "#8DD1E1", "#D084D0"
-  ];
+  const { categoryData, totalSpend } = useCategorySpendingData(timeRange)
+
+  const getTimeRangeLabel = () => {
+    if (timeRange === "ytd") return "(YTD)"
+    if (timeRange === "90d") return "(90d)"
+    if (timeRange === "30d") return "(30d)"
+    if (timeRange === "7d") return "(7d)"
+    return "(90d)"
+  }
+
+  const timeRangeLabel = getTimeRangeLabel()
+
+  // Get all unique categories for the dropdown (including "Uncategorized" if it exists)
+  const allCategories = React.useMemo(() => {
+    const categories = categoryData.map(item => item.category)
+    return categories
+  }, [categoryData])
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Category Insights</h1>
-          <p className="text-muted-foreground">
-            Analyze spending patterns across different categories
-          </p>
-        </div>
-        <TimeRangeSelector
-          timeRange={filters.selectedTimeRange}
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+        <CategoryChartCard
+          categoryData={categoryData}
+          totalSpend={totalSpend}
+          timeRange={timeRange}
+          timeRangeLabel={timeRangeLabel}
+          colors={COLORS}
           onTimeRangeChange={handleTimeRangeChange}
-          swapTransactions={swapTransactions}
+          onCategoryClick={handleCategoryClick}
+          selectedCategory={selectedCategory}
+        />
+        
+        <CategoryTable
+          categoryData={categoryData}
+          colors={COLORS}
+          timeRangeLabel={timeRangeLabel}
+          onCategoryClick={handleCategoryClick}
+          selectedCategory={selectedCategory}
         />
       </div>
-
-      {/* Chart Card */}
-      <CategoryChartCard
-        categoryData={chartData}
-        timeRange={filters.selectedTimeRange}
-        timeRangeLabel={getTimeRangeLabel()}
-        totalSpend={totalSpend}
-        colors={colors}
-        onTimeRangeChange={handleTimeRangeChange}
-        onCategoryClick={handleCategoryChange}
-        selectedCategory={filters.selectedCard}
-      />
-
-      {/* Transaction Table */}
+      
       <CategoryTransactionCard
-        timeRange={filters.selectedTimeRange}
-        selectedCategory={filters.selectedCard}
-        onCategoryChange={handleCategoryChange}
-        onTimeRangeChange={handleTimeRangeChange}
-        categories={categories}
+        timeRange={timeRange}
+        selectedCategory={selectedCategory}
+        onCategoryChange={setSelectedCategory}
+        categories={allCategories}
       />
     </div>
-  );
+  )
 }

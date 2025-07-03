@@ -64,7 +64,7 @@ export function CategoryTransactionCardHeader({
     <CardHeader className="pb-4">
       <div className="flex items-start justify-between">
         <div className="space-y-1">
-          <CardTitle className="text-xl">Transaction History</CardTitle>
+          <CardTitle className="text-xl">Transactions by category</CardTitle>
           {hasActiveFilter ? (
             <div className="mt-2">
               <span className="inline-flex items-center gap-2 px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-md">

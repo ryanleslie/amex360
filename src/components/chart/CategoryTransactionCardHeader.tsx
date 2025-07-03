@@ -37,9 +37,9 @@ export function CategoryTransactionCardHeader({
         <div className="space-y-1">
           <CardTitle>Transaction History</CardTitle>
           {!isYTD ? (
-            <div className="mt-2">
+            <div className="mt-2 flex flex-wrap gap-2">
               <span className="inline-flex items-center gap-2 px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-md">
-                Filtered by: {getTimeRangeShort()}{hasFilter && `, ${selectedCategory}`}
+                Filtered by: {getTimeRangeShort()}
                 {onClearTimeRangeFilter && (
                   <button 
                     onClick={onClearTimeRangeFilter}
@@ -49,16 +49,21 @@ export function CategoryTransactionCardHeader({
                     <X className="h-3 w-3" />
                   </button>
                 )}
-                {hasFilter && onClearFilter && (
-                  <button 
-                    onClick={onClearFilter}
-                    className="hover:bg-gray-200 rounded p-0.5 ml-1"
-                    title="Clear category filter"
-                  >
-                    <X className="h-3 w-3" />
-                  </button>
-                )}
               </span>
+              {hasFilter && (
+                <span className="inline-flex items-center gap-2 px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-md">
+                  Category: {selectedCategory}
+                  {onClearFilter && (
+                    <button 
+                      onClick={onClearFilter}
+                      className="hover:bg-gray-200 rounded p-0.5"
+                      title="Clear category filter"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  )}
+                </span>
+              )}
             </div>
           ) : (
             <CardDescription>

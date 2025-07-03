@@ -31,7 +31,7 @@ export function CategoryTransactionCardHeader({
             </div>
           ) : (
             <CardDescription>
-              Recent transaction activity
+              Recent transaction activity ({timeRange})
             </CardDescription>
           )}
         </div>

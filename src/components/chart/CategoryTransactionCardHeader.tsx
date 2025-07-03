@@ -11,14 +11,17 @@ interface CategoryTransactionCardHeaderProps {
   timeRange: string
   selectedCategory?: string
   onClearFilter?: () => void
+  onClearTimeRangeFilter?: () => void
 }
 
 export function CategoryTransactionCardHeader({
   timeRange,
   selectedCategory,
-  onClearFilter
+  onClearFilter,
+  onClearTimeRangeFilter
 }: CategoryTransactionCardHeaderProps) {
   const hasFilter = selectedCategory && selectedCategory !== "all"
+  const isYTD = timeRange === "YTD"
 
   const getTimeRangeShort = () => {
     if (timeRange === "YTD") return "YTD"
@@ -33,20 +36,35 @@ export function CategoryTransactionCardHeader({
       <div className="flex items-start justify-between">
         <div className="space-y-1">
           <CardTitle>Transaction History</CardTitle>
-          <div className="mt-2">
-            <span className="inline-flex items-center gap-2 px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-md">
-              Filtered by: {getTimeRangeShort()}{hasFilter && `, ${selectedCategory}`}
-              {hasFilter && onClearFilter && (
-                <button 
-                  onClick={onClearFilter}
-                  className="hover:bg-gray-200 rounded p-0.5"
-                  title="Clear category filter"
-                >
-                  <X className="h-3 w-3" />
-                </button>
-              )}
-            </span>
-          </div>
+          {!isYTD ? (
+            <div className="mt-2">
+              <span className="inline-flex items-center gap-2 px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-md">
+                Filtered by: {getTimeRangeShort()}{hasFilter && `, ${selectedCategory}`}
+                {onClearTimeRangeFilter && (
+                  <button 
+                    onClick={onClearTimeRangeFilter}
+                    className="hover:bg-gray-200 rounded p-0.5"
+                    title="Clear time range filter"
+                  >
+                    <X className="h-3 w-3" />
+                  </button>
+                )}
+                {hasFilter && onClearFilter && (
+                  <button 
+                    onClick={onClearFilter}
+                    className="hover:bg-gray-200 rounded p-0.5 ml-1"
+                    title="Clear category filter"
+                  >
+                    <X className="h-3 w-3" />
+                  </button>
+                )}
+              </span>
+            </div>
+          ) : (
+            <CardDescription>
+              Recent transaction activity (YTD)
+            </CardDescription>
+          )}
         </div>
       </div>
     </CardHeader>

@@ -33,26 +33,20 @@ export function CategoryTransactionCardHeader({
       <div className="flex items-start justify-between">
         <div className="space-y-1">
           <CardTitle>Transaction History</CardTitle>
-          {hasFilter ? (
-            <div className="mt-2">
-              <span className="inline-flex items-center gap-2 px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-md">
-                Filtered by: {getTimeRangeShort()}, {selectedCategory}
-                {onClearFilter && (
-                  <button 
-                    onClick={onClearFilter}
-                    className="hover:bg-gray-200 rounded p-0.5"
-                    title="Clear category filter"
-                  >
-                    <X className="h-3 w-3" />
-                  </button>
-                )}
-              </span>
-            </div>
-          ) : (
-            <CardDescription>
-              Recent transaction activity ({getTimeRangeShort()})
-            </CardDescription>
-          )}
+          <div className="mt-2">
+            <span className="inline-flex items-center gap-2 px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-md">
+              Filtered by: {getTimeRangeShort()}{hasFilter && `, ${selectedCategory}`}
+              {hasFilter && onClearFilter && (
+                <button 
+                  onClick={onClearFilter}
+                  className="hover:bg-gray-200 rounded p-0.5"
+                  title="Clear category filter"
+                >
+                  <X className="h-3 w-3" />
+                </button>
+              )}
+            </span>
+          </div>
         </div>
       </div>
     </CardHeader>

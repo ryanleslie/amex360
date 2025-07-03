@@ -13,6 +13,7 @@ interface CategoryTransactionCardProps {
   timeRange: string
   selectedCategory?: string
   onCategoryChange?: (category: string) => void
+  onTimeRangeChange?: (timeRange: string) => void
   categories: string[]
 }
 
@@ -20,6 +21,7 @@ export function CategoryTransactionCard({
   timeRange,
   selectedCategory,
   onCategoryChange,
+  onTimeRangeChange,
   categories
 }: CategoryTransactionCardProps) {
   const [globalFilter, setGlobalFilter] = React.useState("")
@@ -39,12 +41,17 @@ export function CategoryTransactionCard({
     onCategoryChange?.("all")
   }
 
+  const handleClearTimeRangeFilter = () => {
+    onTimeRangeChange?.("ytd")
+  }
+
   return (
     <Card className="bg-gradient-to-b from-white to-gray-100">
       <CategoryTransactionCardHeader
         timeRange={getTimeRangeLabel()}
         selectedCategory={selectedCategory}
         onClearFilter={handleClearFilter}
+        onClearTimeRangeFilter={handleClearTimeRangeFilter}
       />
       <CardContent>
         <div className="w-full">

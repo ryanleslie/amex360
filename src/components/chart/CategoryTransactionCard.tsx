@@ -42,6 +42,7 @@ export function CategoryTransactionCard({
   }
 
   const handleClearTimeRangeFilter = () => {
+    console.log("Clearing time range filter, calling onTimeRangeChange with 'ytd'")
     onTimeRangeChange?.("ytd")
   }
 

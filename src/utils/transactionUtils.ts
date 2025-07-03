@@ -2,7 +2,6 @@
 export const globalFilterFn = (row: any, columnId: string, value: string) => {
   const description = String(row.getValue("description")).toLowerCase()
   const amount = String(row.getValue("amount")).toLowerCase()
-  const accountType = String(row.getValue("account_type")).toLowerCase()
   const formattedAmount = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
@@ -12,8 +11,7 @@ export const globalFilterFn = (row: any, columnId: string, value: string) => {
   
   return description.includes(searchValue) || 
          amount.includes(searchValue) || 
-         formattedAmount.includes(searchValue) ||
-         accountType.includes(searchValue)
+         formattedAmount.includes(searchValue)
 }
 
 // Function to format account names according to the rules

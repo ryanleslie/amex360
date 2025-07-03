@@ -61,7 +61,7 @@ export function CategoryTransactionCardHeader({
   const hasActiveFilter = hasFilter || hasTimeRangeFilter
 
   return (
-    <CardHeader>
+    <CardHeader className="pb-4">
       <div className="flex items-start justify-between">
         <div className="space-y-1">
           <CardTitle>Transaction History</CardTitle>

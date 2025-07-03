@@ -5,7 +5,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { X } from "lucide-react"
 
 interface CategoryTransactionCardHeaderProps {
@@ -39,14 +38,13 @@ export function CategoryTransactionCardHeader({
               <span className="inline-flex items-center gap-2 px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-md">
                 Filtered by: {getTimeRangeShort()}, {selectedCategory}
                 {onClearFilter && (
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-4 w-4 p-0 hover:bg-gray-200"
+                  <button 
                     onClick={onClearFilter}
+                    className="hover:bg-gray-200 rounded p-0.5"
+                    title="Clear category filter"
                   >
                     <X className="h-3 w-3" />
-                  </Button>
+                  </button>
                 )}
               </span>
             </div>

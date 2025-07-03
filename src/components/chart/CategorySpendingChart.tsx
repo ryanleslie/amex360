@@ -26,6 +26,20 @@ export function CategorySpendingChart() {
     updateFilter("selectedCard", category);
   };
 
+  // Define colors for the chart
+  const colors = [
+    "#8884d8", "#82ca9d", "#ffc658", "#ff7c7c", "#8dd1e1", 
+    "#d084d0", "#ffb347", "#87ceeb", "#dda0dd", "#98fb98"
+  ];
+
+  const getTimeRangeLabel = () => {
+    if (filters.selectedTimeRange === "ytd") return "YTD"
+    if (filters.selectedTimeRange === "90d") return "Last 90 days"
+    if (filters.selectedTimeRange === "30d") return "Last 30 days"
+    if (filters.selectedTimeRange === "7d") return "Last 7 days"
+    return "YTD"
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -45,13 +59,14 @@ export function CategorySpendingChart() {
 
       {/* Chart Card */}
       <CategoryChartCard
-        data={chartData}
-        timeRange={filters.selectedTimeRange}
+        categoryData={chartData}
         totalSpend={totalSpend}
-        transactionCount={transactionCount}
+        timeRange={filters.selectedTimeRange}
+        timeRangeLabel={getTimeRangeLabel()}
+        colors={colors}
+        onTimeRangeChange={handleTimeRangeChange}
+        onCategoryClick={handleCategoryChange}
         selectedCategory={filters.selectedCard}
-        onCategoryChange={handleCategoryChange}
-        categories={categories}
       />
 
       {/* Transaction Table */}

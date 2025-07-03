@@ -24,6 +24,8 @@ interface CategoryChartCardProps {
   timeRangeLabel: string;
   colors: string[];
   onTimeRangeChange: (timeRange: string) => void;
+  onCategoryClick?: (category: string) => void;
+  selectedCategory?: string;
 }
 
 export function CategoryChartCard({ 
@@ -32,7 +34,9 @@ export function CategoryChartCard({
   timeRange, 
   timeRangeLabel, 
   colors, 
-  onTimeRangeChange 
+  onTimeRangeChange,
+  onCategoryClick,
+  selectedCategory
 }: CategoryChartCardProps) {
   const chartRef = useRef<HTMLDivElement>(null);
 
@@ -63,11 +67,24 @@ export function CategoryChartCard({
     };
   }, []);
 
+  const handlePieClick = (data: any, index: number) => {
+    if (onCategoryClick) {
+      onCategoryClick(data.category);
+    }
+  };
+
   return (
     <Card className="bg-gradient-to-b from-white to-gray-100 lg:col-span-3">
       <CardHeader className="flex flex-col space-y-4 pb-2 md:flex-row md:items-center md:justify-between md:space-y-0">
         <div className="space-y-1">
-          <CardTitle className="text-xl font-semibold">Spending by category</CardTitle>
+          <CardTitle className="text-xl font-semibold">
+            Spending by category
+            {selectedCategory && (
+              <span className="text-base font-normal text-blue-600 ml-2">
+                - {selectedCategory} selected
+              </span>
+            )}
+          </CardTitle>
           <CardDescription>
             Total spend {timeRangeLabel}: ${totalSpend.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </CardDescription>
@@ -93,9 +110,16 @@ export function CategoryChartCard({
                 dataKey="amount"
                 stroke="none"
                 strokeWidth={0}
+                onClick={handlePieClick}
+                style={{ cursor: 'pointer' }}
               >
                 {categoryData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+                  <Cell 
+                    key={`cell-${index}`} 
+                    fill={colors[index % colors.length]}
+                    stroke={selectedCategory === entry.category ? '#1f2937' : 'none'}
+                    strokeWidth={selectedCategory === entry.category ? 3 : 0}
+                  />
                 ))}
               </Pie>
               <Tooltip content={<CustomTooltip />} />

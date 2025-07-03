@@ -81,13 +81,6 @@ export function CategoryChartCard({
           <CardDescription>
             Total spend {timeRangeLabel}: ${totalSpend.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </CardDescription>
-          {selectedCategory && selectedCategory !== "all" && (
-            <div className="mt-2">
-              <span className="inline-flex items-center gap-2 px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded-md">
-                Selected: {selectedCategory}
-              </span>
-            </div>
-          )}
         </div>
         
         <TimeRangeSelector 

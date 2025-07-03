@@ -23,9 +23,17 @@ interface CategoryTableProps {
   categoryData: CategoryData[];
   colors: string[];
   timeRangeLabel: string;
+  onCategoryClick?: (category: string) => void;
+  selectedCategory?: string;
 }
 
-export function CategoryTable({ categoryData, colors, timeRangeLabel }: CategoryTableProps) {
+export function CategoryTable({ 
+  categoryData, 
+  colors, 
+  timeRangeLabel, 
+  onCategoryClick,
+  selectedCategory 
+}: CategoryTableProps) {
   return (
     <Card className="bg-gradient-to-b from-white to-gray-100 lg:col-span-2">
       <CardHeader>
@@ -66,12 +74,23 @@ export function CategoryTable({ categoryData, colors, timeRangeLabel }: Category
               <TableBody>
                 {categoryData?.length ? (
                   categoryData.map((category, index) => (
-                    <TableRow key={category.category} className="h-11">
+                    <TableRow 
+                      key={category.category} 
+                      className={`h-11 cursor-pointer transition-colors ${
+                        selectedCategory === category.category 
+                          ? 'bg-blue-50 border-blue-200' 
+                          : 'hover:bg-gray-50'
+                      }`}
+                      onClick={() => onCategoryClick?.(category.category)}
+                    >
                       <TableCell>
                         <div className="flex items-center gap-2">
                           <div 
                             className="w-3 h-3 rounded-full flex-shrink-0" 
-                            style={{ backgroundColor: colors[index % colors.length] }}
+                            style={{ 
+                              backgroundColor: colors[index % colors.length],
+                              border: selectedCategory === category.category ? '2px solid #000' : 'none'
+                            }}
                           />
                           <span className="font-medium">{category.category}</span>
                         </div>

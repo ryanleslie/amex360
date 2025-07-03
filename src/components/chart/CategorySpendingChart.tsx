@@ -5,6 +5,7 @@ import * as React from "react"
 import { useCategorySpendingData } from "@/hooks/useCategorySpendingData"
 import { CategoryChartCard } from "@/components/chart/CategoryChartCard"
 import { CategoryTable } from "@/components/chart/CategoryTable"
+import { CategoryTransactionCard } from "@/components/chart/CategoryTransactionCard"
 
 export const description = "A donut chart showing spending breakdown by category"
 
@@ -34,6 +35,7 @@ export function CategorySpendingChart({
   onTimeRangeChange 
 }: CategorySpendingChartProps) {
   const [timeRange, setTimeRange] = React.useState(selectedTimeRange)
+  const [selectedCategory, setSelectedCategory] = React.useState<string>("all")
 
   React.useEffect(() => {
     setTimeRange(selectedTimeRange);
@@ -43,6 +45,10 @@ export function CategorySpendingChart({
     setTimeRange(newTimeRange);
     onTimeRangeChange?.(newTimeRange);
   };
+
+  const handleCategoryClick = (category: string) => {
+    setSelectedCategory(category === selectedCategory ? "all" : category)
+  }
 
   const { categoryData, totalSpend } = useCategorySpendingData(timeRange)
 
@@ -56,21 +62,40 @@ export function CategorySpendingChart({
 
   const timeRangeLabel = getTimeRangeLabel()
 
+  // Get all unique categories for the dropdown (including "Uncategorized" if it exists)
+  const allCategories = React.useMemo(() => {
+    const categories = categoryData.map(item => item.category)
+    return categories
+  }, [categoryData])
+
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-      <CategoryChartCard
-        categoryData={categoryData}
-        totalSpend={totalSpend}
-        timeRange={timeRange}
-        timeRangeLabel={timeRangeLabel}
-        colors={COLORS}
-        onTimeRangeChange={handleTimeRangeChange}
-      />
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+        <CategoryChartCard
+          categoryData={categoryData}
+          totalSpend={totalSpend}
+          timeRange={timeRange}
+          timeRangeLabel={timeRangeLabel}
+          colors={COLORS}
+          onTimeRangeChange={handleTimeRangeChange}
+          onCategoryClick={handleCategoryClick}
+          selectedCategory={selectedCategory}
+        />
+        
+        <CategoryTable
+          categoryData={categoryData}
+          colors={COLORS}
+          timeRangeLabel={timeRangeLabel}
+          onCategoryClick={handleCategoryClick}
+          selectedCategory={selectedCategory}
+        />
+      </div>
       
-      <CategoryTable
-        categoryData={categoryData}
-        colors={COLORS}
-        timeRangeLabel={timeRangeLabel}
+      <CategoryTransactionCard
+        timeRange={timeRange}
+        selectedCategory={selectedCategory}
+        onCategoryChange={setSelectedCategory}
+        categories={allCategories}
       />
     </div>
   )

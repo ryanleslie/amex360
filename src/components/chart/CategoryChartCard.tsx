@@ -1,5 +1,6 @@
 
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts"
+import { useEffect, useRef } from "react"
 import {
   Card,
   CardContent,
@@ -33,6 +34,35 @@ export function CategoryChartCard({
   colors, 
   onTimeRangeChange 
 }: CategoryChartCardProps) {
+  const chartRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleFocusOut = (e: FocusEvent) => {
+      if (e.target instanceof SVGElement) {
+        e.target.blur();
+      }
+    };
+
+    const handleMouseDown = (e: MouseEvent) => {
+      if (e.target instanceof SVGElement) {
+        e.preventDefault();
+      }
+    };
+
+    const chartContainer = chartRef.current;
+    if (chartContainer) {
+      chartContainer.addEventListener('focusout', handleFocusOut);
+      chartContainer.addEventListener('mousedown', handleMouseDown);
+    }
+
+    return () => {
+      if (chartContainer) {
+        chartContainer.removeEventListener('focusout', handleFocusOut);
+        chartContainer.removeEventListener('mousedown', handleMouseDown);
+      }
+    };
+  }, []);
+
   return (
     <Card className="bg-gradient-to-b from-white to-gray-100 lg:col-span-3">
       <CardHeader className="flex flex-col space-y-4 pb-2 md:flex-row md:items-center md:justify-between md:space-y-0">
@@ -50,7 +80,7 @@ export function CategoryChartCard({
       </CardHeader>
 
       <CardContent className="px-2 sm:px-6">
-        <div className="h-[400px] w-full">
+        <div className="h-[400px] w-full" ref={chartRef}>
           <ResponsiveContainer width="100%" height="100%">
             <PieChart margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
               <Pie

@@ -10,11 +10,18 @@ import Redemptions from "./Redemptions";
 import { CategorySpendingChart } from "@/components/chart/CategorySpendingChart";
 import { UserCreationForm } from "@/components/admin/UserCreationForm";
 import { UserListCard } from "@/components/admin/UserListCard";
+import { useFilterState } from "@/hooks/useFilterState";
 
 export type DashboardSection = "dashboard" | "insights" | "rewards" | "employee" | "creditmax" | "admin" | "redemptions";
 
 const Dashboard = () => {
   const [activeSection, setActiveSection] = useState<DashboardSection>("dashboard");
+  const { filters, updateFilter } = useFilterState("ytd");
+
+  const handleTimeRangeChange = (timeRange: string) => {
+    console.log("Dashboard: Time range changing to:", timeRange)
+    updateFilter("selectedTimeRange", timeRange);
+  };
 
   const renderSection = () => {
     switch (activeSection) {
@@ -24,7 +31,10 @@ const Dashboard = () => {
         return (
           <div className="p-6 pt-2">
             <div className="max-w-7xl mx-auto">
-              <CategorySpendingChart />
+              <CategorySpendingChart 
+                selectedTimeRange={filters.selectedTimeRange}
+                onTimeRangeChange={handleTimeRangeChange}
+              />
             </div>
           </div>
         );

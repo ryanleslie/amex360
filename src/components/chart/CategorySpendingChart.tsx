@@ -34,15 +34,10 @@ export function CategorySpendingChart({
   selectedTimeRange = "ytd", 
   onTimeRangeChange 
 }: CategorySpendingChartProps) {
-  const [timeRange, setTimeRange] = React.useState(selectedTimeRange)
   const [selectedCategory, setSelectedCategory] = React.useState<string>("all")
 
-  React.useEffect(() => {
-    setTimeRange(selectedTimeRange);
-  }, [selectedTimeRange])
-
   const handleTimeRangeChange = (newTimeRange: string) => {
-    setTimeRange(newTimeRange);
+    console.log("CategorySpendingChart: Time range changing to:", newTimeRange)
     onTimeRangeChange?.(newTimeRange);
   };
 
@@ -50,13 +45,13 @@ export function CategorySpendingChart({
     setSelectedCategory(category === selectedCategory ? "all" : category)
   }
 
-  const { categoryData, totalSpend } = useCategorySpendingData(timeRange)
+  const { categoryData, totalSpend } = useCategorySpendingData(selectedTimeRange)
 
   const getTimeRangeLabel = () => {
-    if (timeRange === "ytd") return "(YTD)"
-    if (timeRange === "90d") return "(90d)"
-    if (timeRange === "30d") return "(30d)"
-    if (timeRange === "7d") return "(7d)"
+    if (selectedTimeRange === "ytd") return "(YTD)"
+    if (selectedTimeRange === "90d") return "(90d)"
+    if (selectedTimeRange === "30d") return "(30d)"
+    if (selectedTimeRange === "7d") return "(7d)"
     return "(90d)"
   }
 
@@ -74,7 +69,7 @@ export function CategorySpendingChart({
         <CategoryChartCard
           categoryData={categoryData}
           totalSpend={totalSpend}
-          timeRange={timeRange}
+          timeRange={selectedTimeRange}
           timeRangeLabel={timeRangeLabel}
           colors={COLORS}
           onTimeRangeChange={handleTimeRangeChange}
@@ -92,9 +87,10 @@ export function CategorySpendingChart({
       </div>
       
       <CategoryTransactionCard
-        timeRange={timeRange}
+        timeRange={selectedTimeRange}
         selectedCategory={selectedCategory}
         onCategoryChange={setSelectedCategory}
+        onTimeRangeChange={handleTimeRangeChange}
         categories={allCategories}
       />
     </div>

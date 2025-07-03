@@ -70,8 +70,22 @@ export const useCategorySpendingData = (timeRange: string) => {
     return categoryData.reduce((sum, category) => sum + category.amount, 0)
   }, [categoryData])
 
+  // Get unique categories for filtering
+  const categories = React.useMemo(() => {
+    return categoryData.map(item => item.category)
+  }, [categoryData])
+
+  // Calculate transaction count
+  const transactionCount = React.useMemo(() => {
+    return allTransactions.length
+  }, [allTransactions])
+
   return {
+    chartData: categoryData,
     categoryData,
-    totalSpend: Math.round(totalSpend * 100) / 100
+    totalSpend: Math.round(totalSpend * 100) / 100,
+    categories,
+    transactionCount,
+    swapTransactions: allTransactions
   }
 }

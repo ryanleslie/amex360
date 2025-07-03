@@ -50,7 +50,7 @@ export function CategoryChartCard({
       </CardHeader>
 
       <CardContent className="px-2 sm:px-6">
-        <div className="h-[400px] w-full">
+        <div className="h-[400px] w-full [&_.recharts-pie-sector]:!outline-none [&_.recharts-pie-sector]:focus:!outline-none">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
               <Pie
@@ -63,7 +63,6 @@ export function CategoryChartCard({
                 dataKey="amount"
                 stroke="none"
                 strokeWidth={0}
-                outline="none"
               >
                 {categoryData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />

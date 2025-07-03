@@ -38,10 +38,12 @@ export function CategoryTransactionCard({
   }
 
   const handleClearFilter = () => {
+    console.log("Clearing category filter")
     onCategoryChange?.("all")
   }
 
   const handleClearTimeRangeFilter = () => {
+    console.log("Clearing time range filter, changing to ytd")
     onTimeRangeChange?.("ytd")
   }
 

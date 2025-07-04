@@ -1,7 +1,8 @@
 date,description,amount,account_type,last_five,category,point_multiple
+2025-07-04,AMZN MKTP DE        AMAZON.DE,-27.7,Amazon Business Prime,-52003,Office supplies,
 2025-07-03,ONLINE PAYMENT - THANK YOU,4512.12,Amazon Business Prime,-52003,,
-2025-07-01,Amazon Web Services AWS.Amazon.com      WA,-4512.12,Amazon Business Prime,-52003,Servers,5
 2025-07-01,AMZN MKTP DE        AMAZON.DE,-95.39,Amazon Business Prime,-52003,Office supplies,
+2025-07-01,Amazon Web Services AWS.Amazon.com      WA,-4512.12,Amazon Business Prime,-52003,Servers,5
 2025-06-30,AMZN MKTP DE        AMAZON.DE,-90.13,Amazon Business Prime,-52003,Office supplies,
 2025-06-30,AMZN MKTP DE        AMAZON.DE,-154.33,Amazon Business Prime,-52003,Office supplies,
 2025-06-29,AMAZON.COM AMZN.COM/BILL WA,-16.32,Amazon Business Prime,-52003,Office supplies,
@@ -324,8 +325,8 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-02-16,TALLY.SO            GENT                OO,-29.00,Business Blue Plus II,-11009,Marketing,2
 2025-02-15,PAYPAL *XAVIER KEYZ 4029357733,-2300.00,Business Blue Plus II,-11009,CreditMax,2
 2025-07-01,PAYPAL *XAVIER KEYZ 4029357733,-3000.00,Business Classic Gold,-71002,CreditMax,
-2025-07-01,TWILIO INC          SAN FRANCISCO       CA,-40.73,Business Classic Gold,-71002,SuperPhone®,
 2025-07-01,SLACK TBQ652RK4     SAN FRANCISCO       CA,-26.25,Business Classic Gold,-71002,Software,
+2025-07-01,TWILIO INC          SAN FRANCISCO       CA,-40.73,Business Classic Gold,-71002,SuperPhone®,
 2025-06-29,ONLINE PAYMENT - THANK YOU,413.11,Business Classic Gold,-71002,,
 2025-06-28,TWILIO INC          SAN FRANCISCO       CA,-41.99,Business Classic Gold,-71002,SuperPhone®,
 2025-06-27,TWILIO INC          SAN FRANCISCO       CA,-40.09,Business Classic Gold,-71002,SuperPhone®,
@@ -1078,8 +1079,9 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-06,TWILIO INC          SAN FRANCISCO       CA,-701.70,Business Rose Gold,-01018,SuperPhone®,4
 2025-01-05,TWILIO INC          SAN FRANCISCO       CA,-651.93,Business Rose Gold,-01018,SuperPhone®,4
 2025-01-04,TWILIO INC          SAN FRANCISCO       CA,-400.00,Business Rose Gold,-01018,SuperPhone®,4
-2025-07-03,OUTSIDE THE BELTWAY LLC,-2500.00,Business White Gold,-41000,Professional services,
+2025-07-04,TWENTYFOUR AI       NEW YORK            NY,-1000.00,Business White Gold,-41000,Contractors,
 2025-07-03,TWILIO INC          SAN FRANCISCO       CA,-394.12,Business White Gold,-41000,SuperPhone®,
+2025-07-03,OUTSIDE THE BELTWAY LLC,-2500.00,Business White Gold,-41000,Professional services,
 2025-07-01,OPENAI *CHATGPT SUBSSAN FRANCISCO       CA,-100.00,Business White Gold,-41000,Software,
 2025-06-30,TWILIO INC          SAN FRANCISCO       CA,-600.89,Business White Gold,-41000,SuperPhone®,
 2025-06-30,TWILIO INC          SAN FRANCISCO       CA,-706.63,Business White Gold,-41000,SuperPhone®,
@@ -1440,8 +1442,8 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-04,D J*WSJ             800-568-7625        NJ,-7.62,Charles Schwab Platinum Card,-71000,News & media,
 2025-01-04,Platinum Digital Entertainment Credit,7.62,Charles Schwab Platinum Card,-71000,Streaming services,
 2025-07-01,NOIRFONCE,-341.90,Delta Skymiles Reserve,-41006,Wardrobe,
-2025-07-01,STOCKX,-290.03,Delta Skymiles Reserve,-41006,Wardrobe,
-2025-07-01,WWW.I-RUN.FR 3DS,-363.94,Delta Skymiles Reserve,-41006,Wardrobe,
+2025-07-01,STOCKX,-291.26,Delta Skymiles Reserve,-41006,Wardrobe,
+2025-07-01,WWW.I-RUN.FR 3DS,-366.79,Delta Skymiles Reserve,-41006,Wardrobe,
 2025-06-30,PAYPAL *LINDAJANEKAN4029357733          DE,-5250.00,Delta Skymiles Reserve,-41006,Contractors,
 2025-06-17,DELTA AIR LINES,-11.20,Delta Skymiles Reserve,-41006,Airfare,
 2025-06-17,DELTA AIR LINES,-11.20,Delta Skymiles Reserve,-41006,Airfare,
@@ -1484,7 +1486,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-06-01,ONLINE PAYMENT - THANK YOU,195.00,Hilton Honors Business,-91003,,
 2025-06-01,PAYPAL *LINDAJANEKAN4029357733          DE,-4750.00,Hilton Honors Business,-91003,Contractors,
 2025-05-20,MEMBERSHIP FEE,-195.00,Hilton Honors Business,-91003,Fees & adjustments,
-2025-07-01,BEATRYCE BEAUTY SALON,-151.45,Platinum Card,-71003,Personal,
+2025-07-01,BEATRYCE BEAUTY SALON,-151.60,Platinum Card,-71003,Personal,
 2025-06-30,DM-DROGERIE MARKT 70,-35.27,Platinum Card,-71003,Personal,
 2025-06-30,REWE CZERLINSKI,-43.22,Platinum Card,-71003,Personal,
 2025-06-29,TATTI STAY AND SEE,-22.01,Platinum Card,-71003,Personal,

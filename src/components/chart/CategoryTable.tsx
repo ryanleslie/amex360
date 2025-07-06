@@ -35,14 +35,14 @@ export function CategoryTable({
   selectedCategory 
 }: CategoryTableProps) {
   return (
-    <Card className="bg-gradient-to-b from-white to-gray-100 lg:col-span-2">
-      <CardHeader>
+    <Card className="bg-gradient-to-b from-white to-gray-100 md:col-span-1 lg:col-span-2">
+      <CardHeader className="px-4 md:px-6">
         <CardTitle className="text-xl font-semibold">Categories</CardTitle>
         <CardDescription>
           Spending detail by category {timeRangeLabel}
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="px-4 md:px-6">
         <div className="rounded-md border">
           <style>
             {`
@@ -69,7 +69,7 @@ export function CategoryTable({
               }
             `}
           </style>
-          <div className="scroll-container overflow-y-auto max-h-96">
+          <div className="scroll-container overflow-y-auto max-h-[300px] md:max-h-96">
             <Table>
               <TableBody>
                 {categoryData?.length ? (
@@ -92,14 +92,14 @@ export function CategoryTable({
                               border: selectedCategory === category.category ? '2px solid #000' : 'none'
                             }}
                           />
-                          <span className="font-medium">{category.category}</span>
+                          <span className="font-medium text-sm">{category.category}</span>
                         </div>
                       </TableCell>
                       <TableCell className="text-right">
-                        <span className="font-medium">{category.percentage}%</span>
+                        <span className="font-medium text-sm">{category.percentage}%</span>
                       </TableCell>
                       <TableCell className="text-right">
-                        <span className="font-medium">
+                        <span className="font-medium text-sm">
                           ${category.amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                         </span>
                       </TableCell>

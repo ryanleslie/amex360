@@ -1,6 +1,7 @@
 
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts"
 import { useEffect, useRef } from "react"
+import { useIsMobile } from "@/hooks/use-mobile"
 import {
   Card,
   CardContent,
@@ -39,6 +40,7 @@ export function CategoryChartCard({
   selectedCategory
 }: CategoryChartCardProps) {
   const chartRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const handleFocusOut = (e: FocusEvent) => {
@@ -73,9 +75,27 @@ export function CategoryChartCard({
     }
   }
 
+  // Responsive chart configuration
+  const getChartConfig = () => {
+    if (isMobile) {
+      return {
+        outerRadius: "70%",
+        innerRadius: "40%",
+        margin: { top: 20, right: 20, bottom: 20, left: 20 }
+      };
+    }
+    return {
+      outerRadius: "90%",
+      innerRadius: "50%",
+      margin: { top: 0, right: 0, bottom: 0, left: 0 }
+    };
+  };
+
+  const chartConfig = getChartConfig();
+
   return (
-    <Card className="bg-gradient-to-b from-white to-gray-100 lg:col-span-3">
-      <CardHeader className="flex flex-col space-y-4 pb-2 md:flex-row md:items-center md:justify-between md:space-y-0">
+    <Card className="bg-gradient-to-b from-white to-gray-100 md:col-span-2 lg:col-span-3">
+      <CardHeader className="flex flex-col space-y-4 pb-2 md:flex-row md:items-center md:justify-between md:space-y-0 px-4 md:px-6">
         <div className="space-y-1">
           <CardTitle className="text-xl font-semibold">Spending by category</CardTitle>
           <CardDescription>
@@ -89,16 +109,16 @@ export function CategoryChartCard({
         />
       </CardHeader>
 
-      <CardContent className="px-2 sm:px-6">
-        <div className="h-[400px] w-full" ref={chartRef}>
+      <CardContent className="px-2 md:px-4 lg:px-6">
+        <div className="w-full aspect-square max-h-[300px] md:max-h-[350px] lg:max-h-[400px]" ref={chartRef}>
           <ResponsiveContainer width="100%" height="100%">
-            <PieChart margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
+            <PieChart margin={chartConfig.margin}>
               <Pie
                 data={categoryData}
                 cx="50%"
                 cy="50%"
-                outerRadius="90%"
-                innerRadius="50%"
+                outerRadius={chartConfig.outerRadius}
+                innerRadius={chartConfig.innerRadius}
                 fill="#8884d8"
                 dataKey="amount"
                 stroke="none"

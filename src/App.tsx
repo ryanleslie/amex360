@@ -1,10 +1,11 @@
 
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Suspense } from "react";
 import { AuthProvider } from "@/contexts/AuthContext";
 import AuthPage from "./pages/AuthPage";
@@ -21,10 +22,19 @@ const AppContent = () => {
   return (
     <div className={`h-screen w-full ${isDashboardRoute ? 'flex' : ''}`}>
       <Routes>
-        <Route path="/" element={<Navigate to="/auth" replace />} />
         <Route path="/auth" element={<AuthPage />} />
         <Route 
           path="/dashboard" 
+          element={
+            <ProtectedRoute>
+              <Suspense fallback={null}>
+                <Dashboard />
+              </Suspense>
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/" 
           element={
             <ProtectedRoute>
               <Suspense fallback={null}>
@@ -58,3 +68,4 @@ const App = () => {
 };
 
 export default App;
+

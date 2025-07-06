@@ -1,6 +1,6 @@
 
 // Main export file for primary cards functionality
-export type { PrimaryCard } from "@/data/types/primaryCard"
+export type { PrimaryCard } from "@/types/primaryCard"
 export { primaryCardsConfig } from "@/data/config/primaryCardsData"
 export {
   getAllPrimaryCards,

@@ -1,5 +1,5 @@
 
-import { PrimaryCard } from "@/data/types/primaryCard"
+import { PrimaryCard } from "@/types/primaryCard"
 import { primaryCardsConfig } from "@/data/config/primaryCardsData"
 import { transactionFilterService } from "@/services/transaction"
 

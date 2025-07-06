@@ -1,5 +1,4 @@
-
-import { PrimaryCard } from "@/data/types/primaryCard"
+import { PrimaryCard } from "@/types/primaryCard"
 
 // Static configuration for primary cards with manually inputted last 5 digits
 export const primaryCardsConfig: PrimaryCard[] = [

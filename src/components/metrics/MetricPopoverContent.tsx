@@ -6,7 +6,7 @@ interface MetricPopoverContentProps {
 }
 
 export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
-  const isClosingOrDueMetric = metric.title === "Closing this week" || metric.title === "Due this week"
+  const isClosingMetric = metric.title === "Closing this week"
   
   return (
     <div className="space-y-3">
@@ -18,7 +18,7 @@ export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
           <div className="text-xs font-medium">Account Details:</div>
           {metric.cardData.map((card: any, index: number) => {
             const isNonBusinessCard = !card.name.toLowerCase().includes('business')
-            const shouldHighlightDate = isClosingOrDueMetric && isNonBusinessCard
+            const shouldHighlightDate = isClosingMetric && isNonBusinessCard
             
             return (
               <div 

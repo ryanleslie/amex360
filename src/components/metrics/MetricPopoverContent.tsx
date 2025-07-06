@@ -25,24 +25,20 @@ export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
             const isNonBusinessCard = !card.name.toLowerCase().includes('business')
             const shouldHighlightClosing = isClosingMetric && isNonBusinessCard && card.type.includes('closing')
             
-            // For No Annual Fee cards, show only last five and APR
-            // For Annual Fee cards, show amount as "annual fee" format
-            // For Credit Limit cards, show amount as "preset limit" format
-            // For Brand Partner cards, show amount as "preset limit • multiple" format
-            // For Available Line of Credit, show amount as "installment" format
-            let cardDescription
+            // Format card details based on metric type
+            let cardDetails
             if (isNoAnnualFeeMetric) {
-              cardDescription = `${card.lastFive} • ${card.type.split('•')[1]?.trim() || card.type}`
+              cardDetails = card.type.split('•')[1]?.trim() || card.type
             } else if (isAnnualFeeMetric) {
-              cardDescription = `${card.lastFive} • ${card.amount} annual fee • ${card.type.split('•')[1]?.trim() || card.type.split('•')[0]?.trim()}`
+              cardDetails = `${card.amount} annual fee • ${card.type.split('•')[1]?.trim() || card.type.split('•')[0]?.trim()}`
             } else if (isCreditLimitMetric) {
-              cardDescription = `${card.lastFive} • ${card.amount} ${card.type.replace(' • ', ' ')}`
+              cardDetails = `${card.amount} ${card.type.replace(' • ', ' ')}`
             } else if (isBrandPartnerMetric) {
-              cardDescription = `${card.lastFive} • ${card.amount} ${card.type}`
+              cardDetails = `${card.amount} ${card.type}`
             } else if (isAvailableCreditMetric) {
-              cardDescription = `${card.lastFive} • ${card.amount} ${card.type}`
+              cardDetails = `${card.amount} ${card.type}`
             } else {
-              cardDescription = `${card.lastFive} • ${card.amount} • ${card.type}`
+              cardDetails = `${card.amount} • ${card.type}`
             }
             
             return (
@@ -53,15 +49,15 @@ export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
                 <img src={card.image} alt={card.name} className="w-8 h-5 object-cover rounded" />
                 <div className="text-xs">
                   <div className="font-medium">
-                    {card.name}
+                    {card.name} ({card.lastFive})
                   </div>
                   <div className="text-muted-foreground">
                     {shouldHighlightClosing ? (
                       <>
-                        {card.lastFive} • {card.amount} • <span className="text-red-600 font-medium">{card.type}</span>
+                        {card.amount} • <span className="text-red-600 font-medium">{card.type}</span>
                       </>
                     ) : (
-                      <span>{cardDescription}</span>
+                      <span>{cardDetails}</span>
                     )}
                   </div>
                 </div>

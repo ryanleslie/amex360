@@ -10,6 +10,40 @@ export const useMetricsData = () => {
     return transactionFilterService.getUniqueCardAccounts().length
   }, [])
 
+  // Calculate total annual fees dynamically from primary cards
+  const totalAnnualFeesData = React.useMemo(() => {
+    const primaryCards = getAllPrimaryCards()
+    
+    if (primaryCards.length === 0) {
+      return {
+        amount: "$0",
+        cards: []
+      }
+    }
+
+    const totalFees = primaryCards.reduce((sum, card) => sum + card.annualFee, 0)
+    
+    const cardDetails = primaryCards.map(card => ({
+      name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
+      lastFive: `-${card.lastFive}`,
+      amount: `$${card.annualFee.toLocaleString()}`,
+      type: "annual fee",
+      image: getCardImage(card.cardType.toLowerCase())
+    }))
+
+    // Sort cards by annual fee (highest first)
+    cardDetails.sort((a, b) => {
+      const feeA = parseInt(a.amount.replace('$', '').replace(',', ''))
+      const feeB = parseInt(b.amount.replace('$', '').replace(',', ''))
+      return feeB - feeA
+    })
+
+    return {
+      amount: `$${totalFees.toLocaleString()}`,
+      cards: cardDetails
+    }
+  }, [])
+
   // Calculate highest credit limit dynamically from primary cards
   const highestCreditLimitData = React.useMemo(() => {
     const primaryCards = getAllPrimaryCards()
@@ -112,6 +146,15 @@ export const useMetricsData = () => {
 
   const metricsData = [
     {
+      title: "Total Annual Fees",
+      value: totalAnnualFeesData.amount,
+      description: "Sum of all annual fees across active cards",
+      dataSource: "Primary Cards Configuration",
+      lastUpdated: "Updated daily",
+      calculationMethod: "Sum of annual fees for all primary card accounts",
+      cardData: totalAnnualFeesData.cards
+    },
+    {
       title: "Active Card Accounts",
       value: activeCardCount.toString(),
       description: "Total number of active card accounts",
@@ -146,18 +189,6 @@ export const useMetricsData = () => {
       lastUpdated: "Real-time",  
       calculationMethod: "Sum of (credit limit - current balance)",
       cardData: cardDetails.businessCreditLimit
-    },
-    {
-      title: "Brand Partner Cards",
-      value: brandPartnerCardsData.count.toString(),
-      description: "Number of active brand partner card programs",
-      dataSource: "Primary Cards Configuration",
-      lastUpdated: "Updated daily", 
-      calculationMethod: "Count of primary cards with brand partner status",
-      cardData: brandPartnerCardsData.cards.map(card => ({
-        ...card,
-        type: `${card.type} • ${card.multiple}`
-      }))
     }
   ]
 

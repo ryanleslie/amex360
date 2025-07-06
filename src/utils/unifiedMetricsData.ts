@@ -3,11 +3,11 @@ import React from "react"
 import { transactionFilterService } from "@/services/transaction"
 import { getAllPrimaryCards, getBrandPartnerCards } from "@/data/staticPrimaryCards"
 import { getCardImage } from "@/utils/cardImageUtils"
-import { CardBalanceService } from "@/services/cardBalanceService"
-import { useAuth } from "@/contexts/AuthContext"
+import { BalanceFileService } from "@/services/balanceFileService"
+import { useBalanceFile } from "@/hooks/useBalanceFile"
 
 export const useUnifiedMetricsData = () => {
-  const { user, loading: authLoading } = useAuth()
+  const { balances, isLoading: isLoadingBalances } = useBalanceFile()
 
   // Get dynamic card count from transaction filter service
   const activeCardCount = React.useMemo(() => {
@@ -105,121 +105,75 @@ export const useUnifiedMetricsData = () => {
     }
   }, [])
 
-  // State for async card data with balances
-  const [closingCards, setClosingCards] = React.useState<any>({ count: 0, cards: [] })
-  const [dueCards, setDueCards] = React.useState<any>({ count: 0, cards: [] })
-  const [isLoadingBalances, setIsLoadingBalances] = React.useState(true)
-
-  // Fetch card balances and calculate closing/due cards - only when authenticated
-  React.useEffect(() => {
-    // Don't fetch if auth is still loading or user is not authenticated
-    if (authLoading || !user) {
-      console.log("Skipping card balance fetch - user not authenticated yet")
-      setIsLoadingBalances(false)
-      return
-    }
-
-    const fetchCardDataWithBalances = async () => {
-      try {
-        setIsLoadingBalances(true)
-        console.log("Starting to fetch card balances for authenticated user...")
-        
-        // Clear cache to ensure fresh data
-        CardBalanceService.clearCache()
-        
-        // Pre-fetch all balances to populate cache
-        const allBalances = await CardBalanceService.getBalances(false)
-        console.log("Fetched all balances:", allBalances.map(b => ({ cardType: b.cardType, balance: b.currentBalance })))
-        
-        const primaryCards = getAllPrimaryCards()
-        const today = new Date()
-        const currentDay = today.getDate()
-        const currentMonth = today.toLocaleString('default', { month: 'long' })
-        
-        // Calculate cards closing this week
-        const cardsClosingThisWeek = primaryCards.filter(card => {
-          const daysUntilClosing = card.closingDate >= currentDay 
-            ? card.closingDate - currentDay 
-            : (30 - currentDay) + card.closingDate
-          return daysUntilClosing <= 7 && daysUntilClosing >= 0
-        })
-        
-        console.log("Cards closing this week:", cardsClosingThisWeek.map(c => c.cardType))
-        
-        const closingCardDetails = await Promise.all(
-          cardsClosingThisWeek.map(async (card) => {
-            console.log(`Fetching balance for closing card: ${card.cardType}`)
-            const balance = await CardBalanceService.getBalanceByCardType(card.cardType)
-            const formattedBalance = CardBalanceService.formatBalance(balance)
-            console.log(`Balance for ${card.cardType}: ${balance} -> ${formattedBalance}`)
-            
-            return {
-              name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
-              lastFive: `-${card.lastFive}`,
-              amount: `${formattedBalance} • Closing ${currentMonth} ${card.closingDate}`,
-              type: "",
-              image: getCardImage(card.cardType.toLowerCase()),
-              closingDate: card.closingDate
-            }
-          })
-        )
-
-        // Sort by closing date
-        closingCardDetails.sort((a, b) => a.closingDate - b.closingDate)
-
-        // Calculate cards due this week
-        const cardsDueThisWeek = primaryCards.filter(card => {
-          const daysUntilDue = card.dueDate >= currentDay 
-            ? card.dueDate - currentDay 
-            : (30 - currentDay) + card.dueDate
-          return daysUntilDue <= 7 && daysUntilDue >= 0
-        })
-        
-        console.log("Cards due this week:", cardsDueThisWeek.map(c => c.cardType))
-        
-        const dueCardDetails = await Promise.all(
-          cardsDueThisWeek.map(async (card) => {
-            console.log(`Fetching balance for due card: ${card.cardType}`)
-            const balance = await CardBalanceService.getBalanceByCardType(card.cardType)
-            const formattedBalance = CardBalanceService.formatBalance(balance)
-            console.log(`Balance for ${card.cardType}: ${balance} -> ${formattedBalance}`)
-            
-            return {
-              name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
-              lastFive: `-${card.lastFive}`,
-              amount: `${formattedBalance} • Due ${currentMonth} ${card.dueDate}`,
-              type: "",
-              image: getCardImage(card.cardType.toLowerCase()),
-              dueDate: card.dueDate
-            }
-          })
-        )
-
-        // Sort by due date
-        dueCardDetails.sort((a, b) => a.dueDate - b.dueDate)
-
-        setClosingCards({
-          count: cardsClosingThisWeek.length,
-          cards: closingCardDetails
-        })
-        
-        setDueCards({
-          count: cardsDueThisWeek.length,
-          cards: dueCardDetails
-        })
-        
-        console.log("Updated closing cards:", closingCardDetails)
-        console.log("Updated due cards:", dueCardDetails)
-        
-      } catch (error) {
-        console.error("Error fetching card balances:", error)
-      } finally {
-        setIsLoadingBalances(false)
+  // Calculate closing and due cards using balance file data
+  const { closingCards, dueCards } = React.useMemo(() => {
+    if (isLoadingBalances || balances.length === 0) {
+      return {
+        closingCards: { count: 0, cards: [] },
+        dueCards: { count: 0, cards: [] }
       }
     }
 
-    fetchCardDataWithBalances()
-  }, [user, authLoading]) // Re-run when user authentication state changes
+    const primaryCards = getAllPrimaryCards()
+    const today = new Date()
+    const currentDay = today.getDate()
+    const currentMonth = today.toLocaleString('default', { month: 'long' })
+    
+    // Calculate cards closing this week
+    const cardsClosingThisWeek = primaryCards.filter(card => {
+      const daysUntilClosing = card.closingDate >= currentDay 
+        ? card.closingDate - currentDay 
+        : (30 - currentDay) + card.closingDate
+      return daysUntilClosing <= 7 && daysUntilClosing >= 0
+    })
+    
+    const closingCardDetails = cardsClosingThisWeek.map(card => {
+      const balance = BalanceFileService.getBalanceByCardType(card.cardType, balances)
+      const formattedBalance = BalanceFileService.formatBalance(balance)
+      
+      return {
+        name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
+        lastFive: `-${card.lastFive}`,
+        amount: `${formattedBalance} • Closing ${currentMonth} ${card.closingDate}`,
+        type: "",
+        image: getCardImage(card.cardType.toLowerCase()),
+        closingDate: card.closingDate
+      }
+    }).sort((a, b) => a.closingDate - b.closingDate)
+
+    // Calculate cards due this week
+    const cardsDueThisWeek = primaryCards.filter(card => {
+      const daysUntilDue = card.dueDate >= currentDay 
+        ? card.dueDate - currentDay 
+        : (30 - currentDay) + card.dueDate
+      return daysUntilDue <= 7 && daysUntilDue >= 0
+    })
+    
+    const dueCardDetails = cardsDueThisWeek.map(card => {
+      const balance = BalanceFileService.getBalanceByCardType(card.cardType, balances)
+      const formattedBalance = BalanceFileService.formatBalance(balance)
+      
+      return {
+        name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
+        lastFive: `-${card.lastFive}`,
+        amount: `${formattedBalance} • Due ${currentMonth} ${card.dueDate}`,
+        type: "",
+        image: getCardImage(card.cardType.toLowerCase()),
+        dueDate: card.dueDate
+      }
+    }).sort((a, b) => a.dueDate - b.dueDate)
+
+    return {
+      closingCards: {
+        count: cardsClosingThisWeek.length,
+        cards: closingCardDetails
+      },
+      dueCards: {
+        count: cardsDueThisWeek.length,
+        cards: dueCardDetails
+      }
+    }
+  }, [balances, isLoadingBalances])
 
   // Calculate no annual fee cards dynamically from primary cards
   const noAnnualFeeCardsData = React.useMemo(() => {
@@ -360,18 +314,18 @@ export const useUnifiedMetricsData = () => {
     },
     "Closing this week": {
       title: "Closing this week",
-      value: (authLoading || !user) ? "..." : (isLoadingBalances ? "..." : closingCards.count.toString()),
+      value: isLoadingBalances ? "..." : closingCards.count.toString(),
       description: "Cards with closing dates in the next 7 days",
-      dataSource: "Primary Cards Configuration & Card Balance System",
+      dataSource: "Primary Cards Configuration & Balance File System",
       lastUpdated: "Updated daily",
       calculationMethod: "Count of cards closing within 7 days of current date",
       cardData: closingCards.cards
     },
     "Due this week": {
       title: "Due this week",
-      value: (authLoading || !user) ? "..." : (isLoadingBalances ? "..." : dueCards.count.toString()),
+      value: isLoadingBalances ? "..." : dueCards.count.toString(),
       description: "Cards with payment due dates in the next 7 days",
-      dataSource: "Primary Cards Configuration & Card Balance System", 
+      dataSource: "Primary Cards Configuration & Balance File System", 
       lastUpdated: "Updated daily",
       calculationMethod: "Count of cards with payments due within 7 days of current date",
       cardData: dueCards.cards

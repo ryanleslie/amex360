@@ -8,7 +8,7 @@ export interface PrimaryCard {
   isPrimary: boolean
   creditLimit: number
   limitType: string
-  partnerMultiple: number
+  partnerMultiple?: number // Make optional since not all cards have partner multiples
   isBrandPartner: boolean
 }
 

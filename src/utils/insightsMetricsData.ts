@@ -49,7 +49,7 @@ export const useInsightsMetricsData = () => {
       name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
       lastFive: `-${card.lastFive}`,
       amount: `$${card.annualFee.toLocaleString()}`,
-      type: "annual fee",
+      type: `annual fee • ${card.interestRate} APR`,
       image: getCardImage(card.cardType.toLowerCase())
     }))
 
@@ -129,25 +129,25 @@ export const useInsightsMetricsData = () => {
     }
   }, [])
 
-  // Calculate brand partner cards dynamically from primary cards
-  const brandPartnerCardsData = React.useMemo(() => {
-    const brandPartnerCards = getBrandPartnerCards()
+  // Calculate annual fee cards dynamically from primary cards
+  const annualFeeCardsData = React.useMemo(() => {
+    const primaryCards = getAllPrimaryCards()
+    const cardsWithFees = primaryCards.filter(card => card.annualFee > 0)
     
-    const cardDetails = brandPartnerCards.map(card => ({
+    const cardDetails = cardsWithFees.map(card => ({
       name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
       lastFive: `-${card.lastFive}`,
-      amount: `$${card.creditLimit.toLocaleString()}`,
-      type: `${card.limitType} limit`,
+      amount: `$${card.annualFee.toLocaleString()}`,
+      type: `annual fee • ${card.interestRate} APR`,
       image: getCardImage(card.cardType.toLowerCase()),
-      multiple: card.partnerMultiple ? `${card.partnerMultiple}x` : "N/A",
-      creditLimit: card.creditLimit
+      annualFee: card.annualFee
     }))
 
-    // Sort by credit limit (highest first)
-    cardDetails.sort((a, b) => b.creditLimit - a.creditLimit)
+    // Sort by annual fee (highest first)
+    cardDetails.sort((a, b) => b.annualFee - a.annualFee)
 
     return {
-      count: brandPartnerCards.length,
+      count: cardsWithFees.length,
       cards: cardDetails
     }
   }, [])
@@ -163,7 +163,7 @@ export const useInsightsMetricsData = () => {
       cardData: totalAnnualFeesData.cards
     },
     {
-      title: "No Annual Fee Cards",
+      title: "No Annual Fee",
       value: noAnnualFeeCardsData.count.toString(),
       description: "Number of cards with no annual fee",
       dataSource: "Primary Cards Configuration",
@@ -190,16 +190,13 @@ export const useInsightsMetricsData = () => {
       cardData: dueThisWeekData.cards
     },
     {
-      title: "Brand Partner Cards",
-      value: brandPartnerCardsData.count.toString(),
-      description: "Number of active brand partner card programs",
+      title: "Annual Fee",
+      value: annualFeeCardsData.count.toString(),
+      description: "Number of cards with annual fees",
       dataSource: "Primary Cards Configuration",
       lastUpdated: "Updated daily", 
-      calculationMethod: "Count of primary cards with brand partner status",
-      cardData: brandPartnerCardsData.cards.map(card => ({
-        ...card,
-        type: `${card.type} • ${card.multiple}`
-      }))
+      calculationMethod: "Count of primary cards with annual fees greater than $0",
+      cardData: annualFeeCardsData.cards
     }
   ]
 

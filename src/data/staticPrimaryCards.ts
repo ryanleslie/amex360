@@ -20,6 +20,7 @@ export const primaryCardsConfig: PrimaryCard[] = [
     isPrimary: true,
     creditLimit: 6000,
     limitType: "preset",
+    partnerMultiple: 5,
     isBrandPartner: true
   },
   {
@@ -29,6 +30,7 @@ export const primaryCardsConfig: PrimaryCard[] = [
     isPrimary: true,
     creditLimit: 5000,
     limitType: "preset",
+    partnerMultiple: 6,
     isBrandPartner: true
   },
   {
@@ -110,6 +112,7 @@ export const primaryCardsConfig: PrimaryCard[] = [
     isPrimary: true,
     creditLimit: 30000,
     limitType: "preset",
+    partnerMultiple: 3,
     isBrandPartner: true
   },
   {
@@ -119,6 +122,7 @@ export const primaryCardsConfig: PrimaryCard[] = [
     isPrimary: true,
     creditLimit: 5000,
     limitType: "preset",
+    partnerMultiple: 12,
     isBrandPartner: true
   },
   {

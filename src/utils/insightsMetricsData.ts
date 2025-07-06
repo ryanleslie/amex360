@@ -5,20 +5,21 @@ import { getAllPrimaryCards, getBrandPartnerCards } from "@/data/staticPrimaryCa
 import { getCardImage } from "@/utils/cardImageUtils"
 
 export const useInsightsMetricsData = () => {
-  // Calculate total annual fees dynamically from primary cards
+  // Calculate total annual fees dynamically from primary cards (excluding $0 fees)
   const totalAnnualFeesData = React.useMemo(() => {
     const primaryCards = getAllPrimaryCards()
+    const cardsWithFees = primaryCards.filter(card => card.annualFee > 0)
     
-    if (primaryCards.length === 0) {
+    if (cardsWithFees.length === 0) {
       return {
         amount: "$0",
         cards: []
       }
     }
 
-    const totalFees = primaryCards.reduce((sum, card) => sum + card.annualFee, 0)
+    const totalFees = cardsWithFees.reduce((sum, card) => sum + card.annualFee, 0)
     
-    const cardDetails = primaryCards.map(card => ({
+    const cardDetails = cardsWithFees.map(card => ({
       name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
       lastFive: `-${card.lastFive}`,
       amount: `$${card.annualFee.toLocaleString()}`,

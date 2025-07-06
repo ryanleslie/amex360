@@ -173,20 +173,12 @@ export function QuickMetricsCards() {
       amount: `$${card.creditLimit.toLocaleString()}`,
       type: `${card.limitType} limit`,
       image: getCardImage(card.cardType.toLowerCase()),
-      multiple: card.partnerMultiple ? `${card.partnerMultiple}x` : "N/A"
+      multiple: card.partnerMultiple ? `${card.partnerMultiple}x` : "N/A",
+      creditLimit: card.creditLimit
     }))
 
-    // Sort by partner multiple (highest first), then by credit limit
-    cardDetails.sort((a, b) => {
-      const aMultiple = parseInt(a.multiple.replace('x', '')) || 0
-      const bMultiple = parseInt(b.multiple.replace('x', '')) || 0
-      if (aMultiple !== bMultiple) {
-        return bMultiple - aMultiple
-      }
-      const aLimit = parseInt(a.amount.replace(/[$,]/g, ''))
-      const bLimit = parseInt(b.amount.replace(/[$,]/g, ''))
-      return bLimit - aLimit
-    })
+    // Sort by credit limit (highest first)
+    cardDetails.sort((a, b) => b.creditLimit - a.creditLimit)
 
     return {
       count: brandPartnerCards.length,

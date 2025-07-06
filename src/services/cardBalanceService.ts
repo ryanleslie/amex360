@@ -28,6 +28,9 @@ export class CardBalanceService {
       const allTransactions = transactionFilterService.getAllTransactions()
       console.log(`Processing ${allTransactions.length} transactions for balance calculation`)
 
+      // Log first few transactions to see the data structure
+      console.log('Sample transactions:', allTransactions.slice(0, 3))
+
       // Calculate balances by card type
       this.calculateBalances(allTransactions)
       
@@ -46,18 +49,32 @@ export class CardBalanceService {
     // Group transactions by account_type and calculate running balance
     const balanceMap = new Map<string, number>()
 
-    transactions.forEach(transaction => {
+    transactions.forEach((transaction, index) => {
       const cardType = transaction.account_type
-      if (!cardType) return
+      if (!cardType) {
+        console.log(`Transaction ${index} missing account_type:`, transaction)
+        return
+      }
 
       const currentBalance = balanceMap.get(cardType) || 0
       // Add the transaction amount (negative for expenses, positive for payments/credits)
       const newBalance = currentBalance + transaction.amount
       balanceMap.set(cardType, newBalance)
+
+      // Log first few transactions for each card type
+      if (index < 10 || (currentBalance === 0 && transaction.amount !== 0)) {
+        console.log(`${cardType}: ${currentBalance} + ${transaction.amount} = ${newBalance}`)
+      }
     })
 
     // Store the calculated balances
     this.cardBalances = balanceMap
+    
+    // Log final balances
+    console.log('Final calculated balances:')
+    this.cardBalances.forEach((balance, cardType) => {
+      console.log(`${cardType}: ${this.formatBalance(cardType)}`)
+    })
   }
 
   public getCardBalance(cardType: string): number {
@@ -66,7 +83,9 @@ export class CardBalanceService {
       return 0
     }
 
-    return this.cardBalances.get(cardType) || 0
+    const balance = this.cardBalances.get(cardType) || 0
+    console.log(`Getting balance for ${cardType}: ${balance}`)
+    return balance
   }
 
   public getAllCardBalances(): Record<string, number> {
@@ -98,7 +117,9 @@ export class CardBalanceService {
     }).format(absBalance)
 
     // Return with appropriate sign (positive balances are credits, negative are debts)
-    return balance >= 0 ? `+${formatted}` : formatted
+    const result = balance >= 0 ? `+${formatted}` : `-${formatted}`
+    console.log(`Formatted balance for ${cardType}: ${balance} -> ${result}`)
+    return result
   }
 }
 

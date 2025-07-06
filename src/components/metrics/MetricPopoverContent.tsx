@@ -44,9 +44,13 @@ export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
                     {card.name}
                   </div>
                   <div className="text-muted-foreground">
-                    <span className={shouldHighlightClosing ? 'text-red-600 font-medium' : ''}>
-                      {cardDescription}
-                    </span>
+                    {shouldHighlightClosing ? (
+                      <>
+                        {card.lastFive} • {card.amount} • <span className="text-red-600 font-medium">{card.type}</span>
+                      </>
+                    ) : (
+                      <span>{cardDescription}</span>
+                    )}
                   </div>
                 </div>
               </div>

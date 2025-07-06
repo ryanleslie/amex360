@@ -3,12 +3,8 @@ import React from "react"
 import { transactionFilterService } from "@/services/transaction"
 import { getAllPrimaryCards, getBrandPartnerCards } from "@/data/staticPrimaryCards"
 import { getCardImage } from "@/utils/cardImageUtils"
-import { BalanceFileService } from "@/services/balanceFileService"
-import { useBalanceFile } from "@/hooks/useBalanceFile"
 
 export const useUnifiedMetricsData = () => {
-  const { balances, isLoading: isLoadingBalances } = useBalanceFile()
-
   // Get dynamic card count from transaction filter service
   const activeCardCount = React.useMemo(() => {
     return transactionFilterService.getUniqueCardAccounts().length
@@ -105,75 +101,77 @@ export const useUnifiedMetricsData = () => {
     }
   }, [])
 
-  // Calculate closing and due cards using balance file data
-  const { closingCards, dueCards } = React.useMemo(() => {
-    if (isLoadingBalances || balances.length === 0) {
-      return {
-        closingCards: { count: 0, cards: [] },
-        dueCards: { count: 0, cards: [] }
-      }
-    }
-
+  // Calculate cards closing this week
+  const closingThisWeekData = React.useMemo(() => {
     const primaryCards = getAllPrimaryCards()
     const today = new Date()
     const currentDay = today.getDate()
     const currentMonth = today.toLocaleString('default', { month: 'long' })
     
-    // Calculate cards closing this week
+    // Get cards that close within the next 7 days
     const cardsClosingThisWeek = primaryCards.filter(card => {
       const daysUntilClosing = card.closingDate >= currentDay 
         ? card.closingDate - currentDay 
-        : (30 - currentDay) + card.closingDate
+        : (30 - currentDay) + card.closingDate // Handle month rollover
       return daysUntilClosing <= 7 && daysUntilClosing >= 0
     })
     
-    const closingCardDetails = cardsClosingThisWeek.map(card => {
-      const balance = BalanceFileService.getBalanceByCardType(card.cardType, balances)
-      const formattedBalance = BalanceFileService.formatBalance(balance)
-      
-      return {
-        name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
-        lastFive: `-${card.lastFive}`,
-        amount: `${formattedBalance} • Closing ${currentMonth} ${card.closingDate}`,
-        type: "",
-        image: getCardImage(card.cardType.toLowerCase()),
-        closingDate: card.closingDate
-      }
-    }).sort((a, b) => a.closingDate - b.closingDate)
+    const cardDetails = cardsClosingThisWeek.map(card => ({
+      name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
+      lastFive: `-${card.lastFive}`,
+      amount: `Closing ${currentMonth} ${card.closingDate}`,
+      type: "",
+      image: getCardImage(card.cardType.toLowerCase())
+    }))
 
-    // Calculate cards due this week
+    // Sort by closing date
+    cardDetails.sort((a, b) => {
+      const dateA = parseInt(a.amount.split(' ')[2])
+      const dateB = parseInt(b.amount.split(' ')[2])
+      return dateA - dateB
+    })
+
+    return {
+      count: cardsClosingThisWeek.length,
+      cards: cardDetails
+    }
+  }, [])
+
+  // Calculate cards due this week
+  const dueThisWeekData = React.useMemo(() => {
+    const primaryCards = getAllPrimaryCards()
+    const today = new Date()
+    const currentDay = today.getDate()
+    const currentMonth = today.toLocaleString('default', { month: 'long' })
+    
+    // Get cards that are due within the next 7 days
     const cardsDueThisWeek = primaryCards.filter(card => {
       const daysUntilDue = card.dueDate >= currentDay 
         ? card.dueDate - currentDay 
-        : (30 - currentDay) + card.dueDate
+        : (30 - currentDay) + card.dueDate // Handle month rollover
       return daysUntilDue <= 7 && daysUntilDue >= 0
     })
     
-    const dueCardDetails = cardsDueThisWeek.map(card => {
-      const balance = BalanceFileService.getBalanceByCardType(card.cardType, balances)
-      const formattedBalance = BalanceFileService.formatBalance(balance)
-      
-      return {
-        name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
-        lastFive: `-${card.lastFive}`,
-        amount: `${formattedBalance} • Due ${currentMonth} ${card.dueDate}`,
-        type: "",
-        image: getCardImage(card.cardType.toLowerCase()),
-        dueDate: card.dueDate
-      }
-    }).sort((a, b) => a.dueDate - b.dueDate)
+    const cardDetails = cardsDueThisWeek.map(card => ({
+      name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
+      lastFive: `-${card.lastFive}`,
+      amount: `Due ${currentMonth} ${card.dueDate}`,
+      type: "",
+      image: getCardImage(card.cardType.toLowerCase())
+    }))
+
+    // Sort by due date
+    cardDetails.sort((a, b) => {
+      const dateA = parseInt(a.amount.split(' ')[2])
+      const dateB = parseInt(b.amount.split(' ')[2])
+      return dateA - dateB
+    })
 
     return {
-      closingCards: {
-        count: cardsClosingThisWeek.length,
-        cards: closingCardDetails
-      },
-      dueCards: {
-        count: cardsDueThisWeek.length,
-        cards: dueCardDetails
-      }
+      count: cardsDueThisWeek.length,
+      cards: cardDetails
     }
-  }, [balances, isLoadingBalances])
+  }, [])
 
   // Calculate no annual fee cards dynamically from primary cards
   const noAnnualFeeCardsData = React.useMemo(() => {
@@ -314,21 +312,21 @@ export const useUnifiedMetricsData = () => {
     },
     "Closing this week": {
       title: "Closing this week",
-      value: isLoadingBalances ? "..." : closingCards.count.toString(),
+      value: closingThisWeekData.count.toString(),
       description: "Cards with closing dates in the next 7 days",
-      dataSource: "Primary Cards Configuration & Balance File System",
+      dataSource: "Primary Cards Configuration",
       lastUpdated: "Updated daily",
       calculationMethod: "Count of cards closing within 7 days of current date",
-      cardData: closingCards.cards
+      cardData: closingThisWeekData.cards
     },
     "Due this week": {
       title: "Due this week",
-      value: isLoadingBalances ? "..." : dueCards.count.toString(),
+      value: dueThisWeekData.count.toString(),
       description: "Cards with payment due dates in the next 7 days",
-      dataSource: "Primary Cards Configuration & Balance File System", 
+      dataSource: "Primary Cards Configuration", 
       lastUpdated: "Updated daily",
       calculationMethod: "Count of cards with payments due within 7 days of current date",
-      cardData: dueCards.cards
+      cardData: dueThisWeekData.cards
     },
     "No Annual Fee": {
       title: "No Annual Fee",

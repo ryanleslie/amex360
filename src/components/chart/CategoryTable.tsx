@@ -1,4 +1,3 @@
-
 import {
   Card,
   CardContent,
@@ -34,13 +33,28 @@ export function CategoryTable({
   onCategoryClick,
   selectedCategory 
 }: CategoryTableProps) {
+  // Calculate the total sum of all category amounts
+  const totalAmount = categoryData.reduce((sum, category) => sum + category.amount, 0)
+
   return (
     <Card className="bg-gradient-to-b from-white to-gray-100 lg:col-span-2">
       <CardHeader>
-        <CardTitle className="text-xl font-semibold">Categories</CardTitle>
-        <CardDescription>
-          Spending detail by category {timeRangeLabel}
-        </CardDescription>
+        <div className="flex items-start justify-between">
+          <div>
+            <CardTitle className="text-xl font-semibold">Categories</CardTitle>
+            <CardDescription>
+              Spending detail by category {timeRangeLabel}
+            </CardDescription>
+          </div>
+          <div className="text-right">
+            <div className="text-lg font-semibold text-gray-900">
+              ${totalAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            </div>
+            <div className="text-xs text-gray-500">
+              Total
+            </div>
+          </div>
+        </div>
       </CardHeader>
       <CardContent>
         <div className="rounded-md border">

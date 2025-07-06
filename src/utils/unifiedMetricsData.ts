@@ -1,4 +1,3 @@
-
 import React from "react"
 import { transactionFilterService } from "@/services/transaction"
 import { getAllPrimaryCards, getBrandPartnerCards } from "@/data/staticPrimaryCards"
@@ -268,7 +267,7 @@ export const useUnifiedMetricsData = () => {
       name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
       lastFive: `-${card.lastFive}`,
       amount: `$${card.annualFee.toLocaleString()}`,
-      type: `annual fee ${card.interestRate} APR`,
+      type: `annual fee • ${card.interestRate} APR`,
       image: getCardImage(card.cardType.toLowerCase())
     }))
 
@@ -287,7 +286,7 @@ export const useUnifiedMetricsData = () => {
       name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
       lastFive: `-${card.lastFive}`,
       amount: `$${card.annualFee.toLocaleString()}`,
-      type: `annual fee ${card.interestRate} APR`,
+      type: `annual fee • ${card.interestRate} APR`,
       image: getCardImage(card.cardType.toLowerCase()),
       annualFee: card.annualFee
     }))
@@ -319,7 +318,7 @@ export const useUnifiedMetricsData = () => {
       name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
       lastFive: `-${card.lastFive}`,
       amount: `$${card.annualFee.toLocaleString()}`,
-      type: `annual fee ${card.interestRate} APR`,
+      type: `annual fee • ${card.interestRate} APR`,
       image: getCardImage(card.cardType.toLowerCase())
     }))
 

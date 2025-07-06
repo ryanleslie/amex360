@@ -73,13 +73,22 @@ export function CategoryChartCard({
     }
   }
 
+  // Calculate the displayed total based on selected category
+  const displayedTotal = selectedCategory && selectedCategory !== "all" 
+    ? categoryData.find(item => item.category === selectedCategory)?.amount || 0
+    : totalSpend;
+
+  const displayedLabel = selectedCategory && selectedCategory !== "all"
+    ? selectedCategory
+    : `Total ${timeRangeLabel}`;
+
   return (
     <Card className="bg-gradient-to-b from-white to-gray-100 md:col-span-2 lg:col-span-3">
       <CardHeader className="flex flex-col space-y-4 pb-2 md:flex-row md:items-center md:justify-between md:space-y-0">
         <div className="space-y-1">
           <CardTitle className="text-xl font-semibold">Spending by category</CardTitle>
           <CardDescription>
-            Total spend {timeRangeLabel}: ${totalSpend.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            Breakdown of spending by category {timeRangeLabel}
           </CardDescription>
         </div>
         
@@ -90,7 +99,7 @@ export function CategoryChartCard({
       </CardHeader>
 
       <CardContent className="px-2 sm:px-6">
-        <div className="h-[400px] w-full" ref={chartRef}>
+        <div className="h-[400px] w-full relative" ref={chartRef}>
           <ResponsiveContainer width="100%" height="100%">
             <PieChart margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
               <Pie
@@ -118,6 +127,18 @@ export function CategoryChartCard({
               <Tooltip content={<CustomTooltip />} />
             </PieChart>
           </ResponsiveContainer>
+          
+          {/* Center text overlay */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+            <div className="text-center">
+              <div className="text-2xl md:text-3xl font-bold text-gray-900">
+                ${displayedTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              </div>
+              <div className="text-sm text-gray-600 mt-1">
+                {displayedLabel}
+              </div>
+            </div>
+          </div>
         </div>
       </CardContent>
     </Card>

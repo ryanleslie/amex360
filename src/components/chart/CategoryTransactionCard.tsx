@@ -29,13 +29,15 @@ export function CategoryTransactionCard({
   // Get filtered transactions based on time range and selected category
   const transactions = useCategoryTransactionData(timeRange, selectedCategory === "all" ? undefined : selectedCategory)
 
-  // Calculate total amount from filtered transactions (only expenses/debits)
+  // Calculate total amount from filtered transactions (only transactions with categories)
   const totalAmount = React.useMemo(() => {
-    const expenseTransactions = transactions.filter(transaction => transaction.amount < 0)
-    const total = expenseTransactions.reduce((sum, transaction) => sum + Math.abs(transaction.amount), 0)
+    const categorizedTransactions = transactions.filter(transaction => 
+      transaction.category && transaction.category.trim() !== ""
+    )
+    const total = categorizedTransactions.reduce((sum, transaction) => sum + Math.abs(transaction.amount), 0)
     console.log("Calculating total amount:", {
       totalTransactions: transactions.length,
-      expenseTransactions: expenseTransactions.length,
+      categorizedTransactions: categorizedTransactions.length,
       totalAmount: total,
       timeRange,
       selectedCategory

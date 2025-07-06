@@ -38,7 +38,7 @@ export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
             } else if (isCreditLimitMetric) {
               cardDescription = `${card.lastFive} • ${card.amount} ${card.type.replace(' • ', ' ')}`
             } else if (isBrandPartnerMetric) {
-              cardDescription = `${card.lastFive} • ${card.amount} ${card.type.replace(' • ', ' ')}`
+              cardDescription = `${card.lastFive} • ${card.amount} ${card.type}`
             } else if (isAvailableCreditMetric) {
               cardDescription = `${card.lastFive} • ${card.amount} ${card.type}`
             } else {

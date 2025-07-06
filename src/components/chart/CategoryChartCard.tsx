@@ -79,7 +79,7 @@ export function CategoryChartCard({
     : totalSpend;
 
   const displayedLabel = selectedCategory && selectedCategory !== "all"
-    ? selectedCategory
+    ? `${selectedCategory} ${timeRangeLabel}`
     : `Total ${timeRangeLabel}`;
 
   return (
@@ -88,7 +88,7 @@ export function CategoryChartCard({
         <div className="space-y-1">
           <CardTitle className="text-xl font-semibold">Spending by category</CardTitle>
           <CardDescription>
-            Breakdown of spending by category {timeRangeLabel}
+            Expenses {timeRangeLabel}
           </CardDescription>
         </div>
         
@@ -131,7 +131,7 @@ export function CategoryChartCard({
           {/* Center text overlay */}
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
             <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-gray-900">
+              <div className="text-xl md:text-2xl font-bold text-gray-900">
                 ${displayedTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </div>
               <div className="text-sm text-gray-600 mt-1">

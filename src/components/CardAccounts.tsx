@@ -1,4 +1,3 @@
-
 import { getTimeRangeDescription } from "@/utils/cardDataUtils";
 import { getPrimaryCardByType, generateDisplayNameWithLastFive } from "@/data/staticPrimaryCards";
 import {
@@ -73,8 +72,8 @@ export function CardAccounts({
         let displayName = account.replace(/\bcard\b/gi, '').trim().replace(/\s*(\([^)]+\))/, '\n$1');
         
         if (primaryCard) {
-          // Use the configured display name from primary cards
-          displayName = primaryCard.displayName.replace(/\bcard\b/gi, '').trim().replace(/\s*(\([^)]+\))/, '\n$1');
+          // Use the generated display name from primary cards
+          displayName = generateDisplayNameWithLastFive(account, primaryCard.lastFive).replace(/\bcard\b/gi, '').trim().replace(/\s*(\([^)]+\))/, '\n$1');
         } else {
           // Fallback to existing logic for cards not in primary config
           if (account.toLowerCase().includes('amazon business prime')) {

@@ -18,23 +18,21 @@ export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
           <div className="text-xs font-medium">Account Details:</div>
           {metric.cardData.map((card: any, index: number) => {
             const isNonBusinessCard = !card.name.toLowerCase().includes('business')
-            const shouldHighlight = isClosingOrDueMetric && isNonBusinessCard
+            const shouldHighlightDate = isClosingOrDueMetric && isNonBusinessCard
             
             return (
               <div 
                 key={index} 
-                className={`flex items-center gap-2 p-2 rounded ${
-                  shouldHighlight ? 'bg-red-50 border border-red-200' : 'bg-gray-50'
-                }`}
+                className="flex items-center gap-2 p-2 bg-gray-50 rounded"
               >
                 <img src={card.image} alt={card.name} className="w-8 h-5 object-cover rounded" />
                 <div className="text-xs">
-                  <div className={`font-medium ${shouldHighlight ? 'text-red-700' : ''}`}>
+                  <div className="font-medium">
                     {card.name}
                   </div>
                   {card.lastFive && (
-                    <div className={`${shouldHighlight ? 'text-red-600' : 'text-muted-foreground'}`}>
-                      {card.lastFive} • {card.amount} {card.type}
+                    <div className="text-muted-foreground">
+                      {card.lastFive} • <span className={shouldHighlightDate ? 'text-red-600 font-medium' : ''}>{card.amount}</span> {card.type}
                     </div>
                   )}
                 </div>

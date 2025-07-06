@@ -96,7 +96,7 @@ export const primaryCardsConfig: PrimaryCard[] = [
     isBrandPartner: false
   },
   {
-    cardType: "Delta Skymiles Reserve",
+    cardType: "Delta Skymiles® Reserve",
     lastFive: "41006", // TODO: Update with actual primary card last 5 digits
     displayName: "Delta Skymiles Reserve (-41006)",
     isPrimary: true,

@@ -8,6 +8,7 @@ export interface PrimaryCard {
   isPrimary: boolean
   creditLimit: number
   limitType: string
+  partnerMultiple: number
   isBrandPartner: boolean
 }
 

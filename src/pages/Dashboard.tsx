@@ -9,6 +9,7 @@ import Rewards from "./Rewards";
 import CreditMax from "./CreditMax";
 import Redemptions from "./Redemptions";
 import { CategorySpendingChart } from "@/components/chart/CategorySpendingChart";
+import { QuickMetricsCards } from "@/components/QuickMetricsCards";
 import { UserCreationForm } from "@/components/admin/UserCreationForm";
 import { UserListCard } from "@/components/admin/UserListCard";
 import { useFilterState } from "@/hooks/useFilterState";
@@ -43,7 +44,10 @@ const Dashboard = () => {
         return <Index />;
       case "insights":
         return (
-          <div className="p-6 pt-2">
+          <div className="space-y-6 p-6 pt-2">
+            <div className="max-w-7xl mx-auto">
+              <QuickMetricsCards />
+            </div>
             <div className="max-w-7xl mx-auto">
               <CategorySpendingChart 
                 selectedTimeRange={filters.selectedTimeRange}

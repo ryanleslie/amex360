@@ -3,6 +3,7 @@ import React from "react"
 import { transactionFilterService } from "@/services/transaction"
 import { getAllPrimaryCards, getBrandPartnerCards } from "@/data/staticPrimaryCards"
 import { getCardImage } from "@/utils/cardImageUtils"
+import { cardBalanceService } from "@/services/cardBalanceService"
 
 export const useUnifiedMetricsData = () => {
   // Get dynamic card count from transaction filter service
@@ -101,7 +102,7 @@ export const useUnifiedMetricsData = () => {
     }
   }, [])
 
-  // Calculate cards closing this week
+  // Calculate cards closing this week with balances
   const closingThisWeekData = React.useMemo(() => {
     const primaryCards = getAllPrimaryCards()
     const today = new Date()
@@ -119,16 +120,25 @@ export const useUnifiedMetricsData = () => {
     const cardDetails = cardsClosingThisWeek.map(card => ({
       name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
       lastFive: `-${card.lastFive}`,
-      amount: `Closing ${currentMonth} ${card.closingDate}`,
-      type: "",
-      image: getCardImage(card.cardType.toLowerCase())
+      balance: "$0", // Will be updated with actual balance
+      dateInfo: `closing ${currentMonth} ${card.closingDate}`,
+      image: getCardImage(card.cardType.toLowerCase()),
+      cardType: card.cardType,
+      closingDate: card.closingDate
     }))
 
     // Sort by closing date
-    cardDetails.sort((a, b) => {
-      const dateA = parseInt(a.amount.split(' ')[2])
-      const dateB = parseInt(b.amount.split(' ')[2])
-      return dateA - dateB
+    cardDetails.sort((a, b) => a.closingDate - b.closingDate)
+
+    // Update balances asynchronously
+    cardDetails.forEach(async (card, index) => {
+      try {
+        const balance = await cardBalanceService.getCardBalance(card.cardType, card.lastFive.replace('-', ''))
+        const formattedBalance = balance >= 0 ? `$${balance.toLocaleString()}` : `-$${Math.abs(balance).toLocaleString()}`
+        cardDetails[index].balance = formattedBalance
+      } catch (error) {
+        console.error(`Error getting balance for card ${card.name}:`, error)
+      }
     })
 
     return {
@@ -137,7 +147,7 @@ export const useUnifiedMetricsData = () => {
     }
   }, [])
 
-  // Calculate cards due this week
+  // Calculate cards due this week with balances
   const dueThisWeekData = React.useMemo(() => {
     const primaryCards = getAllPrimaryCards()
     const today = new Date()
@@ -155,16 +165,25 @@ export const useUnifiedMetricsData = () => {
     const cardDetails = cardsDueThisWeek.map(card => ({
       name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
       lastFive: `-${card.lastFive}`,
-      amount: `Due ${currentMonth} ${card.dueDate}`,
-      type: "",
-      image: getCardImage(card.cardType.toLowerCase())
+      balance: "$0", // Will be updated with actual balance
+      dateInfo: `due ${currentMonth} ${card.dueDate}`,
+      image: getCardImage(card.cardType.toLowerCase()),
+      cardType: card.cardType,
+      dueDate: card.dueDate
     }))
 
     // Sort by due date
-    cardDetails.sort((a, b) => {
-      const dateA = parseInt(a.amount.split(' ')[2])
-      const dateB = parseInt(b.amount.split(' ')[2])
-      return dateA - dateB
+    cardDetails.sort((a, b) => a.dueDate - b.dueDate)
+
+    // Update balances asynchronously
+    cardDetails.forEach(async (card, index) => {
+      try {
+        const balance = await cardBalanceService.getCardBalance(card.cardType, card.lastFive.replace('-', ''))
+        const formattedBalance = balance >= 0 ? `$${balance.toLocaleString()}` : `-$${Math.abs(balance).toLocaleString()}`
+        cardDetails[index].balance = formattedBalance
+      } catch (error) {
+        console.error(`Error getting balance for card ${card.name}:`, error)
+      }
     })
 
     return {
@@ -314,18 +333,18 @@ export const useUnifiedMetricsData = () => {
       title: "Closing this week",
       value: closingThisWeekData.count.toString(),
       description: "Cards with closing dates in the next 7 days",
-      dataSource: "Primary Cards Configuration",
+      dataSource: "Primary Cards Configuration & Card Balances",
       lastUpdated: "Updated daily",
-      calculationMethod: "Count of cards closing within 7 days of current date",
+      calculationMethod: "Count of cards closing within 7 days with current balances",
       cardData: closingThisWeekData.cards
     },
     "Due this week": {
       title: "Due this week",
       value: dueThisWeekData.count.toString(),
       description: "Cards with payment due dates in the next 7 days",
-      dataSource: "Primary Cards Configuration", 
+      dataSource: "Primary Cards Configuration & Card Balances", 
       lastUpdated: "Updated daily",
-      calculationMethod: "Count of cards with payments due within 7 days of current date",
+      calculationMethod: "Count of cards with payments due within 7 days with current balances",
       cardData: dueThisWeekData.cards
     },
     "No Annual Fee": {

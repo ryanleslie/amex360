@@ -100,6 +100,18 @@ export function CategoryChartCard({
 
       <CardContent className="px-2 sm:px-6">
         <div className="h-[400px] w-full relative" ref={chartRef}>
+          {/* Center text overlay - positioned behind tooltip */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-0">
+            <div className="text-center">
+              <div className="text-xl md:text-2xl font-bold text-gray-900">
+                ${displayedTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              </div>
+              <div className="text-sm text-gray-600 mt-1">
+                {displayedLabel}
+              </div>
+            </div>
+          </div>
+          
           <ResponsiveContainer width="100%" height="100%">
             <PieChart margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
               <Pie
@@ -127,18 +139,6 @@ export function CategoryChartCard({
               <Tooltip content={<CustomTooltip />} />
             </PieChart>
           </ResponsiveContainer>
-          
-          {/* Center text overlay */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-            <div className="text-center">
-              <div className="text-xl md:text-2xl font-bold text-gray-900">
-                ${displayedTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-              </div>
-              <div className="text-sm text-gray-600 mt-1">
-                {displayedLabel}
-              </div>
-            </div>
-          </div>
         </div>
       </CardContent>
     </Card>

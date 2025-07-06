@@ -12,12 +12,46 @@ export const useUnifiedMetricsData = () => {
     return transactionFilterService.getUniqueCardAccounts().length
   }, [])
 
-  // Helper function to get balance for a card
+  // Helper function to get balance for a card with specific matching logic
   const getCardBalance = React.useCallback((cardType: string) => {
-    const balance = cardBalances.find(card => 
-      card.cardType.toLowerCase().includes(cardType.toLowerCase()) ||
-      cardType.toLowerCase().includes(card.cardType.toLowerCase())
-    )
+    // Handle specific card type mappings
+    const getMatchingCardType = (cardType: string) => {
+      const normalizedCardType = cardType.toLowerCase()
+      
+      // Specific mapping for Business Blue Plus cards
+      if (normalizedCardType.includes('business blue plus i') && !normalizedCardType.includes('ii')) {
+        return 'Business Blue Plus I'
+      }
+      if (normalizedCardType.includes('business blue plus ii')) {
+        return 'Business Blue Plus II'
+      }
+      
+      return cardType
+    }
+    
+    const targetCardType = getMatchingCardType(cardType)
+    
+    const balance = cardBalances.find(card => {
+      const cardTypeLower = card.cardType.toLowerCase()
+      const targetLower = targetCardType.toLowerCase()
+      
+      // Exact match first
+      if (cardTypeLower === targetLower) {
+        return true
+      }
+      
+      // For Business Blue Plus cards, be more specific
+      if (targetLower.includes('business blue plus i') && !targetLower.includes('ii')) {
+        return cardTypeLower === 'business blue plus i'
+      }
+      if (targetLower.includes('business blue plus ii')) {
+        return cardTypeLower === 'business blue plus ii'
+      }
+      
+      // General matching for other cards
+      return cardTypeLower.includes(targetLower) || targetLower.includes(cardTypeLower)
+    })
+    
     return balance?.currentBalance || 0
   }, [cardBalances])
 

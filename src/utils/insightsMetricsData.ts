@@ -1,4 +1,5 @@
 
+
 import React from "react"
 import { transactionFilterService } from "@/services/transaction"
 import { getAllPrimaryCards, getBrandPartnerCards } from "@/data/staticPrimaryCards"
@@ -64,6 +65,7 @@ export const useInsightsMetricsData = () => {
     const primaryCards = getAllPrimaryCards()
     const today = new Date()
     const currentDay = today.getDate()
+    const currentMonth = today.toLocaleString('default', { month: 'long' })
     
     // Get cards that close within the next 7 days
     const cardsClosingThisWeek = primaryCards.filter(card => {
@@ -76,15 +78,15 @@ export const useInsightsMetricsData = () => {
     const cardDetails = cardsClosingThisWeek.map(card => ({
       name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
       lastFive: `-${card.lastFive}`,
-      amount: `${card.closingDate}${card.closingDate === 1 || card.closingDate === 21 || card.closingDate === 31 ? 'st' : card.closingDate === 2 || card.closingDate === 22 ? 'nd' : card.closingDate === 3 || card.closingDate === 23 ? 'rd' : 'th'}`,
-      type: "closes",
+      amount: `Closing ${currentMonth} ${card.closingDate}${card.closingDate === 1 || card.closingDate === 21 || card.closingDate === 31 ? 'st' : card.closingDate === 2 || card.closingDate === 22 ? 'nd' : card.closingDate === 3 || card.closingDate === 23 ? 'rd' : 'th'}`,
+      type: "",
       image: getCardImage(card.cardType.toLowerCase())
     }))
 
     // Sort by closing date
     cardDetails.sort((a, b) => {
-      const dateA = parseInt(a.amount)
-      const dateB = parseInt(b.amount)
+      const dateA = parseInt(a.amount.split(' ')[2])
+      const dateB = parseInt(b.amount.split(' ')[2])
       return dateA - dateB
     })
 
@@ -99,6 +101,7 @@ export const useInsightsMetricsData = () => {
     const primaryCards = getAllPrimaryCards()
     const today = new Date()
     const currentDay = today.getDate()
+    const currentMonth = today.toLocaleString('default', { month: 'long' })
     
     // Get cards that are due within the next 7 days
     const cardsDueThisWeek = primaryCards.filter(card => {
@@ -111,15 +114,15 @@ export const useInsightsMetricsData = () => {
     const cardDetails = cardsDueThisWeek.map(card => ({
       name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
       lastFive: `-${card.lastFive}`,
-      amount: `${card.dueDate}${card.dueDate === 1 || card.dueDate === 21 || card.dueDate === 31 ? 'st' : card.dueDate === 2 || card.dueDate === 22 ? 'nd' : card.dueDate === 3 || card.dueDate === 23 ? 'rd' : 'th'}`,
-      type: "due",
+      amount: `Due ${currentMonth} ${card.dueDate}${card.dueDate === 1 || card.dueDate === 21 || card.dueDate === 31 ? 'st' : card.dueDate === 2 || card.dueDate === 22 ? 'nd' : card.dueDate === 3 || card.dueDate === 23 ? 'rd' : 'th'}`,
+      type: "",
       image: getCardImage(card.cardType.toLowerCase())
     }))
 
     // Sort by due date
     cardDetails.sort((a, b) => {
-      const dateA = parseInt(a.amount)
-      const dateB = parseInt(b.amount)
+      const dateA = parseInt(a.amount.split(' ')[2])
+      const dateB = parseInt(b.amount.split(' ')[2])
       return dateA - dateB
     })
 
@@ -202,3 +205,4 @@ export const useInsightsMetricsData = () => {
 
   return metricsData
 }
+

@@ -1,8 +1,7 @@
-
 import React, { useState } from "react"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { MetricCard } from "@/components/metrics/MetricCard"
-import { useUnifiedMetricsData } from "@/utils/unifiedMetricsData"
+import { useUnifiedMetricsData } from "@/utils/metrics"
 
 interface UnifiedQuickMetricsProps {
   metricsToShow: string[]

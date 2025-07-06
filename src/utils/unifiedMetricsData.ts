@@ -1,4 +1,3 @@
-
 import React from "react"
 import { transactionFilterService } from "@/services/transaction"
 import { getAllPrimaryCards, getBrandPartnerCards } from "@/data/staticPrimaryCards"
@@ -116,18 +115,23 @@ export const useUnifiedMetricsData = () => {
       return daysUntilClosing <= 7 && daysUntilClosing >= 0
     })
     
-    const cardDetails = cardsClosingThisWeek.map(card => ({
-      name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
-      lastFive: `-${card.lastFive}`,
-      amount: `Closing ${currentMonth} ${card.closingDate}`,
-      type: "",
-      image: getCardImage(card.cardType.toLowerCase())
-    }))
+    const cardDetails = cardsClosingThisWeek.map(card => {
+      // Generate a mock current balance (you can replace this with real data)
+      const mockBalance = Math.floor(Math.random() * (card.creditLimit * 0.3)) + 100
+      
+      return {
+        name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
+        lastFive: `-${card.lastFive}`,
+        amount: `$${mockBalance.toLocaleString()}`,
+        type: `closing ${currentMonth} ${card.closingDate}`,
+        image: getCardImage(card.cardType.toLowerCase())
+      }
+    })
 
     // Sort by closing date
     cardDetails.sort((a, b) => {
-      const dateA = parseInt(a.amount.split(' ')[2])
-      const dateB = parseInt(b.amount.split(' ')[2])
+      const dateA = parseInt(a.type.split(' ')[2])
+      const dateB = parseInt(b.type.split(' ')[2])
       return dateA - dateB
     })
 
@@ -152,18 +156,23 @@ export const useUnifiedMetricsData = () => {
       return daysUntilDue <= 7 && daysUntilDue >= 0
     })
     
-    const cardDetails = cardsDueThisWeek.map(card => ({
-      name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
-      lastFive: `-${card.lastFive}`,
-      amount: `Due ${currentMonth} ${card.dueDate}`,
-      type: "",
-      image: getCardImage(card.cardType.toLowerCase())
-    }))
+    const cardDetails = cardsDueThisWeek.map(card => {
+      // Generate a mock current balance (you can replace this with real data)
+      const mockBalance = Math.floor(Math.random() * (card.creditLimit * 0.3)) + 100
+      
+      return {
+        name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
+        lastFive: `-${card.lastFive}`,
+        amount: `$${mockBalance.toLocaleString()}`,
+        type: `due ${currentMonth} ${card.dueDate}`,
+        image: getCardImage(card.cardType.toLowerCase())
+      }
+    })
 
     // Sort by due date
     cardDetails.sort((a, b) => {
-      const dateA = parseInt(a.amount.split(' ')[2])
-      const dateB = parseInt(b.amount.split(' ')[2])
+      const dateA = parseInt(a.type.split(' ')[2])
+      const dateB = parseInt(b.type.split(' ')[2])
       return dateA - dateB
     })
 

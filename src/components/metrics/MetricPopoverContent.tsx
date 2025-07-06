@@ -32,7 +32,7 @@ export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
                   </div>
                   {card.lastFive && (
                     <div className="text-muted-foreground">
-                      {card.lastFive} • <span className={shouldHighlightDate ? 'text-red-600 font-medium' : ''}>{card.amount}</span> {card.type}
+                      {card.lastFive} • {card.amount} • <span className={shouldHighlightDate ? 'text-red-600 font-medium' : ''}>{card.type}</span>
                     </div>
                   )}
                 </div>

@@ -36,13 +36,13 @@ export function CategoryTable({
 }: CategoryTableProps) {
   return (
     <Card className="bg-gradient-to-b from-white to-gray-100 md:col-span-1 lg:col-span-2">
-      <CardHeader className="px-3 md:px-4 lg:px-6">
-        <CardTitle className="text-lg md:text-xl font-semibold">Categories</CardTitle>
-        <CardDescription className="text-sm">
+      <CardHeader>
+        <CardTitle className="text-xl font-semibold">Categories</CardTitle>
+        <CardDescription>
           Spending detail by category {timeRangeLabel}
         </CardDescription>
       </CardHeader>
-      <CardContent className="px-3 md:px-4 lg:px-6">
+      <CardContent>
         <div className="rounded-md border">
           <style>
             {`
@@ -54,7 +54,7 @@ export function CategoryTable({
                 scrollbar-color: #d1d5db transparent;
               }
               .scroll-container::-webkit-scrollbar {
-                width: 4px;
+                width: 6px;
               }
               .scroll-container::-webkit-scrollbar-track {
                 background: transparent;
@@ -69,38 +69,38 @@ export function CategoryTable({
               }
             `}
           </style>
-          <div className="scroll-container overflow-y-auto max-h-[200px] sm:max-h-[250px] md:max-h-[280px] lg:max-h-96">
+          <div className="scroll-container overflow-y-auto max-h-96">
             <Table>
               <TableBody>
                 {categoryData?.length ? (
                   categoryData.map((category, index) => (
                     <TableRow 
                       key={category.category} 
-                      className={`h-10 md:h-11 cursor-pointer transition-colors ${
+                      className={`h-11 cursor-pointer transition-colors ${
                         selectedCategory === category.category 
                           ? 'bg-blue-50 border-blue-200' 
                           : 'hover:bg-gray-50'
                       }`}
                       onClick={() => onCategoryClick?.(category.category)}
                     >
-                      <TableCell className="py-2 pr-2">
-                        <div className="flex items-center gap-2 min-w-0">
+                      <TableCell>
+                        <div className="flex items-center gap-2">
                           <div 
-                            className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full flex-shrink-0" 
+                            className="w-3 h-3 rounded-full flex-shrink-0" 
                             style={{ 
                               backgroundColor: colors[index % colors.length],
                               border: selectedCategory === category.category ? '2px solid #000' : 'none'
                             }}
                           />
-                          <span className="font-medium text-xs md:text-sm truncate">{category.category}</span>
+                          <span className="font-medium">{category.category}</span>
                         </div>
                       </TableCell>
-                      <TableCell className="text-right py-2 px-1">
-                        <span className="font-medium text-xs md:text-sm whitespace-nowrap">{category.percentage}%</span>
+                      <TableCell className="text-right">
+                        <span className="font-medium">{category.percentage}%</span>
                       </TableCell>
-                      <TableCell className="text-right py-2 pl-1">
-                        <span className="font-medium text-xs md:text-sm whitespace-nowrap">
-                          ${category.amount.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                      <TableCell className="text-right">
+                        <span className="font-medium">
+                          ${category.amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                         </span>
                       </TableCell>
                     </TableRow>
@@ -109,7 +109,7 @@ export function CategoryTable({
                   <TableRow>
                     <TableCell
                       colSpan={3}
-                      className="h-24 text-center text-sm"
+                      className="h-24 text-center"
                     >
                       No data available.
                     </TableCell>

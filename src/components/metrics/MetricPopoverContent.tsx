@@ -6,7 +6,7 @@ interface MetricPopoverContentProps {
 }
 
 export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
-  const isClosingMetric = metric.title === "Closing this week"
+  const isClosingOrDueMetric = metric.title === "Closing this week" || metric.title === "Due this week"
   
   return (
     <div className="space-y-3">
@@ -18,21 +18,23 @@ export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
           <div className="text-xs font-medium">Account Details:</div>
           {metric.cardData.map((card: any, index: number) => {
             const isNonBusinessCard = !card.name.toLowerCase().includes('business')
-            const shouldHighlightDate = isClosingMetric && isNonBusinessCard
+            const shouldHighlightDate = isClosingOrDueMetric && isNonBusinessCard
             
             return (
               <div 
                 key={index} 
-                className="flex flex-col gap-1 p-2 bg-gray-50 rounded"
+                className="flex items-center gap-2 p-2 bg-gray-50 rounded"
               >
-                <div className="flex items-center gap-2">
-                  <img src={card.image} alt={card.name} className="w-8 h-5 object-cover rounded" />
-                  <div className="text-xs font-medium">
+                <img src={card.image} alt={card.name} className="w-8 h-5 object-cover rounded" />
+                <div className="text-xs">
+                  <div className="font-medium">
                     {card.name}
                   </div>
-                </div>
-                <div className="text-xs text-muted-foreground ml-10">
-                  {card.lastFive} • {card.balance} • <span className={shouldHighlightDate ? 'text-red-600 font-medium' : ''}>{card.dateInfo}</span>
+                  {card.lastFive && (
+                    <div className="text-muted-foreground">
+                      {card.lastFive} • <span className={shouldHighlightDate ? 'text-red-600 font-medium' : ''}>{card.amount}</span> {card.type}
+                    </div>
+                  )}
                 </div>
               </div>
             )

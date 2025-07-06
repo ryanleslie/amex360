@@ -1,4 +1,3 @@
-
 import React from "react"
 import { transactionFilterService } from "@/services/transaction"
 import { getAllPrimaryCards, getBrandPartnerCards } from "@/data/staticPrimaryCards"
@@ -12,6 +11,15 @@ export const useUnifiedMetricsData = () => {
   const activeCardCount = React.useMemo(() => {
     return transactionFilterService.getUniqueCardAccounts().length
   }, [])
+
+  // Helper function to get balance for a card
+  const getCardBalance = React.useCallback((cardType: string) => {
+    const balance = cardBalances.find(card => 
+      card.cardType.toLowerCase().includes(cardType.toLowerCase()) ||
+      cardType.toLowerCase().includes(card.cardType.toLowerCase())
+    )
+    return balance?.currentBalance || 0
+  }, [cardBalances])
 
   // Calculate total current balances from Supabase data
   const totalCurrentBalanceData = React.useMemo(() => {
@@ -153,13 +161,16 @@ export const useUnifiedMetricsData = () => {
       return daysUntilClosing <= 7 && daysUntilClosing >= 0
     })
     
-    const cardDetails = cardsClosingThisWeek.map(card => ({
-      name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
-      lastFive: `-${card.lastFive}`,
-      amount: `Closing ${currentMonth} ${card.closingDate}`,
-      type: "",
-      image: getCardImage(card.cardType.toLowerCase())
-    }))
+    const cardDetails = cardsClosingThisWeek.map(card => {
+      const balance = getCardBalance(card.cardType)
+      return {
+        name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
+        lastFive: `-${card.lastFive}`,
+        amount: `Closing ${currentMonth} ${card.closingDate}`,
+        type: balance > 0 ? `$${balance.toLocaleString()} balance` : "",
+        image: getCardImage(card.cardType.toLowerCase())
+      }
+    })
 
     // Sort by closing date
     cardDetails.sort((a, b) => {
@@ -172,7 +183,7 @@ export const useUnifiedMetricsData = () => {
       count: cardsClosingThisWeek.length,
       cards: cardDetails
     }
-  }, [])
+  }, [getCardBalance])
 
   // Calculate cards due this week
   const dueThisWeekData = React.useMemo(() => {
@@ -189,13 +200,16 @@ export const useUnifiedMetricsData = () => {
       return daysUntilDue <= 7 && daysUntilDue >= 0
     })
     
-    const cardDetails = cardsDueThisWeek.map(card => ({
-      name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
-      lastFive: `-${card.lastFive}`,
-      amount: `Due ${currentMonth} ${card.dueDate}`,
-      type: "",
-      image: getCardImage(card.cardType.toLowerCase())
-    }))
+    const cardDetails = cardsDueThisWeek.map(card => {
+      const balance = getCardBalance(card.cardType)
+      return {
+        name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
+        lastFive: `-${card.lastFive}`,
+        amount: `Due ${currentMonth} ${card.dueDate}`,
+        type: balance > 0 ? `$${balance.toLocaleString()} balance` : "",
+        image: getCardImage(card.cardType.toLowerCase())
+      }
+    })
 
     // Sort by due date
     cardDetails.sort((a, b) => {
@@ -208,7 +222,7 @@ export const useUnifiedMetricsData = () => {
       count: cardsDueThisWeek.length,
       cards: cardDetails
     }
-  }, [])
+  }, [getCardBalance])
 
   // Calculate no annual fee cards dynamically from primary cards
   const noAnnualFeeCardsData = React.useMemo(() => {

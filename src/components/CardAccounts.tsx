@@ -1,3 +1,4 @@
+
 import { getTimeRangeDescription } from "@/utils/cardDataUtils";
 import { getPrimaryCardByType, generateDisplayNameWithLastFive } from "@/data/staticPrimaryCards";
 import {
@@ -67,14 +68,20 @@ export function CardAccounts({
     // Process card data using primary card display names
     const cardData = Object.entries(cardAmounts)
       .map(([account, amount]: [string, number]) => {
+        console.log("Processing card account:", account);
+        
         // Try to get the primary card display name first
         const primaryCard = getPrimaryCardByType(account);
+        console.log("Primary card found for", account, ":", primaryCard);
+        
         let displayName = account.replace(/\bcard\b/gi, '').trim().replace(/\s*(\([^)]+\))/, '\n$1');
         
         if (primaryCard) {
           // Use the generated display name from primary cards
           displayName = generateDisplayNameWithLastFive(account, primaryCard.lastFive).replace(/\bcard\b/gi, '').trim().replace(/\s*(\([^)]+\))/, '\n$1');
+          console.log("Generated display name for", account, ":", displayName);
         } else {
+          console.log("No primary card found for:", account, "using fallback logic");
           // Fallback to existing logic for cards not in primary config
           if (account.toLowerCase().includes('amazon business prime')) {
             displayName = displayName.replace(/\bbusiness\b/gi, '').trim().replace(/\s+/g, ' ');

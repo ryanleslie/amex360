@@ -4,8 +4,11 @@ import { transactionFilterService } from "@/services/transaction"
 import { getAllPrimaryCards, getBrandPartnerCards } from "@/data/staticPrimaryCards"
 import { getCardImage } from "@/utils/cardImageUtils"
 import { CardBalanceService } from "@/services/cardBalanceService"
+import { useAuth } from "@/contexts/AuthContext"
 
 export const useUnifiedMetricsData = () => {
+  const { user, loading: authLoading } = useAuth()
+
   // Get dynamic card count from transaction filter service
   const activeCardCount = React.useMemo(() => {
     return transactionFilterService.getUniqueCardAccounts().length
@@ -107,12 +110,19 @@ export const useUnifiedMetricsData = () => {
   const [dueCards, setDueCards] = React.useState<any>({ count: 0, cards: [] })
   const [isLoadingBalances, setIsLoadingBalances] = React.useState(true)
 
-  // Fetch card balances and calculate closing/due cards
+  // Fetch card balances and calculate closing/due cards - only when authenticated
   React.useEffect(() => {
+    // Don't fetch if auth is still loading or user is not authenticated
+    if (authLoading || !user) {
+      console.log("Skipping card balance fetch - user not authenticated yet")
+      setIsLoadingBalances(false)
+      return
+    }
+
     const fetchCardDataWithBalances = async () => {
       try {
         setIsLoadingBalances(true)
-        console.log("Starting to fetch card balances...")
+        console.log("Starting to fetch card balances for authenticated user...")
         
         // Clear cache to ensure fresh data
         CardBalanceService.clearCache()
@@ -209,7 +219,7 @@ export const useUnifiedMetricsData = () => {
     }
 
     fetchCardDataWithBalances()
-  }, [])
+  }, [user, authLoading]) // Re-run when user authentication state changes
 
   // Calculate no annual fee cards dynamically from primary cards
   const noAnnualFeeCardsData = React.useMemo(() => {
@@ -350,7 +360,7 @@ export const useUnifiedMetricsData = () => {
     },
     "Closing this week": {
       title: "Closing this week",
-      value: isLoadingBalances ? "..." : closingCards.count.toString(),
+      value: (authLoading || !user) ? "..." : (isLoadingBalances ? "..." : closingCards.count.toString()),
       description: "Cards with closing dates in the next 7 days",
       dataSource: "Primary Cards Configuration & Card Balance System",
       lastUpdated: "Updated daily",
@@ -359,7 +369,7 @@ export const useUnifiedMetricsData = () => {
     },
     "Due this week": {
       title: "Due this week",
-      value: isLoadingBalances ? "..." : dueCards.count.toString(),
+      value: (authLoading || !user) ? "..." : (isLoadingBalances ? "..." : dueCards.count.toString()),
       description: "Cards with payment due dates in the next 7 days",
       dataSource: "Primary Cards Configuration & Card Balance System", 
       lastUpdated: "Updated daily",

@@ -12,18 +12,18 @@ export type Database = {
       card_balances: {
         Row: {
           cardType: string
-          currentBalance: number
-          id: number
+          currentBalance: number | null
+          ID: string
         }
         Insert: {
           cardType: string
-          currentBalance: number
-          id?: number
+          currentBalance?: number | null
+          ID?: string
         }
         Update: {
           cardType?: string
-          currentBalance?: number
-          id?: number
+          currentBalance?: number | null
+          ID?: string
         }
         Relationships: []
       }

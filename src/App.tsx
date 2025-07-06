@@ -16,15 +16,81 @@ const queryClient = new QueryClient();
 
 const AppContent = () => {
   const location = useLocation();
-  const isDashboardRoute = location.pathname === '/dashboard';
+  const isDashboardRoute = location.pathname.startsWith('/dashboard') || 
+                          location.pathname === '/insights' || 
+                          location.pathname === '/rewards' || 
+                          location.pathname === '/employee' || 
+                          location.pathname === '/creditmax' || 
+                          location.pathname === '/admin' || 
+                          location.pathname === '/redemptions';
 
   return (
     <div className={`h-screen w-full ${isDashboardRoute ? 'flex' : ''}`}>
       <Routes>
-        <Route path="/" element={<Navigate to="/auth" replace />} />
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="/auth" element={<AuthPage />} />
         <Route 
           path="/dashboard" 
+          element={
+            <ProtectedRoute>
+              <Suspense fallback={null}>
+                <Dashboard />
+              </Suspense>
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/insights" 
+          element={
+            <ProtectedRoute>
+              <Suspense fallback={null}>
+                <Dashboard />
+              </Suspense>
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/rewards" 
+          element={
+            <ProtectedRoute>
+              <Suspense fallback={null}>
+                <Dashboard />
+              </Suspense>
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/employee" 
+          element={
+            <ProtectedRoute>
+              <Suspense fallback={null}>
+                <Dashboard />
+              </Suspense>
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/creditmax" 
+          element={
+            <ProtectedRoute>
+              <Suspense fallback={null}>
+                <Dashboard />
+              </Suspense>
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/admin" 
+          element={
+            <ProtectedRoute>
+              <Suspense fallback={null}>
+                <Dashboard />
+              </Suspense>
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/redemptions" 
           element={
             <ProtectedRoute>
               <Suspense fallback={null}>

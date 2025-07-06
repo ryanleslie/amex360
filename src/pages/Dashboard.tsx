@@ -1,5 +1,6 @@
 
-import React, { useState } from "react";
+import React from "react";
+import { useLocation } from "react-router-dom";
 import { AppHeader } from "@/components/AppHeader";
 import { AppSidebar } from "@/components/AppSidebar";
 import Index from "./Index";
@@ -15,8 +16,21 @@ import { useFilterState } from "@/hooks/useFilterState";
 export type DashboardSection = "dashboard" | "insights" | "rewards" | "employee" | "creditmax" | "admin" | "redemptions";
 
 const Dashboard = () => {
-  const [activeSection, setActiveSection] = useState<DashboardSection>("dashboard");
+  const location = useLocation();
   const { filters, updateFilter } = useFilterState("ytd");
+
+  // Determine active section from URL
+  const getActiveSectionFromPath = (pathname: string): DashboardSection => {
+    if (pathname === "/insights") return "insights";
+    if (pathname === "/rewards") return "rewards";
+    if (pathname === "/employee") return "employee";
+    if (pathname === "/creditmax") return "creditmax";
+    if (pathname === "/admin") return "admin";
+    if (pathname === "/redemptions") return "redemptions";
+    return "dashboard";
+  };
+
+  const activeSection = getActiveSectionFromPath(location.pathname);
 
   const handleTimeRangeChange = (timeRange: string) => {
     console.log("Dashboard: Time range changing to:", timeRange)
@@ -62,7 +76,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <AppSidebar activeSection={activeSection} setActiveSection={setActiveSection} />
+      <AppSidebar activeSection={activeSection} />
       <div className="flex-1 flex flex-col">
         <AppHeader />
         {renderSection()}

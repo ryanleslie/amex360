@@ -13,4 +13,4 @@ export {
   updatePrimaryCardLastFive,
   updatePrimaryCardCreditLimit,
   validatePrimaryCardsAgainstTransactionData
-} from "@/data/utils/primaryCardUtils"
+} from "@/utils/primaryCardUtils"

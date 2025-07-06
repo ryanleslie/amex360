@@ -4,12 +4,7 @@ import { transactionFilterService } from "@/services/transaction"
 import { getAllPrimaryCards, getBrandPartnerCards } from "@/data/staticPrimaryCards"
 import { getCardImage } from "@/utils/cardImageUtils"
 
-export const useMetricsData = () => {
-  // Get dynamic card count from transaction filter service
-  const activeCardCount = React.useMemo(() => {
-    return transactionFilterService.getUniqueCardAccounts().length
-  }, [])
-
+export const useInsightsMetricsData = () => {
   // Calculate total annual fees dynamically from primary cards
   const totalAnnualFeesData = React.useMemo(() => {
     const primaryCards = getAllPrimaryCards()
@@ -42,6 +37,11 @@ export const useMetricsData = () => {
       amount: `$${totalFees.toLocaleString()}`,
       cards: cardDetails
     }
+  }, [])
+
+  // Get dynamic card count from transaction filter service
+  const activeCardCount = React.useMemo(() => {
+    return transactionFilterService.getUniqueCardAccounts().length
   }, [])
 
   // Calculate highest credit limit dynamically from primary cards
@@ -132,19 +132,16 @@ export const useMetricsData = () => {
     }
   }, [])
 
-  const cardDetails = {
-    businessCreditLimit: [
-      {
-        name: "Business Line of Credit",
-        lastFive: "-4156",
-        amount: "$2,000,000", 
-        type: "installment",
-        image: getCardImage("bloc")
-      },
-    ]
-  }
-
   const metricsData = [
+    {
+      title: "Total Annual Fees",
+      value: totalAnnualFeesData.amount,
+      description: "Sum of all annual fees across active cards",
+      dataSource: "Primary Cards Configuration",
+      lastUpdated: "Updated daily",
+      calculationMethod: "Sum of annual fees for all primary card accounts",
+      cardData: totalAnnualFeesData.cards
+    },
     {
       title: "Active Card Accounts",
       value: activeCardCount.toString(),
@@ -171,15 +168,6 @@ export const useMetricsData = () => {
       lastUpdated: "Updated daily",
       calculationMethod: "Minimum pay over time limit for active accounts",
       cardData: lowestPayOverTimeLimitData.cards
-    },
-    {
-      title: "Available Line of Credit",
-      value: "$2M",
-      description: "Total available business line of credit",
-      dataSource: "Underwriting System",
-      lastUpdated: "Real-time",  
-      calculationMethod: "Sum of (credit limit - current balance)",
-      cardData: cardDetails.businessCreditLimit
     },
     {
       title: "Brand Partner Cards",

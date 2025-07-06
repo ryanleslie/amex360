@@ -1,6 +1,6 @@
-
 import { transactionFilterService } from "@/services/transaction"
 import { Transaction } from "@/types/transaction"
+import { getAllPrimaryCards } from "@/data/staticPrimaryCards"
 
 export class CardBalanceService {
   private static instance: CardBalanceService
@@ -24,6 +24,15 @@ export class CardBalanceService {
     console.log('Initializing CardBalanceService...')
     
     try {
+      // Initialize all primary cards with zero balance first
+      const primaryCards = getAllPrimaryCards()
+      console.log(`Initializing ${primaryCards.length} primary cards`)
+      
+      primaryCards.forEach(card => {
+        this.cardBalances.set(card.cardType, 0)
+        console.log(`Initialized ${card.cardType} with balance: 0`)
+      })
+
       // Get all transactions from the transaction filter service
       const allTransactions = transactionFilterService.getAllTransactions()
       console.log(`Processing ${allTransactions.length} transactions for balance calculation`)
@@ -31,7 +40,7 @@ export class CardBalanceService {
       // Log first few transactions to see the data structure
       console.log('Sample transactions:', allTransactions.slice(0, 3))
 
-      // Calculate balances by card type
+      // Calculate balances by card type (will update the initialized balances)
       this.calculateBalances(allTransactions)
       
       this.isInitialized = true
@@ -43,12 +52,9 @@ export class CardBalanceService {
   }
 
   private calculateBalances(transactions: Transaction[]): void {
-    // Clear existing balances
-    this.cardBalances.clear()
-
+    // Don't clear existing balances - we want to keep the initialized zero balances
+    
     // Group transactions by account_type and calculate running balance
-    const balanceMap = new Map<string, number>()
-
     transactions.forEach((transaction, index) => {
       const cardType = transaction.account_type
       if (!cardType) {
@@ -56,19 +62,16 @@ export class CardBalanceService {
         return
       }
 
-      const currentBalance = balanceMap.get(cardType) || 0
+      const currentBalance = this.cardBalances.get(cardType) || 0
       // Add the transaction amount (negative for expenses, positive for payments/credits)
       const newBalance = currentBalance + transaction.amount
-      balanceMap.set(cardType, newBalance)
+      this.cardBalances.set(cardType, newBalance)
 
       // Log first few transactions for each card type
       if (index < 10 || (currentBalance === 0 && transaction.amount !== 0)) {
         console.log(`${cardType}: ${currentBalance} + ${transaction.amount} = ${newBalance}`)
       }
     })
-
-    // Store the calculated balances
-    this.cardBalances = balanceMap
     
     // Log final balances
     console.log('Final calculated balances:')

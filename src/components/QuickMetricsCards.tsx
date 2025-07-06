@@ -1,4 +1,3 @@
-
 import React, { useState } from "react"
 import { Card } from "@/components/ui/card"
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover"
@@ -7,7 +6,7 @@ import { useIsMobile } from "@/hooks/use-mobile"
 import { Info } from "lucide-react"
 import { getCardImage } from "@/utils/cardImageUtils"
 import { transactionFilterService } from "@/services/transaction"
-import { getAllPrimaryCards } from "@/data/staticPrimaryCards"
+import { getAllPrimaryCards, getBrandPartnerCards } from "@/data/staticPrimaryCards"
 
 const MetricPopoverContent = ({ metric }: { metric: any }) => (
   <div className="space-y-3">
@@ -164,6 +163,37 @@ export function QuickMetricsCards() {
     }
   }, [])
 
+  // Calculate brand partner cards dynamically from primary cards
+  const brandPartnerCardsData = React.useMemo(() => {
+    const brandPartnerCards = getBrandPartnerCards()
+    
+    const cardDetails = brandPartnerCards.map(card => ({
+      name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
+      lastFive: `-${card.lastFive}`,
+      amount: `$${card.creditLimit.toLocaleString()}`,
+      type: `${card.limitType} limit`,
+      image: getCardImage(card.cardType.toLowerCase()),
+      multiple: card.partnerMultiple ? `${card.partnerMultiple}x` : "N/A"
+    }))
+
+    // Sort by partner multiple (highest first), then by credit limit
+    cardDetails.sort((a, b) => {
+      const aMultiple = parseInt(a.multiple.replace('x', '')) || 0
+      const bMultiple = parseInt(b.multiple.replace('x', '')) || 0
+      if (aMultiple !== bMultiple) {
+        return bMultiple - aMultiple
+      }
+      const aLimit = parseInt(a.amount.replace(/[$,]/g, ''))
+      const bLimit = parseInt(b.amount.replace(/[$,]/g, ''))
+      return bLimit - aLimit
+    })
+
+    return {
+      count: brandPartnerCards.length,
+      cards: cardDetails
+    }
+  }, [])
+
   const cardDetails = {
     businessCreditLimit: [
       {
@@ -173,36 +203,6 @@ export function QuickMetricsCards() {
         type: "installment",
         image: getCardImage("bloc")
       },
-    ],
-    brandPartners: [
-      {
-        name: "Delta SkyMiles® Reserve - 3x",
-        lastFive: "-1006",
-        amount: "$30,000",
-        type: "preset limit",
-        image: getCardImage("delta")
-      },
-      {
-        name: "Marriott Bonvoy Business - 6x",
-        lastFive: "-1009",
-        amount: "$5,000",
-        type: "preset limit",
-        image: getCardImage("marriott")
-      },
-      {
-        name: "Hilton Honors Business - 12x", 
-        lastFive: "-9003",
-        amount: "$5,000",
-        type: "preset limit",
-        image: getCardImage("hilton")
-      },
-      {
-        name: "Amazon Business Prime - 5x",
-        lastFive: "-2003",
-        amount: "$6,000",
-        type: "preset limit",
-        image: getCardImage("amazon")
-      }
     ]
   }
 
@@ -245,12 +245,15 @@ export function QuickMetricsCards() {
     },
     {
       title: "Brand Partner Cards",
-      value: "4",
+      value: brandPartnerCardsData.count.toString(),
       description: "Number of active brand partner card programs",
-      dataSource: "Partner Management System",
-      lastUpdated: "Updated weekly", 
-      calculationMethod: "Count of active brand partnership agreements",
-      cardData: cardDetails.brandPartners
+      dataSource: "Primary Cards Configuration",
+      lastUpdated: "Updated daily", 
+      calculationMethod: "Count of primary cards with brand partner status",
+      cardData: brandPartnerCardsData.cards.map(card => ({
+        ...card,
+        type: `${card.type} • ${card.multiple}`
+      }))
     }
   ]
 

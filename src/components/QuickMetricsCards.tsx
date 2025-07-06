@@ -4,8 +4,8 @@ import { UnifiedQuickMetrics } from "@/components/UnifiedQuickMetrics"
 
 export function QuickMetricsCards() {
   const dashboardMetrics = [
-    "Total Annual Fees",
     "Active Card Accounts",
+    "Total Annual Fees",
     "Highest Credit Limit",
     "Lowest Pay Over Time Limit",
     "Available Line of Credit"

@@ -7,6 +7,7 @@ interface MetricPopoverContentProps {
 
 export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
   const isClosingMetric = metric.title === "Closing this week"
+  const isNoAnnualFeeMetric = metric.title === "No Annual Fee"
   
   return (
     <div className="space-y-3">
@@ -20,6 +21,11 @@ export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
             const isNonBusinessCard = !card.name.toLowerCase().includes('business')
             const shouldHighlightClosing = isClosingMetric && isNonBusinessCard && card.type.includes('closing')
             
+            // For No Annual Fee cards, show only last five and APR
+            const cardDescription = isNoAnnualFeeMetric 
+              ? `${card.lastFive} • ${card.type.split('•')[1]?.trim() || card.type}`
+              : `${card.lastFive} • ${card.amount} • ${card.type}`
+            
             return (
               <div 
                 key={index} 
@@ -31,7 +37,9 @@ export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
                     {card.name}
                   </div>
                   <div className="text-muted-foreground">
-                    {card.lastFive} • {card.amount} • <span className={shouldHighlightClosing ? 'text-red-600 font-medium' : ''}>{card.type}</span>
+                    <span className={shouldHighlightClosing ? 'text-red-600 font-medium' : ''}>
+                      {cardDescription}
+                    </span>
                   </div>
                 </div>
               </div>

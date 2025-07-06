@@ -29,7 +29,7 @@ export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
             // Format card details based on metric type
             let cardDetails
             if (isNoAnnualFeeMetric) {
-              cardDetails = card.type.split('•')[1]?.trim() || card.type
+              cardDetails = `${card.amount} annual fee • ${card.type.split('•')[1]?.trim() || card.type}`
             } else if (isAnnualFeeMetric) {
               cardDetails = `${card.amount} annual fee • ${card.type.split('•')[1]?.trim() || card.type.split('•')[0]?.trim()}`
             } else if (isCreditLimitMetric) {

@@ -1,4 +1,3 @@
-
 import React, { useState } from "react"
 import { Card } from "@/components/ui/card"
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover"
@@ -7,80 +6,7 @@ import { useIsMobile } from "@/hooks/use-mobile"
 import { Info } from "lucide-react"
 import { getCardImage } from "@/utils/cardImageUtils"
 import { transactionFilterService } from "@/services/transaction"
-
-const cardDetails = {
-  highestCreditLimit: [
-    {
-      name: "Delta SkyMiles® Reserve",
-      lastFive: "-1006",
-      amount: "$30,000",
-      type: "preset limit",
-      image: getCardImage("delta")
-    },
-    {
-      name: "Business Green Rewards",
-      lastFive: "-2007", 
-      amount: "$30,000",
-      type: "pay over time limit",
-      image: getCardImage("green")
-    }
-  ],
-  lowestCreditLimit: [
-    {
-      name: "Business Classic Gold",
-      lastFive: "-1002",
-      amount: "$2,000", 
-      type: "pay over time limit",
-      image: getCardImage("gold -1002")
-    },
-    {
-      name: "Business White Gold",
-      lastFive: "-1000",
-      amount: "$2,000",
-      type: "pay over time limit", 
-      image: getCardImage("gold -1000")
-    }
-  ],
-    businessCreditLimit: [
-    {
-      name: "Business Line of Credit",
-      lastFive: "-4156",
-      amount: "$2,000,000", 
-      type: "installment",
-      image: getCardImage("bloc")
-    },
-  ],
-  brandPartners: [
-    {
-      name: "Delta SkyMiles® Reserve - 3x",
-      lastFive: "-1006",
-      amount: "$30,000",
-      type: "preset limit",
-      image: getCardImage("delta")
-    },
-    {
-      name: "Marriott Bonvoy Business - 6x",
-      lastFive: "-1009",
-      amount: "$5,000",
-      type: "preset limit",
-      image: getCardImage("marriott")
-    },
-    {
-      name: "Hilton Honors Business - 12x", 
-      lastFive: "-9003",
-      amount: "$5,000",
-      type: "preset limit",
-      image: getCardImage("hilton")
-    },
-    {
-      name: "Amazon Business Prime - 5x",
-      lastFive: "-2003",
-      amount: "$6,000",
-      type: "preset limit",
-      image: getCardImage("amazon")
-    }
-  ]
-}
+import { getAllPrimaryCards } from "@/data/staticPrimaryCards"
 
 const MetricPopoverContent = ({ metric }: { metric: any }) => (
   <div className="space-y-3">
@@ -172,7 +98,92 @@ export function QuickMetricsCards() {
     return transactionFilterService.getUniqueCardAccounts().length
   }, [])
 
-  // ... keep existing code (metricsData array definition)
+  // Calculate highest credit limit dynamically from primary cards
+  const highestCreditLimitData = React.useMemo(() => {
+    const primaryCards = getAllPrimaryCards()
+    
+    if (primaryCards.length === 0) {
+      return {
+        amount: "$0",
+        cards: []
+      }
+    }
+
+    const maxLimit = Math.max(...primaryCards.map(card => card.creditLimit))
+    const cardsWithMaxLimit = primaryCards.filter(card => card.creditLimit === maxLimit)
+    
+    const cardDetails = cardsWithMaxLimit.map(card => ({
+      name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
+      lastFive: `-${card.lastFive}`,
+      amount: `$${card.creditLimit.toLocaleString()}`,
+      type: "preset limit",
+      image: getCardImage(card.cardType.toLowerCase())
+    }))
+
+    return {
+      amount: `$${(maxLimit / 1000).toFixed(0)}K`,
+      cards: cardDetails
+    }
+  }, [])
+
+  const cardDetails = {
+    lowestCreditLimit: [
+      {
+        name: "Business Classic Gold",
+        lastFive: "-1002",
+        amount: "$2,000", 
+        type: "pay over time limit",
+        image: getCardImage("gold -1002")
+      },
+      {
+        name: "Business White Gold",
+        lastFive: "-1000",
+        amount: "$2,000",
+        type: "pay over time limit", 
+        image: getCardImage("gold -1000")
+      }
+    ],
+    businessCreditLimit: [
+      {
+        name: "Business Line of Credit",
+        lastFive: "-4156",
+        amount: "$2,000,000", 
+        type: "installment",
+        image: getCardImage("bloc")
+      },
+    ],
+    brandPartners: [
+      {
+        name: "Delta SkyMiles® Reserve - 3x",
+        lastFive: "-1006",
+        amount: "$30,000",
+        type: "preset limit",
+        image: getCardImage("delta")
+      },
+      {
+        name: "Marriott Bonvoy Business - 6x",
+        lastFive: "-1009",
+        amount: "$5,000",
+        type: "preset limit",
+        image: getCardImage("marriott")
+      },
+      {
+        name: "Hilton Honors Business - 12x", 
+        lastFive: "-9003",
+        amount: "$5,000",
+        type: "preset limit",
+        image: getCardImage("hilton")
+      },
+      {
+        name: "Amazon Business Prime - 5x",
+        lastFive: "-2003",
+        amount: "$6,000",
+        type: "preset limit",
+        image: getCardImage("amazon")
+      }
+    ]
+  }
+
   const metricsData = [
     {
       title: "Active Card Accounts",
@@ -185,12 +196,12 @@ export function QuickMetricsCards() {
     },
     {
       title: "Highest Credit Limit",
-      value: "$30K",
+      value: highestCreditLimitData.amount,
       description: "The highest credit limit among all active cards",
-      dataSource: "Credit Management System",
+      dataSource: "Primary Cards Configuration",
       lastUpdated: "Updated daily",
-      calculationMethod: "Maximum credit limit across all active accounts",
-      cardData: cardDetails.highestCreditLimit
+      calculationMethod: "Maximum credit limit across all primary card accounts",
+      cardData: highestCreditLimitData.cards
     },
     {
       title: "Lowest Pay Over Time Limit",

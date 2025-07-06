@@ -23,7 +23,7 @@ export const useInsightsMetricsData = () => {
       name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
       lastFive: `-${card.lastFive}`,
       amount: `$${card.annualFee.toLocaleString()}`,
-      type: "annual fee",
+      type: `annual fee • ${card.interestRate} APR`,
       image: getCardImage(card.cardType.toLowerCase())
     }))
 
@@ -154,24 +154,6 @@ export const useInsightsMetricsData = () => {
 
   const metricsData = [
     {
-      title: "Total Annual Fees",
-      value: totalAnnualFeesData.amount,
-      description: "Sum of all annual fees across active cards",
-      dataSource: "Primary Cards Configuration",
-      lastUpdated: "Updated daily",
-      calculationMethod: "Sum of annual fees for all primary card accounts",
-      cardData: totalAnnualFeesData.cards
-    },
-    {
-      title: "No Annual Fee",
-      value: noAnnualFeeCardsData.count.toString(),
-      description: "Number of cards with no annual fee",
-      dataSource: "Primary Cards Configuration",
-      lastUpdated: "Updated daily",
-      calculationMethod: "Count of primary cards with $0 annual fee",
-      cardData: noAnnualFeeCardsData.cards
-    },
-    {
       title: "Closing this week",
       value: closingThisWeekData.count.toString(),
       description: "Cards with closing dates in the next 7 days",
@@ -190,6 +172,15 @@ export const useInsightsMetricsData = () => {
       cardData: dueThisWeekData.cards
     },
     {
+      title: "No Annual Fee",
+      value: noAnnualFeeCardsData.count.toString(),
+      description: "Number of cards with no annual fee",
+      dataSource: "Primary Cards Configuration",
+      lastUpdated: "Updated daily",
+      calculationMethod: "Count of primary cards with $0 annual fee",
+      cardData: noAnnualFeeCardsData.cards
+    },
+    {
       title: "Annual Fee",
       value: annualFeeCardsData.count.toString(),
       description: "Number of cards with annual fees",
@@ -197,6 +188,15 @@ export const useInsightsMetricsData = () => {
       lastUpdated: "Updated daily", 
       calculationMethod: "Count of primary cards with annual fees greater than $0",
       cardData: annualFeeCardsData.cards
+    },
+    {
+      title: "Total Annual Fees",
+      value: totalAnnualFeesData.amount,
+      description: "Sum of all annual fees across active cards",
+      dataSource: "Primary Cards Configuration",
+      lastUpdated: "Updated daily",
+      calculationMethod: "Sum of annual fees for all primary card accounts",
+      cardData: totalAnnualFeesData.cards
     }
   ]
 

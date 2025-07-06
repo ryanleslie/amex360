@@ -6,9 +6,9 @@ export function InsightsQuickMetrics() {
   const insightsMetrics = [
     "Closing this week",
     "Due this week",
-    "No Annual Fee",
     "Annual Fee",
-    "Total Annual Fees"
+    "No Annual Fee",
+    "Brand Partner Cards"
   ]
 
   return <UnifiedQuickMetrics metricsToShow={insightsMetrics} />

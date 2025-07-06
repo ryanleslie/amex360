@@ -1,3 +1,4 @@
+
 import React, { useState } from "react"
 import { Card } from "@/components/ui/card"
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover"
@@ -134,23 +135,36 @@ export function QuickMetricsCards() {
     }
   }, [])
 
-  const cardDetails = {
-    lowestCreditLimit: [
-      {
-        name: "Business Classic Gold",
-        lastFive: "-1002",
-        amount: "$2,000", 
-        type: "pay over time limit",
-        image: getCardImage("gold -1002")
-      },
-      {
-        name: "Business White Gold",
-        lastFive: "-1000",
-        amount: "$2,000",
-        type: "pay over time limit", 
-        image: getCardImage("gold -1000")
+  // Calculate lowest pay over time limit dynamically from primary cards
+  const lowestPayOverTimeLimitData = React.useMemo(() => {
+    const primaryCards = getAllPrimaryCards()
+    const payOverTimeCards = primaryCards.filter(card => card.limitType === "pay over time")
+    
+    if (payOverTimeCards.length === 0) {
+      return {
+        amount: "$0",
+        cards: []
       }
-    ],
+    }
+
+    const minLimit = Math.min(...payOverTimeCards.map(card => card.creditLimit))
+    const cardsWithMinLimit = payOverTimeCards.filter(card => card.creditLimit === minLimit)
+    
+    const cardDetails = cardsWithMinLimit.map(card => ({
+      name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
+      lastFive: `-${card.lastFive}`,
+      amount: `$${card.creditLimit.toLocaleString()}`,
+      type: `${card.limitType} limit`,
+      image: getCardImage(card.cardType.toLowerCase())
+    }))
+
+    return {
+      amount: `$${(minLimit / 1000).toFixed(0)}K`,
+      cards: cardDetails
+    }
+  }, [])
+
+  const cardDetails = {
     businessCreditLimit: [
       {
         name: "Business Line of Credit",
@@ -213,12 +227,12 @@ export function QuickMetricsCards() {
     },
     {
       title: "Lowest Pay Over Time Limit",
-      value: "$2K",
+      value: lowestPayOverTimeLimitData.amount,
       description: "The lowest pay over time limit across all accounts",
-      dataSource: "Credit Management System", 
+      dataSource: "Primary Cards Configuration", 
       lastUpdated: "Updated daily",
       calculationMethod: "Minimum pay over time limit for active accounts",
-      cardData: cardDetails.lowestCreditLimit
+      cardData: lowestPayOverTimeLimitData.cards
     },
     {
       title: "Available Line of Credit",

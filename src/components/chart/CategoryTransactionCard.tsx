@@ -7,6 +7,7 @@ import { CategoryTransactionCardHeader } from "./CategoryTransactionCardHeader"
 import { CategoryTransactionCardControls } from "./CategoryTransactionCardControls"
 import { CategoryTransactionTable } from "./CategoryTransactionTable"
 import { useCategoryTransactionData } from "@/hooks/useCategoryTransactionData"
+import { globalFilterFn } from "@/utils/transactionUtils"
 
 interface CategoryTransactionCardProps {
   timeRange: string
@@ -29,12 +30,21 @@ export function CategoryTransactionCard({
   const transactions = useCategoryTransactionData(timeRange, selectedCategory === "all" ? undefined : selectedCategory)
 
   // Calculate total amount using the same logic as CategoryTable (debits minus credits)
+  // Now also reactive to globalFilter changes
   const totalAmount = React.useMemo(() => {
-    const categorizedTransactions = transactions.filter(transaction => 
+    // First filter by category (only transactions with categories)
+    let filteredTransactions = transactions.filter(transaction => 
       transaction.category && transaction.category.trim() !== ""
     )
     
-    const total = categorizedTransactions.reduce((sum, transaction) => {
+    // Then apply global filter if it exists (same logic as the table)
+    if (globalFilter && globalFilter.trim() !== "") {
+      filteredTransactions = filteredTransactions.filter(transaction => 
+        globalFilterFn(transaction, "", globalFilter)
+      )
+    }
+    
+    const total = filteredTransactions.reduce((sum, transaction) => {
       // For debits (expenses), add the absolute amount
       // For credits, subtract the amount (reducing the category total)
       if (transaction.amount < 0) {
@@ -46,13 +56,14 @@ export function CategoryTransactionCard({
     
     console.log("Calculating total amount:", {
       totalTransactions: transactions.length,
-      categorizedTransactions: categorizedTransactions.length,
+      filteredTransactions: filteredTransactions.length,
       totalAmount: total,
       timeRange,
-      selectedCategory
+      selectedCategory,
+      globalFilter
     })
     return Math.max(0, total) // Ensure we don't show negative totals
-  }, [transactions, timeRange, selectedCategory])
+  }, [transactions, timeRange, selectedCategory, globalFilter])
 
   const getTimeRangeLabel = () => {
     if (timeRange === "ytd") return "YTD"

@@ -54,7 +54,7 @@ export const primaryCardsConfig: PrimaryCard[] = [
     displayName: "Business Classic Gold (-71002)",
     isPrimary: true,
     creditLimit: 2000,
-    limitType: pay over time,
+    limitType: "pay over time",
     isBrandPartner: false
   },
   {
@@ -63,7 +63,7 @@ export const primaryCardsConfig: PrimaryCard[] = [
     displayName: "Business Green (-82007)",
     isPrimary: true,
     creditLimit: 30000,
-    limitType: pay over time,
+    limitType: "pay over time",
     isBrandPartner: false
   },
   {
@@ -72,7 +72,7 @@ export const primaryCardsConfig: PrimaryCard[] = [
     displayName: "Business Platinum Card (-52007)",
     isPrimary: true,
     creditLimit: 5000,
-    limitType: pay over time,
+    limitType: "pay over time",
     isBrandPartner: false
   },
   {
@@ -81,7 +81,7 @@ export const primaryCardsConfig: PrimaryCard[] = [
     displayName: "Business Rose Gold (-02008)",
     isPrimary: true,
     creditLimit: 10000,
-    limitType: pay over time,
+    limitType: "pay over time",
     isBrandPartner: false
   },
   {
@@ -90,7 +90,7 @@ export const primaryCardsConfig: PrimaryCard[] = [
     displayName: "Business White Gold (-41000)",
     isPrimary: true,
     creditLimit: 2000,
-    limitType: pay over time,
+    limitType: "pay over time",
     isBrandPartner: false
   },
   {
@@ -99,7 +99,7 @@ export const primaryCardsConfig: PrimaryCard[] = [
     displayName: "Charles Schwab Platinum Card (-71000)",
     isPrimary: true,
     creditLimit: 5500,
-    limitType: pay over time,
+    limitType: "pay over time",
     isBrandPartner: false
   },
   {
@@ -126,7 +126,7 @@ export const primaryCardsConfig: PrimaryCard[] = [
     displayName: "Platinum Card (-71003)",
     isPrimary: true,
     creditLimit: 25000,
-    limitType: pay over time,
+    limitType: "pay over time",
     isBrandPartner: false
   }
 ]

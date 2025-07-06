@@ -28,9 +28,8 @@ export function CategoryTransactionCard({
   // Get filtered transactions based on time range and selected category
   const transactions = useCategoryTransactionData(timeRange, selectedCategory === "all" ? undefined : selectedCategory)
 
-  // Calculate total amount using the same logic as CategoryTable (debits minus credits)
-  // Now also reactive to globalFilter changes
-  const totalAmount = React.useMemo(() => {
+  // Calculate both total amount and filtered transaction count
+  const { totalAmount, filteredTransactionCount } = React.useMemo(() => {
     // First filter by category (only transactions with categories)
     let filteredTransactions = transactions.filter(transaction => 
       transaction.category && transaction.category.trim() !== ""
@@ -71,7 +70,11 @@ export function CategoryTransactionCard({
       selectedCategory,
       globalFilter
     })
-    return Math.max(0, total) // Ensure we don't show negative totals
+    
+    return {
+      totalAmount: Math.max(0, total),
+      filteredTransactionCount: filteredTransactions.length
+    }
   }, [transactions, timeRange, selectedCategory, globalFilter])
 
   const getTimeRangeLabel = () => {
@@ -101,7 +104,7 @@ export function CategoryTransactionCard({
         selectedTimeRange={timeRange}
         onClearTimeRangeFilter={handleClearTimeRangeFilter}
         totalAmount={totalAmount}
-        transactionCount={transactions.length}
+        transactionCount={filteredTransactionCount}
       />
       <CardContent>
         <div className="w-full">

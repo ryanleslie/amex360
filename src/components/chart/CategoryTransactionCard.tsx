@@ -29,6 +29,11 @@ export function CategoryTransactionCard({
   // Get filtered transactions based on time range and selected category
   const transactions = useCategoryTransactionData(timeRange, selectedCategory === "all" ? undefined : selectedCategory)
 
+  // Calculate total amount from filtered transactions
+  const totalAmount = React.useMemo(() => {
+    return Math.abs(transactions.reduce((sum, transaction) => sum + transaction.amount, 0))
+  }, [transactions])
+
   const getTimeRangeLabel = () => {
     if (timeRange === "ytd") return "YTD"
     if (timeRange === "90d") return "Last 90 days"
@@ -55,6 +60,7 @@ export function CategoryTransactionCard({
         onClearFilter={handleClearFilter}
         selectedTimeRange={timeRange}
         onClearTimeRangeFilter={handleClearTimeRangeFilter}
+        totalAmount={totalAmount}
       />
       <CardContent>
         <div className="w-full">

@@ -20,6 +20,10 @@ export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
             const isNonBusinessCard = !card.name.toLowerCase().includes('business')
             const shouldHighlightDate = isClosingMetric && isNonBusinessCard
             
+            // For closing and due this week metrics, the amount contains balance + date info
+            const isDateMetric = metric.title === "Closing this week" || metric.title === "Due this week"
+            const displayAmount = isDateMetric ? card.amount : `${card.amount} ${card.type}`
+            
             return (
               <div 
                 key={index} 
@@ -32,7 +36,7 @@ export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
                   </div>
                   {card.lastFive && (
                     <div className="text-muted-foreground">
-                      {card.lastFive} • <span className={shouldHighlightDate ? 'text-red-600 font-medium' : ''}>{card.amount}</span> {card.type}
+                      {card.lastFive} • <span className={shouldHighlightDate ? 'text-red-600 font-medium' : ''}>{displayAmount}</span>
                     </div>
                   )}
                 </div>

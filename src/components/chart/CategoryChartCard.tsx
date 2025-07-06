@@ -90,15 +90,15 @@ export function CategoryChartCard({
       </CardHeader>
 
       <CardContent className="px-2 sm:px-6">
-        <div className="h-[400px] w-full" ref={chartRef}>
+        <div className="h-[300px] sm:h-[350px] lg:h-[400px] w-full" ref={chartRef}>
           <ResponsiveContainer width="100%" height="100%">
-            <PieChart margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
+            <PieChart margin={{ top: 10, right: 10, bottom: 10, left: 10 }}>
               <Pie
                 data={categoryData}
                 cx="50%"
                 cy="50%"
-                outerRadius="90%"
-                innerRadius="50%"
+                outerRadius="80%"
+                innerRadius="45%"
                 fill="#8884d8"
                 dataKey="amount"
                 stroke="none"

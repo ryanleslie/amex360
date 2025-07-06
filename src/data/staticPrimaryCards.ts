@@ -12,5 +12,9 @@ export {
   generateDisplayNameWithLastFive,
   updatePrimaryCardLastFive,
   updatePrimaryCardCreditLimit,
+  getPrimaryCardClosingDate,
+  getPrimaryCardDueDate,
+  getPrimaryCardInterestRate,
+  getPrimaryCardAnnualFee,
   validatePrimaryCardsAgainstTransactionData
 } from "@/utils/primaryCardUtils"

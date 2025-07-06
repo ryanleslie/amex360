@@ -48,7 +48,6 @@ export function updatePrimaryCardLastFive(cardType: string, newLastFive: string)
   if (cardIndex === -1) return false
   
   primaryCardsConfig[cardIndex].lastFive = newLastFive
-  primaryCardsConfig[cardIndex].displayName = generateDisplayNameWithLastFive(cardType, newLastFive)
   return true
 }
 
@@ -58,6 +57,27 @@ export function updatePrimaryCardCreditLimit(cardType: string, newCreditLimit: n
   
   primaryCardsConfig[cardIndex].creditLimit = newCreditLimit
   return true
+}
+
+// New utility functions for the additional CSV fields
+export function getPrimaryCardClosingDate(cardType: string): number | undefined {
+  const primaryCard = getPrimaryCardByType(cardType)
+  return primaryCard?.closingDate
+}
+
+export function getPrimaryCardDueDate(cardType: string): number | undefined {
+  const primaryCard = getPrimaryCardByType(cardType)
+  return primaryCard?.dueDate
+}
+
+export function getPrimaryCardInterestRate(cardType: string): string | undefined {
+  const primaryCard = getPrimaryCardByType(cardType)
+  return primaryCard?.interestRate
+}
+
+export function getPrimaryCardAnnualFee(cardType: string): number | undefined {
+  const primaryCard = getPrimaryCardByType(cardType)
+  return primaryCard?.annualFee
 }
 
 // Validation function to ensure all unique card types from transaction data are included

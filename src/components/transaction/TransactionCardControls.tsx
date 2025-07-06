@@ -1,7 +1,7 @@
 
 import { Input } from "@/components/ui/input"
 import { CardFilterDropdown } from "./CardFilterDropdown"
-import { getAllPrimaryCards } from "@/data/staticPrimaryCards"
+import { getAllPrimaryCards, generateDisplayNameWithLastFive } from "@/data/staticPrimaryCards"
 
 interface TransactionCardControlsProps {
   globalFilter: string
@@ -25,7 +25,7 @@ export function TransactionCardControls({
   const getDisplayNames = (cardTypes: string[]) => {
     return cardTypes.map(cardType => {
       const primaryCard = primaryCards.find(card => card.cardType === cardType)
-      return primaryCard ? primaryCard.displayName : cardType
+      return primaryCard ? generateDisplayNameWithLastFive(cardType, primaryCard.lastFive) : cardType
     })
   }
   
@@ -37,7 +37,9 @@ export function TransactionCardControls({
     }
     
     // Find the card type that matches this display name
-    const primaryCard = primaryCards.find(card => card.displayName === selectedDisplayName)
+    const primaryCard = primaryCards.find(card => 
+      generateDisplayNameWithLastFive(card.cardType, card.lastFive) === selectedDisplayName
+    )
     const cardType = primaryCard ? primaryCard.cardType : selectedDisplayName
     onCardChange(cardType)
   }
@@ -49,7 +51,7 @@ export function TransactionCardControls({
     }
     
     const primaryCard = primaryCards.find(card => card.cardType === selectedCard)
-    return primaryCard ? primaryCard.displayName : selectedCard
+    return primaryCard ? generateDisplayNameWithLastFive(selectedCard, primaryCard.lastFive) : selectedCard
   }
 
   return (

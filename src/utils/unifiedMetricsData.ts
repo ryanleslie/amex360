@@ -3,12 +3,49 @@ import React from "react"
 import { transactionFilterService } from "@/services/transaction"
 import { getAllPrimaryCards, getBrandPartnerCards } from "@/data/staticPrimaryCards"
 import { getCardImage } from "@/utils/cardImageUtils"
+import { useCardBalances } from "@/hooks/useCardBalances"
 
 export const useUnifiedMetricsData = () => {
+  const { cardBalances } = useCardBalances()
+
   // Get dynamic card count from transaction filter service
   const activeCardCount = React.useMemo(() => {
     return transactionFilterService.getUniqueCardAccounts().length
   }, [])
+
+  // Calculate total current balances from Supabase data
+  const totalCurrentBalanceData = React.useMemo(() => {
+    if (cardBalances.length === 0) {
+      return {
+        amount: "$0",
+        cards: []
+      }
+    }
+
+    const totalBalance = cardBalances.reduce((sum, card) => {
+      return sum + (card.currentBalance || 0)
+    }, 0)
+
+    const cardDetails = cardBalances.map(card => ({
+      name: card.cardType,
+      lastFive: "",
+      amount: `$${(card.currentBalance || 0).toLocaleString()}`,
+      type: "current balance",
+      image: getCardImage(card.cardType.toLowerCase())
+    }))
+
+    // Sort by balance (highest first)
+    cardDetails.sort((a, b) => {
+      const balanceA = parseInt(a.amount.replace('$', '').replace(',', ''))
+      const balanceB = parseInt(b.amount.replace('$', '').replace(',', ''))
+      return balanceB - balanceA
+    })
+
+    return {
+      amount: `$${totalBalance.toLocaleString()}`,
+      cards: cardDetails
+    }
+  }, [cardBalances])
 
   // Calculate highest credit limit dynamically from primary cards
   const highestCreditLimitData = React.useMemo(() => {
@@ -273,6 +310,15 @@ export const useUnifiedMetricsData = () => {
       lastUpdated: "Real-time",
       calculationMethod: "Count of unique card accounts from transaction data",
       cardData: null
+    },
+    "Total Current Balance": {
+      title: "Total Current Balance",
+      value: totalCurrentBalanceData.amount,
+      description: "Total current balance across all cards",
+      dataSource: "Card Balance Database",
+      lastUpdated: "Real-time",
+      calculationMethod: "Sum of current balances from card_balances table",
+      cardData: totalCurrentBalanceData.cards
     },
     "Highest Credit Limit": {
       title: "Highest Credit Limit",

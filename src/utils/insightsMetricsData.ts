@@ -59,72 +59,72 @@ export const useInsightsMetricsData = () => {
     }
   }, [])
 
-  // Get dynamic card count from transaction filter service
-  const activeCardCount = React.useMemo(() => {
-    return transactionFilterService.getUniqueCardAccounts().length
-  }, [])
-
-  // Calculate highest credit limit dynamically from primary cards
-  const highestCreditLimitData = React.useMemo(() => {
+  // Calculate cards closing this week
+  const closingThisWeekData = React.useMemo(() => {
     const primaryCards = getAllPrimaryCards()
+    const today = new Date()
+    const currentDay = today.getDate()
     
-    if (primaryCards.length === 0) {
-      return {
-        amount: "$0",
-        cards: []
-      }
-    }
-
-    const maxLimit = Math.max(...primaryCards.map(card => card.creditLimit))
-    const cardsWithMaxLimit = primaryCards.filter(card => card.creditLimit === maxLimit)
-    
-    const cardDetails = cardsWithMaxLimit.map(card => ({
-      name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
-      lastFive: `-${card.lastFive}`,
-      amount: `$${card.creditLimit.toLocaleString()}`,
-      type: `${card.limitType} limit`,
-      image: getCardImage(card.cardType.toLowerCase()),
-      limitType: card.limitType
-    }))
-
-    // Sort cards: preset first, then pay over time
-    const sortedCardDetails = cardDetails.sort((a, b) => {
-      if (a.limitType === "preset" && b.limitType !== "preset") return -1
-      if (a.limitType !== "preset" && b.limitType === "preset") return 1
-      return 0
+    // Get cards that close within the next 7 days
+    const cardsClosingThisWeek = primaryCards.filter(card => {
+      const daysUntilClosing = card.closingDate >= currentDay 
+        ? card.closingDate - currentDay 
+        : (30 - currentDay) + card.closingDate // Handle month rollover
+      return daysUntilClosing <= 7 && daysUntilClosing >= 0
     })
-
-    return {
-      amount: `$${(maxLimit / 1000).toFixed(0)}K`,
-      cards: sortedCardDetails
-    }
-  }, [])
-
-  // Calculate lowest pay over time limit dynamically from primary cards
-  const lowestPayOverTimeLimitData = React.useMemo(() => {
-    const primaryCards = getAllPrimaryCards()
-    const payOverTimeCards = primaryCards.filter(card => card.limitType === "pay over time")
     
-    if (payOverTimeCards.length === 0) {
-      return {
-        amount: "$0",
-        cards: []
-      }
-    }
-
-    const minLimit = Math.min(...payOverTimeCards.map(card => card.creditLimit))
-    const cardsWithMinLimit = payOverTimeCards.filter(card => card.creditLimit === minLimit)
-    
-    const cardDetails = cardsWithMinLimit.map(card => ({
+    const cardDetails = cardsClosingThisWeek.map(card => ({
       name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
       lastFive: `-${card.lastFive}`,
-      amount: `$${card.creditLimit.toLocaleString()}`,
-      type: `${card.limitType} limit`,
+      amount: `${card.closingDate}${card.closingDate === 1 || card.closingDate === 21 || card.closingDate === 31 ? 'st' : card.closingDate === 2 || card.closingDate === 22 ? 'nd' : card.closingDate === 3 || card.closingDate === 23 ? 'rd' : 'th'}`,
+      type: "closes",
       image: getCardImage(card.cardType.toLowerCase())
     }))
 
+    // Sort by closing date
+    cardDetails.sort((a, b) => {
+      const dateA = parseInt(a.amount)
+      const dateB = parseInt(b.amount)
+      return dateA - dateB
+    })
+
     return {
-      amount: `$${(minLimit / 1000).toFixed(0)}K`,
+      count: cardsClosingThisWeek.length,
+      cards: cardDetails
+    }
+  }, [])
+
+  // Calculate cards due this week
+  const dueThisWeekData = React.useMemo(() => {
+    const primaryCards = getAllPrimaryCards()
+    const today = new Date()
+    const currentDay = today.getDate()
+    
+    // Get cards that are due within the next 7 days
+    const cardsDueThisWeek = primaryCards.filter(card => {
+      const daysUntilDue = card.dueDate >= currentDay 
+        ? card.dueDate - currentDay 
+        : (30 - currentDay) + card.dueDate // Handle month rollover
+      return daysUntilDue <= 7 && daysUntilDue >= 0
+    })
+    
+    const cardDetails = cardsDueThisWeek.map(card => ({
+      name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
+      lastFive: `-${card.lastFive}`,
+      amount: `${card.dueDate}${card.dueDate === 1 || card.dueDate === 21 || card.dueDate === 31 ? 'st' : card.dueDate === 2 || card.dueDate === 22 ? 'nd' : card.dueDate === 3 || card.dueDate === 23 ? 'rd' : 'th'}`,
+      type: "due",
+      image: getCardImage(card.cardType.toLowerCase())
+    }))
+
+    // Sort by due date
+    cardDetails.sort((a, b) => {
+      const dateA = parseInt(a.amount)
+      const dateB = parseInt(b.amount)
+      return dateA - dateB
+    })
+
+    return {
+      count: cardsDueThisWeek.length,
       cards: cardDetails
     }
   }, [])
@@ -172,31 +172,22 @@ export const useInsightsMetricsData = () => {
       cardData: noAnnualFeeCardsData.cards
     },
     {
-      title: "Active Card Accounts",
-      value: activeCardCount.toString(),
-      description: "Total number of active card accounts",
-      dataSource: "Transaction Data System",
-      lastUpdated: "Real-time",
-      calculationMethod: "Count of unique card accounts from transaction data",
-      cardData: null
-    },
-    {
-      title: "Highest Credit Limit",
-      value: highestCreditLimitData.amount,
-      description: "The highest credit limit among all active cards",
+      title: "Closing this week",
+      value: closingThisWeekData.count.toString(),
+      description: "Cards with closing dates in the next 7 days",
       dataSource: "Primary Cards Configuration",
       lastUpdated: "Updated daily",
-      calculationMethod: "Maximum credit limit across all primary card accounts",
-      cardData: highestCreditLimitData.cards
+      calculationMethod: "Count of cards closing within 7 days of current date",
+      cardData: closingThisWeekData.cards
     },
     {
-      title: "Lowest Pay Over Time Limit",
-      value: lowestPayOverTimeLimitData.amount,
-      description: "The lowest pay over time limit across all accounts",
+      title: "Due this week",
+      value: dueThisWeekData.count.toString(),
+      description: "Cards with payment due dates in the next 7 days",
       dataSource: "Primary Cards Configuration", 
       lastUpdated: "Updated daily",
-      calculationMethod: "Minimum pay over time limit for active accounts",
-      cardData: lowestPayOverTimeLimitData.cards
+      calculationMethod: "Count of cards with payments due within 7 days of current date",
+      cardData: dueThisWeekData.cards
     },
     {
       title: "Brand Partner Cards",

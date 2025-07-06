@@ -1,4 +1,3 @@
-
 import * as React from "react"
 import {
   Card,
@@ -29,12 +28,22 @@ export function CategoryTransactionCard({
   // Get filtered transactions based on time range and selected category
   const transactions = useCategoryTransactionData(timeRange, selectedCategory === "all" ? undefined : selectedCategory)
 
-  // Calculate total amount from filtered transactions (only transactions with categories)
+  // Calculate total amount using the same logic as CategoryTable (debits minus credits)
   const totalAmount = React.useMemo(() => {
     const categorizedTransactions = transactions.filter(transaction => 
       transaction.category && transaction.category.trim() !== ""
     )
-    const total = categorizedTransactions.reduce((sum, transaction) => sum + Math.abs(transaction.amount), 0)
+    
+    const total = categorizedTransactions.reduce((sum, transaction) => {
+      // For debits (expenses), add the absolute amount
+      // For credits, subtract the amount (reducing the category total)
+      if (transaction.amount < 0) {
+        return sum + Math.abs(transaction.amount)
+      } else {
+        return sum - transaction.amount
+      }
+    }, 0)
+    
     console.log("Calculating total amount:", {
       totalTransactions: transactions.length,
       categorizedTransactions: categorizedTransactions.length,
@@ -42,7 +51,7 @@ export function CategoryTransactionCard({
       timeRange,
       selectedCategory
     })
-    return total
+    return Math.max(0, total) // Ensure we don't show negative totals
   }, [transactions, timeRange, selectedCategory])
 
   const getTimeRangeLabel = () => {

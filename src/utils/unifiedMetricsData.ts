@@ -1,16 +1,10 @@
+
 import React from "react"
 import { transactionFilterService } from "@/services/transaction"
 import { getAllPrimaryCards, getBrandPartnerCards } from "@/data/staticPrimaryCards"
 import { getCardImage } from "@/utils/cardImageUtils"
-import { CardBalance } from "@/services/cardBalanceService"
 
-export const useUnifiedMetricsData = (cardBalances: CardBalance[] = []) => {
-  // Helper function to get balance by card type
-  const getBalanceByCardType = (cardType: string): number => {
-    const balance = cardBalances.find(b => b.cardType === cardType)
-    return balance?.currentBalance || 0
-  }
-
+export const useUnifiedMetricsData = () => {
   // Get dynamic card count from transaction filter service
   const activeCardCount = React.useMemo(() => {
     return transactionFilterService.getUniqueCardAccounts().length
@@ -30,21 +24,14 @@ export const useUnifiedMetricsData = (cardBalances: CardBalance[] = []) => {
     const maxLimit = Math.max(...primaryCards.map(card => card.creditLimit))
     const cardsWithMaxLimit = primaryCards.filter(card => card.creditLimit === maxLimit)
     
-    const cardDetails = cardsWithMaxLimit.map(card => {
-      const currentBalance = getBalanceByCardType(card.cardType)
-      const availableCredit = card.creditLimit - currentBalance
-      
-      return {
-        name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
-        lastFive: `-${card.lastFive}`,
-        amount: `$${card.creditLimit.toLocaleString()}`,
-        type: `${card.limitType} limit • $${availableCredit.toLocaleString()} available`,
-        image: getCardImage(card.cardType.toLowerCase()),
-        limitType: card.limitType,
-        currentBalance,
-        availableCredit
-      }
-    })
+    const cardDetails = cardsWithMaxLimit.map(card => ({
+      name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
+      lastFive: `-${card.lastFive}`,
+      amount: `$${card.creditLimit.toLocaleString()}`,
+      type: `${card.limitType} limit`,
+      image: getCardImage(card.cardType.toLowerCase()),
+      limitType: card.limitType
+    }))
 
     // Sort cards: preset first, then pay over time
     const sortedCardDetails = cardDetails.sort((a, b) => {
@@ -57,7 +44,7 @@ export const useUnifiedMetricsData = (cardBalances: CardBalance[] = []) => {
       amount: `$${(maxLimit / 1000).toFixed(0)}K`,
       cards: sortedCardDetails
     }
-  }, [cardBalances])
+  }, [])
 
   // Calculate lowest pay over time limit dynamically from primary cards
   const lowestPayOverTimeLimitData = React.useMemo(() => {
@@ -74,56 +61,45 @@ export const useUnifiedMetricsData = (cardBalances: CardBalance[] = []) => {
     const minLimit = Math.min(...payOverTimeCards.map(card => card.creditLimit))
     const cardsWithMinLimit = payOverTimeCards.filter(card => card.creditLimit === minLimit)
     
-    const cardDetails = cardsWithMinLimit.map(card => {
-      const currentBalance = getBalanceByCardType(card.cardType)
-      const availableCredit = card.creditLimit - currentBalance
-      
-      return {
-        name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
-        lastFive: `-${card.lastFive}`,
-        amount: `$${card.creditLimit.toLocaleString()}`,
-        type: `${card.limitType} limit • $${availableCredit.toLocaleString()} available`,
-        image: getCardImage(card.cardType.toLowerCase()),
-        currentBalance,
-        availableCredit
-      }
-    })
+    const cardDetails = cardsWithMinLimit.map(card => ({
+      name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
+      lastFive: `-${card.lastFive}`,
+      amount: `$${card.creditLimit.toLocaleString()}`,
+      type: `${card.limitType} limit`,
+      image: getCardImage(card.cardType.toLowerCase())
+    }))
 
     return {
       amount: `$${(minLimit / 1000).toFixed(0)}K`,
       cards: cardDetails
     }
-  }, [cardBalances])
+  }, [])
 
   // Calculate brand partner cards dynamically from primary cards
   const brandPartnerCardsData = React.useMemo(() => {
     const brandPartnerCards = getBrandPartnerCards()
     
-    const cardDetails = brandPartnerCards.map(card => {
-      const currentBalance = getBalanceByCardType(card.cardType)
-      const availableCredit = card.creditLimit - currentBalance
-      
-      return {
-        name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
-        lastFive: `-${card.lastFive}`,
-        amount: `$${card.creditLimit.toLocaleString()}`,
-        type: `${card.limitType} limit • ${card.partnerMultiple ? `${card.partnerMultiple}x` : "N/A"}`,
-        image: getCardImage(card.cardType.toLowerCase()),
-        multiple: card.partnerMultiple ? `${card.partnerMultiple}x` : "N/A",
-        creditLimit: card.creditLimit,
-        currentBalance,
-        availableCredit
-      }
-    })
+    const cardDetails = brandPartnerCards.map(card => ({
+      name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
+      lastFive: `-${card.lastFive}`,
+      amount: `$${card.creditLimit.toLocaleString()}`,
+      type: `${card.limitType} limit`,
+      image: getCardImage(card.cardType.toLowerCase()),
+      multiple: card.partnerMultiple ? `${card.partnerMultiple}x` : "N/A",
+      creditLimit: card.creditLimit
+    }))
 
     // Sort by credit limit (highest first)
     cardDetails.sort((a, b) => b.creditLimit - a.creditLimit)
 
     return {
       count: brandPartnerCards.length,
-      cards: cardDetails
+      cards: cardDetails.map(card => ({
+        ...card,
+        type: `${card.type} • ${card.multiple}`
+      }))
     }
-  }, [cardBalances])
+  }, [])
 
   // Calculate cards closing this week
   const closingThisWeekData = React.useMemo(() => {

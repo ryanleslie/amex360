@@ -1,126 +1,87 @@
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { SidebarProvider } from "@/components/ui/sidebar";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
-import { Suspense } from "react";
-import { AuthProvider } from "@/contexts/AuthContext";
-import AuthPage from "./pages/AuthPage";
-import NotFound from "./pages/NotFound";
-import Dashboard from "./pages/Dashboard";
-import ProtectedRoute from "./components/ProtectedRoute";
+import { Toaster } from "@/components/ui/sonner"
+import { TooltipProvider } from "@/components/ui/tooltip"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
+import { AuthProvider } from "./contexts/AuthContext"
+import { SidebarProvider } from "@/components/ui/sidebar"
+import Index from "./pages/Index"
+import Dashboard from "./pages/Dashboard"
+import Rewards from "./pages/Rewards"
+import Redemptions from "./pages/Redemptions"
+import Employee from "./pages/Employee"
+import CreditMax from "./pages/CreditMax"
+import AuthPage from "./pages/AuthPage"
+import ProtectedRoute from "./components/ProtectedRoute"
+import NotFound from "./pages/NotFound"
+import { cardBalanceService } from "@/services/cardBalanceService"
+import { useEffect } from "react"
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient()
 
-const AppContent = () => {
-  const location = useLocation();
-  const isDashboardRoute = location.pathname.startsWith('/dashboard') || 
-                          location.pathname === '/insights' || 
-                          location.pathname === '/rewards' || 
-                          location.pathname === '/employee' || 
-                          location.pathname === '/creditmax' || 
-                          location.pathname === '/admin' || 
-                          location.pathname === '/redemptions';
+function App() {
+  // Initialize card balances on app load
+  useEffect(() => {
+    const initializeApp = async () => {
+      try {
+        console.log("Initializing app...")
+        await cardBalanceService.initializeBalances()
+        console.log("App initialization complete")
+      } catch (error) {
+        console.error("Failed to initialize app:", error)
+      }
+    }
+    
+    initializeApp()
+  }, [])
 
-  return (
-    <div className={`h-screen w-full ${isDashboardRoute ? 'flex' : ''}`}>
-      <Routes>
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
-        <Route path="/auth" element={<AuthPage />} />
-        <Route 
-          path="/dashboard" 
-          element={
-            <ProtectedRoute>
-              <Suspense fallback={null}>
-                <Dashboard />
-              </Suspense>
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/insights" 
-          element={
-            <ProtectedRoute>
-              <Suspense fallback={null}>
-                <Dashboard />
-              </Suspense>
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/rewards" 
-          element={
-            <ProtectedRoute>
-              <Suspense fallback={null}>
-                <Dashboard />
-              </Suspense>
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/employee" 
-          element={
-            <ProtectedRoute>
-              <Suspense fallback={null}>
-                <Dashboard />
-              </Suspense>
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/creditmax" 
-          element={
-            <ProtectedRoute>
-              <Suspense fallback={null}>
-                <Dashboard />
-              </Suspense>
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/admin" 
-          element={
-            <ProtectedRoute>
-              <Suspense fallback={null}>
-                <Dashboard />
-              </Suspense>
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/redemptions" 
-          element={
-            <ProtectedRoute>
-              <Suspense fallback={null}>
-                <Dashboard />
-              </Suspense>
-            </ProtectedRoute>
-          } 
-        />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </div>
-  );
-};
-
-const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <AuthProvider>
-            <SidebarProvider>
-              <AppContent />
-            </SidebarProvider>
-          </AuthProvider>
-        </BrowserRouter>
-      </TooltipProvider>
+      <AuthProvider>
+        <TooltipProvider>
+          <SidebarProvider>
+            <Toaster />
+            <BrowserRouter>
+              <Routes>
+                <Route path="/auth" element={<AuthPage />} />
+                <Route path="/" element={
+                  <ProtectedRoute>
+                    <Index />
+                  </ProtectedRoute>
+                } />
+                <Route path="/dashboard" element={
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                } />
+                <Route path="/rewards" element={
+                  <ProtectedRoute>
+                    <Rewards />
+                  </ProtectedRoute>
+                } />
+                <Route path="/redemptions" element={
+                  <ProtectedRoute>
+                    <Redemptions />
+                  </ProtectedRoute>
+                } />
+                <Route path="/employee" element={
+                  <ProtectedRoute>
+                    <Employee />
+                  </ProtectedRoute>
+                } />
+                <Route path="/creditmax" element={
+                  <ProtectedRoute>
+                    <CreditMax />
+                  </ProtectedRoute>
+                } />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
+          </SidebarProvider>
+        </TooltipProvider>
+      </AuthProvider>
     </QueryClientProvider>
-  );
-};
+  )
+}
 
-export default App;
+export default App

@@ -2,6 +2,7 @@ import React from "react"
 import { transactionFilterService } from "@/services/transaction"
 import { getAllPrimaryCards, getBrandPartnerCards } from "@/data/staticPrimaryCards"
 import { getCardImage } from "@/utils/cardImageUtils"
+import { cardBalanceService } from "@/services/cardBalanceService"
 
 export const useUnifiedMetricsData = () => {
   // Get dynamic card count from transaction filter service
@@ -100,7 +101,7 @@ export const useUnifiedMetricsData = () => {
     }
   }, [])
 
-  // Calculate cards closing this week
+  // Calculate cards closing this week with real balances
   const closingThisWeekData = React.useMemo(() => {
     const primaryCards = getAllPrimaryCards()
     const today = new Date()
@@ -116,13 +117,13 @@ export const useUnifiedMetricsData = () => {
     })
     
     const cardDetails = cardsClosingThisWeek.map(card => {
-      // Generate a mock current balance (you can replace this with real data)
-      const mockBalance = Math.floor(Math.random() * (card.creditLimit * 0.3)) + 100
+      // Get real balance from card balance service
+      const balance = cardBalanceService.getCardBalance(card.cardType, card.lastFive)
       
       return {
         name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
         lastFive: `-${card.lastFive}`,
-        amount: `$${mockBalance.toLocaleString()}`,
+        amount: `$${balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
         type: `closing ${currentMonth} ${card.closingDate}`,
         image: getCardImage(card.cardType.toLowerCase())
       }
@@ -141,7 +142,7 @@ export const useUnifiedMetricsData = () => {
     }
   }, [])
 
-  // Calculate cards due this week
+  // Calculate cards due this week with real balances
   const dueThisWeekData = React.useMemo(() => {
     const primaryCards = getAllPrimaryCards()
     const today = new Date()
@@ -157,13 +158,13 @@ export const useUnifiedMetricsData = () => {
     })
     
     const cardDetails = cardsDueThisWeek.map(card => {
-      // Generate a mock current balance (you can replace this with real data)
-      const mockBalance = Math.floor(Math.random() * (card.creditLimit * 0.3)) + 100
+      // Get real balance from card balance service
+      const balance = cardBalanceService.getCardBalance(card.cardType, card.lastFive)
       
       return {
         name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
         lastFive: `-${card.lastFive}`,
-        amount: `$${mockBalance.toLocaleString()}`,
+        amount: `$${balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
         type: `due ${currentMonth} ${card.dueDate}`,
         image: getCardImage(card.cardType.toLowerCase())
       }
@@ -323,18 +324,18 @@ export const useUnifiedMetricsData = () => {
       title: "Closing this week",
       value: closingThisWeekData.count.toString(),
       description: "Cards with closing dates in the next 7 days",
-      dataSource: "Primary Cards Configuration",
-      lastUpdated: "Updated daily",
-      calculationMethod: "Count of cards closing within 7 days of current date",
+      dataSource: "Primary Cards Configuration & Transaction Data",
+      lastUpdated: "Real-time",
+      calculationMethod: "Count of cards closing within 7 days with calculated balances from transaction data",
       cardData: closingThisWeekData.cards
     },
     "Due this week": {
       title: "Due this week",
       value: dueThisWeekData.count.toString(),
       description: "Cards with payment due dates in the next 7 days",
-      dataSource: "Primary Cards Configuration", 
-      lastUpdated: "Updated daily",
-      calculationMethod: "Count of cards with payments due within 7 days of current date",
+      dataSource: "Primary Cards Configuration & Transaction Data", 
+      lastUpdated: "Real-time",
+      calculationMethod: "Count of cards with payments due within 7 days with calculated balances from transaction data",
       cardData: dueThisWeekData.cards
     },
     "No Annual Fee": {

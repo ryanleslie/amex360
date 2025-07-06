@@ -1,4 +1,3 @@
-
 import { PrimaryCard } from "@/types/primaryCard"
 import { primaryCardsConfig } from "@/data/primaryCardsData"
 import { transactionFilterService } from "@/services/transaction"
@@ -37,10 +36,10 @@ export function generateDisplayNameWithLastFive(cardType: string, lastFive?: str
   
   // Apply same display name formatting as existing logic
   if (cardType === "Bonvoy Business Amex") {
-    return `Marriott Bonvoy Business (${actualLastFive})`
+    return `Marriott Bonvoy Business (-${actualLastFive})`
   }
   
-  return `${cardType} (${actualLastFive})`
+  return `${cardType} (-${actualLastFive})`
 }
 
 export function updatePrimaryCardLastFive(cardType: string, newLastFive: string): boolean {

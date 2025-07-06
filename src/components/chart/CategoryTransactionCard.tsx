@@ -61,6 +61,7 @@ export function CategoryTransactionCard({
         selectedTimeRange={timeRange}
         onClearTimeRangeFilter={handleClearTimeRangeFilter}
         totalAmount={totalAmount}
+        transactionCount={transactions.length}
       />
       <CardContent>
         <div className="w-full">

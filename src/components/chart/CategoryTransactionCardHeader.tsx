@@ -14,6 +14,7 @@ interface CategoryTransactionCardHeaderProps {
   selectedTimeRange?: string
   onClearTimeRangeFilter?: () => void
   totalAmount: number
+  transactionCount: number
 }
 
 export function CategoryTransactionCardHeader({
@@ -22,7 +23,8 @@ export function CategoryTransactionCardHeader({
   onClearFilter,
   selectedTimeRange,
   onClearTimeRangeFilter,
-  totalAmount
+  totalAmount,
+  transactionCount
 }: CategoryTransactionCardHeaderProps) {
   const hasFilter = selectedCategory && selectedCategory !== "all"
   const hasTimeRangeFilter = selectedTimeRange && selectedTimeRange !== "ytd"
@@ -91,7 +93,7 @@ export function CategoryTransactionCardHeader({
             ${totalAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </div>
           <div className="text-xs text-gray-500">
-            Total
+            spent on {transactionCount} transaction{transactionCount !== 1 ? 's' : ''}
           </div>
         </div>
       </div>

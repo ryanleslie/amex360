@@ -35,7 +35,7 @@ export function CategoryTable({
   selectedCategory 
 }: CategoryTableProps) {
   return (
-    <Card className="bg-gradient-to-b from-white to-gray-100 md:col-span-1 lg:col-span-2">
+    <Card className="bg-gradient-to-b from-white to-gray-100 lg:col-span-2">
       <CardHeader>
         <CardTitle className="text-xl font-semibold">Categories</CardTitle>
         <CardDescription>

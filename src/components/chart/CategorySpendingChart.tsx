@@ -64,8 +64,8 @@ export function CategorySpendingChart({
   }, [categoryData])
 
   return (
-    <div className="space-y-6 max-w-full overflow-hidden">
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 px-4 lg:px-6 max-w-full">
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 px-4 lg:px-6">
         <CategoryChartCard
           categoryData={categoryData}
           totalSpend={totalSpend}

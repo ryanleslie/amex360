@@ -35,16 +35,41 @@ export function CategoryTable({
   selectedCategory 
 }: CategoryTableProps) {
   return (
-    <Card className="bg-gradient-to-b from-white to-gray-100 lg:col-span-2 w-full min-w-0">
-      <CardHeader className="pb-4">
+    <Card className="bg-gradient-to-b from-white to-gray-100 md:col-span-1 lg:col-span-2">
+      <CardHeader>
         <CardTitle className="text-xl font-semibold">Categories</CardTitle>
         <CardDescription>
           Spending detail by category {timeRangeLabel}
         </CardDescription>
       </CardHeader>
-      <CardContent className="px-4">
+      <CardContent>
         <div className="rounded-md border">
-          <div className="overflow-y-auto max-h-[280px] sm:max-h-[320px]">
+          <style>
+            {`
+              .scroll-container {
+                scrollbar-width: thin;
+                scrollbar-color: transparent transparent;
+              }
+              .scroll-container:hover {
+                scrollbar-color: #d1d5db transparent;
+              }
+              .scroll-container::-webkit-scrollbar {
+                width: 6px;
+              }
+              .scroll-container::-webkit-scrollbar-track {
+                background: transparent;
+              }
+              .scroll-container::-webkit-scrollbar-thumb {
+                background-color: transparent;
+                border-radius: 20px;
+                transition: background-color 0.2s ease;
+              }
+              .scroll-container:hover::-webkit-scrollbar-thumb {
+                background-color: #d1d5db;
+              }
+            `}
+          </style>
+          <div className="scroll-container overflow-y-auto max-h-96">
             <Table>
               <TableBody>
                 {categoryData?.length ? (
@@ -58,8 +83,8 @@ export function CategoryTable({
                       }`}
                       onClick={() => onCategoryClick?.(category.category)}
                     >
-                      <TableCell className="py-2">
-                        <div className="flex items-center gap-2 min-w-0">
+                      <TableCell>
+                        <div className="flex items-center gap-2">
                           <div 
                             className="w-3 h-3 rounded-full flex-shrink-0" 
                             style={{ 
@@ -67,15 +92,15 @@ export function CategoryTable({
                               border: selectedCategory === category.category ? '2px solid #000' : 'none'
                             }}
                           />
-                          <span className="font-medium truncate">{category.category}</span>
+                          <span className="font-medium">{category.category}</span>
                         </div>
                       </TableCell>
-                      <TableCell className="text-right py-2 w-16">
-                        <span className="font-medium text-sm">{category.percentage}%</span>
+                      <TableCell className="text-right">
+                        <span className="font-medium">{category.percentage}%</span>
                       </TableCell>
-                      <TableCell className="text-right py-2 w-20">
-                        <span className="font-medium text-sm">
-                          ${category.amount.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                      <TableCell className="text-right">
+                        <span className="font-medium">
+                          ${category.amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                         </span>
                       </TableCell>
                     </TableRow>

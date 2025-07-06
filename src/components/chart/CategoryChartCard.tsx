@@ -74,25 +74,23 @@ export function CategoryChartCard({
   }
 
   return (
-    <Card className="bg-gradient-to-b from-white to-gray-100 lg:col-span-3 w-full min-w-0">
+    <Card className="bg-gradient-to-b from-white to-gray-100 md:col-span-2 lg:col-span-3">
       <CardHeader className="flex flex-col space-y-4 pb-2 md:flex-row md:items-center md:justify-between md:space-y-0">
-        <div className="space-y-1 min-w-0">
+        <div className="space-y-1">
           <CardTitle className="text-xl font-semibold">Spending by category</CardTitle>
           <CardDescription>
             Total spend {timeRangeLabel}: ${totalSpend.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </CardDescription>
         </div>
         
-        <div className="flex-shrink-0">
-          <TimeRangeSelector 
-            timeRange={timeRange} 
-            onTimeRangeChange={onTimeRangeChange} 
-          />
-        </div>
+        <TimeRangeSelector 
+          timeRange={timeRange} 
+          onTimeRangeChange={onTimeRangeChange} 
+        />
       </CardHeader>
 
-      <CardContent className="px-2 sm:px-4 lg:px-6">
-        <div className="h-[350px] sm:h-[400px] w-full" ref={chartRef}>
+      <CardContent className="px-2 sm:px-6">
+        <div className="h-[400px] w-full" ref={chartRef}>
           <ResponsiveContainer width="100%" height="100%">
             <PieChart margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
               <Pie

@@ -11,6 +11,7 @@ export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
   const isAnnualFeeMetric = metric.title === "Annual Fee" || metric.title === "Total Annual Fees"
   const isCreditLimitMetric = metric.title === "Highest Credit Limit" || metric.title === "Lowest Pay Over Time Limit"
   const isBrandPartnerMetric = metric.title === "Brand Partner Cards"
+  const isAvailableCreditMetric = metric.title === "Available Line of Credit"
   
   return (
     <div className="space-y-3">
@@ -28,6 +29,7 @@ export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
             // For Annual Fee cards, show amount as "annual fee" format
             // For Credit Limit cards, show amount as "preset limit" format
             // For Brand Partner cards, show amount as "preset limit • multiple" format
+            // For Available Line of Credit, show amount as "installment" format
             let cardDescription
             if (isNoAnnualFeeMetric) {
               cardDescription = `${card.lastFive} • ${card.type.split('•')[1]?.trim() || card.type}`
@@ -37,6 +39,8 @@ export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
               cardDescription = `${card.lastFive} • ${card.amount} ${card.type.replace(' • ', ' ')}`
             } else if (isBrandPartnerMetric) {
               cardDescription = `${card.lastFive} • ${card.amount} ${card.type.replace(' • ', ' ')}`
+            } else if (isAvailableCreditMetric) {
+              cardDescription = `${card.lastFive} • ${card.amount} ${card.type}`
             } else {
               cardDescription = `${card.lastFive} • ${card.amount} • ${card.type}`
             }

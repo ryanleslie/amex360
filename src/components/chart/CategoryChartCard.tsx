@@ -75,7 +75,7 @@ export function CategoryChartCard({
 
   return (
     <Card className="bg-gradient-to-b from-white to-gray-100 lg:col-span-3">
-      <CardHeader className="flex flex-col space-y-4 pb-2 md:flex-row md:items-center md:justify-between md:space-y-0">
+      <CardHeader className="flex flex-col space-y-4 pb-2 lg:flex-row lg:items-center lg:justify-between lg:space-y-0">
         <div className="space-y-1">
           <CardTitle className="text-xl font-semibold">Spending by category</CardTitle>
           <CardDescription>
@@ -89,16 +89,16 @@ export function CategoryChartCard({
         />
       </CardHeader>
 
-      <CardContent className="px-2 sm:px-6">
+      <CardContent className="px-1 sm:px-4 lg:px-6">
         <div className="h-[300px] sm:h-[350px] lg:h-[400px] w-full" ref={chartRef}>
           <ResponsiveContainer width="100%" height="100%">
-            <PieChart margin={{ top: 10, right: 10, bottom: 10, left: 10 }}>
+            <PieChart margin={{ top: 5, right: 5, bottom: 5, left: 5 }}>
               <Pie
                 data={categoryData}
                 cx="50%"
                 cy="50%"
-                outerRadius="80%"
-                innerRadius="45%"
+                outerRadius="75%"
+                innerRadius="40%"
                 fill="#8884d8"
                 dataKey="amount"
                 stroke="none"

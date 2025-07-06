@@ -1,4 +1,3 @@
-
 import React, { useState } from "react"
 import { Card } from "@/components/ui/card"
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover"
@@ -118,12 +117,20 @@ export function QuickMetricsCards() {
       lastFive: `-${card.lastFive}`,
       amount: `$${card.creditLimit.toLocaleString()}`,
       type: `${card.limitType} limit`,
-      image: getCardImage(card.cardType.toLowerCase())
+      image: getCardImage(card.cardType.toLowerCase()),
+      limitType: card.limitType
     }))
+
+    // Sort cards: preset first, then pay over time
+    const sortedCardDetails = cardDetails.sort((a, b) => {
+      if (a.limitType === "preset" && b.limitType !== "preset") return -1
+      if (a.limitType !== "preset" && b.limitType === "preset") return 1
+      return 0
+    })
 
     return {
       amount: `$${(maxLimit / 1000).toFixed(0)}K`,
-      cards: cardDetails
+      cards: sortedCardDetails
     }
   }, [])
 

@@ -74,7 +74,7 @@ export function CategoryChartCard({
   }
 
   return (
-    <Card className="bg-gradient-to-b from-white to-gray-100 lg:col-span-3">
+    <Card className="bg-gradient-to-b from-white to-gray-100 md:col-span-2 lg:col-span-3">
       <CardHeader className="flex flex-col space-y-4 pb-2 md:flex-row md:items-center md:justify-between md:space-y-0">
         <div className="space-y-1">
           <CardTitle className="text-xl font-semibold">Spending by category</CardTitle>

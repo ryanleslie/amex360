@@ -162,6 +162,7 @@ export function CardAccounts({
                   index={index}
                   onCardClick={handleCardClick}
                   isSelected={getSelectedCard(card)}
+                  filters={filters}
                 />
               </div>
             ))}

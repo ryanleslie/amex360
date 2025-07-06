@@ -3,15 +3,19 @@ import { Card, CardContent } from "@/components/ui/card";
 import { getCardImage } from "@/utils/cardImageUtils";
 import { CardData } from "@/utils/cardDataUtils";
 import { formatDisplayCardName } from "@/utils/transactionUtils";
+import { transactionFilterService } from "@/services/transactionFilterService";
+import { FilterState } from "@/hooks/useFilterState";
+import * as React from "react";
 
 interface CardAccountItemProps {
   card: CardData;
   index: number;
   onCardClick: (cardName: string) => void;
   isSelected: boolean;
+  filters: FilterState;
 }
 
-export function CardAccountItem({ card, index, onCardClick, isSelected }: CardAccountItemProps) {
+export function CardAccountItem({ card, index, onCardClick, isSelected, filters }: CardAccountItemProps) {
   const handleClick = () => {
     if (isSelected) {
       // If this card is already selected, toggle to "all"
@@ -24,6 +28,33 @@ export function CardAccountItem({ card, index, onCardClick, isSelected }: CardAc
 
   // Use standard formatter for display name
   const getDisplayName = (cardName: string) => formatDisplayCardName(cardName);
+
+  // Calculate maximum point multiple and sum for selected card
+  const cardPointDetails = React.useMemo(() => {
+    if (!isSelected) return null;
+
+    const cardFilters: FilterState = {
+      ...filters,
+      selectedCard: card.fullName
+    };
+    
+    const filteredTransactions = transactionFilterService.getFilteredTransactions(cardFilters);
+    
+    // Find maximum point multiple for this card
+    const maxPointMultiple = Math.max(...filteredTransactions.map(t => t.point_multiple || 1));
+    
+    // Sum transactions that have the maximum point multiple
+    const maxPointTransactions = filteredTransactions.filter(t => 
+      (t.point_multiple || 1) === maxPointMultiple && t.amount < 0
+    );
+    
+    const sumAtMaxPoints = maxPointTransactions.reduce((sum, t) => sum + Math.abs(t.amount), 0);
+    
+    return {
+      maxPointMultiple,
+      sumAtMaxPoints
+    };
+  }, [isSelected, card.fullName, filters]);
 
   return (
     <Card 
@@ -60,6 +91,21 @@ export function CardAccountItem({ card, index, onCardClick, isSelected }: CardAc
             </div>
           </div>
         </div>
+        
+        {isSelected && cardPointDetails && (
+          <div className="mt-4 pt-4 border-t border-gray-200">
+            <div className="text-sm text-muted-foreground">
+              The maximum point value of <span className="font-semibold text-foreground">{cardPointDetails.maxPointMultiple}x</span> was earned on{' '}
+              <span className="font-semibold text-foreground">
+                ${cardPointDetails.sumAtMaxPoints.toLocaleString('en-US', { 
+                  minimumFractionDigits: 2, 
+                  maximumFractionDigits: 2 
+                })}
+              </span>{' '}
+              of transactions on this card.
+            </div>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

@@ -7,6 +7,7 @@ interface MetricPopoverContentProps {
 
 export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
   const isClosingMetric = metric.title === "Closing this week"
+  const isDueThisWeekMetric = metric.title === "Due this week"
   const isNoAnnualFeeMetric = metric.title === "No Annual Fee"
   const isAnnualFeeMetric = metric.title === "Annual Fee" || metric.title === "Total Annual Fees"
   const isCreditLimitMetric = metric.title === "Highest Credit Limit" || metric.title === "Lowest Pay Over Time Limit"
@@ -37,6 +38,8 @@ export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
               cardDetails = `${card.amount} ${card.type}`
             } else if (isAvailableCreditMetric) {
               cardDetails = `${card.amount} ${card.type}`
+            } else if (isClosingMetric || isDueThisWeekMetric) {
+              cardDetails = `${card.amount} balance • ${card.type}`
             } else {
               cardDetails = `${card.amount} • ${card.type}`
             }
@@ -54,7 +57,7 @@ export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
                   <div className="text-muted-foreground">
                     {shouldHighlightClosing ? (
                       <>
-                        {card.amount} • <span className="text-red-600 font-medium">{card.type}</span>
+                        {card.amount} balance • <span className="text-red-600 font-medium">{card.type}</span>
                       </>
                     ) : (
                       <span>{cardDetails}</span>

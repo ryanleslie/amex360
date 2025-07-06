@@ -1,3 +1,4 @@
+
 import React, { useState } from "react"
 import { Card } from "@/components/ui/card"
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover"
@@ -116,7 +117,7 @@ export function QuickMetricsCards() {
       name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
       lastFive: `-${card.lastFive}`,
       amount: `$${card.creditLimit.toLocaleString()}`,
-      type: "preset limit",
+      type: `${card.limitType} limit`,
       image: getCardImage(card.cardType.toLowerCase())
     }))
 

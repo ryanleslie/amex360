@@ -166,16 +166,16 @@ export const useUnifiedMetricsData = () => {
       return {
         name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
         lastFive: `-${card.lastFive}`,
-        amount: `Closing ${currentMonth} ${card.closingDate}`,
-        type: balance > 0 ? `$${balance.toLocaleString()} balance` : "",
+        amount: `$${balance.toLocaleString()}`,
+        type: `closing ${currentMonth} ${card.closingDate}`,
         image: getCardImage(card.cardType.toLowerCase())
       }
     })
 
     // Sort by closing date
     cardDetails.sort((a, b) => {
-      const dateA = parseInt(a.amount.split(' ')[2])
-      const dateB = parseInt(b.amount.split(' ')[2])
+      const dateA = parseInt(a.type.split(' ')[2])
+      const dateB = parseInt(b.type.split(' ')[2])
       return dateA - dateB
     })
 
@@ -205,16 +205,16 @@ export const useUnifiedMetricsData = () => {
       return {
         name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
         lastFive: `-${card.lastFive}`,
-        amount: `Due ${currentMonth} ${card.dueDate}`,
-        type: balance > 0 ? `$${balance.toLocaleString()} balance` : "",
+        amount: `$${balance.toLocaleString()}`,
+        type: `due ${currentMonth} ${card.dueDate}`,
         image: getCardImage(card.cardType.toLowerCase())
       }
     })
 
     // Sort by due date
     cardDetails.sort((a, b) => {
-      const dateA = parseInt(a.amount.split(' ')[2])
-      const dateB = parseInt(b.amount.split(' ')[2])
+      const dateA = parseInt(a.type.split(' ')[2])
+      const dateB = parseInt(b.type.split(' ')[2])
       return dateA - dateB
     })
 

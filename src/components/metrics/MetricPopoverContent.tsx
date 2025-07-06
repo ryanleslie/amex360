@@ -18,7 +18,7 @@ export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
           <div className="text-xs font-medium">Account Details:</div>
           {metric.cardData.map((card: any, index: number) => {
             const isNonBusinessCard = !card.name.toLowerCase().includes('business')
-            const shouldHighlightDate = isClosingMetric && isNonBusinessCard
+            const shouldHighlightClosing = isClosingMetric && isNonBusinessCard && card.type.includes('closing')
             
             return (
               <div 
@@ -30,11 +30,9 @@ export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
                   <div className="font-medium">
                     {card.name}
                   </div>
-                  {card.lastFive && (
-                    <div className="text-muted-foreground">
-                      {card.lastFive} • <span className={shouldHighlightDate ? 'text-red-600 font-medium' : ''}>{card.amount}</span> {card.type}
-                    </div>
-                  )}
+                  <div className="text-muted-foreground">
+                    {card.lastFive} • {card.amount} • <span className={shouldHighlightClosing ? 'text-red-600 font-medium' : ''}>{card.type}</span>
+                  </div>
                 </div>
               </div>
             )

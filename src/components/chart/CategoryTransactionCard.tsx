@@ -7,7 +7,6 @@ import { CategoryTransactionCardHeader } from "./CategoryTransactionCardHeader"
 import { CategoryTransactionCardControls } from "./CategoryTransactionCardControls"
 import { CategoryTransactionTable } from "./CategoryTransactionTable"
 import { useCategoryTransactionData } from "@/hooks/useCategoryTransactionData"
-import { globalFilterFn } from "@/utils/transactionUtils"
 
 interface CategoryTransactionCardProps {
   timeRange: string
@@ -37,11 +36,21 @@ export function CategoryTransactionCard({
       transaction.category && transaction.category.trim() !== ""
     )
     
-    // Then apply global filter if it exists (same logic as the table)
+    // Then apply global filter if it exists using simple string matching
     if (globalFilter && globalFilter.trim() !== "") {
-      filteredTransactions = filteredTransactions.filter(transaction => 
-        globalFilterFn(transaction, "", globalFilter)
-      )
+      const searchValue = globalFilter.toLowerCase()
+      filteredTransactions = filteredTransactions.filter(transaction => {
+        const description = (transaction.description || "").toLowerCase()
+        const amount = String(transaction.amount).toLowerCase()
+        const formattedAmount = new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+        }).format(Math.abs(transaction.amount)).toLowerCase()
+        
+        return description.includes(searchValue) || 
+               amount.includes(searchValue) || 
+               formattedAmount.includes(searchValue)
+      })
     }
     
     const total = filteredTransactions.reduce((sum, transaction) => {

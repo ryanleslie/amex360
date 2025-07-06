@@ -8,6 +8,7 @@ interface MetricPopoverContentProps {
 export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
   const isClosingMetric = metric.title === "Closing this week"
   const isNoAnnualFeeMetric = metric.title === "No Annual Fee"
+  const isAnnualFeeMetric = metric.title === "Annual Fee" || metric.title === "Total Annual Fees"
   
   return (
     <div className="space-y-3">
@@ -22,9 +23,15 @@ export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
             const shouldHighlightClosing = isClosingMetric && isNonBusinessCard && card.type.includes('closing')
             
             // For No Annual Fee cards, show only last five and APR
-            const cardDescription = isNoAnnualFeeMetric 
-              ? `${card.lastFive} • ${card.type.split('•')[1]?.trim() || card.type}`
-              : `${card.lastFive} • ${card.amount} • ${card.type}`
+            // For Annual Fee cards, show amount as "annual fee" format
+            let cardDescription
+            if (isNoAnnualFeeMetric) {
+              cardDescription = `${card.lastFive} • ${card.type.split('•')[1]?.trim() || card.type}`
+            } else if (isAnnualFeeMetric) {
+              cardDescription = `${card.lastFive} • ${card.amount} annual fee • ${card.type.split('•')[1]?.trim() || card.type.split('•')[0]?.trim()}`
+            } else {
+              cardDescription = `${card.lastFive} • ${card.amount} • ${card.type}`
+            }
             
             return (
               <div 

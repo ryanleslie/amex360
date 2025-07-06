@@ -78,7 +78,7 @@ export const useInsightsMetricsData = () => {
     const cardDetails = cardsClosingThisWeek.map(card => ({
       name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
       lastFive: `-${card.lastFive}`,
-      amount: `Closing ${currentMonth} ${card.closingDate}${card.closingDate === 1 || card.closingDate === 21 || card.closingDate === 31 ? 'st' : card.closingDate === 2 || card.closingDate === 22 ? 'nd' : card.closingDate === 3 || card.closingDate === 23 ? 'rd' : 'th'}`,
+      amount: `Closing ${currentMonth} ${card.closingDate}`,
       type: "",
       image: getCardImage(card.cardType.toLowerCase())
     }))
@@ -114,7 +114,7 @@ export const useInsightsMetricsData = () => {
     const cardDetails = cardsDueThisWeek.map(card => ({
       name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
       lastFive: `-${card.lastFive}`,
-      amount: `Due ${currentMonth} ${card.dueDate}${card.dueDate === 1 || card.dueDate === 21 || card.dueDate === 31 ? 'st' : card.dueDate === 2 || card.dueDate === 22 ? 'nd' : card.dueDate === 3 || card.dueDate === 23 ? 'rd' : 'th'}`,
+      amount: `Due ${currentMonth} ${card.dueDate}`,
       type: "",
       image: getCardImage(card.cardType.toLowerCase())
     }))

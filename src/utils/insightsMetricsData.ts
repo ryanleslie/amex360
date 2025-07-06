@@ -40,6 +40,25 @@ export const useInsightsMetricsData = () => {
     }
   }, [])
 
+  // Calculate no annual fee cards dynamically from primary cards
+  const noAnnualFeeCardsData = React.useMemo(() => {
+    const primaryCards = getAllPrimaryCards()
+    const cardsWithoutFees = primaryCards.filter(card => card.annualFee === 0)
+    
+    const cardDetails = cardsWithoutFees.map(card => ({
+      name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
+      lastFive: `-${card.lastFive}`,
+      amount: `$${card.annualFee.toLocaleString()}`,
+      type: "annual fee",
+      image: getCardImage(card.cardType.toLowerCase())
+    }))
+
+    return {
+      count: cardsWithoutFees.length,
+      cards: cardDetails
+    }
+  }, [])
+
   // Get dynamic card count from transaction filter service
   const activeCardCount = React.useMemo(() => {
     return transactionFilterService.getUniqueCardAccounts().length
@@ -142,6 +161,15 @@ export const useInsightsMetricsData = () => {
       lastUpdated: "Updated daily",
       calculationMethod: "Sum of annual fees for all primary card accounts",
       cardData: totalAnnualFeesData.cards
+    },
+    {
+      title: "No Annual Fee Cards",
+      value: noAnnualFeeCardsData.count.toString(),
+      description: "Number of cards with no annual fee",
+      dataSource: "Primary Cards Configuration",
+      lastUpdated: "Updated daily",
+      calculationMethod: "Count of primary cards with $0 annual fee",
+      cardData: noAnnualFeeCardsData.cards
     },
     {
       title: "Active Card Accounts",

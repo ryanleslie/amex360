@@ -1,6 +1,5 @@
 
 import React from "react"
-import { cardBalanceService } from "@/services/cardBalanceService"
 
 interface MetricPopoverContentProps {
   metric: any
@@ -21,14 +20,6 @@ export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
             const isNonBusinessCard = !card.name.toLowerCase().includes('business')
             const shouldHighlightDate = isClosingOrDueMetric && isNonBusinessCard
             
-            // Get card balance for closing/due metrics
-            let balanceText = card.amount
-            if (isClosingOrDueMetric && card.cardType) {
-              const balance = cardBalanceService.formatBalance(card.cardType)
-              const dateText = card.amount // This contains "Closing/Due [Month] [Day]"
-              balanceText = `${card.lastFive} • ${balance} • ${dateText}`
-            }
-            
             return (
               <div 
                 key={index} 
@@ -39,9 +30,11 @@ export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
                   <div className="font-medium">
                     {card.name}
                   </div>
-                  <div className="text-muted-foreground">
-                    <span className={shouldHighlightDate ? 'text-red-600 font-medium' : ''}>{balanceText}</span> {card.type}
-                  </div>
+                  {card.lastFive && (
+                    <div className="text-muted-foreground">
+                      {card.lastFive} • <span className={shouldHighlightDate ? 'text-red-600 font-medium' : ''}>{card.amount}</span> {card.type}
+                    </div>
+                  )}
                 </div>
               </div>
             )

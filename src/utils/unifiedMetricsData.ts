@@ -121,8 +121,7 @@ export const useUnifiedMetricsData = () => {
       lastFive: `-${card.lastFive}`,
       amount: `Closing ${currentMonth} ${card.closingDate}`,
       type: "",
-      image: getCardImage(card.cardType.toLowerCase()),
-      cardType: card.cardType // Add cardType for balance calculation
+      image: getCardImage(card.cardType.toLowerCase())
     }))
 
     // Sort by closing date
@@ -158,8 +157,7 @@ export const useUnifiedMetricsData = () => {
       lastFive: `-${card.lastFive}`,
       amount: `Due ${currentMonth} ${card.dueDate}`,
       type: "",
-      image: getCardImage(card.cardType.toLowerCase()),
-      cardType: card.cardType // Add cardType for balance calculation
+      image: getCardImage(card.cardType.toLowerCase())
     }))
 
     // Sort by due date

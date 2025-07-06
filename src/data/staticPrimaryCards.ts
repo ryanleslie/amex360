@@ -7,6 +7,7 @@ export interface PrimaryCard {
   displayName: string
   isPrimary: boolean
   creditLimit: number
+  limitType: string
   isBrandPartner: boolean
 }
 
@@ -18,7 +19,7 @@ export const primaryCardsConfig: PrimaryCard[] = [
     displayName: "Amazon Business Prime (-52003)",
     isPrimary: true,
     creditLimit: 6000,
-    limitType: preset,
+    limitType: "preset",
     isBrandPartner: true
   },
   {
@@ -27,7 +28,7 @@ export const primaryCardsConfig: PrimaryCard[] = [
     displayName: "Marriott Bonvoy Business (-31009)",
     isPrimary: true,
     creditLimit: 5000,
-    limitType: preset,
+    limitType: "preset",
     isBrandPartner: true
   },
   {
@@ -36,7 +37,7 @@ export const primaryCardsConfig: PrimaryCard[] = [
     displayName: "Business Blue Plus I (-01000)",
     isPrimary: true,
     creditLimit: 5900,
-    limitType: preset,
+    limitType: "preset",
     isBrandPartner: false
   },
   {
@@ -45,7 +46,7 @@ export const primaryCardsConfig: PrimaryCard[] = [
     displayName: "Business Blue Plus II (-11009)",
     isPrimary: true,
     creditLimit: 4000,
-    limitType: preset,
+    limitType: "preset",
     isBrandPartner: false
   },
   {
@@ -108,7 +109,7 @@ export const primaryCardsConfig: PrimaryCard[] = [
     displayName: "Delta Skymiles Reserve (-41006)",
     isPrimary: true,
     creditLimit: 30000,
-    limitType: preset,
+    limitType: "preset",
     isBrandPartner: true
   },
   {
@@ -117,7 +118,7 @@ export const primaryCardsConfig: PrimaryCard[] = [
     displayName: "Hilton Honors Business (-91003)",
     isPrimary: true,
     creditLimit: 5000,
-    limitType: preset,
+    limitType: "preset",
     isBrandPartner: true
   },
   {

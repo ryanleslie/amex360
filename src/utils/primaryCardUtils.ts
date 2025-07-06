@@ -1,6 +1,6 @@
 
 import { PrimaryCard } from "@/types/primaryCard"
-import { primaryCardsConfig } from "@/data/config/primaryCardsData"
+import { primaryCardsConfig } from "@/data/primaryCardsData"
 import { transactionFilterService } from "@/services/transaction"
 
 // Helper functions

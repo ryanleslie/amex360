@@ -176,8 +176,17 @@ export function QuickMetricsCards() {
       multiple: card.partnerMultiple ? `${card.partnerMultiple}x` : "N/A"
     }))
 
-    // Sort alphabetically by card name
-    cardDetails.sort((a, b) => a.name.localeCompare(b.name))
+    // Sort by partner multiple (highest first), then by credit limit
+    cardDetails.sort((a, b) => {
+      const aMultiple = parseInt(a.multiple.replace('x', '')) || 0
+      const bMultiple = parseInt(b.multiple.replace('x', '')) || 0
+      if (aMultiple !== bMultiple) {
+        return bMultiple - aMultiple
+      }
+      const aLimit = parseInt(a.amount.replace(/[$,]/g, ''))
+      const bLimit = parseInt(b.amount.replace(/[$,]/g, ''))
+      return bLimit - aLimit
+    })
 
     return {
       count: brandPartnerCards.length,

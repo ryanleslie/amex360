@@ -178,10 +178,6 @@ export function UserListCard() {
                   </div>
                   
                   <div className="text-xs text-muted-foreground">
-                    Created: {formatCreatedAt(user.created_at)}
-                  </div>
-                  
-                  <div className="text-xs text-muted-foreground">
                     Last login: {formatLastLogin(user.last_login)}
                   </div>
                 </div>

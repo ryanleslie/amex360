@@ -17,6 +17,9 @@ export function useAdminUsers() {
   const [showUsers, setShowUsers] = useState(false);
 
   useEffect(() => {
+    // Clear cache on component mount to force fresh data
+    sessionStorage.removeItem('admin-users-cache');
+    sessionStorage.removeItem('email-sync-completed');
     fetchUsers();
   }, []);
 
@@ -49,6 +52,7 @@ export function useAdminUsers() {
       }
       
       // Fetch profiles with their roles from user_roles table
+      // Use a left join instead of inner join to include users without roles
       const { data: profilesData, error: profilesError } = await supabase
         .from('profiles')
         .select(`
@@ -58,12 +62,38 @@ export function useAdminUsers() {
           created_at,
           last_login,
           email,
-          user_roles!inner(role)
+          user_roles(role)
         `)
         .order('created_at', { ascending: false });
 
       if (profilesError) {
         console.error('Error fetching profiles:', profilesError);
+        // If the join fails, try fetching profiles without roles
+        const { data: basicProfiles, error: basicError } = await supabase
+          .from('profiles')
+          .select('*')
+          .order('created_at', { ascending: false });
+        
+        if (basicError) {
+          console.error('Error fetching basic profiles:', basicError);
+          return;
+        }
+        
+        // Use basic profiles data without roles
+        const basicUsers = basicProfiles?.map(profile => ({
+          id: profile.id,
+          display_name: profile.display_name,
+          first_name: profile.first_name,
+          email: profile.email,
+          role: 'user', // Default role
+          created_at: profile.created_at,
+          last_login: profile.last_login
+        })) || [];
+        
+        console.log('Using basic profiles:', basicUsers);
+        sessionStorage.setItem('admin-users-cache', JSON.stringify(basicUsers));
+        setUsers(basicUsers);
+        setTimeout(() => setShowUsers(true), 100);
         return;
       }
 

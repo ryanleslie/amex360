@@ -84,7 +84,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const isAdmin = (): boolean => {
     if (!user) return false;
     // Add your admin user emails or IDs here
-    const adminEmails = ['admin@example.com', 'ryanjleslie@gmail.com'];
+    const adminEmails = ['team@wealthplan.co', 'ryanjleslie@gmail.com'];
     return adminEmails.includes(user.email || '');
   };
 

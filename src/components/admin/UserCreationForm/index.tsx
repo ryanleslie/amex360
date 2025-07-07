@@ -33,20 +33,20 @@ export function UserCreationForm() {
           <div className="p-4 border rounded-lg bg-blue-50 border-blue-200">
             <h4 className="font-medium text-blue-900 mb-2">Creating New Users</h4>
             <p className="text-sm text-blue-800 mb-3">
-              With Supabase authentication, users must sign up themselves using the Sign Up tab on the auth page. 
-              As an admin, you can then assign roles to registered users.
+              For this app, with Supabase authentication, users must be created using in Supabase by request. 
+              As an admin, roles can then be assigned to registered users in the profiles table.
             </p>
             <Badge variant="outline" className="bg-blue-100 text-blue-800 border-blue-300">
-              Self-Registration Required
+              Manual Registration Required
             </Badge>
           </div>
 
           <div className="p-4 border rounded-lg">
             <h4 className="font-medium mb-2">Admin Instructions</h4>
             <ol className="text-sm text-muted-foreground space-y-1 list-decimal list-inside">
-              <li>Share the application URL with new users</li>
-              <li>Direct them to use the "Sign Up" tab to create their account</li>
-              <li>Once registered, you can view and manage their roles in the user list</li>
+              <li>Check for new credential requests via discord direct message</li>
+              <li>Provision the new account with email and unique password</li>
+              <li>Once registered, view and manage their roles in the user list</li>
               <li>Update user roles as needed using the user management interface</li>
             </ol>
           </div>
@@ -56,11 +56,11 @@ export function UserCreationForm() {
             className="w-full"
           >
             <a 
-              href="/auth" 
+              href="https://supabase.com/dashboard/project/eympxjimldhplotitshq/auth/users" 
               target="_blank" 
               rel="noopener noreferrer"
             >
-              Open Auth Page
+              Create New User
             </a>
           </Button>
         </div>

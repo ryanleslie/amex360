@@ -6,6 +6,7 @@ import { useCategorySpendingData } from "@/hooks/useCategorySpendingData"
 import { CategoryChartCard } from "@/components/chart/CategoryChartCard"
 import { CategoryTable } from "@/components/chart/CategoryTable"
 import { CategoryTransactionCard } from "@/components/chart/CategoryTransactionCard"
+import { useAuth } from "@/contexts/AuthContext"
 
 export const description = "A donut chart showing spending breakdown by category"
 
@@ -35,6 +36,7 @@ export function CategorySpendingChart({
   onTimeRangeChange 
 }: CategorySpendingChartProps) {
   const [selectedCategory, setSelectedCategory] = React.useState<string>("all")
+  const { isAdmin } = useAuth()
 
   const handleTimeRangeChange = (newTimeRange: string) => {
     console.log("CategorySpendingChart: Time range changing to:", newTimeRange)
@@ -86,15 +88,17 @@ export function CategorySpendingChart({
         />
       </div>
       
-      <div className="px-4 lg:px-6">
-        <CategoryTransactionCard
-          timeRange={selectedTimeRange}
-          selectedCategory={selectedCategory}
-          onCategoryChange={setSelectedCategory}
-          onTimeRangeChange={handleTimeRangeChange}
-          categories={allCategories}
-        />
-      </div>
+      {isAdmin && (
+        <div className="px-4 lg:px-6">
+          <CategoryTransactionCard
+            timeRange={selectedTimeRange}
+            selectedCategory={selectedCategory}
+            onCategoryChange={setSelectedCategory}
+            onTimeRangeChange={handleTimeRangeChange}
+            categories={allCategories}
+          />
+        </div>
+      )}
     </div>
   )
 }

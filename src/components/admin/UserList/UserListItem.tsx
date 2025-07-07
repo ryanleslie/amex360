@@ -58,7 +58,7 @@ export function UserListItem({ user, index }: UserListItemProps) {
         </div>
         <Badge variant={getRoleBadgeVariant(user.role || 'user')}>
           <Shield className="h-3 w-3 mr-1" />
-          {user.role || 'user'}
+          {user.role === 'user' ? 'guest' : (user.role || 'guest')}
         </Badge>
       </div>
       

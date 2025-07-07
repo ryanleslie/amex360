@@ -1,5 +1,6 @@
 
 import * as React from "react"
+import { Shield } from "lucide-react"
 import { useAuth } from "@/contexts/AuthContext"
 import { Badge } from "@/components/ui/badge"
 import {
@@ -11,6 +12,19 @@ import {
 export function NavUser() {
   const { user, isAdmin } = useAuth()
 
+  const getRoleBadgeVariant = (role: string) => {
+    switch (role) {
+      case 'admin':
+        return 'destructive';
+      case 'moderator':
+        return 'default';
+      default:
+        return 'secondary';
+    }
+  };
+
+  const currentRole = isAdmin ? 'admin' : 'user';
+
   if (!user) return null
 
   return (
@@ -20,8 +34,9 @@ export function NavUser() {
           <div className="grid flex-1 text-left text-sm leading-tight">
             <div className="flex items-center gap-2">
               <span className="text-muted-foreground text-xs">Logged in as:</span>
-              <Badge variant={isAdmin ? "default" : "secondary"} className="text-xs">
-                {isAdmin ? "admin" : "user"}
+              <Badge variant={getRoleBadgeVariant(currentRole)}>
+                <Shield className="h-3 w-3 mr-1" />
+                {currentRole === 'user' ? 'guest' : currentRole}
               </Badge>
             </div>
             <div className="truncate font-normal text-xs">{user.email}</div>

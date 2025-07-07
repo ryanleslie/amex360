@@ -3,35 +3,11 @@ import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Button } from '@/components/ui/button';
 import { useCardBalances } from '@/hooks/useCardBalances';
-import { balanceUpdateService } from '@/services/balanceUpdateService';
-import { CreditCard, RefreshCw } from 'lucide-react';
-import { toast } from 'sonner';
+import { CreditCard } from 'lucide-react';
 
 export function AdminBalancesCard() {
-  const { cardBalances, loading, error, refetch } = useCardBalances();
-  const [isUpdating, setIsUpdating] = React.useState(false);
-
-  const handleUpdateBalances = async () => {
-    setIsUpdating(true);
-    try {
-      const result = await balanceUpdateService.updateCardBalances();
-      
-      if (result.success) {
-        toast.success(result.message);
-        // Refetch the data after successful update
-        refetch();
-      } else {
-        toast.error(result.message);
-      }
-    } catch (error) {
-      toast.error('Failed to update balances');
-      console.error('Error updating balances:', error);
-    } finally {
-      setIsUpdating(false);
-    }
-  };
+  const { cardBalances, loading, error } = useCardBalances();
 
   if (loading) {
     return (
@@ -65,24 +41,11 @@ export function AdminBalancesCard() {
   return (
     <Card className="p-6 bg-gradient-to-b from-white to-gray-100">
       <div className="space-y-4">
-        <div className="flex items-center justify-between animate-fade-in">
-          <div className="flex items-center gap-2">
-            <h3 className="text-lg font-semibold">Card Balances</h3>
-            <Badge variant="outline">
-              {cardBalances.length} cards
-            </Badge>
-          </div>
-          
-          <Button 
-            onClick={handleUpdateBalances}
-            disabled={isUpdating}
-            size="sm"
-            variant="outline"
-            className="gap-2"
-          >
-            <RefreshCw className={`h-4 w-4 ${isUpdating ? 'animate-spin' : ''}`} />
-            {isUpdating ? 'Updating...' : 'Update Balances'}
-          </Button>
+        <div className="flex items-center gap-2 animate-fade-in">
+          <h3 className="text-lg font-semibold">Card Balances</h3>
+          <Badge variant="outline" className="ml-auto">
+            {cardBalances.length} cards
+          </Badge>
         </div>
 
         <ScrollArea className="h-[560px]">

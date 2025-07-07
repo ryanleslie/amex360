@@ -31,6 +31,13 @@ export function AdminBalancesCard() {
     );
   }
 
+  // Sort card balances in descending order (highest to lowest)
+  const sortedCardBalances = [...cardBalances].sort((a, b) => {
+    const balanceA = a.currentBalance || 0;
+    const balanceB = b.currentBalance || 0;
+    return balanceB - balanceA;
+  });
+
   return (
     <Card className="p-6 bg-gradient-to-b from-white to-gray-100">
       <div className="space-y-4">
@@ -43,12 +50,12 @@ export function AdminBalancesCard() {
 
         <ScrollArea className="h-[560px]">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 pr-4">
-            {cardBalances.length === 0 ? (
+            {sortedCardBalances.length === 0 ? (
               <div className="col-span-full text-center text-muted-foreground py-4 animate-fade-in">
                 No card balances found
               </div>
             ) : (
-              cardBalances.map((balance, index) => (
+              sortedCardBalances.map((balance, index) => (
                 <div
                   key={balance.ID}
                   className="p-4 border rounded-lg bg-gradient-to-b from-white to-gray-50 space-y-3 animate-fade-in"

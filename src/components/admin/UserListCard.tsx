@@ -22,8 +22,7 @@ export function UserListCard() {
   const [loading, setLoading] = useState(true);
   const [showUsers, setShowUsers] = useState(false);
 
-  // Get the admin emails from AuthContext
-  const adminEmails = ['team@wealthplan.co', 'ryanjleslie@gmail.com'];
+  // We'll get roles from the user_roles table instead of hard-coded emails
 
   useEffect(() => {
     fetchUsers();
@@ -57,6 +56,7 @@ export function UserListCard() {
         }
       }
       
+      // Fetch profiles with their roles from user_roles table
       const { data: profilesData, error: profilesError } = await supabase
         .from('profiles')
         .select(`
@@ -65,7 +65,8 @@ export function UserListCard() {
           first_name,
           created_at,
           last_login,
-          email
+          email,
+          user_roles!inner(role)
         `)
         .order('created_at', { ascending: false });
 
@@ -76,17 +77,17 @@ export function UserListCard() {
 
       console.log('Profiles data:', profilesData);
 
-      // Transform the data and determine roles based on actual email field
-      const transformedUsers = profilesData?.map(profile => {
-        const userEmail = profile.email;
-        const isAdmin = userEmail && adminEmails.includes(userEmail);
+      // Transform the data and get roles from user_roles table
+      const transformedUsers = profilesData?.map((profile: any) => {
+        // Get the first role from user_roles (users should typically have one role)
+        const userRole = profile.user_roles?.[0]?.role || 'user';
         
         return {
           id: profile.id,
           display_name: profile.display_name,
           first_name: profile.first_name,
-          email: userEmail,
-          role: isAdmin ? 'admin' : 'user',
+          email: profile.email,
+          role: userRole,
           created_at: profile.created_at,
           last_login: profile.last_login
         };

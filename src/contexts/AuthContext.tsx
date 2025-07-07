@@ -9,7 +9,7 @@ interface AuthContextType {
   signIn: (email: string, password: string) => Promise<{ error?: string }>;
   signOut: () => Promise<void>;
   loading: boolean;
-  isAdmin: () => boolean;
+  isAdmin: () => Promise<boolean>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -92,12 +92,26 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  // Simple admin check - you can modify this logic as needed
-  const isAdmin = (): boolean => {
+  // Check if user is admin by querying user_roles table
+  const isAdmin = async (): Promise<boolean> => {
     if (!user) return false;
-    // Add your admin user emails or IDs here
-    const adminEmails = ['team@wealthplan.co', 'ryanjleslie@gmail.com'];
-    return adminEmails.includes(user.email || '');
+    
+    try {
+      const { data, error } = await supabase.rpc('has_role', {
+        _user_id: user.id,
+        _role: 'admin'
+      });
+      
+      if (error) {
+        console.error('Error checking admin role:', error);
+        return false;
+      }
+      
+      return data || false;
+    } catch (error) {
+      console.error('Error checking admin role:', error);
+      return false;
+    }
   };
 
   return (

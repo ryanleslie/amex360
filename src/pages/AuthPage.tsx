@@ -47,7 +47,7 @@ const AuthPage = () => {
         }
         
         toast({
-          title: `Welcome ${firstName}!`,
+          title: `Welcome back, ${firstName}!`,
           description: "You've been signed in successfully.",
         });
         navigate("/dashboard");

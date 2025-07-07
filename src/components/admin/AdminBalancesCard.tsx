@@ -171,7 +171,7 @@ export function AdminBalancesCard() {
                         : 'N/A'
                       }
                     </div>
-                    {balance.availableBalance !== null && balance.availableBalance !== balance.currentBalance && (
+                    {balance.availableBalance !== null && balance.availableBalance !== undefined && balance.availableBalance !== balance.currentBalance && (
                       <div className="text-sm text-muted-foreground">
                         Available: ${balance.availableBalance.toLocaleString('en-US', { 
                           minimumFractionDigits: 2, 
@@ -179,7 +179,7 @@ export function AdminBalancesCard() {
                         })}
                       </div>
                     )}
-                    {balance.creditLimit && (
+                    {balance.creditLimit !== null && balance.creditLimit !== undefined && (
                       <div className="text-sm text-muted-foreground">
                         Limit: ${balance.creditLimit.toLocaleString('en-US', { 
                           minimumFractionDigits: 2, 

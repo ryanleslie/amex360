@@ -33,7 +33,7 @@ const AppContent = () => {
           path="/dashboard" 
           element={
             <ProtectedRoute>
-              <Suspense fallback={null}>
+              <Suspense fallback={<div className="h-screen flex items-center justify-center">Loading...</div>}>
                 <Dashboard />
               </Suspense>
             </ProtectedRoute>
@@ -43,7 +43,7 @@ const AppContent = () => {
           path="/insights" 
           element={
             <ProtectedRoute>
-              <Suspense fallback={null}>
+              <Suspense fallback={<div className="h-screen flex items-center justify-center">Loading...</div>}>
                 <Dashboard />
               </Suspense>
             </ProtectedRoute>
@@ -53,7 +53,7 @@ const AppContent = () => {
           path="/rewards" 
           element={
             <ProtectedRoute>
-              <Suspense fallback={null}>
+              <Suspense fallback={<div className="h-screen flex items-center justify-center">Loading...</div>}>
                 <Dashboard />
               </Suspense>
             </ProtectedRoute>
@@ -63,7 +63,7 @@ const AppContent = () => {
           path="/employee" 
           element={
             <ProtectedRoute>
-              <Suspense fallback={null}>
+              <Suspense fallback={<div className="h-screen flex items-center justify-center">Loading...</div>}>
                 <Dashboard />
               </Suspense>
             </ProtectedRoute>
@@ -73,7 +73,7 @@ const AppContent = () => {
           path="/creditmax" 
           element={
             <ProtectedRoute>
-              <Suspense fallback={null}>
+              <Suspense fallback={<div className="h-screen flex items-center justify-center">Loading...</div>}>
                 <Dashboard />
               </Suspense>
             </ProtectedRoute>
@@ -83,7 +83,7 @@ const AppContent = () => {
           path="/admin" 
           element={
             <ProtectedRoute>
-              <Suspense fallback={null}>
+              <Suspense fallback={<div className="h-screen flex items-center justify-center">Loading...</div>}>
                 <Dashboard />
               </Suspense>
             </ProtectedRoute>
@@ -93,7 +93,7 @@ const AppContent = () => {
           path="/redemptions" 
           element={
             <ProtectedRoute>
-              <Suspense fallback={null}>
+              <Suspense fallback={<div className="h-screen flex items-center justify-center">Loading...</div>}>
                 <Dashboard />
               </Suspense>
             </ProtectedRoute>

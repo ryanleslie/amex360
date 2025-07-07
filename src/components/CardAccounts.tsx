@@ -153,7 +153,23 @@ export function CardAccounts({
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 overflow-hidden">
-        <ScrollArea className="h-full pr-2">
+        {cardData.length > 1 ? (
+          <ScrollArea className="h-full pr-2">
+            <div className="space-y-2 pb-6">
+              {cardData.map((card, index) => (
+                <div key={card.fullName} className="p-1">
+                  <CardAccountItem
+                    card={card}
+                    index={index}
+                    onCardClick={handleCardClick}
+                    isSelected={getSelectedCard(card)}
+                    filters={filters}
+                  />
+                </div>
+              ))}
+            </div>
+          </ScrollArea>
+        ) : (
           <div className="space-y-2 pb-6">
             {cardData.map((card, index) => (
               <div key={card.fullName} className="p-1">
@@ -167,7 +183,7 @@ export function CardAccounts({
               </div>
             ))}
           </div>
-        </ScrollArea>
+        )}
       </CardContent>
     </Card>
   );

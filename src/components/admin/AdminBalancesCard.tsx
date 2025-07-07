@@ -14,6 +14,7 @@ export function AdminBalancesCard() {
   const { cardBalances, loading, error, refetch } = useCardBalances();
   const { toast } = useToast();
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
   const [linkToken, setLinkToken] = useState<string | null>(null);
   const [isCreatingToken, setIsCreatingToken] = useState(false);
 
@@ -43,6 +44,35 @@ export function AdminBalancesCard() {
       });
     } finally {
       setIsRefreshing(false);
+    }
+  };
+
+  const handleSyncBalances = async () => {
+    setIsSyncing(true);
+    try {
+      // Call the sync-card-balances function
+      const { data, error: syncError } = await supabase.functions.invoke('sync-card-balances');
+      
+      if (syncError) {
+        throw syncError;
+      }
+
+      // Refetch the card balances to show updated data
+      await refetch();
+
+      toast({
+        title: "Balances Synced",
+        description: `Successfully synced ${data?.synced || 0} card balances from Plaid`,
+      });
+    } catch (error) {
+      console.error('Error syncing balances:', error);
+      toast({
+        title: "Sync Failed",
+        description: "Failed to sync card balances. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSyncing(false);
     }
   };
 
@@ -173,6 +203,16 @@ export function AdminBalancesCard() {
             >
               <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
               Refresh
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleSyncBalances}
+              disabled={isSyncing}
+              className="gap-2"
+            >
+              <RefreshCw className={`h-4 w-4 ${isSyncing ? 'animate-spin' : ''}`} />
+              {isSyncing ? 'Syncing...' : 'Sync Balances'}
             </Button>
             <Button
               variant="outline"

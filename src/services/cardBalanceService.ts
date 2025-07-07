@@ -27,59 +27,51 @@ export const cardBalanceService = {
     try {
       const primaryCards = getAllPrimaryCards()
       
-      // First try to get Plaid accounts
-      const { data: plaidAccounts, error: plaidError } = await supabase
-        .from('plaid_accounts')
-        .select('*')
-        
-      if (!plaidError && plaidAccounts && plaidAccounts.length > 0) {
-        // Map Plaid accounts to CardBalance format using primary card mapping
-        return primaryCards
-          .map(primaryCard => {
-            const plaidAccount = plaidAccounts.find(
-              account => account.plaid_account_id === primaryCard.plaid_account_id
-            )
-            
-            if (!plaidAccount) return null
-            
-            return {
-              ID: plaidAccount.id,
-              cardType: primaryCard.cardType,
-              currentBalance: plaidAccount.current_balance,
-              accountName: plaidAccount.account_name,
-              accountType: plaidAccount.account_type,
-              accountSubtype: plaidAccount.account_subtype,
-              availableBalance: plaidAccount.available_balance,
-              creditLimit: plaidAccount.credit_limit,
-              institutionName: plaidAccount.institution_name,
-              primaryCard: {
-                lastFive: primaryCard.lastFive,
-                annualFee: primaryCard.annualFee,
-                interestRate: primaryCard.interestRate,
-                closingDate: primaryCard.closingDate,
-                dueDate: primaryCard.dueDate,
-                limitType: primaryCard.limitType
-              }
-            }
-          })
-          .filter(Boolean) as CardBalance[]
-      }
-      
-      // Fallback to static card_balances if no Plaid data
-      const { data: staticBalances, error: staticError } = await supabase
+      // Get card balances from the public table (works for both authenticated and guest users)
+      const { data: cardBalances, error: balanceError } = await supabase
         .from('card_balances')
         .select('*')
         
-      if (staticError) {
-        console.error('Error fetching card balances:', staticError)
+      if (balanceError) {
+        console.error('Error fetching card balances:', balanceError)
         return []
       }
       
-      return staticBalances?.map(balance => ({
-        ID: balance.ID,
-        cardType: balance.cardType,
-        currentBalance: balance.currentBalance
-      })) || []
+      if (!cardBalances || cardBalances.length === 0) {
+        return []
+      }
+      
+      // Map card balances with primary card details
+      return cardBalances
+        .map(balance => {
+          const primaryCard = primaryCards.find(
+            card => card.plaid_account_id === balance.plaid_account_id
+          )
+          
+          if (!primaryCard) {
+            // Return basic balance info if no primary card match
+            return {
+              ID: balance.ID,
+              cardType: balance.cardType,
+              currentBalance: balance.currentBalance
+            }
+          }
+          
+          return {
+            ID: balance.ID,
+            cardType: balance.cardType,
+            currentBalance: balance.currentBalance,
+            primaryCard: {
+              lastFive: primaryCard.lastFive,
+              annualFee: primaryCard.annualFee,
+              interestRate: primaryCard.interestRate,
+              closingDate: primaryCard.closingDate,
+              dueDate: primaryCard.dueDate,
+              limitType: primaryCard.limitType
+            }
+          }
+        })
+        .filter(Boolean) as CardBalance[]
       
     } catch (error) {
       console.error('Failed to fetch card balances:', error)

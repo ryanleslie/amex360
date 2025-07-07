@@ -32,9 +32,19 @@ const AuthPage = () => {
           variant: "destructive",
         });
       } else {
-        // Get user data to show first name in welcome message
+        // Get user data and profile to show first name in welcome message
         const { data: { user } } = await supabase.auth.getUser();
-        const firstName = user?.user_metadata?.first_name || user?.email?.split('@')[0] || 'there';
+        
+        let firstName = 'there';
+        if (user) {
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('first_name')
+            .eq('id', user.id)
+            .single();
+          
+          firstName = profile?.first_name || user.email?.split('@')[0] || 'there';
+        }
         
         toast({
           title: `Welcome ${firstName}!`,

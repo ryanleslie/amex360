@@ -7,9 +7,6 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
@@ -17,26 +14,17 @@ serve(async (req) => {
 
   try {
     const authHeader = req.headers.get('Authorization');
-    if (!authHeader) {
-      console.error('Missing Authorization header');
-      return new Response(JSON.stringify({
-        error: 'Unauthorized'
-      }), {
-        status: 401,
-        headers: {
-          ...corsHeaders,
-          'Content-Type': 'application/json'
-        }
-      });
-    }
-
-    const supabaseClient = createClient(supabaseUrl, supabaseServiceKey, {
-      global: {
-        headers: {
-          Authorization: authHeader
+    const supabaseClient = createClient(
+      Deno.env.get('SUPABASE_URL') ?? '', 
+      Deno.env.get('SUPABASE_ANON_KEY') ?? '', 
+      {
+        global: {
+          headers: {
+            Authorization: authHeader
+          }
         }
       }
-    });
+    );
 
     // Get the authenticated user
     const { data: { user } } = await supabaseClient.auth.getUser();
@@ -70,8 +58,6 @@ serve(async (req) => {
       });
     }
 
-    const plaidBaseUrl = 'https://production.plaid.com';
-
     // Get all plaid items for the user
     const { data: plaidItems, error: itemsError } = await supabaseClient
       .from('plaid_items')
@@ -102,7 +88,7 @@ serve(async (req) => {
         console.log('Syncing item:', item.id);
         
         // Get accounts for this item
-        const accountsResponse = await fetch(`${plaidBaseUrl}/accounts/get`, {
+        const accountsResponse = await fetch('https://production.plaid.com/accounts/get', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -129,7 +115,8 @@ serve(async (req) => {
                 credit_limit: account.balances.limit,
                 last_synced_at: new Date().toISOString()
               })
-              .eq('account_id', account.account_id);
+              .eq('account_id', account.account_id)
+              .eq('plaid_item_id', item.id);
 
             if (!updateError) {
               totalSynced++;

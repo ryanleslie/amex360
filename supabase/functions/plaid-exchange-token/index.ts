@@ -7,38 +7,24 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const { public_token } = await req.json();
-    
     const authHeader = req.headers.get('Authorization');
-    if (!authHeader) {
-      console.error('Missing Authorization header');
-      return new Response(JSON.stringify({
-        error: 'Unauthorized'
-      }), {
-        status: 401,
-        headers: {
-          ...corsHeaders,
-          'Content-Type': 'application/json'
-        }
-      });
-    }
-
-    const supabaseClient = createClient(supabaseUrl, supabaseServiceKey, {
-      global: {
-        headers: {
-          Authorization: authHeader
+    const supabaseClient = createClient(
+      Deno.env.get('SUPABASE_URL') ?? '', 
+      Deno.env.get('SUPABASE_ANON_KEY') ?? '', 
+      {
+        global: {
+          headers: {
+            Authorization: authHeader
+          }
         }
       }
-    });
+    );
 
     // Get the authenticated user
     const { data: { user } } = await supabaseClient.auth.getUser();
@@ -55,12 +41,25 @@ serve(async (req) => {
       });
     }
 
-    console.log('Authenticated user:', user.id);
+    const { public_token } = await req.json();
+    if (!public_token) {
+      console.error('No public token provided');
+      return new Response(JSON.stringify({
+        error: 'Public token is required'
+      }), {
+        status: 400,
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'application/json'
+        }
+      });
+    }
 
-    const PLAID_CLIENT_ID = Deno.env.get('PLAID_CLIENT_ID');
-    const PLAID_SECRET = Deno.env.get('PLAID_SECRET');
+    const plaidClientId = Deno.env.get('PLAID_CLIENT_ID');
+    const plaidSecret = Deno.env.get('PLAID_SECRET');
 
-    if (!PLAID_CLIENT_ID || !PLAID_SECRET) {
+    if (!plaidClientId || !plaidSecret) {
+      console.error('Missing Plaid credentials');
       return new Response(JSON.stringify({
         error: 'Plaid credentials not configured'
       }), {
@@ -72,15 +71,18 @@ serve(async (req) => {
       });
     }
 
-    const plaidBaseUrl = 'https://production.plaid.com';
+    console.log('Exchange token request:', {
+      hasToken: !!public_token,
+      userId: user.id
+    });
 
-    // Exchange public token for access token
-    const exchangeResponse = await fetch(`${plaidBaseUrl}/item/public_token/exchange`, {
+    // Exchange public token for access token using production environment
+    const exchangeResponse = await fetch('https://production.plaid.com/item/public_token/exchange', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'PLAID-CLIENT-ID': PLAID_CLIENT_ID,
-        'PLAID-SECRET': PLAID_SECRET,
+        'PLAID-CLIENT-ID': plaidClientId,
+        'PLAID-SECRET': plaidSecret,
       },
       body: JSON.stringify({
         public_token,
@@ -88,12 +90,12 @@ serve(async (req) => {
     });
 
     const exchangeData = await exchangeResponse.json();
-    
     console.log('Exchange response:', {
       status: exchangeResponse.status,
-      data: exchangeData
+      hasAccessToken: !!exchangeData.access_token,
+      hasItemId: !!exchangeData.item_id
     });
-    
+
     if (!exchangeResponse.ok) {
       console.error('Plaid exchange error:', exchangeData);
       return new Response(JSON.stringify({
@@ -110,63 +112,55 @@ serve(async (req) => {
 
     const { access_token, item_id } = exchangeData;
 
-    // Get institution info
-    const institutionResponse = await fetch(`${plaidBaseUrl}/item/get`, {
+    // Get account info to store using production environment
+    const accountsResponse = await fetch('https://production.plaid.com/accounts/get', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'PLAID-CLIENT-ID': PLAID_CLIENT_ID,
-        'PLAID-SECRET': PLAID_SECRET,
+        'PLAID-CLIENT-ID': plaidClientId,
+        'PLAID-SECRET': plaidSecret,
       },
       body: JSON.stringify({
         access_token,
       }),
     });
 
-    const institutionData = await institutionResponse.json();
-    let institutionName = 'Unknown Institution';
-    let institutionId = null;
+    const accountsData = await accountsResponse.json();
+    console.log('Accounts response:', {
+      status: accountsResponse.status,
+      accountCount: accountsData.accounts?.length
+    });
 
-    if (institutionResponse.ok && institutionData.item) {
-      institutionId = institutionData.item.institution_id;
-      
-      if (institutionId) {
-        const instResponse = await fetch(`${plaidBaseUrl}/institutions/get_by_id`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'PLAID-CLIENT-ID': PLAID_CLIENT_ID,
-            'PLAID-SECRET': PLAID_SECRET,
-          },
-          body: JSON.stringify({
-            institution_id: institutionId,
-            country_codes: ['US'],
-          }),
-        });
-
-        const instData = await instResponse.json();
-        if (instResponse.ok && instData.institution) {
-          institutionName = instData.institution.name;
+    if (!accountsResponse.ok) {
+      console.error('Plaid accounts error:', accountsData);
+      return new Response(JSON.stringify({
+        error: 'Failed to fetch accounts',
+        details: accountsData
+      }), {
+        status: 500,
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'application/json'
         }
-      }
+      });
     }
 
-    // Store the plaid item
-    const { data: plaidItem, error: itemError } = await supabaseClient
+    // Store the item in Supabase (upsert to avoid duplicates)
+    const { error: itemError } = await supabaseClient
       .from('plaid_items')
-      .insert({
+      .upsert({
         user_id: user.id,
-        item_id,
-        access_token,
-        institution_id: institutionId,
-        institution_name: institutionName,
+        item_id: item_id,
+        access_token: access_token,
+        institution_id: accountsData.item?.institution_id,
+        institution_name: 'American Express',
         status: 'active'
-      })
-      .select()
-      .single();
+      }, {
+        onConflict: 'item_id'
+      });
 
     if (itemError) {
-      console.error('Error storing plaid item:', itemError);
+      console.error('Error storing item:', itemError);
       return new Response(JSON.stringify({
         error: 'Failed to store connection',
         details: itemError
@@ -179,56 +173,87 @@ serve(async (req) => {
       });
     }
 
-    // Get accounts
-    const accountsResponse = await fetch(`${plaidBaseUrl}/accounts/get`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'PLAID-CLIENT-ID': PLAID_CLIENT_ID,
-        'PLAID-SECRET': PLAID_SECRET,
-      },
-      body: JSON.stringify({
-        access_token,
-      }),
-    });
+    // Get the stored plaid item to get the internal ID
+    const { data: plaidItem } = await supabaseClient
+      .from('plaid_items')
+      .select('id')
+      .eq('item_id', item_id)
+      .eq('user_id', user.id)
+      .single();
 
-    const accountsData = await accountsResponse.json();
-    
-    if (accountsResponse.ok && accountsData.accounts) {
-      // Store accounts
-      const accountsToInsert = accountsData.accounts.map((account: any) => ({
-        plaid_item_id: plaidItem.id,
-        account_id: account.account_id,
-        account_name: account.name,
-        account_type: account.type,
-        account_subtype: account.subtype,
-        current_balance: account.balances.current,
-        available_balance: account.balances.available,
-        credit_limit: account.balances.limit,
-        currency_code: account.balances.iso_currency_code || 'USD'
-      }));
-
-      const { error: accountsError } = await supabaseClient
-        .from('plaid_accounts')
-        .insert(accountsToInsert);
-
-      if (accountsError) {
-        console.error('Error storing accounts:', accountsError);
-      }
+    if (!plaidItem) {
+      console.error('Could not retrieve stored plaid item');
+      return new Response(JSON.stringify({
+        error: 'Failed to retrieve stored connection'
+      }), {
+        status: 500,
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'application/json'
+        }
+      });
     }
 
-    return new Response(JSON.stringify({ success: true, item_id }), {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    // Delete existing accounts for this item to prevent duplicates
+    await supabaseClient
+      .from('plaid_accounts')
+      .delete()
+      .eq('plaid_item_id', plaidItem.id);
+
+    // Store accounts (insert fresh data)
+    const accountsToInsert = accountsData.accounts.map((account: any) => ({
+      plaid_item_id: plaidItem.id,
+      account_id: account.account_id,
+      account_name: account.name,
+      account_type: account.type,
+      account_subtype: account.subtype,
+      current_balance: account.balances.current,
+      available_balance: account.balances.available,
+      credit_limit: account.balances.limit,
+      currency_code: account.balances.iso_currency_code || 'USD'
+    }));
+
+    const { error: accountsError } = await supabaseClient
+      .from('plaid_accounts')
+      .insert(accountsToInsert);
+
+    if (accountsError) {
+      console.error('Error storing accounts:', accountsError);
+      return new Response(JSON.stringify({
+        error: 'Failed to store accounts',
+        details: accountsError
+      }), {
+        status: 500,
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'application/json'
+        }
+      });
+    }
+
+    console.log('Successfully stored accounts:', accountsData.accounts?.length);
+
+    return new Response(JSON.stringify({
+      success: true,
+      accounts: accountsData.accounts
+    }), {
+      headers: {
+        ...corsHeaders,
+        'Content-Type': 'application/json'
+      },
     });
 
   } catch (error) {
-    console.error('Error in plaid-exchange-token function:', error);
+    console.error('Error exchanging token:', error);
     return new Response(JSON.stringify({
       error: 'Internal server error',
       details: error.message
     }), {
       status: 500,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      headers: { 
+        ...corsHeaders, 
+        'Content-Type': 'application/json' 
+      },
     });
   }
 });

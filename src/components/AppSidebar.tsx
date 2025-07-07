@@ -35,6 +35,12 @@ export function AppSidebar({ activeSection }: AppSidebarProps) {
       section: "dashboard" as DashboardSection,
     },
     {
+      title: "Insights",
+      icon: ChartPie,
+      path: "/insights",
+      section: "insights" as DashboardSection,
+    },
+    {
       title: "Bonus Awards",
       icon: Award,
       path: "/rewards",
@@ -60,20 +66,8 @@ export function AppSidebar({ activeSection }: AppSidebarProps) {
     },
   ]
 
-  // Admin-only menu items
-  const adminMenuItems = [
-    {
-      title: "Insights",
-      icon: ChartPie,
-      path: "/insights",
-      section: "insights" as DashboardSection,
-    },
-  ]
-
-  // Combine menu items based on user role
-  const menuItems = isAdmin 
-    ? [baseMenuItems[0], ...adminMenuItems, ...baseMenuItems.slice(1)]
-    : baseMenuItems
+  // Use base menu items for all users
+  const menuItems = baseMenuItems
 
   const handleItemClick = (path: string) => {
     navigate(path)

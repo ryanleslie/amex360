@@ -1,5 +1,5 @@
-import { CreditCard } from 'lucide-react';
 import { CardBalance } from '@/services/cardBalanceService';
+import { getCardImage } from '@/utils/cardImageUtils';
 
 interface AdminBalancesCardGridProps {
   cardBalances: CardBalance[];
@@ -32,30 +32,34 @@ export function AdminBalancesCardGrid({ cardBalances }: AdminBalancesCardGridPro
             animationFillMode: 'both'
           }}
         >
-          <div className="flex items-center gap-3">
-            <CreditCard className="h-5 w-5 text-muted-foreground" />
-            <div className="font-medium text-sm">
-              {balance.cardType}
-              {balance.institutionName && (
-                <div className="text-xs text-muted-foreground font-normal">
-                  {balance.institutionName}
-                </div>
-              )}
-            </div>
+          <div className="font-medium text-sm">
+            {balance.cardType}
+            {balance.institutionName && (
+              <div className="text-xs text-muted-foreground font-normal">
+                {balance.institutionName}
+              </div>
+            )}
           </div>
           
           <div className="space-y-1">
-            <div className="text-lg font-semibold tabular-nums">
-              {balance.currentBalance !== null 
-                ? `$${balance.currentBalance.toLocaleString('en-US', { 
-                    minimumFractionDigits: 2, 
-                    maximumFractionDigits: 2 
-                  })}` 
-                : 'N/A'
-              }
+            <div className="flex items-center gap-3">
+              <img 
+                src={getCardImage(balance.cardType)} 
+                alt={balance.cardType}
+                className="w-12 h-8 object-cover rounded border"
+              />
+              <div className="text-lg font-semibold tabular-nums">
+                {balance.currentBalance !== null 
+                  ? `$${balance.currentBalance.toLocaleString('en-US', { 
+                      minimumFractionDigits: 2, 
+                      maximumFractionDigits: 2 
+                    })}` 
+                  : 'N/A'
+                }
+              </div>
             </div>
             {balance.availableBalance !== null && balance.availableBalance !== undefined && balance.availableBalance !== balance.currentBalance && (
-              <div className="text-sm text-muted-foreground">
+              <div className="text-sm text-muted-foreground ml-[60px]">
                 Available: ${balance.availableBalance.toLocaleString('en-US', { 
                   minimumFractionDigits: 2, 
                   maximumFractionDigits: 2 
@@ -63,7 +67,7 @@ export function AdminBalancesCardGrid({ cardBalances }: AdminBalancesCardGridPro
               </div>
             )}
             {balance.creditLimit !== null && balance.creditLimit !== undefined && (
-              <div className="text-sm text-muted-foreground">
+              <div className="text-sm text-muted-foreground ml-[60px]">
                 Limit: ${balance.creditLimit.toLocaleString('en-US', { 
                   minimumFractionDigits: 2, 
                   maximumFractionDigits: 2 

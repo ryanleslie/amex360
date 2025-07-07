@@ -10,7 +10,7 @@ interface AdminToggleProps {
 
 export function AdminToggle({ activeView, onViewChange }: AdminToggleProps) {
   return (
-    <div className="flex items-center justify-center gap-2 p-1 bg-muted rounded-lg animate-fade-in">
+    <div className="flex items-center justify-center gap-2 p-1 bg-transparent rounded-lg animate-fade-in">
       <Toggle
         pressed={activeView === "users"}
         onPressedChange={() => onViewChange("users")}

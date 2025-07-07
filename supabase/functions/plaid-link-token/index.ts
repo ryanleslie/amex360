@@ -18,24 +18,21 @@ serve(async (req) => {
   try {
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
     
-    const authHeader = req.headers.get('Authorization')!;
+    const authHeader = req.headers.get('Authorization');
+    if (!authHeader) {
+      console.error('Missing Authorization header');
+      throw new Error('Missing authorization header');
+    }
+    
     const token = authHeader.replace('Bearer ', '');
     
     const { data: { user }, error: userError } = await supabase.auth.getUser(token);
     if (userError || !user) {
       console.error('Authentication error:', userError);
-      throw new Error('Unauthorized');
+      throw new Error('Authentication failed');
     }
 
     console.log('Authenticated user:', user.id);
-
-    // Set the user context for RLS policies
-    await supabase.rpc('set_config', {
-      setting_name: 'app.current_user_id',
-      setting_value: user.id
-    });
-
-    console.log('User context set for RLS');
 
     const PLAID_CLIENT_ID = Deno.env.get('PLAID_CLIENT_ID');
     const PLAID_SECRET = Deno.env.get('PLAID_SECRET');

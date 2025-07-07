@@ -39,6 +39,7 @@ export type Database = {
           display_name: string | null
           first_name: string | null
           id: string
+          last_login: string | null
           last_name: string | null
           updated_at: string
         }
@@ -48,6 +49,7 @@ export type Database = {
           display_name?: string | null
           first_name?: string | null
           id: string
+          last_login?: string | null
           last_name?: string | null
           updated_at?: string
         }
@@ -57,6 +59,7 @@ export type Database = {
           display_name?: string | null
           first_name?: string | null
           id?: string
+          last_login?: string | null
           last_name?: string | null
           updated_at?: string
         }

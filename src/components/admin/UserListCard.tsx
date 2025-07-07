@@ -14,6 +14,7 @@ interface UserData {
   email?: string;
   role?: string;
   created_at?: string;
+  last_login?: string;
 }
 
 export function UserListCard() {
@@ -40,7 +41,8 @@ export function UserListCard() {
           id,
           display_name,
           first_name,
-          created_at
+          created_at,
+          last_login
         `)
         .order('created_at', { ascending: false });
 
@@ -62,7 +64,8 @@ export function UserListCard() {
           first_name: profile.first_name,
           email: profile.display_name, // display_name contains the email
           role: isAdmin ? 'admin' : 'user',
-          created_at: profile.created_at
+          created_at: profile.created_at,
+          last_login: profile.last_login
         };
       }) || [];
 
@@ -93,6 +96,28 @@ export function UserListCard() {
     if (!createdAt) return 'Unknown';
     try {
       return new Date(createdAt).toLocaleDateString();
+    } catch {
+      return 'Unknown';
+    }
+  };
+
+  const formatLastLogin = (lastLogin: string | null) => {
+    if (!lastLogin) return 'Never';
+    try {
+      const loginDate = new Date(lastLogin);
+      const now = new Date();
+      const diffMs = now.getTime() - loginDate.getTime();
+      const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+      
+      if (diffDays === 0) {
+        return 'Today';
+      } else if (diffDays === 1) {
+        return 'Yesterday';
+      } else if (diffDays < 7) {
+        return `${diffDays} days ago`;
+      } else {
+        return loginDate.toLocaleDateString();
+      }
     } catch {
       return 'Unknown';
     }
@@ -154,6 +179,10 @@ export function UserListCard() {
                   
                   <div className="text-xs text-muted-foreground">
                     Created: {formatCreatedAt(user.created_at)}
+                  </div>
+                  
+                  <div className="text-xs text-muted-foreground">
+                    Last login: {formatLastLogin(user.last_login)}
                   </div>
                 </div>
               ))

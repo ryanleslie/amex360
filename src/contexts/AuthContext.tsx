@@ -38,6 +38,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         console.log('Auth state changed:', event, currentSession?.user?.id);
         setSession(currentSession);
         setUser(currentSession?.user ?? null);
+        
+        // Track login when user signs in
+        if (event === 'SIGNED_IN' && currentSession?.user) {
+          try {
+            await supabase.functions.invoke('update-last-login', {
+              headers: {
+                Authorization: `Bearer ${currentSession.access_token}`,
+              },
+            });
+          } catch (error) {
+            console.error('Failed to update last login:', error);
+          }
+        }
+        
         setLoading(false);
       }
     );

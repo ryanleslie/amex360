@@ -31,13 +31,30 @@ export function UserListCard() {
 
   const fetchUsers = async () => {
     try {
-      console.log('Fetching users...');
+      // Check if we have cached data for this session
+      const cachedData = sessionStorage.getItem('admin-users-cache');
+      const syncCompleted = sessionStorage.getItem('email-sync-completed');
       
-      // First, sync emails for any profiles missing them
-      try {
-        await supabase.functions.invoke('sync-profile-emails');
-      } catch (syncError) {
-        console.log('Email sync completed or not needed:', syncError);
+      if (cachedData) {
+        console.log('Loading users from cache...');
+        const parsedData = JSON.parse(cachedData);
+        setUsers(parsedData);
+        setTimeout(() => setShowUsers(true), 100);
+        setLoading(false);
+        return;
+      }
+
+      console.log('Fetching users from database...');
+      
+      // Only sync emails once per session
+      if (!syncCompleted) {
+        try {
+          console.log('Syncing profile emails...');
+          await supabase.functions.invoke('sync-profile-emails');
+          sessionStorage.setItem('email-sync-completed', 'true');
+        } catch (syncError) {
+          console.log('Email sync completed or not needed:', syncError);
+        }
       }
       
       const { data: profilesData, error: profilesError } = await supabase
@@ -61,8 +78,7 @@ export function UserListCard() {
 
       // Transform the data and determine roles based on actual email field
       const transformedUsers = profilesData?.map(profile => {
-        const userEmail = profile.email; // Use the actual email field
-        // Check if email is in admin array
+        const userEmail = profile.email;
         const isAdmin = userEmail && adminEmails.includes(userEmail);
         
         return {
@@ -77,6 +93,10 @@ export function UserListCard() {
       }) || [];
 
       console.log('Transformed users:', transformedUsers);
+      
+      // Cache the transformed data for this session
+      sessionStorage.setItem('admin-users-cache', JSON.stringify(transformedUsers));
+      
       setUsers(transformedUsers);
       
       // Trigger staggered animations after data is loaded

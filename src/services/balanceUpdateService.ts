@@ -43,58 +43,21 @@ export const balanceUpdateService = {
         }
       }
 
-      console.log('Session valid, calling external API...')
+      console.log('Session valid, calling balance update function...')
 
-      // Try calling the external Supabase edge function with session token
-      const response = await fetch('https://yspnncmfqtmyeenwtwwz.supabase.co/functions/v1/get-balances-api', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${sessionToken}`,
-        }
+      // Call the edge function using Supabase client
+      const { data, error } = await supabase.functions.invoke('get-balances-api', {
+        method: 'GET'
       })
-
-      console.log('Response status:', response.status)
-      console.log('Response status text:', response.statusText)
-
-      if (!response.ok) {
-        console.error('API call failed:', {
-          status: response.status,
-          statusText: response.statusText,
-          url: response.url
-        })
-        
-        // Try alternative: use the current project's Supabase client with service role
-        console.log('Trying alternative approach with current project client...')
-        
-        try {
-          const { data, error } = await supabase.functions.invoke('get-balances-api', {
-            method: 'GET'
-          })
-          
-          if (error) {
-            console.error('Supabase function invoke error:', error)
-            return {
-              success: false,
-              message: `Failed to update balances: ${error.message}`
-            }
-          }
-          
-          console.log('Alternative approach succeeded:', data)
-          return {
-            success: true,
-            message: 'Card balances updated successfully'
-          }
-        } catch (altError) {
-          console.error('Alternative approach also failed:', altError)
-          return {
-            success: false,
-            message: `Failed to update balances: ${response.statusText || 'Unknown error'}`
-          }
+      
+      if (error) {
+        console.error('Supabase function invoke error:', error)
+        return {
+          success: false,
+          message: `Failed to update balances: ${error.message}`
         }
       }
-
-      const data = await response.json()
+      
       console.log('Balance update API response:', data)
       
       return {

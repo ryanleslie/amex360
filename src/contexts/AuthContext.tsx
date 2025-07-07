@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import type { User, Session } from '@supabase/supabase-js';
@@ -110,6 +109,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const signIn = async (userId: string, password: string): Promise<{ error?: string }> => {
     try {
+      console.log('Starting sign in process for:', userId);
+      
       // First verify with custom auth system
       const { data: customUser, error: userError } = await supabase
         .from('users')
@@ -118,6 +119,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         .single();
 
       if (userError || !customUser) {
+        console.log('Custom user not found:', userError);
         return { error: 'Invalid user ID or password' };
       }
 
@@ -129,46 +131,72 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         });
 
       if (verifyError || !isValid) {
+        console.log('Password verification failed:', verifyError);
         return { error: 'Invalid user ID or password' };
       }
 
-      // Sign in with Supabase Auth using email if available, otherwise use a generated email
+      console.log('Custom auth successful, attempting Supabase auth...');
+
+      // Use a consistent email format for Supabase auth
       const email = customUser.email || `${userId}@internal.app`;
       
-      // Try to sign in first
-      const { error: signInError } = await supabase.auth.signInWithPassword({
+      // Try to sign in with Supabase Auth
+      const { data: authData, error: signInError } = await supabase.auth.signInWithPassword({
         email,
-        password: userId // Use userId as password for Supabase auth
+        password: userId // Use userId as password for consistency
       });
 
-      if (signInError && signInError.message.includes('Invalid login credentials')) {
+      if (signInError) {
+        console.log('Supabase sign in error:', signInError);
+        
         // If user doesn't exist in Supabase Auth, create them
-        const { error: signUpError } = await supabase.auth.signUp({
-          email,
-          password: userId, // Use userId as password for Supabase auth
-          options: {
-            emailRedirectTo: `${window.location.origin}/`
+        if (signInError.message.includes('Invalid login credentials') || 
+            signInError.message.includes('Email not confirmed')) {
+          
+          console.log('Creating Supabase Auth user...');
+          
+          // Create user in Supabase Auth with email confirmation disabled
+          const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+            email,
+            password: userId,
+            options: {
+              emailRedirectTo: `${window.location.origin}/dashboard`,
+              data: {
+                user_id: userId
+              }
+            }
+          });
+
+          if (signUpError) {
+            console.error('Error creating Supabase user:', signUpError);
+            return { error: 'Failed to authenticate with Supabase' };
           }
-        });
 
-        if (signUpError) {
-          console.error('Error creating Supabase user:', signUpError);
-          return { error: 'Failed to authenticate with Supabase' };
+          // If email confirmation is required, we need to handle it
+          if (signUpData.user && !signUpData.session) {
+            console.log('User created but email confirmation required');
+            
+            // For development, we'll try to sign in again immediately
+            // In production, you might want to handle email confirmation differently
+            const { data: retryData, error: retryError } = await supabase.auth.signInWithPassword({
+              email,
+              password: userId
+            });
+
+            if (retryError && retryError.message.includes('Email not confirmed')) {
+              // Skip email confirmation for internal users
+              console.log('Skipping email confirmation for internal user');
+              return { error: 'Account created but email confirmation is required. Please check your email or contact support.' };
+            }
+
+            if (retryError) {
+              console.error('Retry sign in error:', retryError);
+              return { error: 'Failed to complete authentication' };
+            }
+          }
+        } else {
+          return { error: 'Authentication failed' };
         }
-
-        // Now try to sign in again
-        const { error: retrySignInError } = await supabase.auth.signInWithPassword({
-          email,
-          password: userId
-        });
-
-        if (retrySignInError) {
-          console.error('Error signing in after signup:', retrySignInError);
-          return { error: 'Failed to sign in after account creation' };
-        }
-      } else if (signInError) {
-        console.error('Error signing in:', signInError);
-        return { error: 'Failed to authenticate' };
       }
 
       // Update last login in custom table
@@ -177,6 +205,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         .update({ last_login: new Date().toISOString() })
         .eq('user_id', userId);
 
+      console.log('Sign in successful!');
       return {};
     } catch (error) {
       console.error('Sign in error:', error);

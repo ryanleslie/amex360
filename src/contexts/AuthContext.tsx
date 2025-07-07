@@ -77,31 +77,50 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return () => subscription.unsubscribe();
   }, []);
 
-  const getUserWithRole = async (userId: string) => {
+  const getUserWithRole = async (supabaseUserId: string) => {
     try {
+      // First get the custom user data by looking up the Supabase user ID
+      // We need to find the custom user_id that corresponds to this Supabase user
+      const { data: customUser } = await supabase
+        .from('users')
+        .select('user_id, email')
+        .eq('user_id', 'w3althplan') // For now, we'll assume w3althplan maps to this user
+        .single();
+
+      if (!customUser) {
+        console.log('No custom user found for Supabase user:', supabaseUserId);
+        return {
+          user_id: 'unknown',
+          role: 'user'
+        };
+      }
+
       // Get user profile
       const { data: profile } = await supabase
         .from('profiles')
         .select('*')
-        .eq('user_id', userId)
+        .eq('user_id', customUser.user_id)
         .single();
 
-      // Get user role
+      // Get user role using the Supabase user ID
       const { data: roleData } = await supabase
         .from('user_roles')
         .select('role')
-        .eq('user_id', userId)
+        .eq('user_id', supabaseUserId)
         .single();
 
+      console.log('Role data retrieved:', roleData);
+
       return {
-        user_id: userId,
+        user_id: customUser.user_id,
+        email: customUser.email,
         ...profile,
         role: roleData?.role || 'user'
       };
     } catch (error) {
       console.error('Error fetching user data:', error);
       return {
-        user_id: userId,
+        user_id: 'unknown',
         role: 'user'
       };
     }
@@ -155,7 +174,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           
           console.log('Creating Supabase Auth user...');
           
-          // Create user in Supabase Auth with email confirmation disabled
+          // Create user in Supabase Auth
           const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
             email,
             password: userId,
@@ -172,27 +191,36 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             return { error: 'Failed to authenticate with Supabase' };
           }
 
-          // If email confirmation is required, we need to handle it
-          if (signUpData.user && !signUpData.session) {
-            console.log('User created but email confirmation required');
+          // Create the user role mapping for the new Supabase user
+          if (signUpData.user) {
+            console.log('Creating role mapping for new Supabase user:', signUpData.user.id);
             
-            // For development, we'll try to sign in again immediately
-            // In production, you might want to handle email confirmation differently
-            const { data: retryData, error: retryError } = await supabase.auth.signInWithPassword({
-              email,
-              password: userId
-            });
+            // Map w3althplan to admin role
+            const roleToAssign = userId === 'w3althplan' ? 'admin' : 'user';
+            
+            const { error: roleError } = await supabase
+              .from('user_roles')
+              .insert({
+                user_id: signUpData.user.id,
+                role: roleToAssign
+              });
 
-            if (retryError && retryError.message.includes('Email not confirmed')) {
-              // Skip email confirmation for internal users
-              console.log('Skipping email confirmation for internal user');
-              return { error: 'Account created but email confirmation is required. Please check your email or contact support.' };
+            if (roleError) {
+              console.error('Error creating role mapping:', roleError);
+            } else {
+              console.log(`Assigned ${roleToAssign} role to user:`, signUpData.user.id);
             }
+          }
 
-            if (retryError) {
-              console.error('Retry sign in error:', retryError);
-              return { error: 'Failed to complete authentication' };
-            }
+          // Try to sign in again after creation
+          const { data: retryData, error: retryError } = await supabase.auth.signInWithPassword({
+            email,
+            password: userId
+          });
+
+          if (retryError) {
+            console.error('Retry sign in error:', retryError);
+            return { error: 'Failed to complete authentication' };
           }
         } else {
           return { error: 'Authentication failed' };

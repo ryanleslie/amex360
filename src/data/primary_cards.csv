@@ -1,14 +1,14 @@
-cardType,lastFive,isPrimary,creditLimit,limitType,isBrandPartner,partnerMultiple,closingDate,dueDate,interestRate,annualFee
-Business Platinum Card,52007,TRUE,5000,pay over time,FALSE,,22,17,29.49%,695
-Platinum Card,71003,TRUE,25000,pay over time,FALSE,,25,20,28.24%,695
-Charles Schwab Platinum Card,71000,TRUE,5500,pay over time,FALSE,,15,10,26.24%,695
-Business Blue Plus II,11009,TRUE,4000,preset,FALSE,,8,3,23.49%,0
-Business Blue Plus I,01000,TRUE,5900,preset,FALSE,,11,6,23.49%,0
-Delta SkyMiles® Reserve,41006,TRUE,30000,preset,TRUE,3,6,2,28.99%,650
-Hilton Honors Business,91003,TRUE,6000,preset,TRUE,12,19,14,26.99%,195
-Amazon Business Prime,52003,TRUE,6000,preset,TRUE,5,22,18,24.49%,0
-Bonvoy Business Amex,31009,TRUE,4000,preset,TRUE,6,25,20,28.99%,125
-Business Green,82007,TRUE,30000,pay over time,FALSE,,27,22,25.49%,95
-Business Classic Gold,71002,TRUE,2000,pay over time,FALSE,,18,13,26.49%,375
-Business White Gold,41000,TRUE,2000,pay over time,FALSE,,18,13,25.49%,375
-Business Rose Gold,02008,TRUE,10000,pay over time,FALSE,,8,3,25.49%,375
+cardType,lastFive,isPrimary,creditLimit,limitType,isBrandPartner,partnerMultiple,closingDate,dueDate,interestRate,annualFee,plaid_account_id
+Business Platinum Card,52007,TRUE,5000,pay over time,FALSE,,22,17,29.49%,695,3oLQqMrV4RhE5dnmEVOdHbXr41LpZAH04DXdA
+Platinum Card,71003,TRUE,25000,pay over time,FALSE,,25,20,28.24%,695,qLBXx7mDM1sXawREXgPwupAKrvg1DEIr3NR4D
+Charles Schwab Platinum Card,71000,TRUE,5500,pay over time,FALSE,,15,10,26.24%,695,BD49VvMpqyhMg4vzMpP4UXEDz4mMN9IjJ4m5v
+Business Blue Plus II,11009,TRUE,4000,preset,FALSE,,8,3,23.49%,0,DP8rYjdo3kcJz0xgJZ80tr3bxmj8gNUqBYedo
+Business Blue Plus I,01000,TRUE,5900,preset,FALSE,,11,6,23.49%,0,zkrOLDxAMXsPnpBaP10pfBbn0jgxvYCByA7Yy
+Delta SkyMiles® Reserve,41006,TRUE,30000,preset,TRUE,3,6,2,28.99%,650,Lv8DJ5BorEumZgnJmD6gUb0eAVDk8dHPro57v
+Hilton Honors Business,91003,TRUE,6000,preset,TRUE,12,19,14,26.99%,195,6oPRy6xVJrhqZN0OqQbNH9nD3PY7MjF910nK4
+Amazon Business Prime,52003,TRUE,6000,preset,TRUE,5,22,18,24.49%,0,w3vAdwryMKtp1mzXp6kmu4vLEb51K6IMpd7X7
+Bonvoy Business Amex,31009,TRUE,4000,preset,TRUE,6,25,20,28.99%,125,dvnD90M5pxupbJaxpB8JuYdy6J9KoAt1J0Apz
+Business Green,82007,TRUE,30000,pay over time,FALSE,,27,22,25.49%,95,yKjO6LakMXSPeEnNPDvEfX1gPqb6pzIodXwY3
+Business Classic Gold,71002,TRUE,2000,pay over time,FALSE,,18,13,26.49%,375,P4mBb7koJjsMowXqM46wU5m18EvoJkC74wLjm
+Business White Gold,41000,TRUE,2000,pay over time,FALSE,,18,13,25.49%,375,1owQ1V0Ej4h6bzyE6oxzsBoOp7AkRKCqLb5Db
+Business Rose Gold,02008,TRUE,10000,pay over time,FALSE,,8,3,25.49%,375,mZDA45qdEwTRBV0DR86Vivy3D07oBmF4kraYw

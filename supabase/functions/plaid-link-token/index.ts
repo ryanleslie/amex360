@@ -23,12 +23,28 @@ serve(async (req) => {
     
     const { data: { user }, error: userError } = await supabase.auth.getUser(token);
     if (userError || !user) {
+      console.error('Authentication error:', userError);
       throw new Error('Unauthorized');
     }
+
+    console.log('Authenticated user:', user.id);
+
+    // Set the user context for RLS policies
+    await supabase.rpc('set_config', {
+      setting_name: 'app.current_user_id',
+      setting_value: user.id
+    });
+
+    console.log('User context set for RLS');
 
     const PLAID_CLIENT_ID = Deno.env.get('PLAID_CLIENT_ID');
     const PLAID_SECRET = Deno.env.get('PLAID_SECRET');
     const PLAID_ENV = Deno.env.get('PLAID_ENV') || 'sandbox';
+
+    if (!PLAID_CLIENT_ID || !PLAID_SECRET) {
+      console.error('Missing Plaid credentials');
+      throw new Error('Plaid credentials not configured');
+    }
 
     const plaidBaseUrl = PLAID_ENV === 'production' 
       ? 'https://production.plaid.com' 
@@ -36,12 +52,14 @@ serve(async (req) => {
       ? 'https://development.plaid.com'
       : 'https://sandbox.plaid.com';
 
+    console.log('Creating Plaid link token with environment:', PLAID_ENV);
+
     const response = await fetch(`${plaidBaseUrl}/link/token/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'PLAID-CLIENT-ID': PLAID_CLIENT_ID!,
-        'PLAID-SECRET': PLAID_SECRET!,
+        'PLAID-CLIENT-ID': PLAID_CLIENT_ID,
+        'PLAID-SECRET': PLAID_SECRET,
       },
       body: JSON.stringify({
         client_name: "Credit Card Dashboard",
@@ -65,6 +83,8 @@ serve(async (req) => {
       console.error('Plaid API error:', data);
       throw new Error(data.error_message || 'Failed to create link token');
     }
+
+    console.log('Link token created successfully');
 
     return new Response(JSON.stringify({ link_token: data.link_token }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },

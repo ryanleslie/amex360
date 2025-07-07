@@ -23,12 +23,25 @@ serve(async (req) => {
     
     const { data: { user }, error: userError } = await supabase.auth.getUser(token);
     if (userError || !user) {
+      console.error('Authentication error:', userError);
       throw new Error('Unauthorized');
     }
+
+    console.log('Authenticated user:', user.id);
+
+    // Set the user context for RLS policies
+    await supabase.rpc('set_config', {
+      setting_name: 'app.current_user_id',
+      setting_value: user.id
+    });
 
     const PLAID_CLIENT_ID = Deno.env.get('PLAID_CLIENT_ID');
     const PLAID_SECRET = Deno.env.get('PLAID_SECRET');
     const PLAID_ENV = Deno.env.get('PLAID_ENV') || 'sandbox';
+
+    if (!PLAID_CLIENT_ID || !PLAID_SECRET) {
+      throw new Error('Plaid credentials not configured');
+    }
 
     const plaidBaseUrl = PLAID_ENV === 'production' 
       ? 'https://production.plaid.com' 
@@ -44,20 +57,25 @@ serve(async (req) => {
       .eq('status', 'active');
 
     if (itemsError) {
+      console.error('Error fetching plaid items:', itemsError);
       throw new Error('Failed to fetch plaid items');
     }
+
+    console.log('Found plaid items:', plaidItems?.length || 0);
 
     let totalSynced = 0;
 
     for (const item of plaidItems || []) {
       try {
+        console.log('Syncing item:', item.id);
+        
         // Get accounts for this item
         const accountsResponse = await fetch(`${plaidBaseUrl}/accounts/get`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'PLAID-CLIENT-ID': PLAID_CLIENT_ID!,
-            'PLAID-SECRET': PLAID_SECRET!,
+            'PLAID-CLIENT-ID': PLAID_CLIENT_ID,
+            'PLAID-SECRET': PLAID_SECRET,
           },
           body: JSON.stringify({
             access_token: item.access_token,
@@ -67,6 +85,8 @@ serve(async (req) => {
         const accountsData = await accountsResponse.json();
         
         if (accountsResponse.ok && accountsData.accounts) {
+          console.log('Found accounts for item:', accountsData.accounts.length);
+          
           // Update accounts
           for (const account of accountsData.accounts) {
             const { error: updateError } = await supabase
@@ -81,6 +101,8 @@ serve(async (req) => {
 
             if (!updateError) {
               totalSynced++;
+            } else {
+              console.error('Error updating account:', updateError);
             }
           }
 
@@ -89,11 +111,15 @@ serve(async (req) => {
             .from('plaid_items')
             .update({ last_synced_at: new Date().toISOString() })
             .eq('id', item.id);
+        } else {
+          console.error('Error fetching accounts for item:', accountsData);
         }
       } catch (error) {
         console.error(`Error syncing item ${item.id}:`, error);
       }
     }
+
+    console.log('Total accounts synced:', totalSynced);
 
     return new Response(JSON.stringify({ 
       success: true, 

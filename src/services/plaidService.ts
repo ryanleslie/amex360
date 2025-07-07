@@ -18,20 +18,73 @@ export interface PlaidAccountBalance {
 }
 
 export const plaidService = {
+  async createLinkToken(): Promise<string> {
+    const { data, error } = await supabase.functions.invoke('plaid-link-token');
+    
+    if (error) {
+      console.error('Error creating link token:', error);
+      throw error;
+    }
+
+    return data.link_token;
+  },
+
+  async exchangePublicToken(publicToken: string): Promise<void> {
+    const { error } = await supabase.functions.invoke('plaid-exchange-token', {
+      body: { public_token: publicToken }
+    });
+    
+    if (error) {
+      console.error('Error exchanging public token:', error);
+      throw error;
+    }
+  },
+
+  async syncAccounts(): Promise<void> {
+    const { error } = await supabase.functions.invoke('plaid-sync-accounts');
+    
+    if (error) {
+      console.error('Error syncing accounts:', error);
+      throw error;
+    }
+  },
+
   async getPlaidAccounts(): Promise<PlaidAccountBalance[]> {
-    // Use card_balances table until Plaid integration is complete
-    const { data, error } = await supabase
+    // First try to get real Plaid accounts
+    const { data: plaidAccounts, error: plaidError } = await supabase
+      .from('plaid_accounts')
+      .select(`
+        *,
+        plaid_items!inner(institution_name)
+      `)
+      .order('current_balance', { ascending: false, nullsFirst: false });
+
+    if (!plaidError && plaidAccounts && plaidAccounts.length > 0) {
+      return plaidAccounts.map(account => ({
+        id: account.id,
+        account_id: account.account_id,
+        account_name: account.account_name,
+        account_type: account.account_type,
+        account_subtype: account.account_subtype,
+        current_balance: account.current_balance,
+        available_balance: account.available_balance,
+        credit_limit: account.credit_limit,
+        institution_name: (account.plaid_items as any)?.institution_name || 'Unknown Institution'
+      }));
+    }
+
+    // Fallback to card_balances table if no Plaid accounts
+    const { data: cardBalances, error: cardError } = await supabase
       .from('card_balances')
       .select('*')
       .order('currentBalance', { ascending: false, nullsFirst: false });
 
-    if (error) {
-      console.error('Error fetching card balances:', error);
-      throw error;
+    if (cardError) {
+      console.error('Error fetching card balances:', cardError);
+      throw cardError;
     }
 
-    // Transform card_balances data to match PlaidAccountBalance interface
-    return (data || []).map(card => ({
+    return (cardBalances || []).map(card => ({
       id: card.ID,
       account_id: card.ID,
       account_name: card.cardType,

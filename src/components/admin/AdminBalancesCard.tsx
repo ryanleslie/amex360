@@ -5,10 +5,45 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { usePlaidAccounts } from '@/hooks/usePlaidAccounts';
-import { CreditCard, Building2, Info, RefreshCw, Link2 } from 'lucide-react';
+import { PlaidLinkButton } from './PlaidLinkButton';
+import { plaidService } from '@/services/plaidService';
+import { useToast } from '@/hooks/use-toast';
+import { CreditCard, Building2, Info, RefreshCw } from 'lucide-react';
 
 export function AdminBalancesCard() {
   const { plaidAccounts, loading, error, refetch } = usePlaidAccounts();
+  const { toast } = useToast();
+  const [isSyncing, setIsSyncing] = React.useState(false);
+
+  const handleSync = async () => {
+    setIsSyncing(true);
+    try {
+      await plaidService.syncAccounts();
+      await refetch();
+      toast({
+        title: "Accounts Synced",
+        description: "Account balances have been updated successfully.",
+      });
+    } catch (error) {
+      console.error('Error syncing accounts:', error);
+      toast({
+        title: "Sync Error",
+        description: "Failed to sync account balances. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSyncing(false);
+    }
+  };
+
+  const handleRefresh = async () => {
+    try {
+      await handleSync();
+    } catch (error) {
+      // Fallback to regular refetch if sync fails
+      await refetch();
+    }
+  };
 
   if (loading) {
     return (
@@ -32,6 +67,11 @@ export function AdminBalancesCard() {
     );
   }
 
+  // Check if we're showing real Plaid data or fallback data
+  const hasPlaidData = plaidAccounts.some(account => 
+    account.institution_name !== 'Credit Card Provider'
+  );
+
   return (
     <Card className="p-6 bg-gradient-to-b from-white to-gray-100">
       <div className="space-y-4">
@@ -44,25 +84,26 @@ export function AdminBalancesCard() {
           </div>
           <div className="flex gap-2">
             <Button
-              onClick={refetch}
-              disabled={loading}
+              onClick={handleRefresh}
+              disabled={loading || isSyncing}
               size="sm"
               variant="outline"
             >
-              <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
-              Refresh
+              <RefreshCw className={`h-4 w-4 ${(loading || isSyncing) ? 'animate-spin' : ''}`} />
+              {isSyncing ? 'Syncing...' : 'Refresh'}
             </Button>
-            <Button size="sm" disabled>
-              <Link2 className="h-4 w-4 mr-2" />
-              Connect Account
-            </Button>
+            <PlaidLinkButton onSuccess={refetch} />
           </div>
         </div>
 
-        <div className="flex items-center gap-2 p-3 bg-blue-50 text-blue-700 rounded-lg">
-          <Info className="h-4 w-4" />
-          <span className="text-sm">Currently displaying data from card_balances table. Plaid integration in progress.</span>
-        </div>
+        {!hasPlaidData && (
+          <div className="flex items-center gap-2 p-3 bg-blue-50 text-blue-700 rounded-lg">
+            <Info className="h-4 w-4" />
+            <span className="text-sm">
+              Currently displaying sample data. Connect your accounts to see live balances.
+            </span>
+          </div>
+        )}
 
         <ScrollArea className="h-[560px]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pr-4">

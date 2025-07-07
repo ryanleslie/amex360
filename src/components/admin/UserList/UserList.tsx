@@ -6,20 +6,18 @@ interface UserData {
   display_name?: string;
   first_name?: string;
   email?: string;
-  role?: string;
   created_at?: string;
   last_login?: string;
 }
 
 interface UserListProps {
   users: UserData[];
-  showUsers: boolean;
 }
 
-export function UserList({ users, showUsers }: UserListProps) {
+export function UserList({ users }: UserListProps) {
   if (users.length === 0) {
     return (
-      <div className="text-center text-muted-foreground py-4 animate-fade-in">
+      <div className="text-center text-muted-foreground py-4">
         No users found
       </div>
     );
@@ -33,7 +31,6 @@ export function UserList({ users, showUsers }: UserListProps) {
             key={user.id}
             user={user}
             index={index}
-            showUsers={showUsers}
           />
         ))}
       </div>

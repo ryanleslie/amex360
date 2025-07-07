@@ -6,7 +6,7 @@ import { useAdminUsers } from '@/hooks/useAdminUsers';
 import { UserList } from './UserList';
 
 export function UserListCard() {
-  const { users, loading, showUsers } = useAdminUsers();
+  const { users, loading } = useAdminUsers();
 
   if (loading) {
     return (
@@ -29,7 +29,7 @@ export function UserListCard() {
           </Badge>
         </div>
 
-        <UserList users={users} showUsers={showUsers} />
+        <UserList users={users} />
       </div>
     </Card>
   );

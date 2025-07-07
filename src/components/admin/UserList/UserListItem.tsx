@@ -6,7 +6,6 @@ interface UserData {
   display_name?: string;
   first_name?: string;
   email?: string;
-  role?: string;
   created_at?: string;
   last_login?: string;
 }
@@ -14,21 +13,9 @@ interface UserData {
 interface UserListItemProps {
   user: UserData;
   index: number;
-  showUsers: boolean;
 }
 
-export function UserListItem({ user, index, showUsers }: UserListItemProps) {
-  const getRoleBadgeVariant = (role: string) => {
-    switch (role) {
-      case 'admin':
-        return 'destructive';
-      case 'moderator':
-        return 'default';
-      default:
-        return 'secondary';
-    }
-  };
-
+export function UserListItem({ user, index }: UserListItemProps) {
   const formatLastLogin = (lastLogin: string | null) => {
     if (!lastLogin) return 'Never';
     try {
@@ -52,28 +39,20 @@ export function UserListItem({ user, index, showUsers }: UserListItemProps) {
   };
 
   return (
-    <div
-      className={`p-3 border rounded-lg bg-gradient-to-b from-white to-gray-50 space-y-2 transition-all duration-500 ${
-        showUsers 
-          ? 'opacity-100 translate-y-0' 
-          : 'opacity-0 translate-y-4'
-      }`}
-      style={{
-        transitionDelay: `${index * 100}ms`
-      }}
-    >
+    <div className="p-3 border rounded-lg bg-gradient-to-b from-white to-gray-50 space-y-2">
       <div className="flex items-center justify-between">
         <div className="font-medium text-sm">
-          {user.display_name || user.first_name || user.id}
+          {user.display_name || user.first_name || user.email || user.id}
         </div>
-        <Badge variant={getRoleBadgeVariant(user.role || 'user')}>
+        <Badge variant="secondary">
           <Shield className="h-3 w-3 mr-1" />
-          {user.role || 'user'}
+          User
         </Badge>
       </div>
       
-      <div className="text-xs text-muted-foreground">
-        Last login: {formatLastLogin(user.last_login)}
+      <div className="text-xs text-muted-foreground space-y-1">
+        {user.email && <div>Email: {user.email}</div>}
+        <div>Last login: {formatLastLogin(user.last_login)}</div>
       </div>
     </div>
   );

@@ -1,9 +1,10 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 
-interface User {
-  user_id: string;
+interface UserProfile {
+  id: string;
   email?: string;
   display_name?: string;
   first_name?: string;
@@ -14,9 +15,10 @@ interface User {
 
 interface AuthContextType {
   user: User | null;
-  signIn: (userId: string, password: string) => Promise<{ error?: string }>;
-  signUp: (userId: string, password: string, email?: string) => Promise<{ error?: string }>;
-  createUser: (userId: string, password: string, email?: string) => Promise<{ error?: string }>;
+  session: Session | null;
+  profile: UserProfile | null;
+  signIn: (email: string, password: string) => Promise<{ error?: string }>;
+  signUp: (email: string, password: string, firstName?: string, lastName?: string) => Promise<{ error?: string }>;
   signOut: () => Promise<void>;
   loading: boolean;
   hasRole: (role: string) => boolean;
@@ -39,129 +41,84 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    checkSession();
+    // Set up auth state listener FIRST
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        console.log('Auth state changed:', event, session?.user?.id);
+        setSession(session);
+        setUser(session?.user ?? null);
+        
+        if (session?.user) {
+          // Fetch user profile and role after auth state changes
+          setTimeout(() => {
+            fetchUserProfile(session.user.id);
+          }, 0);
+        } else {
+          setProfile(null);
+        }
+        
+        setLoading(false);
+      }
+    );
+
+    // THEN check for existing session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      
+      if (session?.user) {
+        fetchUserProfile(session.user.id);
+      }
+      setLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
-  const getUserWithRole = async (userId: string) => {
-    // Get user profile
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('user_id', userId)
-      .single();
-
-    // Get user role
-    const { data: roleData } = await supabase
-      .from('user_roles')
-      .select('role')
-      .eq('user_id', userId)
-      .single();
-
-    return {
-      user_id: userId,
-      ...profile,
-      role: roleData?.role || 'user'
-    };
-  };
-
-  const checkSession = async () => {
+  const fetchUserProfile = async (userId: string) => {
     try {
-      const sessionToken = localStorage.getItem('session_token');
-      if (!sessionToken) {
-        setLoading(false);
-        return;
-      }
-
-      // Check if session is valid
-      const { data: session, error } = await supabase
-        .from('user_sessions')
-        .select('user_id, expires_at')
-        .eq('session_token', sessionToken)
+      // Get user profile
+      const { data: profileData } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
         .single();
 
-      if (error || !session) {
-        localStorage.removeItem('session_token');
-        setLoading(false);
-        return;
-      }
-
-      // Check if session is expired
-      if (new Date(session.expires_at) < new Date()) {
-        localStorage.removeItem('session_token');
-        await supabase
-          .from('user_sessions')
-          .delete()
-          .eq('session_token', sessionToken);
-        setLoading(false);
-        return;
-      }
-
-      // Get user with role
-      const userData = await getUserWithRole(session.user_id);
-      setUser(userData);
-    } catch (error) {
-      console.error('Session check error:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const signIn = async (userId: string, password: string): Promise<{ error?: string }> => {
-    try {
-      // Verify user credentials
-      const { data: user, error: userError } = await supabase
-        .from('users')
-        .select('user_id, password_hash')
+      // Get user role
+      const { data: roleData } = await supabase
+        .from('user_roles')
+        .select('role')
         .eq('user_id', userId)
         .single();
 
-      if (userError || !user) {
-        return { error: 'Invalid user ID or password' };
-      }
-
-      // Verify password
-      const { data: isValid, error: verifyError } = await supabase
-        .rpc('verify_password', {
-          password: password,
-          hash: user.password_hash
+      if (profileData) {
+        setProfile({
+          id: userId,
+          email: user?.email,
+          ...profileData,
+          role: roleData?.role || 'user'
         });
-
-      if (verifyError || !isValid) {
-        return { error: 'Invalid user ID or password' };
       }
+    } catch (error) {
+      console.error('Error fetching user profile:', error);
+    }
+  };
 
-      // Create session
-      const sessionToken = crypto.randomUUID();
-      const expiresAt = new Date();
-      expiresAt.setDate(expiresAt.getDate() + 7); // 7 days
+  const signIn = async (email: string, password: string): Promise<{ error?: string }> => {
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-      const { error: sessionError } = await supabase
-        .from('user_sessions')
-        .insert({
-          user_id: userId,
-          session_token: sessionToken,
-          expires_at: expiresAt.toISOString()
-        });
-
-      if (sessionError) {
-        return { error: 'Failed to create session' };
+      if (error) {
+        return { error: error.message };
       }
-
-      // Update last login
-      await supabase
-        .from('users')
-        .update({ last_login: new Date().toISOString() })
-        .eq('user_id', userId);
-
-      // Store session token
-      localStorage.setItem('session_token', sessionToken);
-
-      // Get user with role
-      const userData = await getUserWithRole(userId);
-      setUser(userData);
 
       return {};
     } catch (error) {
@@ -170,130 +127,47 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const signUp = async (userId: string, password: string, email?: string): Promise<{ error?: string }> => {
+  const signUp = async (email: string, password: string, firstName?: string, lastName?: string): Promise<{ error?: string }> => {
     try {
-      // Check if user already exists
-      const { data: existingUser } = await supabase
-        .from('users')
-        .select('user_id')
-        .eq('user_id', userId)
-        .single();
-
-      if (existingUser) {
-        return { error: 'User ID already exists' };
-      }
-
-      // Hash password
-      const { data: hashedPassword, error: hashError } = await supabase
-        .rpc('hash_password', { password });
-
-      if (hashError || !hashedPassword) {
-        return { error: 'Failed to process password' };
-      }
-
-      // Create user
-      const { error: userError } = await supabase
-        .from('users')
-        .insert({
-          user_id: userId,
-          password_hash: hashedPassword,
-          email: email
-        });
-
-      if (userError) {
-        if (userError.code === '23505') {
-          return { error: 'Email already registered' };
+      const redirectUrl = `${window.location.origin}/`;
+      
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: redirectUrl,
+          data: {
+            first_name: firstName,
+            last_name: lastName,
+            display_name: firstName ? `${firstName} ${lastName || ''}`.trim() : email
+          }
         }
-        return { error: 'Failed to create user' };
+      });
+
+      if (error) {
+        return { error: error.message };
       }
 
-      // Create profile
-      await supabase
-        .from('profiles')
-        .insert({
-          user_id: userId
-        });
-
-      // Auto sign in after registration
-      return await signIn(userId, password);
+      return {};
     } catch (error) {
       console.error('Sign up error:', error);
       return { error: 'An unexpected error occurred' };
     }
   };
 
-  const createUser = async (userId: string, password: string, email?: string): Promise<{ error?: string }> => {
-    try {
-      // Check if user already exists
-      const { data: existingUser } = await supabase
-        .from('users')
-        .select('user_id')
-        .eq('user_id', userId)
-        .single();
-
-      if (existingUser) {
-        return { error: 'User ID already exists' };
-      }
-
-      // Hash password
-      const { data: hashedPassword, error: hashError } = await supabase
-        .rpc('hash_password', { password });
-
-      if (hashError || !hashedPassword) {
-        return { error: 'Failed to process password' };
-      }
-
-      // Create user
-      const { error: userError } = await supabase
-        .from('users')
-        .insert({
-          user_id: userId,
-          password_hash: hashedPassword,
-          email: email
-        });
-
-      if (userError) {
-        if (userError.code === '23505') {
-          return { error: 'Email already registered' };
-        }
-        return { error: 'Failed to create user' };
-      }
-
-      // Create profile
-      await supabase
-        .from('profiles')
-        .insert({
-          user_id: userId
-        });
-
-      // Don't auto sign in - just return success
-      return {};
-    } catch (error) {
-      console.error('Create user error:', error);
-      return { error: 'An unexpected error occurred' };
-    }
-  };
-
   const signOut = async () => {
     try {
-      const sessionToken = localStorage.getItem('session_token');
-      if (sessionToken) {
-        // Delete session from database
-        await supabase
-          .from('user_sessions')
-          .delete()
-          .eq('session_token', sessionToken);
-      }
-
-      localStorage.removeItem('session_token');
+      await supabase.auth.signOut();
       setUser(null);
+      setSession(null);
+      setProfile(null);
     } catch (error) {
       console.error('Sign out error:', error);
     }
   };
 
   const hasRole = (role: string): boolean => {
-    return user?.role === role;
+    return profile?.role === role;
   };
 
   const isAdmin = (): boolean => {
@@ -303,9 +177,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   return (
     <AuthContext.Provider value={{ 
       user, 
+      session,
+      profile,
       signIn, 
       signUp, 
-      createUser,
       signOut, 
       loading, 
       hasRole, 

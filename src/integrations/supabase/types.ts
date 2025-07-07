@@ -32,6 +32,62 @@ export type Database = {
         }
         Relationships: []
       }
+      plaid_accounts: {
+        Row: {
+          account_name: string
+          account_subtype: string | null
+          account_type: string
+          available_balance: number | null
+          created_at: string
+          credit_limit: number | null
+          current_balance: number | null
+          id: string
+          institution_name: string | null
+          plaid_account_id: string
+          plaid_item_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          account_name: string
+          account_subtype?: string | null
+          account_type: string
+          available_balance?: number | null
+          created_at?: string
+          credit_limit?: number | null
+          current_balance?: number | null
+          id?: string
+          institution_name?: string | null
+          plaid_account_id: string
+          plaid_item_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          account_name?: string
+          account_subtype?: string | null
+          account_type?: string
+          available_balance?: number | null
+          created_at?: string
+          credit_limit?: number | null
+          current_balance?: number | null
+          id?: string
+          institution_name?: string | null
+          plaid_account_id?: string
+          plaid_item_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "plaid_accounts_plaid_item_id_fkey"
+            columns: ["plaid_item_id"]
+            isOneToOne: false
+            referencedRelation: "plaid_items"
+            referencedColumns: ["plaid_item_id"]
+          },
+        ]
+      }
       plaid_items: {
         Row: {
           access_token: string

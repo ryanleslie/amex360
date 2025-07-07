@@ -42,9 +42,9 @@ export function AdminBalancesCard() {
         </div>
 
         <ScrollArea className="h-[560px]">
-          <div className="space-y-3 pr-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 pr-4">
             {cardBalances.length === 0 ? (
-              <div className="text-center text-muted-foreground py-4 animate-fade-in">
+              <div className="col-span-full text-center text-muted-foreground py-4 animate-fade-in">
                 No card balances found
               </div>
             ) : (

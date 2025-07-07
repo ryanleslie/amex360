@@ -337,10 +337,10 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-07,PAYPAL *FREE2MOVE 30330831110 DE,-9.99,Platinum Card,-71003,Rideshare & taxi,
 2025-01-02,GOOGLE *FITBOD WORKO G.CO/HELPPAY# CA,-17.41,Platinum Card,-71003,Personal,
 2025-01-02,PAYPAL *SHARE NOW 30330831110 DE,-18.92,Platinum Card,-71003,Rideshare & taxi,
+2025-07-05,UBER TRIP           HTTPS://HELP.UBER.COCA,-14.08,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
 2025-07-05,UBER TRIP           HTTPS://HELP.UBER.COCA,-1.18,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
-2025-07-05,UBER TRIP           HTTPS://HELP.UBER.COCA,-14.06,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
-2025-07-05,UBER TRIP           HTTPS://HELP.UBER.COCA,-20.02,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
-2025-07-04,UBER TRIP           HTTPS://HELP.UBER.COCA,-8.81,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
+2025-07-04,UBER TRIP           HTTPS://HELP.UBER.COCA,-8.84,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
+2025-07-05,UBER TRIP           HTTPS://HELP.UBER.COCA,-19.81,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
 2025-06-30,UBER TRIP           HTTPS://HELP.UBER.COCA,-9.99,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
 2025-06-30,UBER TRIP           HTTPS://HELP.UBER.COCA,-9.99,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
 2025-06-23,UBER TRIP           HTTPS://HELP.UBER.COCA,-360.17,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
@@ -653,7 +653,8 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-04,ONLINE PAYMENT - THANK YOU,3000.00,Business Blue Plus I,-01000,,
 2025-01-01,ENTRECENTER         MIAMI BEACH         FL,-2000.00,Business Blue Plus I,-01026,Contractors,2
 2025-01-01,ENTRECENTER         MIAMI BEACH         FL,-4000.00,Business Blue Plus I,-01018,Contractors,2
-2025-07-01,NOIRFONCE,-341.90,Delta SkyMiles® Reserve,-41006,Wardrobe,
+2025-07-07,ONLINE PAYMENT - THANK YOU,5250.00,Delta SkyMiles® Reserve,-41006,,
+2025-07-07,ONLINE PAYMENT - THANK YOU,680.45,Delta SkyMiles® Reserve,-41006,,
 2025-07-01,WWW.I-RUN.FR 3DS,-366.79,Delta SkyMiles® Reserve,-41006,Wardrobe,
 2025-07-01,STOCKX,-291.26,Delta SkyMiles® Reserve,-41006,Wardrobe,
 2025-06-30,PAYPAL *LINDAJANEKAN4029357733          DE,-5250.00,Delta SkyMiles® Reserve,-41006,Contractors,
@@ -679,6 +680,9 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-26,ONLINE PAYMENT - THANK YOU,153.31,Delta SkyMiles® Reserve,-41006,,
 2025-01-17,DELTA AIR LINES     ATLANTA,-0.60,Delta SkyMiles® Reserve,-41006,Airfare,
 2025-01-17,DELTA AIR LINES,-152.71,Delta SkyMiles® Reserve,-41006,Airfare,
+2025-07-07,PAYPAL *FREE2MOVE 30330831110 DE,-40.04,Hilton Honors Business,-91003,Rideshare & taxi,
+2025-07-05,PAYPAL *FREE2MOVE 30330831110 DE,-0.24,Hilton Honors Business,-91003,Rideshare & taxi,
+2025-07-06,REVOLVE,-277.91,Hilton Honors Business,-91003,Wardrobe,
 2025-06-30,PAYPAL *SUNDAY      15122497210         DE,-116.03,Hilton Honors Business,-91003,Personal,5
 2025-06-29,PAYPAL *FREE2MOVE 30330831110 DE,-2.48,Hilton Honors Business,-91003,Rideshare & taxi,5
 2025-06-27,PAYPAL *MILES       3083799699          DE,-13.61,Hilton Honors Business,-91003,Rideshare & taxi,5
@@ -698,6 +702,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-06-01,ONLINE PAYMENT - THANK YOU,195.00,Hilton Honors Business,-91003,,
 2025-06-01,PAYPAL *LINDAJANEKAN4029357733          DE,-4750.00,Hilton Honors Business,-91003,Contractors,5
 2025-05-20,MEMBERSHIP FEE,-195.00,Hilton Honors Business,-91003,Fees & adjustments,
+2025-07-04,AMAZON PAY YOUR CHARGES CREDIT,27.7,Amazon Business Prime,-52003,Office supplies,
 2025-07-04,AMZN MKTP DE        AMAZON.DE,-27.7,Amazon Business Prime,-52003,Office supplies,
 2025-07-03,ONLINE PAYMENT - THANK YOU,4512.12,Amazon Business Prime,-52003,,
 2025-07-01,AMZN MKTP DE        AMAZON.DE,-95.39,Amazon Business Prime,-52003,Office supplies,
@@ -1032,6 +1037,8 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-01,TWILIO INC          SAN FRANCISCO       CA,-400.00,Business Classic Gold,-71051,SuperPhone®,4
 2025-01-01,TWILIO INC          SAN FRANCISCO       CA,-590.22,Business Classic Gold,-71051,SuperPhone®,4
 2025-01-01,TWILIO INC          SAN FRANCISCO       CA,-600.00,Business Classic Gold,-71051,SuperPhone®,4
+2025-07-07,LOVABLE             DOVER               DE,-50.00,Business White Gold,-41000,App development,
+2025-07-06,LOVABLE             DOVER               DE,-25.00,Business White Gold,-41000,App development,
 2025-07-05,ZAPIER.COM/CHARGE   SAN FRANCISCO       CA,-29.99,Business White Gold,-41000,Software,
 2025-07-04,TWENTYFOUR AI       NEW YORK            NY,-1000.00,Business White Gold,-41000,Contractors,
 2025-07-04,INTUIT QUICKBOOKS   800-446-8848        CA,-235.00,Business White Gold,-41000,Bookkeeping & accounting,

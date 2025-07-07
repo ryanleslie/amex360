@@ -92,11 +92,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  // Check if user is admin by querying the role column in profiles
+  // Check if user is admin by querying the role column in profiles (no caching)
   const isAdmin = async (): Promise<boolean> => {
     if (!user) return false;
     
     try {
+      // Always fetch fresh data from database to ensure current permissions
       const { data, error } = await supabase
         .from('profiles')
         .select('role')
@@ -108,7 +109,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         return false;
       }
       
-      return data?.role === 'admin';
+      const isAdminRole = data?.role === 'admin';
+      console.log(`User ${user.email} role check: ${data?.role} (isAdmin: ${isAdminRole})`);
+      return isAdminRole;
     } catch (error) {
       console.error('Error checking admin role:', error);
       return false;

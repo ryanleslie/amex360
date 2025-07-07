@@ -33,8 +33,13 @@ export function UserListCard() {
     try {
       console.log('Fetching users...');
       
-      // Since we can't access auth.users directly from the client,
-      // we'll use a simple approach: check if the display_name matches admin emails
+      // First, sync emails for any profiles missing them
+      try {
+        await supabase.functions.invoke('sync-profile-emails');
+      } catch (syncError) {
+        console.log('Email sync completed or not needed:', syncError);
+      }
+      
       const { data: profilesData, error: profilesError } = await supabase
         .from('profiles')
         .select(`
@@ -42,7 +47,8 @@ export function UserListCard() {
           display_name,
           first_name,
           created_at,
-          last_login
+          last_login,
+          email
         `)
         .order('created_at', { ascending: false });
 
@@ -53,9 +59,9 @@ export function UserListCard() {
 
       console.log('Profiles data:', profilesData);
 
-      // Transform the data and determine roles based on email
+      // Transform the data and determine roles based on actual email field
       const transformedUsers = profilesData?.map(profile => {
-        const userEmail = profile.display_name; // display_name contains the email
+        const userEmail = profile.email; // Use the actual email field
         // Check if email is in admin array
         const isAdmin = userEmail && adminEmails.includes(userEmail);
         

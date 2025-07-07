@@ -44,10 +44,10 @@ export function UserCreationForm() {
           <div className="p-4 border rounded-lg">
             <h4 className="font-medium mb-2">Admin Instructions</h4>
             <ol className="text-sm text-muted-foreground space-y-1 list-decimal list-inside">
-              <li>Check for new credential requests via discord direct message</li>
-              <li>Provision the new account with email and unique password</li>
-              <li>Once registered, view and manage their roles in the user list</li>
-              <li>Update user roles as needed using the user management interface</li>
+              <li>Check for guest access requests</li>
+              <li>Provision the new account</li>
+              <li>Once registered, confirm their user role</li>
+              <li>Update user roles as needed</li>
             </ol>
           </div>
 

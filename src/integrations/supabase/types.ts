@@ -32,6 +32,39 @@ export type Database = {
         }
         Relationships: []
       }
+      plaid_items: {
+        Row: {
+          access_token: string
+          created_at: string
+          id: string
+          institution_id: string | null
+          institution_name: string | null
+          plaid_item_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          access_token: string
+          created_at?: string
+          id?: string
+          institution_id?: string | null
+          institution_name?: string | null
+          plaid_item_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          access_token?: string
+          created_at?: string
+          id?: string
+          institution_id?: string | null
+          institution_name?: string | null
+          plaid_item_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null

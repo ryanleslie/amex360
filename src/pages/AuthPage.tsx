@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const AuthPage = () => {
   const [email, setEmail] = useState("");
@@ -31,9 +32,13 @@ const AuthPage = () => {
           variant: "destructive",
         });
       } else {
+        // Get user data to show first name in welcome message
+        const { data: { user } } = await supabase.auth.getUser();
+        const firstName = user?.user_metadata?.first_name || user?.email?.split('@')[0] || 'there';
+        
         toast({
-          title: "Welcome back!",
-          description: "You have been signed in successfully.",
+          title: `Welcome ${firstName}!`,
+          description: "You've been signed in successfully.",
         });
         navigate("/dashboard");
       }

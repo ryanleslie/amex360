@@ -31,32 +31,7 @@ export function useAdminUsers() {
         return;
       }
 
-      // Now fetch roles for each user
-      const usersWithRoles = [];
-      for (const user of data || []) {
-        let role = 'user'; // default
-        
-        try {
-          const { data: roleData } = await supabase
-            .from('user_roles')
-            .select('role')
-            .eq('user_id', user.id)
-            .maybeSingle();
-          
-          if (roleData) {
-            role = roleData.role;
-          }
-        } catch (roleError) {
-          console.log('Could not fetch role for user:', user.id);
-        }
-
-        usersWithRoles.push({
-          ...user,
-          role
-        });
-      }
-
-      setUsers(usersWithRoles);
+      setUsers(data || []);
     } catch (error) {
       console.error('Error fetching users:', error);
     } finally {

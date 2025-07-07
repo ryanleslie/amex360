@@ -92,22 +92,23 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  // Check if user is admin by querying user_roles table
+  // Check if user is admin by querying the role column in profiles
   const isAdmin = async (): Promise<boolean> => {
     if (!user) return false;
     
     try {
-      const { data, error } = await supabase.rpc('has_role', {
-        _user_id: user.id,
-        _role: 'admin' as any // Cast to match the app_role enum
-      });
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .single();
       
       if (error) {
         console.error('Error checking admin role:', error);
         return false;
       }
       
-      return data || false;
+      return data?.role === 'admin';
     } catch (error) {
       console.error('Error checking admin role:', error);
       return false;

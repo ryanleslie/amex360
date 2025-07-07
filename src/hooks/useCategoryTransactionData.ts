@@ -8,16 +8,18 @@ export const useCategoryTransactionData = (timeRange: string, selectedCategory?:
     // Get all transactions for the time range
     const allTransactions = transactionFilterService.getTransactionsForCalculations(timeRange)
     
-    // If no category is selected, return all transactions
+    // Filter out transactions with NULL or empty categories
+    const transactionsWithCategories = allTransactions.filter(transaction => 
+      transaction.category && transaction.category.trim() !== ""
+    )
+    
+    // If no category is selected, return all transactions with categories
     if (!selectedCategory) {
-      return allTransactions
+      return transactionsWithCategories
     }
     
-    // Filter by selected category
-    const filteredTransactions = allTransactions.filter(transaction => {
-      if (selectedCategory === "Uncategorized") {
-        return !transaction.category || transaction.category.trim() === ""
-      }
+    // Filter by selected category (excluding uncategorized since we already filtered those out)
+    const filteredTransactions = transactionsWithCategories.filter(transaction => {
       return transaction.category === selectedCategory
     })
     

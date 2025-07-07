@@ -13,7 +13,11 @@ serve(async (req) => {
   }
 
   try {
+    console.log('=== PLAID LINK TOKEN REQUEST START ===');
+    
     const authHeader = req.headers.get('Authorization');
+    console.log('Auth header present:', !!authHeader);
+    
     const supabaseClient = createClient(
       Deno.env.get('SUPABASE_URL') ?? '', 
       Deno.env.get('SUPABASE_ANON_KEY') ?? '', 
@@ -28,10 +32,16 @@ serve(async (req) => {
 
     // Get the authenticated user
     const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
+    console.log('User retrieval result:', {
+      hasUser: !!user,
+      userId: user?.id,
+      userError: userError?.message
+    });
+    
     if (userError || !user) {
-      console.error('No authenticated user found:', userError);
+      console.error('Authentication failed:', userError);
       return new Response(JSON.stringify({
-        error: 'Unauthorized'
+        error: 'Unauthorized - No valid user session'
       }), {
         status: 401,
         headers: {
@@ -44,10 +54,11 @@ serve(async (req) => {
     const plaidClientId = Deno.env.get('PLAID_CLIENT_ID');
     const plaidSecret = Deno.env.get('PLAID_SECRET');
 
-    console.log('Environment check:', {
+    console.log('Environment variables check:', {
       hasClientId: !!plaidClientId,
       hasSecret: !!plaidSecret,
-      userId: user.id
+      clientIdLength: plaidClientId?.length || 0,
+      secretLength: plaidSecret?.length || 0
     });
 
     if (!plaidClientId || !plaidSecret) {
@@ -65,6 +76,7 @@ serve(async (req) => {
 
     // Use production environment
     const plaidUrl = 'https://production.plaid.com/link/token/create';
+    console.log('Using Plaid URL:', plaidUrl);
 
     const requestBody = {
       client_name: "Credit Card Dashboard",
@@ -81,7 +93,9 @@ serve(async (req) => {
       }
     };
 
-    console.log('Making request to Plaid:', {
+    console.log('Plaid request body:', JSON.stringify(requestBody, null, 2));
+
+    console.log('Making request to Plaid with headers:', {
       url: plaidUrl,
       hasClientId: !!plaidClientId,
       hasSecret: !!plaidSecret,
@@ -100,18 +114,23 @@ serve(async (req) => {
 
     const data = await response.json();
     
-    console.log('Plaid response:', {
+    console.log('Full Plaid response:', {
       status: response.status,
-      hasLinkToken: !!data.link_token,
-      error: data.error_code || null,
-      errorType: data.error_type || null,
-      errorMessage: data.error_message || null
+      statusText: response.statusText,
+      headers: Object.fromEntries(response.headers.entries()),
+      data: JSON.stringify(data, null, 2)
     });
 
     if (!response.ok) {
-      console.error('Plaid API error:', data);
+      console.error('Plaid API error - Full response:', data);
       return new Response(JSON.stringify({
         error: 'Failed to create link token',
+        plaidError: {
+          error_code: data.error_code,
+          error_type: data.error_type,
+          error_message: data.error_message,
+          display_message: data.display_message
+        },
         details: data
       }), {
         status: 500,
@@ -122,14 +141,20 @@ serve(async (req) => {
       });
     }
 
-    console.log('Link token created successfully');
+    console.log('SUCCESS: Link token created:', !!data.link_token);
+    console.log('=== PLAID LINK TOKEN REQUEST END ===');
 
     return new Response(JSON.stringify({ link_token: data.link_token }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
 
   } catch (error) {
-    console.error('Error in plaid-link-token function:', error);
+    console.error('=== PLAID LINK TOKEN ERROR ===');
+    console.error('Error details:', {
+      message: error.message,
+      stack: error.stack,
+      name: error.name
+    });
     return new Response(JSON.stringify({
       error: 'Internal server error',
       details: error.message

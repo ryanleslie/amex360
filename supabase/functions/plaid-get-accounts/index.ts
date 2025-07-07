@@ -128,6 +128,20 @@ serve(async (req) => {
       }
     }
 
+    // After updating plaid_accounts, sync the card_balances table
+    try {
+      console.log('Syncing card balances...');
+      const { error: syncError } = await supabaseClient.rpc('sync_card_balances_from_plaid');
+      
+      if (syncError) {
+        console.error('Error syncing card balances:', syncError);
+      } else {
+        console.log('Card balances synced successfully');
+      }
+    } catch (error) {
+      console.error('Error during card balance sync:', error);
+    }
+
     console.log('Returning accounts:', {
       count: allAccounts.length
     });

@@ -11,4 +11,5 @@ export interface PrimaryCard {
   dueDate: number
   interestRate: string
   annualFee: number
+  plaid_account_id: string
 }

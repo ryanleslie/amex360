@@ -47,6 +47,9 @@ export function parsePrimaryCardsCSV(): PrimaryCard[] {
         case 'annualFee':
           card.annualFee = parseInt(value) || 0
           break
+        case 'plaid_account_id':
+          card.plaid_account_id = value
+          break
       }
     })
     

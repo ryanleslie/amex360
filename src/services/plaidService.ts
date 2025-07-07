@@ -34,7 +34,7 @@ export const plaidService = {
           institution_name
         )
       `)
-      .order('current_balance', { ascending: false, nullsLast: true });
+      .order('current_balance', { ascending: false, nullsFirst: false });
 
     if (error) {
       console.error('Error fetching Plaid accounts:', error);

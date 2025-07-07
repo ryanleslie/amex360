@@ -22,7 +22,7 @@ export type DashboardSection = "dashboard" | "insights" | "rewards" | "employee"
 const Dashboard = () => {
   const location = useLocation();
   const { filters, updateFilter } = useFilterState("ytd");
-  const [adminView, setAdminView] = React.useState<"users" | "balances" | "plaid">("users");
+  const [adminView, setAdminView] = React.useState<"users" | "balances">("users");
 
   // Determine active section from URL
   const getActiveSectionFromPath = (pathname: string): DashboardSection => {
@@ -81,10 +81,8 @@ const Dashboard = () => {
                   <UserCreationForm />
                   <UserListCard />
                 </div>
-              ) : adminView === "balances" ? (
-                <AdminBalancesCard />
               ) : (
-                <PlaidConnectionCard />
+                <AdminBalancesCard />
               )}
             </div>
           </div>

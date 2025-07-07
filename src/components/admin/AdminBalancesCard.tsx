@@ -1,13 +1,14 @@
 
 import React from 'react';
 import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { usePlaidAccounts } from '@/hooks/usePlaidAccounts';
-import { CreditCard, Building2, Info } from 'lucide-react';
+import { CreditCard, Building2, Info, RefreshCw, Link2 } from 'lucide-react';
 
 export function AdminBalancesCard() {
-  const { plaidAccounts, loading, error } = usePlaidAccounts();
+  const { plaidAccounts, loading, error, refetch } = usePlaidAccounts();
 
   if (loading) {
     return (
@@ -34,11 +35,28 @@ export function AdminBalancesCard() {
   return (
     <Card className="p-6 bg-gradient-to-b from-white to-gray-100">
       <div className="space-y-4">
-        <div className="flex items-center gap-2 animate-fade-in">
-          <h3 className="text-lg font-semibold">Account Balances</h3>
-          <Badge variant="outline" className="ml-auto">
-            {plaidAccounts.length} accounts
-          </Badge>
+        <div className="flex items-center justify-between animate-fade-in">
+          <div className="flex items-center gap-2">
+            <h3 className="text-lg font-semibold">Account Balances</h3>
+            <Badge variant="outline">
+              {plaidAccounts.length} accounts
+            </Badge>
+          </div>
+          <div className="flex gap-2">
+            <Button
+              onClick={refetch}
+              disabled={loading}
+              size="sm"
+              variant="outline"
+            >
+              <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
+              Refresh
+            </Button>
+            <Button size="sm" disabled>
+              <Link2 className="h-4 w-4 mr-2" />
+              Connect Account
+            </Button>
+          </div>
         </div>
 
         <div className="flex items-center gap-2 p-3 bg-blue-50 text-blue-700 rounded-lg">

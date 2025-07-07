@@ -27,9 +27,9 @@ serve(async (req) => {
     );
 
     // Get the authenticated user
-    const { data: { user } } = await supabaseClient.auth.getUser();
-    if (!user) {
-      console.error('No authenticated user found');
+    const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
+    if (userError || !user) {
+      console.error('No authenticated user found:', userError);
       return new Response(JSON.stringify({
         error: 'Unauthorized'
       }), {
@@ -103,7 +103,9 @@ serve(async (req) => {
     console.log('Plaid response:', {
       status: response.status,
       hasLinkToken: !!data.link_token,
-      error: data.error_code || null
+      error: data.error_code || null,
+      errorType: data.error_type || null,
+      errorMessage: data.error_message || null
     });
 
     if (!response.ok) {

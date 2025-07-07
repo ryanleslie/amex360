@@ -6,6 +6,7 @@ interface UserData {
   display_name?: string;
   first_name?: string;
   email?: string;
+  role?: string;
   created_at?: string;
   last_login?: string;
 }
@@ -16,6 +17,17 @@ interface UserListItemProps {
 }
 
 export function UserListItem({ user, index }: UserListItemProps) {
+  const getRoleBadgeVariant = (role: string) => {
+    switch (role) {
+      case 'admin':
+        return 'destructive';
+      case 'moderator':
+        return 'default';
+      default:
+        return 'secondary';
+    }
+  };
+
   const formatLastLogin = (lastLogin: string | null) => {
     if (!lastLogin) return 'Never';
     try {
@@ -44,9 +56,9 @@ export function UserListItem({ user, index }: UserListItemProps) {
         <div className="font-medium text-sm">
           {user.display_name || user.first_name || user.email || user.id}
         </div>
-        <Badge variant="secondary">
+        <Badge variant={getRoleBadgeVariant(user.role || 'user')}>
           <Shield className="h-3 w-3 mr-1" />
-          User
+          {user.role || 'user'}
         </Badge>
       </div>
       

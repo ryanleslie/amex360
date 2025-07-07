@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { AppHeader } from "@/components/AppHeader";
@@ -14,6 +13,7 @@ import { InsightsQuickMetrics } from "@/components/insights/InsightsQuickMetrics
 import { UserCreationForm } from "@/components/admin/UserCreationForm";
 import { UserListCard } from "@/components/admin/UserListCard";
 import { AdminBalancesCard } from "@/components/admin/AdminBalancesCard";
+import { PlaidConnectionCard } from "@/components/admin/PlaidConnectionCard";
 import { AdminToggle } from "@/components/admin/AdminToggle";
 import { useFilterState } from "@/hooks/useFilterState";
 
@@ -22,7 +22,7 @@ export type DashboardSection = "dashboard" | "insights" | "rewards" | "employee"
 const Dashboard = () => {
   const location = useLocation();
   const { filters, updateFilter } = useFilterState("ytd");
-  const [adminView, setAdminView] = React.useState<"users" | "balances">("users");
+  const [adminView, setAdminView] = React.useState<"users" | "balances" | "plaid">("users");
 
   // Determine active section from URL
   const getActiveSectionFromPath = (pathname: string): DashboardSection => {
@@ -81,8 +81,10 @@ const Dashboard = () => {
                   <UserCreationForm />
                   <UserListCard />
                 </div>
-              ) : (
+              ) : adminView === "balances" ? (
                 <AdminBalancesCard />
+              ) : (
+                <PlaidConnectionCard />
               )}
             </div>
           </div>

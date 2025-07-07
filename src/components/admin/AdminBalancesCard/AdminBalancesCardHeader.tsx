@@ -19,11 +19,13 @@ export function AdminBalancesCardHeader({
 }: AdminBalancesCardHeaderProps) {
   return (
     <div className="flex items-center gap-2 animate-fade-in">
-      <h3 className="text-lg font-semibold">Card Balances</h3>
-      <div className="ml-auto flex items-center gap-2">
+      <div className="flex items-center gap-2">
+        <h3 className="text-lg font-semibold">Card Balances</h3>
         <Badge variant="outline">
           {cardCount} cards
         </Badge>
+      </div>
+      <div className="ml-auto flex items-center gap-2">
         <Button
           variant="outline"
           size="sm"

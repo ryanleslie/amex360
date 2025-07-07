@@ -53,16 +53,17 @@ export function UserListCard() {
 
       console.log('Profiles data:', profilesData);
 
-      // Transform the data and determine roles based on display_name (which contains email)
+      // Transform the data and determine roles based on email
       const transformedUsers = profilesData?.map(profile => {
-        // Check if display_name (email) is in admin array
-        const isAdmin = profile.display_name && adminEmails.includes(profile.display_name);
+        const userEmail = profile.display_name; // display_name contains the email
+        // Check if email is in admin array
+        const isAdmin = userEmail && adminEmails.includes(userEmail);
         
         return {
           id: profile.id,
           display_name: profile.display_name,
           first_name: profile.first_name,
-          email: profile.display_name, // display_name contains the email
+          email: userEmail,
           role: isAdmin ? 'admin' : 'user',
           created_at: profile.created_at,
           last_login: profile.last_login

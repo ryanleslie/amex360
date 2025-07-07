@@ -2,8 +2,6 @@
 import * as React from "react"
 import { useAuth } from "@/contexts/AuthContext"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { RotateCw } from "lucide-react"
 import {
   SidebarMenu,
   SidebarMenuButton,
@@ -11,18 +9,12 @@ import {
 } from "./SidebarMenu"
 
 export function NavUser() {
-  const { user, profile, refreshProfile } = useAuth()
-  const [isRefreshing, setIsRefreshing] = React.useState(false)
+  const { user, profile } = useAuth()
 
   if (!user) return null
 
   const displayRole = profile?.role === 'user' ? 'Viewer' : profile?.role === 'admin' ? 'Admin' : profile?.role
-
-  const handleRefreshProfile = async () => {
-    setIsRefreshing(true)
-    await refreshProfile()
-    setIsRefreshing(false)
-  }
+  const isAdmin = profile?.role === 'admin'
 
   return (
     <SidebarMenu>
@@ -41,16 +33,6 @@ export function NavUser() {
             <span className="text-muted-foreground truncate text-xs">
               {user.email}
             </span>
-            <Button 
-              onClick={handleRefreshProfile}
-              disabled={isRefreshing}
-              variant="ghost" 
-              size="sm" 
-              className="mt-1 h-6 px-2 text-xs"
-            >
-              <RotateCw className={`h-3 w-3 mr-1 ${isRefreshing ? 'animate-spin' : ''}`} />
-              Refresh Role
-            </Button>
           </div>
         </SidebarMenuButton>
       </SidebarMenuItem>

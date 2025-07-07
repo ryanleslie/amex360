@@ -22,7 +22,6 @@ interface AuthContextType {
   loading: boolean;
   hasRole: (role: string) => boolean;
   isAdmin: () => boolean;
-  refreshProfile: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -93,13 +92,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         email: userEmail,
         role: 'user'
       });
-    }
-  };
-
-  const refreshProfile = async () => {
-    if (user?.id && user?.email) {
-      console.log('Manually refreshing profile...');
-      await fetchUserProfile(user.id, user.email);
     }
   };
 
@@ -187,8 +179,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       signOut, 
       loading, 
       hasRole, 
-      isAdmin,
-      refreshProfile
+      isAdmin 
     }}>
       {children}
     </AuthContext.Provider>

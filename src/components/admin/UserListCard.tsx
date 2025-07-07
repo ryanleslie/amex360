@@ -174,10 +174,6 @@ export function UserListCard() {
                   </div>
                   
                   <div className="text-xs text-muted-foreground">
-                    ID: {user.id}
-                  </div>
-                  
-                  <div className="text-xs text-muted-foreground">
                     Last login: {formatLastLogin(user.last_login)}
                   </div>
                 </div>

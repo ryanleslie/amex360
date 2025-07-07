@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
@@ -44,7 +45,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const fetchUserProfile = async (userId: string, userEmail?: string) => {
+  const fetchUserProfile = async (userId: string, userEmail: string) => {
     try {
       // Get user profile
       const { data: profileData } = await supabase
@@ -84,7 +85,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         if (currentSession?.user) {
           // Fetch user profile and role after auth state changes
           setTimeout(() => {
-            fetchUserProfile(currentSession.user.id, currentSession.user.email);
+            if (currentSession.user?.id && currentSession.user?.email) {
+              fetchUserProfile(currentSession.user.id, currentSession.user.email);
+            }
           }, 0);
         } else {
           setProfile(null);
@@ -99,7 +102,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setSession(existingSession);
       setUser(existingSession?.user ?? null);
       
-      if (existingSession?.user) {
+      if (existingSession?.user?.id && existingSession?.user?.email) {
         fetchUserProfile(existingSession.user.id, existingSession.user.email);
       }
       setLoading(false);

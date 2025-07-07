@@ -4,15 +4,15 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { supabase } from '@/integrations/supabase/client';
-import { Clock, Shield } from 'lucide-react';
-import { formatDistanceToNow } from 'date-fns';
+import { Shield } from 'lucide-react';
 
 interface UserData {
-  user_id: string;
+  id: string;
   display_name?: string;
   first_name?: string;
-  last_login?: string;
+  email?: string;
   role?: string;
+  created_at?: string;
 }
 
 export function UserListCard() {
@@ -26,35 +26,43 @@ export function UserListCard() {
 
   const fetchUsers = async () => {
     try {
-      // Get users with their profiles and roles, ordered by last_login descending
-      const { data: usersData, error: usersError } = await supabase
-        .from('users')
+      // Get profiles with their roles
+      const { data: profilesData, error: profilesError } = await supabase
+        .from('profiles')
         .select(`
-          user_id,
-          last_login,
-          profiles (
-            display_name,
-            first_name
-          ),
-          user_roles (
-            role
-          )
+          id,
+          display_name,
+          first_name,
+          created_at
         `)
-        .order('last_login', { ascending: false, nullsFirst: false });
+        .order('created_at', { ascending: false });
 
-      if (usersError) {
-        console.error('Error fetching users:', usersError);
+      if (profilesError) {
+        console.error('Error fetching profiles:', profilesError);
         return;
       }
 
-      // Transform the data
-      const transformedUsers = usersData?.map(user => ({
-        user_id: user.user_id,
-        display_name: user.profiles?.display_name,
-        first_name: user.profiles?.first_name,
-        last_login: user.last_login,
-        role: user.user_roles?.[0]?.role || 'user'
-      })) || [];
+      // Get user roles
+      const { data: rolesData, error: rolesError } = await supabase
+        .from('user_roles')
+        .select('user_id, role');
+
+      if (rolesError) {
+        console.error('Error fetching roles:', rolesError);
+        return;
+      }
+
+      // Combine the data
+      const transformedUsers = profilesData?.map(profile => {
+        const userRole = rolesData?.find(role => role.user_id === profile.id);
+        return {
+          id: profile.id,
+          display_name: profile.display_name,
+          first_name: profile.first_name,
+          role: userRole?.role || 'user',
+          created_at: profile.created_at
+        };
+      }) || [];
 
       setUsers(transformedUsers);
       
@@ -78,10 +86,10 @@ export function UserListCard() {
     }
   };
 
-  const formatLastLogin = (lastLogin: string | null) => {
-    if (!lastLogin) return 'Never';
+  const formatCreatedAt = (createdAt: string | null) => {
+    if (!createdAt) return 'Unknown';
     try {
-      return formatDistanceToNow(new Date(lastLogin), { addSuffix: true });
+      return new Date(createdAt).toLocaleDateString();
     } catch {
       return 'Unknown';
     }
@@ -117,7 +125,7 @@ export function UserListCard() {
             ) : (
               users.map((user, index) => (
                 <div
-                  key={user.user_id}
+                  key={user.id}
                   className={`p-3 border rounded-lg bg-gradient-to-b from-white to-gray-50 space-y-2 transition-all duration-500 ${
                     showUsers 
                       ? 'opacity-100 translate-y-0' 
@@ -129,7 +137,7 @@ export function UserListCard() {
                 >
                   <div className="flex items-center justify-between">
                     <div className="font-medium text-sm">
-                      {user.display_name || user.first_name || user.user_id}
+                      {user.display_name || user.first_name || user.id}
                     </div>
                     <Badge variant={getRoleBadgeVariant(user.role || 'user')}>
                       <Shield className="h-3 w-3 mr-1" />
@@ -138,12 +146,11 @@ export function UserListCard() {
                   </div>
                   
                   <div className="text-xs text-muted-foreground">
-                    ID: {user.user_id}
+                    ID: {user.id}
                   </div>
                   
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                    <Clock className="h-3 w-3" />
-                    Last login: {formatLastLogin(user.last_login)}
+                  <div className="text-xs text-muted-foreground">
+                    Created: {formatCreatedAt(user.created_at)}
                   </div>
                 </div>
               ))

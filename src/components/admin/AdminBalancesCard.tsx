@@ -153,21 +153,47 @@ export function AdminBalancesCard() {
                     <CreditCard className="h-5 w-5 text-muted-foreground" />
                     <div className="font-medium text-sm">
                       {balance.cardType}
+                      {balance.institutionName && (
+                        <div className="text-xs text-muted-foreground font-normal">
+                          {balance.institutionName}
+                        </div>
+                      )}
                     </div>
                   </div>
                   
-                  <div className="text-lg font-semibold tabular-nums">
-                    {balance.currentBalance !== null 
-                      ? `$${balance.currentBalance.toLocaleString('en-US', { 
+                  <div className="space-y-1">
+                    <div className="text-lg font-semibold tabular-nums">
+                      {balance.currentBalance !== null 
+                        ? `$${balance.currentBalance.toLocaleString('en-US', { 
+                            minimumFractionDigits: 2, 
+                            maximumFractionDigits: 2 
+                          })}` 
+                        : 'N/A'
+                      }
+                    </div>
+                    {balance.availableBalance !== null && balance.availableBalance !== balance.currentBalance && (
+                      <div className="text-sm text-muted-foreground">
+                        Available: ${balance.availableBalance.toLocaleString('en-US', { 
                           minimumFractionDigits: 2, 
                           maximumFractionDigits: 2 
-                        })}` 
-                      : 'N/A'
-                    }
+                        })}
+                      </div>
+                    )}
+                    {balance.creditLimit && (
+                      <div className="text-sm text-muted-foreground">
+                        Limit: ${balance.creditLimit.toLocaleString('en-US', { 
+                          minimumFractionDigits: 2, 
+                          maximumFractionDigits: 2 
+                        })}
+                      </div>
+                    )}
                   </div>
                   
                   <div className="text-xs text-muted-foreground">
-                    ID: {balance.ID}
+                    {balance.accountType && balance.accountSubtype ? 
+                      `${balance.accountType} • ${balance.accountSubtype}` : 
+                      `ID: ${balance.ID}`
+                    }
                   </div>
                 </div>
               ))

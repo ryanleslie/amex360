@@ -26,6 +26,8 @@ export function UserListCard() {
 
   const fetchUsers = async () => {
     try {
+      console.log('Fetching users...');
+      
       // Get profiles with their roles
       const { data: profilesData, error: profilesError } = await supabase
         .from('profiles')
@@ -42,6 +44,8 @@ export function UserListCard() {
         return;
       }
 
+      console.log('Profiles data:', profilesData);
+
       // Get user roles
       const { data: rolesData, error: rolesError } = await supabase
         .from('user_roles')
@@ -51,6 +55,8 @@ export function UserListCard() {
         console.error('Error fetching roles:', rolesError);
         return;
       }
+
+      console.log('Roles data:', rolesData);
 
       // Combine the data
       const transformedUsers = profilesData?.map(profile => {
@@ -64,6 +70,7 @@ export function UserListCard() {
         };
       }) || [];
 
+      console.log('Transformed users:', transformedUsers);
       setUsers(transformedUsers);
       
       // Trigger staggered animations after data is loaded

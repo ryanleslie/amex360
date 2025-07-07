@@ -47,19 +47,35 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const fetchUserProfile = async (userId: string, userEmail: string) => {
     try {
+      console.log('Fetching profile for user:', userId);
+      
       // Get user profile
-      const { data: profileData } = await supabase
+      const { data: profileData, error: profileError } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', userId)
         .single();
 
+      if (profileError && profileError.code !== 'PGRST116') {
+        console.error('Error fetching profile:', profileError);
+        return;
+      }
+
+      console.log('Profile data:', profileData);
+
       // Get user role
-      const { data: roleData } = await supabase
+      const { data: roleData, error: roleError } = await supabase
         .from('user_roles')
         .select('role')
         .eq('user_id', userId)
         .single();
+
+      if (roleError && roleError.code !== 'PGRST116') {
+        console.error('Error fetching role:', roleError);
+        return;
+      }
+
+      console.log('Role data:', roleData);
 
       if (profileData) {
         setProfile({

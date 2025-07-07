@@ -61,7 +61,12 @@ export function UserListItem({ user, index }: UserListItemProps) {
   };
 
   return (
-    <div className="p-3 border rounded-lg bg-gradient-to-b from-white to-gray-50 space-y-2">
+    <div className="p-3 border rounded-lg bg-gradient-to-b from-white to-gray-50 space-y-2 animate-fade-in"
+      style={{
+        animationDelay: `${index * 100}ms`,
+        animationFillMode: 'both'
+      }}
+    >
       <div className="flex items-center justify-between">
         <div className="font-medium text-sm">
           {user.display_name || user.first_name || user.email || user.id}

@@ -7,9 +7,6 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
-
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
@@ -17,26 +14,17 @@ serve(async (req) => {
 
   try {
     const authHeader = req.headers.get('Authorization');
-    if (!authHeader) {
-      console.error('Missing Authorization header');
-      return new Response(JSON.stringify({
-        error: 'Unauthorized'
-      }), {
-        status: 401,
-        headers: {
-          ...corsHeaders,
-          'Content-Type': 'application/json'
-        }
-      });
-    }
-
-    const supabaseClient = createClient(supabaseUrl, supabaseAnonKey, {
-      global: {
-        headers: {
-          Authorization: authHeader
+    const supabaseClient = createClient(
+      Deno.env.get('SUPABASE_URL') ?? '', 
+      Deno.env.get('SUPABASE_ANON_KEY') ?? '', 
+      {
+        global: {
+          headers: {
+            Authorization: authHeader
+          }
         }
       }
-    });
+    );
 
     // Get the authenticated user
     const { data: { user } } = await supabaseClient.auth.getUser();
@@ -95,7 +83,9 @@ serve(async (req) => {
 
     console.log('Making request to Plaid:', {
       url: plaidUrl,
-      body: requestBody
+      hasClientId: !!plaidClientId,
+      hasSecret: !!plaidSecret,
+      userId: user.id
     });
 
     const response = await fetch(plaidUrl, {
@@ -112,7 +102,8 @@ serve(async (req) => {
     
     console.log('Plaid response:', {
       status: response.status,
-      data
+      hasLinkToken: !!data.link_token,
+      error: data.error_code || null
     });
 
     if (!response.ok) {

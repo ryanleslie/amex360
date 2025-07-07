@@ -19,7 +19,18 @@ export interface PlaidAccountBalance {
 
 export const plaidService = {
   async createLinkToken(): Promise<string> {
-    const { data, error } = await supabase.functions.invoke('plaid-link-token');
+    // Get current session to ensure we have valid auth
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+    
+    if (sessionError || !session) {
+      throw new Error('Authentication required to create link token');
+    }
+
+    const { data, error } = await supabase.functions.invoke('plaid-link-token', {
+      headers: {
+        Authorization: `Bearer ${session.access_token}`
+      }
+    });
     
     if (error) {
       console.error('Error creating link token:', error);
@@ -30,8 +41,17 @@ export const plaidService = {
   },
 
   async exchangePublicToken(publicToken: string): Promise<void> {
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+    
+    if (sessionError || !session) {
+      throw new Error('Authentication required to exchange token');
+    }
+
     const { error } = await supabase.functions.invoke('plaid-exchange-token', {
-      body: { public_token: publicToken }
+      body: { public_token: publicToken },
+      headers: {
+        Authorization: `Bearer ${session.access_token}`
+      }
     });
     
     if (error) {
@@ -41,7 +61,17 @@ export const plaidService = {
   },
 
   async syncAccounts(): Promise<void> {
-    const { error } = await supabase.functions.invoke('plaid-sync-accounts');
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+    
+    if (sessionError || !session) {
+      throw new Error('Authentication required to sync accounts');
+    }
+
+    const { error } = await supabase.functions.invoke('plaid-sync-accounts', {
+      headers: {
+        Authorization: `Bearer ${session.access_token}`
+      }
+    });
     
     if (error) {
       console.error('Error syncing accounts:', error);

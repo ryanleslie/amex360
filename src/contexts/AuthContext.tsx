@@ -1,8 +1,9 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import type { User, Session } from '@supabase/supabase-js';
 
-interface User {
+interface CustomUser {
   user_id: string;
   email?: string;
   display_name?: string;
@@ -13,7 +14,9 @@ interface User {
 }
 
 interface AuthContextType {
-  user: User | null;
+  user: CustomUser | null;
+  supabaseUser: User | null;
+  session: Session | null;
   signIn: (userId: string, password: string) => Promise<{ error?: string }>;
   signUp: (userId: string, password: string, email?: string) => Promise<{ error?: string }>;
   createUser: (userId: string, password: string, email?: string) => Promise<{ error?: string }>;
@@ -38,87 +41,83 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<CustomUser | null>(null);
+  const [supabaseUser, setSupabaseUser] = useState<User | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    checkSession();
+    // Set up Supabase auth state listener
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        console.log('Auth state change:', event, session?.user?.id);
+        setSession(session);
+        setSupabaseUser(session?.user ?? null);
+        
+        if (session?.user) {
+          // Get additional user data from custom tables
+          const userData = await getUserWithRole(session.user.id);
+          setUser(userData);
+        } else {
+          setUser(null);
+        }
+        setLoading(false);
+      }
+    );
+
+    // Check for existing session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setSupabaseUser(session?.user ?? null);
+      if (session?.user) {
+        getUserWithRole(session.user.id).then(setUser);
+      }
+      setLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   const getUserWithRole = async (userId: string) => {
-    // Get user profile
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('user_id', userId)
-      .single();
-
-    // Get user role
-    const { data: roleData } = await supabase
-      .from('user_roles')
-      .select('role')
-      .eq('user_id', userId)
-      .single();
-
-    return {
-      user_id: userId,
-      ...profile,
-      role: roleData?.role || 'user'
-    };
-  };
-
-  const checkSession = async () => {
     try {
-      const sessionToken = localStorage.getItem('session_token');
-      if (!sessionToken) {
-        setLoading(false);
-        return;
-      }
-
-      // Check if session is valid
-      const { data: session, error } = await supabase
-        .from('user_sessions')
-        .select('user_id, expires_at')
-        .eq('session_token', sessionToken)
+      // Get user profile
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('user_id', userId)
         .single();
 
-      if (error || !session) {
-        localStorage.removeItem('session_token');
-        setLoading(false);
-        return;
-      }
+      // Get user role
+      const { data: roleData } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', userId)
+        .single();
 
-      // Check if session is expired
-      if (new Date(session.expires_at) < new Date()) {
-        localStorage.removeItem('session_token');
-        await supabase
-          .from('user_sessions')
-          .delete()
-          .eq('session_token', sessionToken);
-        setLoading(false);
-        return;
-      }
-
-      // Get user with role
-      const userData = await getUserWithRole(session.user_id);
-      setUser(userData);
+      return {
+        user_id: userId,
+        ...profile,
+        role: roleData?.role || 'user'
+      };
     } catch (error) {
-      console.error('Session check error:', error);
-    } finally {
-      setLoading(false);
+      console.error('Error fetching user data:', error);
+      return {
+        user_id: userId,
+        role: 'user'
+      };
     }
   };
 
   const signIn = async (userId: string, password: string): Promise<{ error?: string }> => {
     try {
-      // Verify user credentials
-      const { data: user, error: userError } = await supabase
+      // First verify with custom auth system
+      const { data: customUser, error: userError } = await supabase
         .from('users')
-        .select('user_id, password_hash')
+        .select('user_id, password_hash, email')
         .eq('user_id', userId)
         .single();
 
-      if (userError || !user) {
+      if (userError || !customUser) {
         return { error: 'Invalid user ID or password' };
       }
 
@@ -126,42 +125,57 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const { data: isValid, error: verifyError } = await supabase
         .rpc('verify_password', {
           password: password,
-          hash: user.password_hash
+          hash: customUser.password_hash
         });
 
       if (verifyError || !isValid) {
         return { error: 'Invalid user ID or password' };
       }
 
-      // Create session
-      const sessionToken = crypto.randomUUID();
-      const expiresAt = new Date();
-      expiresAt.setDate(expiresAt.getDate() + 7); // 7 days
+      // Sign in with Supabase Auth using email if available, otherwise use a generated email
+      const email = customUser.email || `${userId}@internal.app`;
+      
+      // Try to sign in first
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email,
+        password: userId // Use userId as password for Supabase auth
+      });
 
-      const { error: sessionError } = await supabase
-        .from('user_sessions')
-        .insert({
-          user_id: userId,
-          session_token: sessionToken,
-          expires_at: expiresAt.toISOString()
+      if (signInError && signInError.message.includes('Invalid login credentials')) {
+        // If user doesn't exist in Supabase Auth, create them
+        const { error: signUpError } = await supabase.auth.signUp({
+          email,
+          password: userId, // Use userId as password for Supabase auth
+          options: {
+            emailRedirectTo: `${window.location.origin}/`
+          }
         });
 
-      if (sessionError) {
-        return { error: 'Failed to create session' };
+        if (signUpError) {
+          console.error('Error creating Supabase user:', signUpError);
+          return { error: 'Failed to authenticate with Supabase' };
+        }
+
+        // Now try to sign in again
+        const { error: retrySignInError } = await supabase.auth.signInWithPassword({
+          email,
+          password: userId
+        });
+
+        if (retrySignInError) {
+          console.error('Error signing in after signup:', retrySignInError);
+          return { error: 'Failed to sign in after account creation' };
+        }
+      } else if (signInError) {
+        console.error('Error signing in:', signInError);
+        return { error: 'Failed to authenticate' };
       }
 
-      // Update last login
+      // Update last login in custom table
       await supabase
         .from('users')
         .update({ last_login: new Date().toISOString() })
         .eq('user_id', userId);
-
-      // Store session token
-      localStorage.setItem('session_token', sessionToken);
-
-      // Get user with role
-      const userData = await getUserWithRole(userId);
-      setUser(userData);
 
       return {};
     } catch (error) {
@@ -172,7 +186,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const signUp = async (userId: string, password: string, email?: string): Promise<{ error?: string }> => {
     try {
-      // Check if user already exists
+      // Check if user already exists in custom system
       const { data: existingUser } = await supabase
         .from('users')
         .select('user_id')
@@ -183,7 +197,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         return { error: 'User ID already exists' };
       }
 
-      // Hash password
+      // Hash password for custom system
       const { data: hashedPassword, error: hashError } = await supabase
         .rpc('hash_password', { password });
 
@@ -191,7 +205,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         return { error: 'Failed to process password' };
       }
 
-      // Create user
+      // Create user in custom system
       const { error: userError } = await supabase
         .from('users')
         .insert({
@@ -223,8 +237,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const createUser = async (userId: string, password: string, email?: string): Promise<{ error?: string }> => {
+    // Same as signUp but without auto sign in
     try {
-      // Check if user already exists
       const { data: existingUser } = await supabase
         .from('users')
         .select('user_id')
@@ -235,7 +249,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         return { error: 'User ID already exists' };
       }
 
-      // Hash password
       const { data: hashedPassword, error: hashError } = await supabase
         .rpc('hash_password', { password });
 
@@ -243,7 +256,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         return { error: 'Failed to process password' };
       }
 
-      // Create user
       const { error: userError } = await supabase
         .from('users')
         .insert({
@@ -259,14 +271,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         return { error: 'Failed to create user' };
       }
 
-      // Create profile
       await supabase
         .from('profiles')
         .insert({
           user_id: userId
         });
 
-      // Don't auto sign in - just return success
       return {};
     } catch (error) {
       console.error('Create user error:', error);
@@ -276,17 +286,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const signOut = async () => {
     try {
-      const sessionToken = localStorage.getItem('session_token');
-      if (sessionToken) {
-        // Delete session from database
-        await supabase
-          .from('user_sessions')
-          .delete()
-          .eq('session_token', sessionToken);
-      }
-
-      localStorage.removeItem('session_token');
+      // Sign out from Supabase Auth
+      await supabase.auth.signOut();
+      
+      // Clear local state
       setUser(null);
+      setSupabaseUser(null);
+      setSession(null);
     } catch (error) {
       console.error('Sign out error:', error);
     }
@@ -303,6 +309,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   return (
     <AuthContext.Provider value={{ 
       user, 
+      supabaseUser,
+      session,
       signIn, 
       signUp, 
       createUser,

@@ -15,6 +15,7 @@ export function AdminBalancesCard() {
   const { toast } = useToast();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [linkToken, setLinkToken] = useState<string | null>(null);
+  const [isCreatingToken, setIsCreatingToken] = useState(false);
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
@@ -45,26 +46,6 @@ export function AdminBalancesCard() {
     }
   };
 
-  const createLinkToken = async () => {
-    try {
-      // Create a link token for Plaid
-      const { data, error: linkError } = await supabase.functions.invoke('plaid-create-link-token');
-      
-      if (linkError) {
-        throw linkError;
-      }
-
-      setLinkToken(data.link_token);
-    } catch (error) {
-      console.error('Error creating link token:', error);
-      toast({
-        title: "Connection Failed",
-        description: "Failed to create Plaid connection. Please try again.",
-        variant: "destructive",
-      });
-    }
-  };
-
   const onSuccess = React.useCallback(async (public_token: string, metadata: any) => {
     try {
       // Exchange the public token for an access token
@@ -91,6 +72,8 @@ export function AdminBalancesCard() {
         variant: "destructive",
       });
     }
+    // Reset link token after use
+    setLinkToken(null);
   }, [refetch, toast]);
 
   const onEvent = React.useCallback((eventName: string, metadata: any) => {
@@ -110,10 +93,29 @@ export function AdminBalancesCard() {
   });
 
   const handleConnect = async () => {
-    if (linkToken && ready) {
+    if (!linkToken) {
+      setIsCreatingToken(true);
+      try {
+        // Create a link token for Plaid
+        const { data, error: linkError } = await supabase.functions.invoke('plaid-create-link-token');
+        
+        if (linkError) {
+          throw linkError;
+        }
+
+        setLinkToken(data.link_token);
+      } catch (error) {
+        console.error('Error creating link token:', error);
+        toast({
+          title: "Connection Failed",
+          description: "Failed to create Plaid connection. Please try again.",
+          variant: "destructive",
+        });
+      } finally {
+        setIsCreatingToken(false);
+      }
+    } else if (ready) {
       open();
-    } else {
-      await createLinkToken();
     }
   };
 
@@ -176,11 +178,11 @@ export function AdminBalancesCard() {
               variant="outline"
               size="sm"
               onClick={handleConnect}
-              disabled={!ready}
+              disabled={isCreatingToken}
               className="gap-2"
             >
               <Link className="h-4 w-4" />
-              {!ready ? 'Loading...' : 'Connect'}
+              {isCreatingToken ? 'Creating Token...' : 'Connect'}
             </Button>
           </div>
         </div>

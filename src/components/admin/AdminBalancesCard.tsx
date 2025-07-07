@@ -1,13 +1,76 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useCardBalances } from '@/hooks/useCardBalances';
-import { CreditCard } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
+import { CreditCard, RefreshCw, Link } from 'lucide-react';
 
 export function AdminBalancesCard() {
-  const { cardBalances, loading, error } = useCardBalances();
+  const { cardBalances, loading, error, refetch } = useCardBalances();
+  const { toast } = useToast();
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isConnecting, setIsConnecting] = useState(false);
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    try {
+      // Call the plaid-get-accounts function to fetch fresh data
+      const { error: refreshError } = await supabase.functions.invoke('plaid-get-accounts');
+      
+      if (refreshError) {
+        throw refreshError;
+      }
+
+      // Refetch the card balances from our local data
+      await refetch();
+
+      toast({
+        title: "Balances Updated",
+        description: "Successfully refreshed account balances from Plaid",
+      });
+    } catch (error) {
+      console.error('Error refreshing balances:', error);
+      toast({
+        title: "Refresh Failed",
+        description: "Failed to refresh account balances. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
+
+  const handleConnect = async () => {
+    setIsConnecting(true);
+    try {
+      // Create a link token for Plaid
+      const { data, error: linkError } = await supabase.functions.invoke('plaid-create-link-token');
+      
+      if (linkError) {
+        throw linkError;
+      }
+
+      // For now, just show a success message - in a full implementation,
+      // you would open the Plaid Link component here
+      toast({
+        title: "Link Token Created",
+        description: "Plaid link token created successfully. Link token: " + data.link_token.substring(0, 20) + "...",
+      });
+    } catch (error) {
+      console.error('Error creating link token:', error);
+      toast({
+        title: "Connection Failed",
+        description: "Failed to create Plaid connection. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsConnecting(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -43,9 +106,31 @@ export function AdminBalancesCard() {
       <div className="space-y-4">
         <div className="flex items-center gap-2 animate-fade-in">
           <h3 className="text-lg font-semibold">Card Balances</h3>
-          <Badge variant="outline" className="ml-auto">
-            {cardBalances.length} cards
-          </Badge>
+          <div className="ml-auto flex items-center gap-2">
+            <Badge variant="outline">
+              {cardBalances.length} cards
+            </Badge>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleRefresh}
+              disabled={isRefreshing}
+              className="gap-2"
+            >
+              <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+              Refresh
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleConnect}
+              disabled={isConnecting}
+              className="gap-2"
+            >
+              <Link className="h-4 w-4" />
+              {isConnecting ? 'Connecting...' : 'Connect'}
+            </Button>
+          </div>
         </div>
 
         <ScrollArea className="h-[560px]">

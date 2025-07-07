@@ -1,22 +1,24 @@
 
-import { supabase } from "@/integrations/supabase/client"
-
 export const balanceUpdateService = {
   async updateCardBalances(): Promise<{ success: boolean; message: string }> {
     try {
-      // Call the Supabase edge function
-      const { data, error } = await supabase.functions.invoke('get-balances-api', {
-        method: 'GET'
+      // Call the external Supabase edge function directly
+      const response = await fetch('https://yspnncmfqtmyeenwtwwz.supabase.co/functions/v1/get-balances-api', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
       })
 
-      if (error) {
-        console.error('Error calling balance update API:', error)
+      if (!response.ok) {
+        console.error('Error calling balance update API:', response.statusText)
         return {
           success: false,
-          message: `Failed to update balances: ${error.message}`
+          message: `Failed to update balances: ${response.statusText}`
         }
       }
 
+      const data = await response.json()
       console.log('Balance update API response:', data)
       
       return {

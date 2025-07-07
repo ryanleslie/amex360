@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
@@ -18,7 +17,6 @@ interface AuthContextType {
   session: Session | null;
   profile: UserProfile | null;
   signIn: (email: string, password: string) => Promise<{ error?: string }>;
-  signUp: (email: string, password: string, firstName?: string, lastName?: string) => Promise<{ error?: string }>;
   signOut: () => Promise<void>;
   loading: boolean;
   hasRole: (role: string) => boolean;
@@ -145,34 +143,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const signUp = async (email: string, password: string, firstName?: string, lastName?: string): Promise<{ error?: string }> => {
-    try {
-      const redirectUrl = `${window.location.origin}/`;
-      
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          emailRedirectTo: redirectUrl,
-          data: {
-            first_name: firstName,
-            last_name: lastName,
-            display_name: firstName ? `${firstName} ${lastName || ''}`.trim() : email
-          }
-        }
-      });
-
-      if (error) {
-        return { error: error.message };
-      }
-
-      return {};
-    } catch (error) {
-      console.error('Sign up error:', error);
-      return { error: 'An unexpected error occurred' };
-    }
-  };
-
   const signOut = async () => {
     try {
       await supabase.auth.signOut();
@@ -198,7 +168,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       session,
       profile,
       signIn, 
-      signUp, 
       signOut, 
       loading, 
       hasRole, 

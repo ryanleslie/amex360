@@ -99,7 +99,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (profileData) {
         setProfile({
           id: userId,
-          email: user?.email,
+          email: session?.user?.email,
           ...profileData,
           role: roleData?.role || 'user'
         });

@@ -9,12 +9,12 @@ import {
 } from "./SidebarMenu"
 
 export function NavUser() {
-  const { user } = useAuth()
+  const { user, profile } = useAuth()
 
   if (!user) return null
 
-  const displayRole = user.role === 'user' ? 'Viewer' : user.role === 'admin' ? 'Admin' : user.role
-  const isAdmin = user.role === 'admin'
+  const displayRole = profile?.role === 'user' ? 'Viewer' : profile?.role === 'admin' ? 'Admin' : profile?.role
+  const isAdmin = profile?.role === 'admin'
 
   return (
     <SidebarMenu>
@@ -23,7 +23,7 @@ export function NavUser() {
           <div className="grid flex-1 text-left text-sm leading-tight">
             <div className="flex items-center gap-1">
               <span className="text-muted-foreground text-xs">Logged in as:</span>
-              <span className="truncate font-normal">{user.user_id}</span>
+              <span className="truncate font-normal">{user.id}</span>
               {displayRole && (
                 <Badge variant="secondary" className="text-xs bg-gray-200 text-gray-700 font-light border-0 rounded-md px-1.5 py-0.5">
                   {displayRole}

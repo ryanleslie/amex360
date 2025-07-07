@@ -17,9 +17,6 @@ export function useAdminUsers() {
   const [showUsers, setShowUsers] = useState(false);
 
   useEffect(() => {
-    // Clear cache on component mount to force fresh data
-    sessionStorage.removeItem('admin-users-cache');
-    sessionStorage.removeItem('email-sync-completed');
     fetchUsers();
   }, []);
 
@@ -51,69 +48,53 @@ export function useAdminUsers() {
         }
       }
       
-      // Fetch profiles with their roles from user_roles table
-      // Use a left join instead of inner join to include users without roles
+      // Fetch profiles first - simple query without joins
       const { data: profilesData, error: profilesError } = await supabase
         .from('profiles')
-        .select(`
-          id,
-          display_name,
-          first_name,
-          created_at,
-          last_login,
-          email,
-          user_roles(role)
-        `)
+        .select('*')
         .order('created_at', { ascending: false });
 
       if (profilesError) {
         console.error('Error fetching profiles:', profilesError);
-        // If the join fails, try fetching profiles without roles
-        const { data: basicProfiles, error: basicError } = await supabase
-          .from('profiles')
-          .select('*')
-          .order('created_at', { ascending: false });
-        
-        if (basicError) {
-          console.error('Error fetching basic profiles:', basicError);
-          return;
-        }
-        
-        // Use basic profiles data without roles
-        const basicUsers = basicProfiles?.map(profile => ({
-          id: profile.id,
-          display_name: profile.display_name,
-          first_name: profile.first_name,
-          email: profile.email,
-          role: 'user', // Default role
-          created_at: profile.created_at,
-          last_login: profile.last_login
-        })) || [];
-        
-        console.log('Using basic profiles:', basicUsers);
-        sessionStorage.setItem('admin-users-cache', JSON.stringify(basicUsers));
-        setUsers(basicUsers);
-        setTimeout(() => setShowUsers(true), 100);
         return;
       }
 
       console.log('Profiles data:', profilesData);
 
-      // Transform the data and get roles from user_roles table
-      const transformedUsers = profilesData?.map((profile: any) => {
-        // Get the first role from user_roles (users should typically have one role)
-        const userRole = profile.user_roles?.[0]?.role || 'user';
-        
-        return {
-          id: profile.id,
-          display_name: profile.display_name,
-          first_name: profile.first_name,
-          email: profile.email,
-          role: userRole,
-          created_at: profile.created_at,
-          last_login: profile.last_login
-        };
-      }) || [];
+      // If we have profiles, fetch their roles separately
+      const transformedUsers = [];
+      
+      if (profilesData && profilesData.length > 0) {
+        for (const profile of profilesData) {
+          // Try to get the user's role
+          let userRole = 'user'; // default
+          
+          try {
+            const { data: roleData } = await supabase
+              .from('user_roles')
+              .select('role')
+              .eq('user_id', profile.id)
+              .limit(1)
+              .maybeSingle();
+              
+            if (roleData) {
+              userRole = roleData.role;
+            }
+          } catch (roleError) {
+            console.log('Could not fetch role for user:', profile.id);
+          }
+
+          transformedUsers.push({
+            id: profile.id,
+            display_name: profile.display_name,
+            first_name: profile.first_name,
+            email: profile.email,
+            role: userRole,
+            created_at: profile.created_at,
+            last_login: profile.last_login
+          });
+        }
+      }
 
       console.log('Transformed users:', transformedUsers);
       

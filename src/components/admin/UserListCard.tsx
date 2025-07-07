@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { supabase } from '@/integrations/supabase/client';
 import { Shield } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface UserData {
   id: string;
@@ -20,6 +21,9 @@ export function UserListCard() {
   const [loading, setLoading] = useState(true);
   const [showUsers, setShowUsers] = useState(false);
 
+  // Get the admin emails from AuthContext
+  const adminEmails = ['team@wealthplan.co', 'ryanjleslie@gmail.com'];
+
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -28,7 +32,8 @@ export function UserListCard() {
     try {
       console.log('Fetching users...');
       
-      // Get profiles with their roles
+      // Since we can't access auth.users directly from the client,
+      // we'll use a simple approach: check if the display_name matches admin emails
       const { data: profilesData, error: profilesError } = await supabase
         .from('profiles')
         .select(`
@@ -46,26 +51,17 @@ export function UserListCard() {
 
       console.log('Profiles data:', profilesData);
 
-      // Get user roles
-      const { data: rolesData, error: rolesError } = await supabase
-        .from('user_roles')
-        .select('user_id, role');
-
-      if (rolesError) {
-        console.error('Error fetching roles:', rolesError);
-        return;
-      }
-
-      console.log('Roles data:', rolesData);
-
-      // Combine the data
+      // Transform the data and determine roles based on display_name (which contains email)
       const transformedUsers = profilesData?.map(profile => {
-        const userRole = rolesData?.find(role => role.user_id === profile.id);
+        // Check if display_name (email) is in admin array
+        const isAdmin = profile.display_name && adminEmails.includes(profile.display_name);
+        
         return {
           id: profile.id,
           display_name: profile.display_name,
           first_name: profile.first_name,
-          role: userRole?.role || 'user',
+          email: profile.display_name, // display_name contains the email
+          role: isAdmin ? 'admin' : 'user',
           created_at: profile.created_at
         };
       }) || [];

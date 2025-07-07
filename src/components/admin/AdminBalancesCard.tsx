@@ -1,55 +1,19 @@
 
 import React from 'react';
 import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { usePlaidAccounts } from '@/hooks/usePlaidAccounts';
-import { PlaidLinkButton } from './PlaidLinkButton';
-import { plaidService } from '@/services/plaidService';
-import { useToast } from '@/hooks/use-toast';
-import { CreditCard, Building2, Info, RefreshCw } from 'lucide-react';
+import { useCardBalances } from '@/hooks/useCardBalances';
+import { CreditCard } from 'lucide-react';
 
 export function AdminBalancesCard() {
-  const { plaidAccounts, loading, error, refetch } = usePlaidAccounts();
-  const { toast } = useToast();
-  const [isSyncing, setIsSyncing] = React.useState(false);
-
-  const handleSync = async () => {
-    setIsSyncing(true);
-    try {
-      await plaidService.syncAccounts();
-      await refetch();
-      toast({
-        title: "Accounts Synced",
-        description: "Account balances have been updated successfully.",
-      });
-    } catch (error) {
-      console.error('Error syncing accounts:', error);
-      toast({
-        title: "Sync Error",
-        description: "Failed to sync account balances. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSyncing(false);
-    }
-  };
-
-  const handleRefresh = async () => {
-    try {
-      await handleSync();
-    } catch (error) {
-      // Fallback to regular refetch if sync fails
-      await refetch();
-    }
-  };
+  const { cardBalances, loading, error } = useCardBalances();
 
   if (loading) {
     return (
       <Card className="p-6 bg-gradient-to-b from-white to-gray-100">
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold">Account Balances</h3>
+          <h3 className="text-lg font-semibold">Card Balances</h3>
           <div className="text-center text-muted-foreground animate-pulse">Loading balances...</div>
         </div>
       </Card>
@@ -60,61 +24,40 @@ export function AdminBalancesCard() {
     return (
       <Card className="p-6 bg-gradient-to-b from-white to-gray-100">
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold">Account Balances</h3>
+          <h3 className="text-lg font-semibold">Card Balances</h3>
           <div className="text-center text-destructive">{error}</div>
         </div>
       </Card>
     );
   }
 
-  // Check if we're showing real Plaid data or fallback data
-  const hasPlaidData = plaidAccounts.some(account => 
-    account.institution_name !== 'Credit Card Provider'
-  );
+  // Sort card balances in descending order (highest to lowest)
+  const sortedCardBalances = [...cardBalances].sort((a, b) => {
+    const balanceA = a.currentBalance || 0;
+    const balanceB = b.currentBalance || 0;
+    return balanceB - balanceA;
+  });
 
   return (
     <Card className="p-6 bg-gradient-to-b from-white to-gray-100">
       <div className="space-y-4">
-        <div className="flex items-center justify-between animate-fade-in">
-          <div className="flex items-center gap-2">
-            <h3 className="text-lg font-semibold">Account Balances</h3>
-            <Badge variant="outline">
-              {plaidAccounts.length} accounts
-            </Badge>
-          </div>
-          <div className="flex gap-2">
-            <Button
-              onClick={handleRefresh}
-              disabled={loading || isSyncing}
-              size="sm"
-              variant="outline"
-            >
-              <RefreshCw className={`h-4 w-4 ${(loading || isSyncing) ? 'animate-spin' : ''}`} />
-              {isSyncing ? 'Syncing...' : 'Refresh'}
-            </Button>
-            <PlaidLinkButton onSuccess={refetch} />
-          </div>
+        <div className="flex items-center gap-2 animate-fade-in">
+          <h3 className="text-lg font-semibold">Card Balances</h3>
+          <Badge variant="outline" className="ml-auto">
+            {cardBalances.length} cards
+          </Badge>
         </div>
-
-        {!hasPlaidData && (
-          <div className="flex items-center gap-2 p-3 bg-blue-50 text-blue-700 rounded-lg">
-            <Info className="h-4 w-4" />
-            <span className="text-sm">
-              Currently displaying sample data. Connect your accounts to see live balances.
-            </span>
-          </div>
-        )}
 
         <ScrollArea className="h-[560px]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pr-4">
-            {plaidAccounts.length === 0 ? (
+            {sortedCardBalances.length === 0 ? (
               <div className="col-span-full text-center text-muted-foreground py-4 animate-fade-in">
-                No account balances found. Connect your accounts to see balances.
+                No card balances found
               </div>
             ) : (
-              plaidAccounts.map((account, index) => (
+              sortedCardBalances.map((balance, index) => (
                 <div
-                  key={account.id}
+                  key={balance.ID}
                   className="p-4 border rounded-lg bg-gradient-to-b from-white to-gray-50 space-y-3 animate-fade-in"
                   style={{
                     animationDelay: `${index * 100}ms`,
@@ -124,13 +67,13 @@ export function AdminBalancesCard() {
                   <div className="flex items-center gap-3">
                     <CreditCard className="h-5 w-5 text-muted-foreground" />
                     <div className="font-medium text-sm">
-                      {account.account_name}
+                      {balance.cardType}
                     </div>
                   </div>
                   
                   <div className="text-lg font-semibold tabular-nums">
-                    {account.current_balance !== null 
-                      ? `$${account.current_balance.toLocaleString('en-US', { 
+                    {balance.currentBalance !== null 
+                      ? `$${balance.currentBalance.toLocaleString('en-US', { 
                           minimumFractionDigits: 2, 
                           maximumFractionDigits: 2 
                         })}` 
@@ -138,30 +81,8 @@ export function AdminBalancesCard() {
                     }
                   </div>
                   
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                      <Building2 className="h-3 w-3" />
-                      {account.institution_name || 'Unknown Institution'}
-                    </div>
-                    <div className="text-xs text-muted-foreground">
-                      {account.account_type} • {account.account_subtype || 'Other'}
-                    </div>
-                    {account.available_balance !== null && (
-                      <div className="text-xs text-muted-foreground">
-                        Available: ${account.available_balance.toLocaleString('en-US', { 
-                          minimumFractionDigits: 2, 
-                          maximumFractionDigits: 2 
-                        })}
-                      </div>
-                    )}
-                    {account.credit_limit !== null && (
-                      <div className="text-xs text-muted-foreground">
-                        Limit: ${account.credit_limit.toLocaleString('en-US', { 
-                          minimumFractionDigits: 2, 
-                          maximumFractionDigits: 2 
-                        })}
-                      </div>
-                    )}
+                  <div className="text-xs text-muted-foreground">
+                    ID: {balance.ID}
                   </div>
                 </div>
               ))

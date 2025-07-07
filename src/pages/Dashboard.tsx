@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { AppHeader } from "@/components/AppHeader";
@@ -13,7 +14,6 @@ import { InsightsQuickMetrics } from "@/components/insights/InsightsQuickMetrics
 import { UserCreationForm } from "@/components/admin/UserCreationForm";
 import { UserListCard } from "@/components/admin/UserListCard";
 import { AdminBalancesCard } from "@/components/admin/AdminBalancesCard";
-import { PlaidConnectionCard } from "@/components/admin/PlaidConnectionCard";
 import { AdminToggle } from "@/components/admin/AdminToggle";
 import { useFilterState } from "@/hooks/useFilterState";
 

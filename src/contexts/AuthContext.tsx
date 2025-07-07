@@ -9,7 +9,7 @@ interface AuthContextType {
   signIn: (email: string, password: string) => Promise<{ error?: string }>;
   signOut: () => Promise<void>;
   loading: boolean;
-  isAdmin: () => Promise<boolean>;
+  isAdmin: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -30,6 +30,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     // Set up auth state listener FIRST
@@ -39,6 +40,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setSession(currentSession);
         setUser(currentSession?.user ?? null);
         setLoading(false);
+        
+        // Check admin role when user signs in or session changes
+        if (currentSession?.user) {
+          checkAdminRole(currentSession.user);
+        } else {
+          setIsAdmin(false);
+        }
         
         // Track login when user signs in (do this after setting auth state)
         if (event === 'SIGNED_IN' && currentSession?.user) {
@@ -59,6 +67,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setSession(existingSession);
       setUser(existingSession?.user ?? null);
       setLoading(false);
+      
+      if (existingSession?.user) {
+        checkAdminRole(existingSession.user);
+      }
     });
 
     return () => subscription.unsubscribe();
@@ -92,29 +104,28 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  // Check if user is admin by querying the role column in profiles (no caching)
-  const isAdmin = async (): Promise<boolean> => {
-    if (!user) return false;
-    
+  // Check admin role and update state
+  const checkAdminRole = async (currentUser: User) => {
     try {
       // Always fetch fresh data from database to ensure current permissions
       const { data, error } = await supabase
         .from('profiles')
         .select('role')
-        .eq('id', user.id)
+        .eq('id', currentUser.id)
         .single();
       
       if (error) {
         console.error('Error checking admin role:', error);
-        return false;
+        setIsAdmin(false);
+        return;
       }
       
       const isAdminRole = data?.role === 'admin';
-      console.log(`User ${user.email} role check: ${data?.role} (isAdmin: ${isAdminRole})`);
-      return isAdminRole;
+      console.log(`User ${currentUser.email} role check: ${data?.role} (isAdmin: ${isAdminRole})`);
+      setIsAdmin(isAdminRole);
     } catch (error) {
       console.error('Error checking admin role:', error);
-      return false;
+      setIsAdmin(false);
     }
   };
 

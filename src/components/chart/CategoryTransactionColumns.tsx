@@ -41,7 +41,7 @@ export const useCategoryTransactionColumns = (): ColumnDef<Transaction>[] => {
     ];
 
     // Only show description column for admin users
-    if (isAdmin()) {
+    if (isAdmin) {
       columns.push({
         accessorKey: "description",
         header: ({ column }) => {

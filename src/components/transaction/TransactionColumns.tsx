@@ -45,7 +45,7 @@ export const useTransactionColumns = ({ hideLastFive = false }: TransactionColum
     ];
 
     // Only show description column for admin users
-    if (isAdmin()) {
+    if (isAdmin) {
       columns.push({
         accessorKey: "description",
         header: ({ column }) => {

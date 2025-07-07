@@ -71,7 +71,7 @@ export function AppSidebar({ activeSection }: AppSidebarProps) {
   ]
 
   // Combine menu items based on user role
-  const menuItems = isAdmin() 
+  const menuItems = isAdmin 
     ? [baseMenuItems[0], ...adminMenuItems, ...baseMenuItems.slice(1)]
     : baseMenuItems
 
@@ -143,7 +143,7 @@ export function AppSidebar({ activeSection }: AppSidebarProps) {
         <SidebarGroup>
           <SidebarGroupLabel>Account</SidebarGroupLabel>
           <SidebarMenu>
-            {isAdmin() && (
+            {isAdmin && (
               <SidebarMenuItem>
                 <SidebarMenuButton 
                   onClick={handleAdminClick}

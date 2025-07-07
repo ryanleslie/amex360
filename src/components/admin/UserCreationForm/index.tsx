@@ -15,7 +15,7 @@ export function UserCreationForm() {
     return () => clearTimeout(timer);
   }, []);
 
-  if (!isAdmin()) {
+  if (!isAdmin) {
     return null;
   }
 

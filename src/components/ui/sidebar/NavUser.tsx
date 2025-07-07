@@ -19,11 +19,8 @@ export function NavUser() {
           <div className="grid flex-1 text-left text-sm leading-tight">
             <div className="flex items-center gap-1">
               <span className="text-muted-foreground text-xs">Logged in as:</span>
-              <span className="truncate font-normal">{user.id}</span>
+              <span className="truncate font-normal">{user.email}</span>
             </div>
-            <span className="text-muted-foreground truncate text-xs">
-              {user.email}
-            </span>
           </div>
         </SidebarMenuButton>
       </SidebarMenuItem>

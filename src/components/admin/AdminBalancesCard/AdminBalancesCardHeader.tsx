@@ -5,20 +5,16 @@ import { RefreshCw, Link } from 'lucide-react';
 interface AdminBalancesCardHeaderProps {
   cardCount: number;
   onRefresh: () => void;
-  onSyncBalances: () => void;
   onConnect: () => void;
   isRefreshing: boolean;
-  isSyncing: boolean;
   isCreatingToken: boolean;
 }
 
 export function AdminBalancesCardHeader({
   cardCount,
   onRefresh,
-  onSyncBalances,
   onConnect,
   isRefreshing,
-  isSyncing,
   isCreatingToken
 }: AdminBalancesCardHeaderProps) {
   return (
@@ -36,17 +32,7 @@ export function AdminBalancesCardHeader({
           className="gap-2"
         >
           <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
-          Refresh
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={onSyncBalances}
-          disabled={isSyncing}
-          className="gap-2"
-        >
-          <RefreshCw className={`h-4 w-4 ${isSyncing ? 'animate-spin' : ''}`} />
-          {isSyncing ? 'Syncing...' : 'Sync Balances'}
+          {isRefreshing ? 'Refreshing...' : 'Refresh & Sync'}
         </Button>
         <Button
           variant="outline"

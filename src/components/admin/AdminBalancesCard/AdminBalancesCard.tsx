@@ -11,7 +11,7 @@ export function AdminBalancesCard() {
   const { cardBalances, loading, error, refetch } = useCardBalances();
   
   const { handleConnect, isCreatingToken } = usePlaidLinkFlow(refetch);
-  const { handleRefresh, handleSyncBalances, isRefreshing, isSyncing } = useBalanceSync(refetch);
+  const { handleRefresh, isRefreshing } = useBalanceSync(refetch);
 
   if (loading) {
     return (
@@ -42,10 +42,8 @@ export function AdminBalancesCard() {
           <AdminBalancesCardHeader
             cardCount={cardBalances.length}
             onRefresh={handleRefresh}
-            onSyncBalances={handleSyncBalances}
             onConnect={handleConnect}
             isRefreshing={isRefreshing}
-            isSyncing={isSyncing}
             isCreatingToken={isCreatingToken}
           />
 

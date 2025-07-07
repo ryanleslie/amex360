@@ -179,6 +179,10 @@ export type Database = {
         Args: { password: string }
         Returns: string
       }
+      sync_card_balances_from_plaid: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
       verify_password: {
         Args: { password: string; hash: string }
         Returns: boolean

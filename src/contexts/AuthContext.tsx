@@ -9,6 +9,7 @@ interface AuthContextType {
   signIn: (email: string, password: string) => Promise<{ error?: string }>;
   signOut: () => Promise<void>;
   loading: boolean;
+  isAdmin: () => boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -79,13 +80,22 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  // Simple admin check - you can modify this logic as needed
+  const isAdmin = (): boolean => {
+    if (!user) return false;
+    // Add your admin user emails or IDs here
+    const adminEmails = ['admin@example.com', 'ryanjleslie@gmail.com'];
+    return adminEmails.includes(user.email || '');
+  };
+
   return (
     <AuthContext.Provider value={{ 
       user, 
       session,
       signIn, 
       signOut, 
-      loading
+      loading,
+      isAdmin
     }}>
       {children}
     </AuthContext.Provider>

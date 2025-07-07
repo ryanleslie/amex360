@@ -13,6 +13,8 @@ import { QuickMetricsCards } from "@/components/QuickMetricsCards";
 import { InsightsQuickMetrics } from "@/components/insights/InsightsQuickMetrics";
 import { UserCreationForm } from "@/components/admin/UserCreationForm";
 import { UserListCard } from "@/components/admin/UserListCard";
+import { AdminBalancesCard } from "@/components/admin/AdminBalancesCard";
+import { AdminToggle } from "@/components/admin/AdminToggle";
 import { useFilterState } from "@/hooks/useFilterState";
 
 export type DashboardSection = "dashboard" | "insights" | "rewards" | "employee" | "creditmax" | "admin" | "redemptions";
@@ -20,6 +22,7 @@ export type DashboardSection = "dashboard" | "insights" | "rewards" | "employee"
 const Dashboard = () => {
   const location = useLocation();
   const { filters, updateFilter } = useFilterState("ytd");
+  const [adminView, setAdminView] = React.useState<"users" | "balances">("users");
 
   // Determine active section from URL
   const getActiveSectionFromPath = (pathname: string): DashboardSection => {
@@ -68,9 +71,19 @@ const Dashboard = () => {
       case "admin":
         return (
           <div className="p-6 pt-0">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-4xl mx-auto">
-              <UserCreationForm />
-              <UserListCard />
+            <div className="max-w-4xl mx-auto space-y-6">
+              <AdminToggle 
+                activeView={adminView} 
+                onViewChange={setAdminView} 
+              />
+              {adminView === "users" ? (
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <UserCreationForm />
+                  <UserListCard />
+                </div>
+              ) : (
+                <AdminBalancesCard />
+              )}
             </div>
           </div>
         );

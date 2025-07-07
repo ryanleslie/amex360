@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
@@ -52,39 +53,45 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         .from('profiles')
         .select('*')
         .eq('id', userId)
-        .single();
+        .maybeSingle();
 
       if (profileError && profileError.code !== 'PGRST116') {
         console.error('Error fetching profile:', profileError);
-        return;
       }
 
       console.log('Profile data:', profileData);
 
-      // Get user role
+      // Get user role - using maybeSingle to avoid errors if no role exists
       const { data: roleData, error: roleError } = await supabase
         .from('user_roles')
         .select('role')
         .eq('user_id', userId)
-        .single();
+        .maybeSingle();
 
       if (roleError && roleError.code !== 'PGRST116') {
         console.error('Error fetching role:', roleError);
-        return;
       }
 
       console.log('Role data:', roleData);
 
-      if (profileData) {
-        setProfile({
-          id: userId,
-          email: userEmail,
-          ...profileData,
-          role: roleData?.role || 'user'
-        });
-      }
+      // Set profile with role, even if profile doesn't exist in profiles table
+      const userProfile: UserProfile = {
+        id: userId,
+        email: userEmail,
+        ...profileData,
+        role: roleData?.role || 'user'
+      };
+
+      console.log('Setting profile:', userProfile);
+      setProfile(userProfile);
     } catch (error) {
       console.error('Error fetching user profile:', error);
+      // Set basic profile even if there's an error
+      setProfile({
+        id: userId,
+        email: userEmail,
+        role: 'user'
+      });
     }
   };
 
@@ -98,11 +105,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         
         if (currentSession?.user) {
           // Fetch user profile and role after auth state changes
-          setTimeout(() => {
-            if (currentSession.user?.id && currentSession.user?.email) {
-              fetchUserProfile(currentSession.user.id, currentSession.user.email);
-            }
-          }, 0);
+          if (currentSession.user?.id && currentSession.user?.email) {
+            await fetchUserProfile(currentSession.user.id, currentSession.user.email);
+          }
         } else {
           setProfile(null);
         }
@@ -112,12 +117,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     );
 
     // THEN check for existing session
-    supabase.auth.getSession().then(({ data: { session: existingSession } }) => {
+    supabase.auth.getSession().then(async ({ data: { session: existingSession } }) => {
       setSession(existingSession);
       setUser(existingSession?.user ?? null);
       
       if (existingSession?.user?.id && existingSession?.user?.email) {
-        fetchUserProfile(existingSession.user.id, existingSession.user.email);
+        await fetchUserProfile(existingSession.user.id, existingSession.user.email);
       }
       setLoading(false);
     });
@@ -155,11 +160,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const hasRole = (role: string): boolean => {
+    console.log('Checking role:', role, 'Current profile role:', profile?.role);
     return profile?.role === role;
   };
 
   const isAdmin = (): boolean => {
-    return hasRole('admin');
+    const adminStatus = hasRole('admin');
+    console.log('Is admin check:', adminStatus, 'Profile:', profile);
+    return adminStatus;
   };
 
   return (

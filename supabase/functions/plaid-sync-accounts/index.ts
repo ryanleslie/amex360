@@ -87,8 +87,8 @@ serve(async (req) => {
       try {
         console.log('Syncing item:', item.id);
         
-        // Get accounts for this item
-        const accountsResponse = await fetch('https://production.plaid.com/accounts/get', {
+        // Get accounts for this item using balance/get endpoint
+        const accountsResponse = await fetch('https://production.plaid.com/accounts/balance/get', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

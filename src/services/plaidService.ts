@@ -19,38 +19,28 @@ export interface PlaidAccountBalance {
 
 export const plaidService = {
   async getPlaidAccounts(): Promise<PlaidAccountBalance[]> {
+    // Use card_balances table until Plaid integration is complete
     const { data, error } = await supabase
-      .from('plaid_accounts')
-      .select(`
-        id,
-        account_id,
-        account_name,
-        account_type,
-        account_subtype,
-        current_balance,
-        available_balance,
-        credit_limit,
-        plaid_items!inner(
-          institution_name
-        )
-      `)
-      .order('current_balance', { ascending: false, nullsFirst: false });
+      .from('card_balances')
+      .select('*')
+      .order('currentBalance', { ascending: false, nullsFirst: false });
 
     if (error) {
-      console.error('Error fetching Plaid accounts:', error);
+      console.error('Error fetching card balances:', error);
       throw error;
     }
 
-    return data.map(account => ({
-      id: account.id,
-      account_id: account.account_id,
-      account_name: account.account_name,
-      account_type: account.account_type,
-      account_subtype: account.account_subtype,
-      current_balance: account.current_balance,
-      available_balance: account.available_balance,
-      credit_limit: account.credit_limit,
-      institution_name: account.plaid_items?.institution_name || null
+    // Transform card_balances data to match PlaidAccountBalance interface
+    return (data || []).map(card => ({
+      id: card.ID,
+      account_id: card.ID,
+      account_name: card.cardType,
+      account_type: 'credit',
+      account_subtype: 'credit_card',
+      current_balance: card.currentBalance,
+      available_balance: null,
+      credit_limit: null,
+      institution_name: 'Credit Card Provider'
     }));
   },
 

@@ -4,7 +4,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { usePlaidAccounts } from '@/hooks/usePlaidAccounts';
-import { CreditCard, Building2 } from 'lucide-react';
+import { CreditCard, Building2, Info } from 'lucide-react';
 
 export function AdminBalancesCard() {
   const { plaidAccounts, loading, error } = usePlaidAccounts();
@@ -41,11 +41,16 @@ export function AdminBalancesCard() {
           </Badge>
         </div>
 
+        <div className="flex items-center gap-2 p-3 bg-blue-50 text-blue-700 rounded-lg">
+          <Info className="h-4 w-4" />
+          <span className="text-sm">Currently displaying data from card_balances table. Plaid integration in progress.</span>
+        </div>
+
         <ScrollArea className="h-[560px]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pr-4">
             {plaidAccounts.length === 0 ? (
               <div className="col-span-full text-center text-muted-foreground py-4 animate-fade-in">
-                No Plaid accounts found. Connect your accounts to see balances.
+                No account balances found. Connect your accounts to see balances.
               </div>
             ) : (
               plaidAccounts.map((account, index) => (

@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { usePlaidAccounts } from '@/hooks/usePlaidAccounts';
 import { useAuth } from '@/contexts/AuthContext';
-import { Link2, RefreshCw, AlertCircle } from 'lucide-react';
+import { Link2, RefreshCw, AlertCircle, Info } from 'lucide-react';
 
 export function PlaidConnectionCard() {
   const { plaidAccounts, loading, error, refetch } = usePlaidAccounts();
@@ -27,7 +27,7 @@ export function PlaidConnectionCard() {
       <div className="space-y-4">
         <div className="flex items-center justify-between animate-fade-in">
           <div className="flex items-center gap-2">
-            <h3 className="text-lg font-semibold">Plaid Connections</h3>
+            <h3 className="text-lg font-semibold">Account Connections</h3>
             <Badge variant="outline">
               {plaidAccounts.length} accounts
             </Badge>
@@ -49,6 +49,11 @@ export function PlaidConnectionCard() {
           </div>
         </div>
 
+        <div className="flex items-center gap-2 p-3 bg-blue-50 text-blue-700 rounded-lg">
+          <Info className="h-4 w-4" />
+          <span className="text-sm">Currently displaying data from card_balances table. Plaid integration in progress.</span>
+        </div>
+
         {error && (
           <div className="flex items-center gap-2 p-3 bg-destructive/10 text-destructive rounded-lg">
             <AlertCircle className="h-4 w-4" />
@@ -58,7 +63,7 @@ export function PlaidConnectionCard() {
 
         {loading ? (
           <div className="text-center text-muted-foreground animate-pulse py-8">
-            Loading Plaid connections...
+            Loading account connections...
           </div>
         ) : (
           <ScrollArea className="h-[400px]">
@@ -66,7 +71,7 @@ export function PlaidConnectionCard() {
               {plaidAccounts.length === 0 ? (
                 <div className="text-center text-muted-foreground py-8">
                   <div className="space-y-2">
-                    <p>No Plaid accounts connected yet.</p>
+                    <p>No connected accounts found.</p>
                     <p className="text-sm">Connect your bank accounts to start seeing live balance data.</p>
                   </div>
                 </div>

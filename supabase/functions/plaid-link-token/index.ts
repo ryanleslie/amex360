@@ -8,7 +8,7 @@ const corsHeaders = {
 };
 
 const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -16,69 +16,117 @@ serve(async (req) => {
   }
 
   try {
-    const supabase = createClient(supabaseUrl, supabaseServiceKey);
-    
     const authHeader = req.headers.get('Authorization');
     if (!authHeader) {
       console.error('Missing Authorization header');
-      throw new Error('Missing authorization header');
+      return new Response(JSON.stringify({
+        error: 'Unauthorized'
+      }), {
+        status: 401,
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'application/json'
+        }
+      });
     }
-    
-    const token = authHeader.replace('Bearer ', '');
-    
-    const { data: { user }, error: userError } = await supabase.auth.getUser(token);
-    if (userError || !user) {
-      console.error('Authentication error:', userError);
-      throw new Error('Authentication failed');
+
+    const supabaseClient = createClient(supabaseUrl, supabaseAnonKey, {
+      global: {
+        headers: {
+          Authorization: authHeader
+        }
+      }
+    });
+
+    // Get the authenticated user
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) {
+      console.error('No authenticated user found');
+      return new Response(JSON.stringify({
+        error: 'Unauthorized'
+      }), {
+        status: 401,
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'application/json'
+        }
+      });
     }
 
-    console.log('Authenticated user:', user.id);
+    const plaidClientId = Deno.env.get('PLAID_CLIENT_ID');
+    const plaidSecret = Deno.env.get('PLAID_SECRET');
 
-    const PLAID_CLIENT_ID = Deno.env.get('PLAID_CLIENT_ID');
-    const PLAID_SECRET = Deno.env.get('PLAID_SECRET');
-    const PLAID_ENV = Deno.env.get('PLAID_ENV') || 'sandbox';
+    console.log('Environment check:', {
+      hasClientId: !!plaidClientId,
+      hasSecret: !!plaidSecret,
+      userId: user.id
+    });
 
-    if (!PLAID_CLIENT_ID || !PLAID_SECRET) {
+    if (!plaidClientId || !plaidSecret) {
       console.error('Missing Plaid credentials');
-      throw new Error('Plaid credentials not configured');
+      return new Response(JSON.stringify({
+        error: 'Plaid credentials not configured'
+      }), {
+        status: 500,
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'application/json'
+        }
+      });
     }
 
-    const plaidBaseUrl = PLAID_ENV === 'production' 
-      ? 'https://production.plaid.com' 
-      : PLAID_ENV === 'development'
-      ? 'https://development.plaid.com'
-      : 'https://sandbox.plaid.com';
+    // Use production environment
+    const plaidUrl = 'https://production.plaid.com/link/token/create';
 
-    console.log('Creating Plaid link token with environment:', PLAID_ENV);
+    const requestBody = {
+      client_name: "Credit Card Dashboard",
+      country_codes: ['US'],
+      language: 'en',
+      user: {
+        client_user_id: user.id,
+      },
+      products: ['transactions'],
+      account_filters: {
+        credit: {
+          account_subtypes: ['credit card', 'paypal']
+        }
+      }
+    };
 
-    const response = await fetch(`${plaidBaseUrl}/link/token/create`, {
+    console.log('Making request to Plaid:', {
+      url: plaidUrl,
+      body: requestBody
+    });
+
+    const response = await fetch(plaidUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'PLAID-CLIENT-ID': PLAID_CLIENT_ID,
-        'PLAID-SECRET': PLAID_SECRET,
+        'PLAID-CLIENT-ID': plaidClientId,
+        'PLAID-SECRET': plaidSecret,
       },
-      body: JSON.stringify({
-        client_name: "Credit Card Dashboard",
-        country_codes: ['US'],
-        language: 'en',
-        user: {
-          client_user_id: user.id,
-        },
-        products: ['transactions'],
-        account_filters: {
-          credit: {
-            account_subtypes: ['credit card', 'paypal']
-          }
-        }
-      }),
+      body: JSON.stringify(requestBody),
     });
 
     const data = await response.json();
     
+    console.log('Plaid response:', {
+      status: response.status,
+      data
+    });
+
     if (!response.ok) {
       console.error('Plaid API error:', data);
-      throw new Error(data.error_message || 'Failed to create link token');
+      return new Response(JSON.stringify({
+        error: 'Failed to create link token',
+        details: data
+      }), {
+        status: 500,
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'application/json'
+        }
+      });
     }
 
     console.log('Link token created successfully');
@@ -89,7 +137,10 @@ serve(async (req) => {
 
   } catch (error) {
     console.error('Error in plaid-link-token function:', error);
-    return new Response(JSON.stringify({ error: error.message }), {
+    return new Response(JSON.stringify({
+      error: 'Internal server error',
+      details: error.message
+    }), {
       status: 500,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });

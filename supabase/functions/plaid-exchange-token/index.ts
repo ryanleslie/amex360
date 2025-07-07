@@ -18,37 +18,61 @@ serve(async (req) => {
   try {
     const { public_token } = await req.json();
     
-    const supabase = createClient(supabaseUrl, supabaseServiceKey);
-    
     const authHeader = req.headers.get('Authorization');
     if (!authHeader) {
       console.error('Missing Authorization header');
-      throw new Error('Missing authorization header');
+      return new Response(JSON.stringify({
+        error: 'Unauthorized'
+      }), {
+        status: 401,
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'application/json'
+        }
+      });
     }
-    
-    const token = authHeader.replace('Bearer ', '');
-    
-    const { data: { user }, error: userError } = await supabase.auth.getUser(token);
-    if (userError || !user) {
-      console.error('Authentication error:', userError);
-      throw new Error('Authentication failed');
+
+    const supabaseClient = createClient(supabaseUrl, supabaseServiceKey, {
+      global: {
+        headers: {
+          Authorization: authHeader
+        }
+      }
+    });
+
+    // Get the authenticated user
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) {
+      console.error('No authenticated user found');
+      return new Response(JSON.stringify({
+        error: 'Unauthorized'
+      }), {
+        status: 401,
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'application/json'
+        }
+      });
     }
 
     console.log('Authenticated user:', user.id);
 
     const PLAID_CLIENT_ID = Deno.env.get('PLAID_CLIENT_ID');
     const PLAID_SECRET = Deno.env.get('PLAID_SECRET');
-    const PLAID_ENV = Deno.env.get('PLAID_ENV') || 'sandbox';
 
     if (!PLAID_CLIENT_ID || !PLAID_SECRET) {
-      throw new Error('Plaid credentials not configured');
+      return new Response(JSON.stringify({
+        error: 'Plaid credentials not configured'
+      }), {
+        status: 500,
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'application/json'
+        }
+      });
     }
 
-    const plaidBaseUrl = PLAID_ENV === 'production' 
-      ? 'https://production.plaid.com' 
-      : PLAID_ENV === 'development'
-      ? 'https://development.plaid.com'
-      : 'https://sandbox.plaid.com';
+    const plaidBaseUrl = 'https://production.plaid.com';
 
     // Exchange public token for access token
     const exchangeResponse = await fetch(`${plaidBaseUrl}/item/public_token/exchange`, {
@@ -65,9 +89,23 @@ serve(async (req) => {
 
     const exchangeData = await exchangeResponse.json();
     
+    console.log('Exchange response:', {
+      status: exchangeResponse.status,
+      data: exchangeData
+    });
+    
     if (!exchangeResponse.ok) {
       console.error('Plaid exchange error:', exchangeData);
-      throw new Error(exchangeData.error_message || 'Failed to exchange token');
+      return new Response(JSON.stringify({
+        error: 'Failed to exchange token',
+        details: exchangeData
+      }), {
+        status: 500,
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'application/json'
+        }
+      });
     }
 
     const { access_token, item_id } = exchangeData;
@@ -114,7 +152,7 @@ serve(async (req) => {
     }
 
     // Store the plaid item
-    const { data: plaidItem, error: itemError } = await supabase
+    const { data: plaidItem, error: itemError } = await supabaseClient
       .from('plaid_items')
       .insert({
         user_id: user.id,
@@ -129,7 +167,16 @@ serve(async (req) => {
 
     if (itemError) {
       console.error('Error storing plaid item:', itemError);
-      throw new Error('Failed to store connection');
+      return new Response(JSON.stringify({
+        error: 'Failed to store connection',
+        details: itemError
+      }), {
+        status: 500,
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'application/json'
+        }
+      });
     }
 
     // Get accounts
@@ -161,7 +208,7 @@ serve(async (req) => {
         currency_code: account.balances.iso_currency_code || 'USD'
       }));
 
-      const { error: accountsError } = await supabase
+      const { error: accountsError } = await supabaseClient
         .from('plaid_accounts')
         .insert(accountsToInsert);
 
@@ -176,7 +223,10 @@ serve(async (req) => {
 
   } catch (error) {
     console.error('Error in plaid-exchange-token function:', error);
-    return new Response(JSON.stringify({ error: error.message }), {
+    return new Response(JSON.stringify({
+      error: 'Internal server error',
+      details: error.message
+    }), {
       status: 500,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });

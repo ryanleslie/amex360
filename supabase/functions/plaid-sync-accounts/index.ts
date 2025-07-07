@@ -16,40 +16,64 @@ serve(async (req) => {
   }
 
   try {
-    const supabase = createClient(supabaseUrl, supabaseServiceKey);
-    
     const authHeader = req.headers.get('Authorization');
     if (!authHeader) {
       console.error('Missing Authorization header');
-      throw new Error('Missing authorization header');
+      return new Response(JSON.stringify({
+        error: 'Unauthorized'
+      }), {
+        status: 401,
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'application/json'
+        }
+      });
     }
-    
-    const token = authHeader.replace('Bearer ', '');
-    
-    const { data: { user }, error: userError } = await supabase.auth.getUser(token);
-    if (userError || !user) {
-      console.error('Authentication error:', userError);
-      throw new Error('Authentication failed');
+
+    const supabaseClient = createClient(supabaseUrl, supabaseServiceKey, {
+      global: {
+        headers: {
+          Authorization: authHeader
+        }
+      }
+    });
+
+    // Get the authenticated user
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) {
+      console.error('No authenticated user found');
+      return new Response(JSON.stringify({
+        error: 'Unauthorized'
+      }), {
+        status: 401,
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'application/json'
+        }
+      });
     }
 
     console.log('Authenticated user:', user.id);
 
     const PLAID_CLIENT_ID = Deno.env.get('PLAID_CLIENT_ID');
     const PLAID_SECRET = Deno.env.get('PLAID_SECRET');
-    const PLAID_ENV = Deno.env.get('PLAID_ENV') || 'sandbox';
 
     if (!PLAID_CLIENT_ID || !PLAID_SECRET) {
-      throw new Error('Plaid credentials not configured');
+      return new Response(JSON.stringify({
+        error: 'Plaid credentials not configured'
+      }), {
+        status: 500,
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'application/json'
+        }
+      });
     }
 
-    const plaidBaseUrl = PLAID_ENV === 'production' 
-      ? 'https://production.plaid.com' 
-      : PLAID_ENV === 'development'
-      ? 'https://development.plaid.com'
-      : 'https://sandbox.plaid.com';
+    const plaidBaseUrl = 'https://production.plaid.com';
 
     // Get all plaid items for the user
-    const { data: plaidItems, error: itemsError } = await supabase
+    const { data: plaidItems, error: itemsError } = await supabaseClient
       .from('plaid_items')
       .select('*')
       .eq('user_id', user.id)
@@ -57,7 +81,16 @@ serve(async (req) => {
 
     if (itemsError) {
       console.error('Error fetching plaid items:', itemsError);
-      throw new Error('Failed to fetch plaid items');
+      return new Response(JSON.stringify({
+        error: 'Failed to fetch plaid items',
+        details: itemsError
+      }), {
+        status: 500,
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'application/json'
+        }
+      });
     }
 
     console.log('Found plaid items:', plaidItems?.length || 0);
@@ -88,7 +121,7 @@ serve(async (req) => {
           
           // Update accounts
           for (const account of accountsData.accounts) {
-            const { error: updateError } = await supabase
+            const { error: updateError } = await supabaseClient
               .from('plaid_accounts')
               .update({
                 current_balance: account.balances.current,
@@ -106,7 +139,7 @@ serve(async (req) => {
           }
 
           // Update item sync time
-          await supabase
+          await supabaseClient
             .from('plaid_items')
             .update({ last_synced_at: new Date().toISOString() })
             .eq('id', item.id);
@@ -129,7 +162,10 @@ serve(async (req) => {
 
   } catch (error) {
     console.error('Error in plaid-sync-accounts function:', error);
-    return new Response(JSON.stringify({ error: error.message }), {
+    return new Response(JSON.stringify({
+      error: 'Internal server error',
+      details: error.message
+    }), {
       status: 500,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });

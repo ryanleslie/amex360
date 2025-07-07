@@ -8,12 +8,13 @@ import { useCardBalances } from '@/hooks/useCardBalances';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { CreditCard, RefreshCw, Link } from 'lucide-react';
+import { usePlaidLink } from 'react-plaid-link';
 
 export function AdminBalancesCard() {
   const { cardBalances, loading, error, refetch } = useCardBalances();
   const { toast } = useToast();
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [isConnecting, setIsConnecting] = useState(false);
+  const [linkToken, setLinkToken] = useState<string | null>(null);
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
@@ -44,8 +45,7 @@ export function AdminBalancesCard() {
     }
   };
 
-  const handleConnect = async () => {
-    setIsConnecting(true);
+  const createLinkToken = async () => {
     try {
       // Create a link token for Plaid
       const { data, error: linkError } = await supabase.functions.invoke('plaid-create-link-token');
@@ -54,12 +54,7 @@ export function AdminBalancesCard() {
         throw linkError;
       }
 
-      // For now, just show a success message - in a full implementation,
-      // you would open the Plaid Link component here
-      toast({
-        title: "Link Token Created",
-        description: "Plaid link token created successfully. Link token: " + data.link_token.substring(0, 20) + "...",
-      });
+      setLinkToken(data.link_token);
     } catch (error) {
       console.error('Error creating link token:', error);
       toast({
@@ -67,10 +62,67 @@ export function AdminBalancesCard() {
         description: "Failed to create Plaid connection. Please try again.",
         variant: "destructive",
       });
-    } finally {
-      setIsConnecting(false);
     }
   };
+
+  const onSuccess = React.useCallback(async (public_token: string, metadata: any) => {
+    try {
+      // Exchange the public token for an access token
+      const { error: exchangeError } = await supabase.functions.invoke('plaid-exchange-token', {
+        body: { public_token }
+      });
+      
+      if (exchangeError) {
+        throw exchangeError;
+      }
+
+      // Refresh the balances after successful connection
+      await refetch();
+
+      toast({
+        title: "Account Connected",
+        description: "Successfully connected your account to Plaid",
+      });
+    } catch (error) {
+      console.error('Error exchanging token:', error);
+      toast({
+        title: "Connection Failed",
+        description: "Failed to connect account. Please try again.",
+        variant: "destructive",
+      });
+    }
+  }, [refetch, toast]);
+
+  const onEvent = React.useCallback((eventName: string, metadata: any) => {
+    console.log('Plaid Link event:', eventName, metadata);
+  }, []);
+
+  const onExit = React.useCallback((err: any, metadata: any) => {
+    console.log('Plaid Link exit:', err, metadata);
+    setLinkToken(null); // Reset link token on exit
+  }, []);
+
+  const { open, ready } = usePlaidLink({
+    token: linkToken,
+    onSuccess,
+    onEvent,
+    onExit,
+  });
+
+  const handleConnect = async () => {
+    if (linkToken && ready) {
+      open();
+    } else {
+      await createLinkToken();
+    }
+  };
+
+  // Auto-open Plaid Link when token is ready
+  React.useEffect(() => {
+    if (linkToken && ready) {
+      open();
+    }
+  }, [linkToken, ready, open]);
 
   if (loading) {
     return (
@@ -124,11 +176,11 @@ export function AdminBalancesCard() {
               variant="outline"
               size="sm"
               onClick={handleConnect}
-              disabled={isConnecting}
+              disabled={!ready}
               className="gap-2"
             >
               <Link className="h-4 w-4" />
-              {isConnecting ? 'Connecting...' : 'Connect'}
+              {!ready ? 'Loading...' : 'Connect'}
             </Button>
           </div>
         </div>

@@ -4,8 +4,7 @@ import { UnifiedQuickMetrics } from "@/components/UnifiedQuickMetrics"
 import { useAuth } from "@/contexts/AuthContext"
 
 export function InsightsQuickMetrics() {
-  const { user } = useAuth()
-  const isAdmin = user?.user_metadata?.role === 'admin'
+  const { isAdmin } = useAuth()
 
   const userInsightsMetrics = [
     "Closing this week",

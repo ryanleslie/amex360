@@ -15,6 +15,12 @@ interface UserData {
 let cachedUsers: UserData[] | null = null;
 let cacheLoading = false;
 
+// Function to invalidate cache (can be called from outside)
+export const invalidateAdminUsersCache = () => {
+  cachedUsers = null;
+  cacheLoading = false;
+};
+
 export function useAdminUsers() {
   const [users, setUsers] = useState<UserData[]>(cachedUsers || []);
   const [loading, setLoading] = useState(!cachedUsers);

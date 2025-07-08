@@ -2,6 +2,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
+import { invalidateAdminUsersCache } from '@/hooks/useAdminUsers';
 
 interface AuthContextType {
   user: User | null;
@@ -44,6 +45,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         // Check admin role when user signs in or session changes
         if (currentSession?.user) {
           checkAdminRole(currentSession.user);
+          // Invalidate admin users cache on login to ensure fresh data
+          if (event === 'SIGNED_IN') {
+            invalidateAdminUsersCache();
+          }
         } else {
           setIsAdmin(false);
         }

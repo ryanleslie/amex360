@@ -5,12 +5,12 @@ import { getCardImage } from "@/utils/cardImageUtils"
 import { MetricResult } from "./types"
 
 export const useAdminBalanceMetrics = () => {
-  const { cardBalances, loading } = useCardBalances()
+  const { cardBalances } = useCardBalances()
   const primaryCards = getAllPrimaryCards()
 
   // Calculate highest balance
   const highestBalanceData = React.useMemo((): MetricResult => {
-    if (loading || cardBalances.length === 0) {
+    if (cardBalances.length === 0) {
       return {
         amount: "$0",
         cards: []
@@ -37,17 +37,10 @@ export const useAdminBalanceMetrics = () => {
       amount: `$${maxBalance.toLocaleString()}`,
       cards: cardDetails
     }
-  }, [cardBalances, primaryCards, loading])
+  }, [cardBalances, primaryCards])
 
   // Calculate lowest balance (excluding zero balances)
   const lowestBalanceData = React.useMemo((): MetricResult => {
-    if (loading) {
-      return {
-        amount: "$0",
-        cards: []
-      }
-    }
-    
     const nonZeroBalances = cardBalances.filter(card => (card.currentBalance || 0) > 0)
     
     if (nonZeroBalances.length === 0) {
@@ -77,18 +70,10 @@ export const useAdminBalanceMetrics = () => {
       amount: `$${minBalance.toLocaleString()}`,
       cards: cardDetails
     }
-  }, [cardBalances, primaryCards, loading])
+  }, [cardBalances, primaryCards])
 
   // Calculate urgent balances (all non-business balances closing this week)
   const urgentBalanceData = React.useMemo((): MetricResult => {
-    // Return $0 if still loading to prevent race condition
-    if (loading) {
-      return {
-        amount: "$0",
-        cards: []
-      }
-    }
-    
     const today = new Date()
     const currentDay = today.getDate()
     
@@ -144,7 +129,7 @@ export const useAdminBalanceMetrics = () => {
       amount: `$${totalUrgentBalance.toLocaleString()}`,
       cards: cardDetails
     }
-  }, [cardBalances, primaryCards, loading])
+  }, [cardBalances, primaryCards])
 
   return {
     highestBalanceData,

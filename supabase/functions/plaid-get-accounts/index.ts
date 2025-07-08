@@ -7,6 +7,7 @@ const corsHeaders = {
 };
 
 serve(async (req) => {
+  console.log('🚀🚀🚀 FUNCTION CALLED - THIS SHOULD APPEAR IN LOGS 🚀🚀🚀');
   console.log('🚀 plaid-get-accounts function started');
   console.log('📝 Request details:', {
     method: req.method,

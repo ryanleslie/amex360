@@ -14,30 +14,6 @@ export type Database = {
   }
   public: {
     Tables: {
-      card_balances: {
-        Row: {
-          cardType: string
-          currentBalance: number | null
-          ID: string
-          last_synced: string | null
-          plaid_account_id: string | null
-        }
-        Insert: {
-          cardType: string
-          currentBalance?: number | null
-          ID?: string
-          last_synced?: string | null
-          plaid_account_id?: string | null
-        }
-        Update: {
-          cardType?: string
-          currentBalance?: number | null
-          ID?: string
-          last_synced?: string | null
-          plaid_account_id?: string | null
-        }
-        Relationships: []
-      }
       plaid_accounts: {
         Row: {
           account_name: string
@@ -178,10 +154,6 @@ export type Database = {
       hash_password: {
         Args: { password: string }
         Returns: string
-      }
-      sync_card_balances_from_plaid: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
       }
       verify_password: {
         Args: { password: string; hash: string }

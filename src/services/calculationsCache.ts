@@ -99,6 +99,14 @@ export class CalculationsCacheService {
   public static getAllCacheStats(): Array<{ size: number; entries: string[]; pageName: string }> {
     return Array.from(CalculationsCacheService.instances.values()).map(instance => instance.getCacheStats())
   }
+
+  public static refreshAllCaches(): void {
+    CalculationsCacheService.instances.forEach((instance, pageName) => {
+      instance.cache.clear()
+      console.log(`Cleared calculation cache for ${pageName}`)
+    })
+    console.log("Refreshed all calculation caches")
+  }
 }
 
 // Create page-specific cache instances

@@ -68,4 +68,16 @@ export class TransactionFilterService {
     const transactions = this.getTransactionsForCalculations(timeRange)
     return TransactionCalculations.getDailySpendingData(transactions, timeRange)
   }
+
+  public refreshData(): void {
+    console.log("Refreshing transaction data from CSV...")
+    try {
+      // Reload transactions from CSV
+      this.allTransactions = TransactionDataProcessor.processStaticData()
+      console.log(`Refreshed ${this.allTransactions.length} transactions`)
+    } catch (error) {
+      console.error("Failed to refresh transaction data:", error)
+      throw new Error("Failed to refresh transaction data")
+    }
+  }
 }

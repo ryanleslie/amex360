@@ -75,13 +75,31 @@ export function AppSidebar({ activeSection }: AppSidebarProps) {
   }
 
   const handleRefreshData = () => {
-    // Simulate data refresh
-    console.log("Refreshing static data...")
-    toast.success("Dashboard refreshed", {
-      description: "Latest transaction data has been loaded",
-      position: "top-right",
-      icon: <CircleCheck size={16} style={{ color: '#006fcf' }} />
-    })
+    try {
+      // Import transaction filter service and calculations cache
+      const { transactionFilterService } = require("@/services/transactionFilterService")
+      const { CalculationsCacheService } = require("@/services/calculationsCache")
+      
+      console.log("Refreshing transaction data and clearing caches...")
+      
+      // Refresh transaction data from CSV
+      transactionFilterService.refreshData()
+      
+      // Clear all calculation caches
+      CalculationsCacheService.refreshAllCaches()
+      
+      toast.success("Data refreshed", {
+        description: "Latest CSV data loaded and caches cleared",
+        position: "top-right",
+        icon: <CircleCheck size={16} style={{ color: '#006fcf' }} />
+      })
+    } catch (error) {
+      console.error("Failed to refresh data:", error)
+      toast.error("Refresh failed", {
+        description: "Could not reload data. Please try again.",
+        position: "top-right"
+      })
+    }
     close()
   }
 

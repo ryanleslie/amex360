@@ -71,8 +71,8 @@ export const useUnifiedMetricsData = () => {
       calculationMethod: "Sum of (credit limit - current balance)",
       cardData: businessCreditLimitData.cards
     },
-    "Brand Partners": {
-      title: "Brand Partners",
+    "Brand Partner Cards": {
+      title: "Brand Partner Cards",
       value: brandPartnerCardsData.count!.toString(),
       description: "Number of active brand partner card programs",
       dataSource: "Primary Cards Configuration",

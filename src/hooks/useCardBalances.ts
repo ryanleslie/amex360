@@ -12,13 +12,13 @@ export const useCardBalances = () => {
       try {
         setLoading(true)
         setError(null)
-        // Use syncAndGetBalances to ensure we have the latest calculated balances
-        const balances = await cardBalanceService.syncAndGetBalances()
+        // Calculate balances in memory on page load
+        const balances = await cardBalanceService.getCardBalances()
         setCardBalances(balances)
-        console.log('Card balances loaded and synced:', balances)
+        console.log('Card balances calculated:', balances)
       } catch (err) {
-        setError('Failed to load card balances')
-        console.error('Error loading card balances:', err)
+        setError('Failed to calculate card balances')
+        console.error('Error calculating card balances:', err)
       } finally {
         setLoading(false)
       }
@@ -35,12 +35,12 @@ export const useCardBalances = () => {
       try {
         setLoading(true)
         setError(null)
-        // Use syncAndGetBalances to ensure we have the latest calculated balances
-        const balances = await cardBalanceService.syncAndGetBalances()
+        // Recalculate balances in memory
+        const balances = await cardBalanceService.getCardBalances()
         setCardBalances(balances)
       } catch (err) {
-        setError('Failed to load card balances')
-        console.error('Error loading card balances:', err)
+        setError('Failed to calculate card balances')
+        console.error('Error calculating card balances:', err)
       } finally {
         setLoading(false)
       }

@@ -58,37 +58,4 @@ export const balanceCalculator = {
     return calculatedBalances
   },
 
-  /**
-   * Updates the card_balances table in Supabase with calculated balances
-   */
-  async syncCalculatedBalancesToSupabase(): Promise<boolean> {
-    try {
-      const calculatedBalances = this.calculateRealTimeBalances()
-      
-      // Update each card balance in the database
-      for (const balance of calculatedBalances) {
-        const { error } = await supabase
-          .from('card_balances')
-          .upsert({
-            cardType: balance.cardType,
-            plaid_account_id: balance.plaid_account_id,
-            currentBalance: balance.calculatedBalance,
-            last_synced: balance.lastCalculated
-          }, {
-            onConflict: 'plaid_account_id'
-          })
-
-        if (error) {
-          console.error(`Error updating balance for ${balance.cardType}:`, error)
-          return false
-        }
-      }
-
-      console.log('Successfully synced calculated balances to Supabase')
-      return true
-    } catch (error) {
-      console.error('Failed to sync calculated balances:', error)
-      return false
-    }
-  }
 }

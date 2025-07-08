@@ -27,74 +27,49 @@ export interface CardBalance {
 export const cardBalanceService = {
   async getCardBalances(): Promise<CardBalance[]> {
     try {
+      const { balanceCalculator } = await import('./balanceCalculator')
       const primaryCards = getAllPrimaryCards()
       
-      // Get card balances from the public table (works for both authenticated and guest users)
-      const { data: cardBalances, error: balanceError } = await supabase
-        .from('card_balances')
-        .select('*')
+      // Calculate balances in memory
+      const calculatedBalances = balanceCalculator.calculateRealTimeBalances()
+      
+      // Map calculated balances with primary card details
+      return calculatedBalances.map(balance => {
+        const primaryCard = primaryCards.find(
+          card => card.plaid_account_id === balance.plaid_account_id
+        )
         
-      if (balanceError) {
-        console.error('Error fetching card balances:', balanceError)
-        return []
-      }
-      
-      if (!cardBalances || cardBalances.length === 0) {
-        return []
-      }
-      
-      // Map card balances with primary card details
-      return cardBalances
-        .map(balance => {
-          const primaryCard = primaryCards.find(
-            card => card.plaid_account_id === balance.plaid_account_id
-          )
-          
-          if (!primaryCard) {
-            // Return basic balance info if no primary card match
-            return {
-              ID: balance.ID,
-              cardType: balance.cardType,
-              currentBalance: balance.currentBalance,
-              plaid_account_id: balance.plaid_account_id,
-              last_synced: balance.last_synced
-            }
-          }
-          
+        if (!primaryCard) {
+          // Return basic balance info if no primary card match
           return {
-            ID: balance.ID,
+            ID: balance.plaid_account_id,
             cardType: balance.cardType,
-            currentBalance: balance.currentBalance,
+            currentBalance: balance.calculatedBalance,
             plaid_account_id: balance.plaid_account_id,
-            last_synced: balance.last_synced,
-            primaryCard: {
-              lastFive: primaryCard.lastFive,
-              annualFee: primaryCard.annualFee,
-              interestRate: primaryCard.interestRate,
-              closingDate: primaryCard.closingDate,
-              dueDate: primaryCard.dueDate,
-              limitType: primaryCard.limitType
-            }
+            last_synced: balance.lastCalculated
           }
-        })
-        .filter(Boolean) as CardBalance[]
+        }
+        
+        return {
+          ID: balance.plaid_account_id,
+          cardType: balance.cardType,
+          currentBalance: balance.calculatedBalance,
+          plaid_account_id: balance.plaid_account_id,
+          last_synced: balance.lastCalculated,
+          primaryCard: {
+            lastFive: primaryCard.lastFive,
+            annualFee: primaryCard.annualFee,
+            interestRate: primaryCard.interestRate,
+            closingDate: primaryCard.closingDate,
+            dueDate: primaryCard.dueDate,
+            limitType: primaryCard.limitType
+          }
+        }
+      })
       
     } catch (error) {
-      console.error('Failed to fetch card balances:', error)
+      console.error('Failed to calculate card balances:', error)
       return []
     }
-  },
-
-  /**
-   * Syncs calculated balances to Supabase and returns updated balances
-   */
-  async syncAndGetBalances(): Promise<CardBalance[]> {
-    const { balanceCalculator } = await import('./balanceCalculator')
-    
-    // First, sync calculated balances to the database
-    await balanceCalculator.syncCalculatedBalancesToSupabase()
-    
-    // Then fetch and return the updated balances
-    return this.getCardBalances()
   }
 }

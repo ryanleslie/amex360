@@ -12,14 +12,9 @@ export const useCardBalances = () => {
       try {
         setLoading(true)
         setError(null)
-        
-        // Update Supabase with calculated balances on load
-        await cardBalanceService.updateSupabaseBalances()
-        
-        // Then fetch the calculated balances
         const balances = await cardBalanceService.getCardBalances()
         setCardBalances(balances)
-        console.log('Real-time card balances loaded:', balances)
+        console.log('Card balances loaded:', balances)
       } catch (err) {
         setError('Failed to load card balances')
         console.error('Error loading card balances:', err)
@@ -35,16 +30,11 @@ export const useCardBalances = () => {
     cardBalances,
     loading,
     error,
-    refetch: async () => {
+    refetch: () => {
       const fetchCardBalances = async () => {
         try {
           setLoading(true)
           setError(null)
-          
-          // Update Supabase with latest calculated balances
-          await cardBalanceService.updateSupabaseBalances()
-          
-          // Then fetch the updated balances
           const balances = await cardBalanceService.getCardBalances()
           setCardBalances(balances)
         } catch (err) {

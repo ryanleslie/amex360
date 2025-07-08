@@ -1,7 +1,6 @@
 
 import { supabase } from "@/integrations/supabase/client"
 import { getAllPrimaryCards } from "@/data/staticPrimaryCards"
-import { balanceCalculator, CalculatedBalance } from "@/services/balanceCalculator"
 
 export interface CardBalance {
   ID: string
@@ -30,34 +29,44 @@ export const cardBalanceService = {
     try {
       const primaryCards = getAllPrimaryCards()
       
-      // Calculate real-time balances using transaction data
-      const calculatedBalances = balanceCalculator.calculateRealTimeBalances()
+      // Get card balances from the public table (works for both authenticated and guest users)
+      const { data: cardBalances, error: balanceError } = await supabase
+        .from('card_balances')
+        .select('*')
+        
+      if (balanceError) {
+        console.error('Error fetching card balances:', balanceError)
+        return []
+      }
       
-      // Map calculated balances with primary card details
-      return calculatedBalances
-        .map(calculatedBalance => {
+      if (!cardBalances || cardBalances.length === 0) {
+        return []
+      }
+      
+      // Map card balances with primary card details
+      return cardBalances
+        .map(balance => {
           const primaryCard = primaryCards.find(
-            card => card.plaid_account_id === calculatedBalance.plaid_account_id ||
-                   card.lastFive === calculatedBalance.lastFive
+            card => card.plaid_account_id === balance.plaid_account_id
           )
           
           if (!primaryCard) {
             // Return basic balance info if no primary card match
             return {
-              ID: `calc_${calculatedBalance.lastFive}`,
-              cardType: calculatedBalance.cardType,
-              currentBalance: calculatedBalance.calculatedBalance,
-              plaid_account_id: calculatedBalance.plaid_account_id,
-              last_synced: calculatedBalance.lastTransactionDate
+              ID: balance.ID,
+              cardType: balance.cardType,
+              currentBalance: balance.currentBalance,
+              plaid_account_id: balance.plaid_account_id,
+              last_synced: balance.last_synced
             }
           }
           
           return {
-            ID: `calc_${calculatedBalance.lastFive}`,
-            cardType: calculatedBalance.cardType,
-            currentBalance: calculatedBalance.calculatedBalance,
-            plaid_account_id: calculatedBalance.plaid_account_id,
-            last_synced: calculatedBalance.lastTransactionDate,
+            ID: balance.ID,
+            cardType: balance.cardType,
+            currentBalance: balance.currentBalance,
+            plaid_account_id: balance.plaid_account_id,
+            last_synced: balance.last_synced,
             primaryCard: {
               lastFive: primaryCard.lastFive,
               annualFee: primaryCard.annualFee,
@@ -71,37 +80,8 @@ export const cardBalanceService = {
         .filter(Boolean) as CardBalance[]
       
     } catch (error) {
-      console.error('Failed to calculate card balances:', error)
+      console.error('Failed to fetch card balances:', error)
       return []
-    }
-  },
-
-  async updateSupabaseBalances(): Promise<void> {
-    try {
-      const calculatedBalances = balanceCalculator.calculateRealTimeBalances()
-      
-      for (const balance of calculatedBalances) {
-        // Upsert calculated balance to Supabase
-        const { error } = await supabase
-          .from('card_balances')
-          .upsert({
-            ID: `calc_${balance.lastFive}`,
-            cardType: balance.cardType,
-            currentBalance: balance.calculatedBalance,
-            plaid_account_id: balance.plaid_account_id,
-            last_synced: new Date().toISOString()
-          }, {
-            onConflict: 'ID'
-          })
-        
-        if (error) {
-          console.error(`Error updating balance for ${balance.cardType}:`, error)
-        }
-      }
-      
-      console.log('Successfully updated card balances in Supabase')
-    } catch (error) {
-      console.error('Failed to update Supabase balances:', error)
     }
   }
 }

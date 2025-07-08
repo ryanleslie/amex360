@@ -50,7 +50,7 @@ export function UserListCard() {
             </Button>
           </div>
           <p className="text-sm text-muted-foreground mt-2">
-            Manage registered users and their account details
+            Registered users and login history
           </p>
         </div>
 

@@ -45,6 +45,7 @@ export function AdminBalancesCard() {
             onConnect={handleConnect}
             isRefreshing={isRefreshing}
             isCreatingToken={isCreatingToken}
+            cardBalances={cardBalances}
           />
 
           <ScrollArea className="h-[560px]">

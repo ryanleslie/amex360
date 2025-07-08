@@ -197,13 +197,20 @@ serve(async (req) => {
 
           allAccounts.push(...accountsData.accounts);
         } else {
-          console.error('❌ Plaid API error:', {
+          console.error('❌ Plaid API error - Response not OK:', {
             status: accountsResponse.status,
-            response: accountsData
+            statusText: accountsResponse.statusText,
+            response: accountsData,
+            headers: Object.fromEntries(accountsResponse.headers.entries())
           });
+          // Still continue to process other items even if one fails
         }
       } catch (error) {
-        console.error(`❌ Error fetching accounts for item ${item.plaid_item_id}:`, error);
+        console.error(`❌ Error fetching accounts for item ${item.plaid_item_id}:`, {
+          error: error.message,
+          stack: error.stack,
+          itemId: item.plaid_item_id
+        });
       }
     }
 

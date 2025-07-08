@@ -49,10 +49,24 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           if (event === 'SIGNED_IN') {
             invalidateAdminUsersCache();
             
-            // Auto-refresh balances on login
-            supabase.functions.invoke('plaid-get-accounts').catch(error => {
-              console.error('Failed to auto-refresh balances on login:', error);
-            });
+            // Auto-refresh balances on login (only if user has Plaid accounts)
+            setTimeout(async () => {
+              try {
+                const { data: plaidItems } = await supabase
+                  .from('plaid_items')
+                  .select('id')
+                  .eq('user_id', currentSession.user.id)
+                  .limit(1);
+                
+                if (plaidItems && plaidItems.length > 0) {
+                  supabase.functions.invoke('plaid-get-accounts').catch(error => {
+                    console.error('Failed to auto-refresh balances on login:', error);
+                  });
+                }
+              } catch (error) {
+                console.error('Failed to check for Plaid accounts:', error);
+              }
+            }, 0);
           }
         } else {
           setIsAdmin(false);

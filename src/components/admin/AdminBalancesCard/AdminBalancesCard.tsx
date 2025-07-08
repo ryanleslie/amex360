@@ -4,7 +4,6 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { useCardBalances } from '@/hooks/useCardBalances';
 import { usePlaidLinkFlow } from '@/hooks/usePlaidLink';
 import { useBalanceSync } from '@/hooks/useBalanceSync';
-import { useIdSync } from '@/hooks/useIdSync';
 import { AdminBalancesCardHeader } from './AdminBalancesCardHeader';
 import { AdminBalancesCardGrid } from './AdminBalancesCardGrid';
 
@@ -13,7 +12,6 @@ export function AdminBalancesCard() {
   
   const { handleConnect, isCreatingToken } = usePlaidLinkFlow(refetch);
   const { handleRefresh, isRefreshing } = useBalanceSync(refetch);
-  const { handleSyncIds, isSyncingIds } = useIdSync(refetch);
 
   if (loading) {
     return (
@@ -45,10 +43,8 @@ export function AdminBalancesCard() {
             cardCount={cardBalances.length}
             onRefresh={handleRefresh}
             onConnect={handleConnect}
-            onSyncIds={handleSyncIds}
             isRefreshing={isRefreshing}
             isCreatingToken={isCreatingToken}
-            isSyncingIds={isSyncingIds}
           />
 
           <ScrollArea className="h-[560px]">

@@ -53,22 +53,22 @@ export function AdminBalancesCardHeader({
           <Button
             variant="outline"
             size="sm"
-            onClick={onRefresh}
-            disabled={isRefreshing}
+            // onClick={onRefresh} // Commented out for future use
+            disabled={true}
             className="gap-2"
           >
-            <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
-            {isRefreshing ? 'Refreshing...' : 'Refresh & Sync'}
+            <RefreshCw className="h-4 w-4" />
+            Refresh & Sync
           </Button>
           <Button
             variant="outline"
             size="sm"
-            onClick={onConnect}
-            disabled={isCreatingToken}
+            // onClick={onConnect} // Commented out for future use
+            disabled={true}
             className="gap-2"
           >
             <Link className="h-4 w-4" />
-            {isCreatingToken ? 'Creating Token...' : 'Connect'}
+            Connect
           </Button>
         </div>
       </div>
@@ -79,22 +79,22 @@ export function AdminBalancesCardHeader({
         <Button
           variant="outline"
           size="sm"
-          onClick={onRefresh}
-          disabled={isRefreshing}
+          // onClick={onRefresh} // Commented out for future use
+          disabled={true}
           className="gap-2 flex-1"
         >
-          <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
-          {isRefreshing ? 'Refreshing...' : 'Refresh & Sync'}
+          <RefreshCw className="h-4 w-4" />
+          Refresh & Sync
         </Button>
         <Button
           variant="outline"
           size="sm"
-          onClick={onConnect}
-          disabled={isCreatingToken}
+          // onClick={onConnect} // Commented out for future use
+          disabled={true}
           className="gap-2 flex-1"
         >
           <Link className="h-4 w-4" />
-          {isCreatingToken ? 'Creating Token...' : 'Connect'}
+          Connect
         </Button>
       </div>
     </div>

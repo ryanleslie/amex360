@@ -26,16 +26,16 @@ export function AdminBalancesCardGrid({ cardBalances }: AdminBalancesCardGridPro
       {sortedCardBalances.map((balance, index) => (
         <div
           key={balance.ID}
-          className="p-4 border rounded-lg bg-gradient-to-b from-white to-gray-50 space-y-3 animate-fade-in"
+          className="p-4 border rounded-lg bg-gradient-to-b from-white to-gray-50 space-y-3 animate-fade-in overflow-hidden"
           style={{
             animationDelay: `${index * 100}ms`,
             animationFillMode: 'both'
           }}
         >
           <div className="font-medium text-sm">
-            {balance.cardType}
+            <div className="break-words">{balance.cardType}</div>
             {balance.institutionName && (
-              <div className="text-xs text-muted-foreground font-normal">
+              <div className="text-xs text-muted-foreground font-normal break-words">
                 {balance.institutionName}
               </div>
             )}
@@ -46,9 +46,9 @@ export function AdminBalancesCardGrid({ cardBalances }: AdminBalancesCardGridPro
               <img 
                 src={getCardImage(balance.cardType)} 
                 alt={balance.cardType}
-                className="w-12 h-8 object-cover rounded border"
+                className="w-12 h-8 object-cover rounded border flex-shrink-0"
               />
-              <div className="text-lg font-semibold tabular-nums">
+              <div className="text-lg font-semibold tabular-nums min-w-0 flex-1">
                 {balance.currentBalance !== null 
                   ? `$${balance.currentBalance.toLocaleString('en-US', { 
                       minimumFractionDigits: 2, 
@@ -59,7 +59,7 @@ export function AdminBalancesCardGrid({ cardBalances }: AdminBalancesCardGridPro
               </div>
             </div>
             {balance.availableBalance !== null && balance.availableBalance !== undefined && balance.availableBalance !== balance.currentBalance && (
-              <div className="text-sm text-muted-foreground ml-[60px]">
+              <div className="text-sm text-muted-foreground ml-[60px] break-words">
                 Available: ${balance.availableBalance.toLocaleString('en-US', { 
                   minimumFractionDigits: 2, 
                   maximumFractionDigits: 2 
@@ -67,7 +67,7 @@ export function AdminBalancesCardGrid({ cardBalances }: AdminBalancesCardGridPro
               </div>
             )}
             {balance.creditLimit !== null && balance.creditLimit !== undefined && (
-              <div className="text-sm text-muted-foreground ml-[60px]">
+              <div className="text-sm text-muted-foreground ml-[60px] break-words">
                 Limit: ${balance.creditLimit.toLocaleString('en-US', { 
                   minimumFractionDigits: 2, 
                   maximumFractionDigits: 2 
@@ -76,7 +76,7 @@ export function AdminBalancesCardGrid({ cardBalances }: AdminBalancesCardGridPro
             )}
           </div>
           
-          <div className="text-xs text-muted-foreground">
+          <div className="text-xs text-muted-foreground break-all">
             {balance.accountType && balance.accountSubtype ? 
               `${balance.accountType} • ${balance.accountSubtype}` : 
               `Plaid ID: ${balance.plaid_account_id || 'Not set'}`

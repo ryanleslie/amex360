@@ -20,16 +20,16 @@ export const useAdminBalanceMetrics = () => {
     const maxBalance = Math.max(...cardBalances.map(card => card.currentBalance || 0))
     const cardsWithMaxBalance = cardBalances.filter(card => (card.currentBalance || 0) === maxBalance)
     
-    const cardDetails = cardsWithMaxBalance.map(balance => {
-      const primaryCard = primaryCards.find(card => card.plaid_account_id === balance.plaid_account_id)
-      return {
-        name: balance.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : balance.cardType,
-        lastFive: primaryCard ? `-${primaryCard.lastFive}` : "",
-        amount: `$${(balance.currentBalance || 0).toLocaleString()}`,
-        type: "current balance",
-        image: getCardImage(balance.cardType.toLowerCase())
-      }
-    })
+      const cardDetails = cardsWithMaxBalance.map(balance => {
+        const primaryCard = primaryCards.find(card => card.plaid_account_id === balance.plaid_account_id)
+        return {
+          name: balance.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : balance.cardType,
+          lastFive: primaryCard ? `-${primaryCard.lastFive}` : "",
+          amount: `$${(balance.currentBalance || 0).toLocaleString()} balance`,
+          type: "highest",
+          image: getCardImage(balance.cardType.toLowerCase())
+        }
+      })
 
     return {
       amount: `$${maxBalance.toLocaleString()}`,
@@ -51,16 +51,16 @@ export const useAdminBalanceMetrics = () => {
     const minBalance = Math.min(...nonZeroBalances.map(card => card.currentBalance || 0))
     const cardsWithMinBalance = nonZeroBalances.filter(card => (card.currentBalance || 0) === minBalance)
     
-    const cardDetails = cardsWithMinBalance.map(balance => {
-      const primaryCard = primaryCards.find(card => card.plaid_account_id === balance.plaid_account_id)
-      return {
-        name: balance.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : balance.cardType,
-        lastFive: primaryCard ? `-${primaryCard.lastFive}` : "",
-        amount: `$${(balance.currentBalance || 0).toLocaleString()}`,
-        type: "current balance",
-        image: getCardImage(balance.cardType.toLowerCase())
-      }
-    })
+      const cardDetails = cardsWithMinBalance.map(balance => {
+        const primaryCard = primaryCards.find(card => card.plaid_account_id === balance.plaid_account_id)
+        return {
+          name: balance.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : balance.cardType,
+          lastFive: primaryCard ? `-${primaryCard.lastFive}` : "",
+          amount: `$${(balance.currentBalance || 0).toLocaleString()} balance`,
+          type: "lowest",
+          image: getCardImage(balance.cardType.toLowerCase())
+        }
+      })
 
     return {
       amount: `$${minBalance.toLocaleString()}`,

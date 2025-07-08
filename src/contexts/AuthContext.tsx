@@ -48,6 +48,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           // Invalidate admin users cache on login to ensure fresh data
           if (event === 'SIGNED_IN') {
             invalidateAdminUsersCache();
+            
+            // Auto-refresh balances on login
+            supabase.functions.invoke('plaid-get-accounts').catch(error => {
+              console.error('Failed to auto-refresh balances on login:', error);
+            });
           }
         } else {
           setIsAdmin(false);

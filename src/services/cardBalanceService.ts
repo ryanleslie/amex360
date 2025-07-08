@@ -83,5 +83,18 @@ export const cardBalanceService = {
       console.error('Failed to fetch card balances:', error)
       return []
     }
+  },
+
+  /**
+   * Syncs calculated balances to Supabase and returns updated balances
+   */
+  async syncAndGetBalances(): Promise<CardBalance[]> {
+    const { balanceCalculator } = await import('./balanceCalculator')
+    
+    // First, sync calculated balances to the database
+    await balanceCalculator.syncCalculatedBalancesToSupabase()
+    
+    // Then fetch and return the updated balances
+    return this.getCardBalances()
   }
 }

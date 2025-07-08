@@ -133,7 +133,7 @@ serve(async (req) => {
     for (const item of items) {
       console.log('📡 Fetching accounts for item:', item.plaid_item_id);
       try {
-        const accountsResponse = await fetch('https://production.plaid.com/accounts/balance/get', {
+        const accountsResponse = await fetch('https://production.plaid.com/accounts/get', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

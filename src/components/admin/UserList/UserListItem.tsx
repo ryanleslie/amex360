@@ -33,7 +33,11 @@ export function UserListItem({ user, index }: UserListItemProps) {
     try {
       const loginDate = new Date(lastLogin);
       const now = new Date();
-      const diffMs = now.getTime() - loginDate.getTime();
+      
+      // Compare dates in local timezone
+      const loginDateLocal = new Date(loginDate.toLocaleDateString());
+      const nowLocal = new Date(now.toLocaleDateString());
+      const diffMs = nowLocal.getTime() - loginDateLocal.getTime();
       const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
       
       if (diffDays === 0) {

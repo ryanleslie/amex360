@@ -4,6 +4,8 @@ import { ChartNoAxesColumn, Award, CreditCard, Crown, LogOut, RotateCw, CircleCh
 import { useNavigate, useLocation } from "react-router-dom"
 import { toast } from "@/components/ui/sonner"
 import { useAuth } from "@/contexts/AuthContext"
+import { transactionFilterService } from "@/services/transactionFilterService"
+import { CalculationsCacheService } from "@/services/calculationsCache"
 import {
   Sidebar,
   SidebarContent,
@@ -76,10 +78,6 @@ export function AppSidebar({ activeSection }: AppSidebarProps) {
 
   const handleRefreshData = () => {
     try {
-      // Import transaction filter service and calculations cache
-      const { transactionFilterService } = require("@/services/transactionFilterService")
-      const { CalculationsCacheService } = require("@/services/calculationsCache")
-      
       console.log("Refreshing transaction data and clearing caches...")
       
       // Refresh transaction data from CSV

@@ -79,7 +79,7 @@ export function AdminBalancesCardGrid({ cardBalances }: AdminBalancesCardGridPro
           <div className="text-xs text-muted-foreground">
             {balance.accountType && balance.accountSubtype ? 
               `${balance.accountType} • ${balance.accountSubtype}` : 
-              `ID: ${balance.ID}`
+              `Plaid ID: ${balance.plaid_account_id || 'Not set'}`
             }
           </div>
         </div>

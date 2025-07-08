@@ -6,6 +6,7 @@ export interface CardBalance {
   ID: string
   cardType: string
   currentBalance: number | null
+  plaid_account_id?: string | null
   accountName?: string
   accountType?: string
   accountSubtype?: string
@@ -53,7 +54,8 @@ export const cardBalanceService = {
             return {
               ID: balance.ID,
               cardType: balance.cardType,
-              currentBalance: balance.currentBalance
+              currentBalance: balance.currentBalance,
+              plaid_account_id: balance.plaid_account_id
             }
           }
           
@@ -61,6 +63,7 @@ export const cardBalanceService = {
             ID: balance.ID,
             cardType: balance.cardType,
             currentBalance: balance.currentBalance,
+            plaid_account_id: balance.plaid_account_id,
             primaryCard: {
               lastFive: primaryCard.lastFive,
               annualFee: primaryCard.annualFee,

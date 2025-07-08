@@ -32,8 +32,9 @@ export function UserListCard() {
           </div>
           <Button 
             asChild 
+            variant="outline"
             size="sm"
-            className="ml-auto"
+            className="ml-auto gap-2"
           >
             <a 
               href="https://supabase.com/dashboard/project/eympxjimldhplotitshq/auth/users" 

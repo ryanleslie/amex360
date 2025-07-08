@@ -71,6 +71,9 @@ export function AdminBalancesCardHeader({
           {isCreatingToken ? 'Creating Token...' : 'Connect'}
         </Button>
       </div>
+      <p className="text-sm text-muted-foreground mt-2">
+        Real-time card balances synced from Plaid accounts
+      </p>
     </div>
   );
 }

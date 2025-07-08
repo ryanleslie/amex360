@@ -11,7 +11,7 @@ export function InsightsQuickMetrics() {
     "Due this week",
     "Annual Fee",
     "No Annual Fee",
-    "Brand Partner Cards"
+    "Brand Partnerships"
   ]
 
   const adminInsightsMetrics = [

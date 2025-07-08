@@ -117,9 +117,13 @@ export const useAdminBalanceMetrics = () => {
         lastFive: primaryCard ? `-${primaryCard.lastFive}` : "",
         amount: `$${(balance.currentBalance || 0).toLocaleString()} balance`,
         type: `closing ${currentMonth} ${primaryCard?.closingDate || ''}`,
-        image: getCardImage(balance.cardType.toLowerCase())
+        image: getCardImage(balance.cardType.toLowerCase()),
+        dueDate: primaryCard?.dueDate || 99 // Use 99 as fallback for sorting
       }
     })
+
+    // Sort by due date ascending
+    cardDetails.sort((a, b) => a.dueDate - b.dueDate)
 
     return {
       amount: `$${totalUrgentBalance.toLocaleString()}`,

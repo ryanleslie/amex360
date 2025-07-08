@@ -8,6 +8,7 @@ interface MetricPopoverContentProps {
 export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
   const isClosingMetric = metric.title === "Closing this week"
   const isDueThisWeekMetric = metric.title === "Due this week"
+  const isUrgentBalancesMetric = metric.title === "Urgent Balances"
   const isNoAnnualFeeMetric = metric.title === "No Annual Fee"
   const isAnnualFeeMetric = metric.title === "Annual Fee" || metric.title === "Total Annual Fees"
   const isCreditLimitMetric = metric.title === "Highest Credit Limit" || metric.title === "Lowest Pay Over Time Limit"
@@ -24,7 +25,8 @@ export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
           <div className="text-xs font-medium">Account Details:</div>
           {metric.cardData.map((card: any, index: number) => {
             const isNonBusinessCard = !card.name.toLowerCase().includes('business')
-            const shouldHighlightClosing = isClosingMetric && isNonBusinessCard && card.type.includes('closing')
+            const shouldHighlightClosing = (isClosingMetric && isNonBusinessCard && card.type.includes('closing')) || 
+                                          (isUrgentBalancesMetric && card.type.includes('closing'))
             
             // Format card details based on metric type
             let cardDetails
@@ -38,7 +40,7 @@ export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
               cardDetails = `${card.amount} ${card.type}`
             } else if (isAvailableCreditMetric) {
               cardDetails = `${card.amount} ${card.type}`
-            } else if (isClosingMetric || isDueThisWeekMetric) {
+            } else if (isClosingMetric || isDueThisWeekMetric || isUrgentBalancesMetric) {
               cardDetails = `${card.amount} balance • ${card.type}`
             } else {
               cardDetails = `${card.amount} • ${card.type}`

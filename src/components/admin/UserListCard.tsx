@@ -49,7 +49,7 @@ export function UserListCard() {
               </a>
             </Button>
           </div>
-          <p className="text-sm text-muted-foreground mt-2">
+          <p className="text-sm text-muted-foreground mt-1">
             Registered users and login history
           </p>
         </div>

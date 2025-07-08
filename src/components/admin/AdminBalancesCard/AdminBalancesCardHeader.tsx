@@ -94,7 +94,7 @@ export function AdminBalancesCardHeader({
           {isCreatingToken ? 'Creating Token...' : 'Connect'}
         </Button>
       </div>
-      <p className="text-sm text-muted-foreground mt-2">
+      <p className="text-sm text-muted-foreground mt-1">
         Last sync: {getLastSyncTime()}
       </p>
     </div>

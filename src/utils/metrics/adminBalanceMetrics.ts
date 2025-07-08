@@ -22,11 +22,13 @@ export const useAdminBalanceMetrics = () => {
     
     const cardDetails = cardsWithMaxBalance.map(balance => {
       const primaryCard = primaryCards.find(card => card.plaid_account_id === balance.plaid_account_id)
+      const today = new Date()
+      const currentMonth = today.toLocaleString('default', { month: 'long' })
       return {
         name: balance.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : balance.cardType,
         lastFive: primaryCard ? `-${primaryCard.lastFive}` : "",
-        amount: `$${(balance.currentBalance || 0).toLocaleString()}`,
-        type: "current balance",
+        amount: `$${(balance.currentBalance || 0).toLocaleString()} balance`,
+        type: `closing ${currentMonth} ${primaryCard?.closingDate}`,
         image: getCardImage(balance.cardType.toLowerCase())
       }
     })
@@ -53,11 +55,13 @@ export const useAdminBalanceMetrics = () => {
     
     const cardDetails = cardsWithMinBalance.map(balance => {
       const primaryCard = primaryCards.find(card => card.plaid_account_id === balance.plaid_account_id)
+      const today = new Date()
+      const currentMonth = today.toLocaleString('default', { month: 'long' })
       return {
         name: balance.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : balance.cardType,
         lastFive: primaryCard ? `-${primaryCard.lastFive}` : "",
-        amount: `$${(balance.currentBalance || 0).toLocaleString()}`,
-        type: "current balance",
+        amount: `$${(balance.currentBalance || 0).toLocaleString()} balance`,
+        type: `closing ${currentMonth} ${primaryCard?.closingDate}`,
         image: getCardImage(balance.cardType.toLowerCase())
       }
     })

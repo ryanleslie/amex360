@@ -19,7 +19,7 @@ export function InsightsQuickMetrics() {
     "Due this week", 
     "Highest Balance",
     "Lowest Balance",
-    "Urgent Balance"
+    "Urgent Balances"
   ]
 
   const metricsToShow = isAdmin ? adminInsightsMetrics : userInsightsMetrics

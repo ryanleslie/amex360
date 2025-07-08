@@ -143,13 +143,13 @@ export const useUnifiedMetricsData = () => {
       calculationMethod: "Minimum current balance from card_balances table",
       cardData: lowestBalanceData.cards
     },
-    "Urgent Balance": {
-      title: "Urgent Balance",
+    "Urgent Balances": {
+      title: "Urgent Balances",
       value: urgentBalanceData.amount!,
-      description: "Highest non-business balance closing this week",
+      description: "Total non-business balances closing this week",
       dataSource: "Card Balance Database",
       lastUpdated: "Real-time",
-      calculationMethod: "Maximum balance among non-business cards closing within 7 days",
+      calculationMethod: "Sum of all non-business card balances closing within 7 days",
       cardData: urgentBalanceData.cards
     }
   }

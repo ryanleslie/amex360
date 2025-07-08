@@ -72,7 +72,7 @@ export const useAdminBalanceMetrics = () => {
     }
   }, [cardBalances, primaryCards])
 
-  // Calculate urgent balance (highest non-business balance closing this week)
+  // Calculate urgent balances (all non-business balances closing this week)
   const urgentBalanceData = React.useMemo((): MetricResult => {
     const today = new Date()
     const currentDay = today.getDate()
@@ -105,29 +105,24 @@ export const useAdminBalanceMetrics = () => {
       }
     }
 
-    const maxUrgentBalance = Math.max(...urgentCardBalances.map(card => card.currentBalance || 0))
-    const urgentCard = urgentCardBalances.find(card => (card.currentBalance || 0) === maxUrgentBalance)
-    
-    if (!urgentCard) {
-      return {
-        amount: "$0",
-        cards: []
-      }
-    }
-
-    const primaryCard = primaryCards.find(card => card.plaid_account_id === urgentCard.plaid_account_id)
+    // Calculate total of all urgent balances
+    const totalUrgentBalance = urgentCardBalances.reduce((sum, card) => sum + (card.currentBalance || 0), 0)
     const currentMonth = today.toLocaleString('default', { month: 'long' })
     
-    const cardDetails = [{
-      name: urgentCard.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : urgentCard.cardType,
-      lastFive: primaryCard ? `-${primaryCard.lastFive}` : "",
-      amount: `$${(urgentCard.currentBalance || 0).toLocaleString()}`,
-      type: `closing ${currentMonth} ${primaryCard?.closingDate}`,
-      image: getCardImage(urgentCard.cardType.toLowerCase())
-    }]
+    // Create card details for all urgent cards
+    const cardDetails = urgentCardBalances.map(balance => {
+      const primaryCard = primaryCards.find(card => card.plaid_account_id === balance.plaid_account_id)
+      return {
+        name: balance.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : balance.cardType,
+        lastFive: primaryCard ? `-${primaryCard.lastFive}` : "",
+        amount: `$${(balance.currentBalance || 0).toLocaleString()} balance`,
+        type: `closing ${currentMonth} ${primaryCard?.closingDate || ''}`,
+        image: getCardImage(balance.cardType.toLowerCase())
+      }
+    })
 
     return {
-      amount: `$${maxUrgentBalance.toLocaleString()}`,
+      amount: `$${totalUrgentBalance.toLocaleString()}`,
       cards: cardDetails
     }
   }, [cardBalances, primaryCards])

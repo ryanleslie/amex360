@@ -9,30 +9,50 @@ export const useBalanceSync = (onSuccess?: () => void) => {
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
+    console.log('🔄 Starting balance refresh...');
+    
     try {
       // Call the plaid-get-accounts function to fetch fresh data
-      const { error: refreshError } = await supabase.functions.invoke('plaid-get-accounts');
+      console.log('📡 Invoking plaid-get-accounts function...');
+      const { data, error: refreshError } = await supabase.functions.invoke('plaid-get-accounts');
+      
+      console.log('📊 Function response:', { data, error: refreshError });
       
       if (refreshError) {
+        console.error('❌ Function error:', refreshError);
         throw refreshError;
       }
+
+      if (!data) {
+        console.warn('⚠️ Function returned no data');
+        throw new Error('No data returned from plaid-get-accounts function');
+      }
+
+      console.log('✅ Function completed successfully:', data);
 
       // Call success callback if provided
       onSuccess?.();
 
       toast({
         title: "Balances Updated",
-        description: "Successfully refreshed account balances from Plaid",
+        description: `Successfully refreshed ${data?.accounts?.length || 0} account balances from Plaid`,
       });
     } catch (error) {
-      console.error('Error refreshing balances:', error);
+      console.error('💥 Error refreshing balances:', error);
+      console.error('💥 Error details:', {
+        message: error.message,
+        stack: error.stack,
+        name: error.name
+      });
+      
       toast({
         title: "Refresh Failed",
-        description: "Failed to refresh account balances. Please try again.",
+        description: `Failed to refresh account balances: ${error.message || 'Unknown error'}`,
         variant: "destructive",
       });
     } finally {
       setIsRefreshing(false);
+      console.log('🏁 Refresh process completed');
     }
   };
 

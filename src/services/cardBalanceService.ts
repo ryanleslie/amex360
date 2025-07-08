@@ -13,6 +13,7 @@ export interface CardBalance {
   availableBalance?: number | null
   creditLimit?: number | null
   institutionName?: string
+  last_synced?: string | null
   primaryCard?: {
     lastFive: string
     annualFee: number
@@ -55,7 +56,8 @@ export const cardBalanceService = {
               ID: balance.ID,
               cardType: balance.cardType,
               currentBalance: balance.currentBalance,
-              plaid_account_id: balance.plaid_account_id
+              plaid_account_id: balance.plaid_account_id,
+              last_synced: balance.last_synced
             }
           }
           
@@ -64,6 +66,7 @@ export const cardBalanceService = {
             cardType: balance.cardType,
             currentBalance: balance.currentBalance,
             plaid_account_id: balance.plaid_account_id,
+            last_synced: balance.last_synced,
             primaryCard: {
               lastFive: primaryCard.lastFive,
               annualFee: primaryCard.annualFee,

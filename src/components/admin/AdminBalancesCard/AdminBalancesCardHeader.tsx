@@ -21,13 +21,24 @@ export function AdminBalancesCardHeader({
   cardBalances
 }: AdminBalancesCardHeaderProps) {
   
-  // Get the most recent sync timestamp
+  // Get the Business Platinum Card's last sync timestamp
   const getLastSyncTime = () => {
-    if (cardBalances.length === 0) return 'Never';
+    const businessPlatinumCard = cardBalances.find(
+      card => card.cardType === 'Business Platinum Card'
+    );
     
-    // Find the most recent last_synced time (assuming it exists on card balance data)
-    // For now, we'll show a generic message since the CardBalance interface doesn't include last_synced
-    return 'Recently';
+    if (businessPlatinumCard?.last_synced) {
+      const syncDate = new Date(businessPlatinumCard.last_synced);
+      return syncDate.toLocaleString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      });
+    }
+    
+    return 'Never';
   };
   return (
     <div className="animate-fade-in">

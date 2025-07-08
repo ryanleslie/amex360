@@ -49,7 +49,7 @@ export function useAdminUsers() {
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
-        .order('created_at', { ascending: false });
+        .order('last_login', { ascending: false, nullsFirst: false });
 
       if (error) {
         console.error('Error fetching users:', error);

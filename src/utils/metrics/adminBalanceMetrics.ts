@@ -37,19 +37,17 @@ export const useAdminBalanceMetrics = () => {
     }
   }, [cardBalances, primaryCards])
 
-  // Calculate lowest balance (excluding zero balances)
+  // Calculate lowest balance
   const lowestBalanceData = React.useMemo((): MetricResult => {
-    const nonZeroBalances = cardBalances.filter(card => (card.currentBalance || 0) > 0)
-    
-    if (nonZeroBalances.length === 0) {
+    if (cardBalances.length === 0) {
       return {
         amount: "$0",
         cards: []
       }
     }
 
-    const minBalance = Math.min(...nonZeroBalances.map(card => card.currentBalance || 0))
-    const cardsWithMinBalance = nonZeroBalances.filter(card => (card.currentBalance || 0) === minBalance)
+    const minBalance = Math.min(...cardBalances.map(card => card.currentBalance || 0))
+    const cardsWithMinBalance = cardBalances.filter(card => (card.currentBalance || 0) === minBalance)
     
     const cardDetails = cardsWithMinBalance.map(balance => {
       const primaryCard = primaryCards.find(card => card.plaid_account_id === balance.plaid_account_id)

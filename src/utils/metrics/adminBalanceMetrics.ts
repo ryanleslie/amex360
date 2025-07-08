@@ -93,9 +93,10 @@ export const useAdminBalanceMetrics = () => {
       }
     }
 
-    // Get balances for these cards
+    // Get balances for these cards (only cards with balance > 0)
     const urgentCardBalances = cardBalances.filter(balance => 
-      cardsClosingThisWeek.some(card => card.plaid_account_id === balance.plaid_account_id)
+      cardsClosingThisWeek.some(card => card.plaid_account_id === balance.plaid_account_id) &&
+      (balance.currentBalance || 0) > 0
     )
 
     if (urgentCardBalances.length === 0) {

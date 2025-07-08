@@ -21,15 +21,15 @@ export function AdminBalancesCardHeader({
   cardBalances
 }: AdminBalancesCardHeaderProps) {
   
-  // Get the Business Platinum Card's last sync timestamp
-  const getLastSyncTime = () => {
+  // Get the Business Platinum Card's last calculated timestamp
+  const getLastCalculatedTime = () => {
     const businessPlatinumCard = cardBalances.find(
       card => card.cardType === 'Business Platinum Card'
     );
     
     if (businessPlatinumCard?.last_synced) {
-      const syncDate = new Date(businessPlatinumCard.last_synced);
-      return syncDate.toLocaleString('en-US', {
+      const calculatedDate = new Date(businessPlatinumCard.last_synced);
+      return calculatedDate.toLocaleString('en-US', {
         month: 'short',
         day: 'numeric',
         hour: 'numeric',
@@ -73,7 +73,7 @@ export function AdminBalancesCardHeader({
         </div>
       </div>
       <p className="text-sm text-muted-foreground mt-1">
-        Last sync: {getLastSyncTime()}
+        Last calculated: {getLastCalculatedTime()}
       </p>
       <div className="flex sm:hidden items-center gap-2 mt-3">
         <Button

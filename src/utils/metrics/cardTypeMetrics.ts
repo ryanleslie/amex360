@@ -26,7 +26,7 @@ export const useCardTypeMetrics = () => {
       count: brandPartnerCards.length,
       cards: cardDetails.map(card => ({
         ...card,
-        type: `${card.type} ${card.multiple}`
+        type: `${card.type} • ${card.multiple}`
       }))
     }
   }, [])

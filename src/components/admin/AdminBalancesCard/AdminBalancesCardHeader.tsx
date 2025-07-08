@@ -18,20 +18,44 @@ export function AdminBalancesCardHeader({
   isCreatingToken
 }: AdminBalancesCardHeaderProps) {
   return (
-    <div className="flex items-center gap-2 animate-fade-in">
+    <div className="animate-fade-in">
       <div className="flex items-center gap-2">
-        <h3 className="text-lg font-semibold">Card Balances</h3>
-        <Badge variant="outline">
-          {cardCount} cards
-        </Badge>
+        <div className="flex items-center gap-2">
+          <h3 className="text-lg font-semibold">Card Balances</h3>
+          <Badge variant="outline">
+            {cardCount} cards
+          </Badge>
+        </div>
+        <div className="ml-auto hidden sm:flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onRefresh}
+            disabled={isRefreshing}
+            className="gap-2"
+          >
+            <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+            {isRefreshing ? 'Refreshing...' : 'Refresh & Sync'}
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onConnect}
+            disabled={isCreatingToken}
+            className="gap-2"
+          >
+            <Link className="h-4 w-4" />
+            {isCreatingToken ? 'Creating Token...' : 'Connect'}
+          </Button>
+        </div>
       </div>
-      <div className="ml-auto flex items-center gap-2">
+      <div className="flex sm:hidden items-center gap-2 mt-3">
         <Button
           variant="outline"
           size="sm"
           onClick={onRefresh}
           disabled={isRefreshing}
-          className="gap-2"
+          className="gap-2 flex-1"
         >
           <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
           {isRefreshing ? 'Refreshing...' : 'Refresh & Sync'}
@@ -41,7 +65,7 @@ export function AdminBalancesCardHeader({
           size="sm"
           onClick={onConnect}
           disabled={isCreatingToken}
-          className="gap-2"
+          className="gap-2 flex-1"
         >
           <Link className="h-4 w-4" />
           {isCreatingToken ? 'Creating Token...' : 'Connect'}

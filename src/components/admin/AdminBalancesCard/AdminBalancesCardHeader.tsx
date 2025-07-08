@@ -72,6 +72,9 @@ export function AdminBalancesCardHeader({
           </Button>
         </div>
       </div>
+      <p className="text-sm text-muted-foreground mt-1">
+        Last sync: {getLastSyncTime()}
+      </p>
       <div className="flex sm:hidden items-center gap-2 mt-3">
         <Button
           variant="outline"
@@ -94,9 +97,6 @@ export function AdminBalancesCardHeader({
           {isCreatingToken ? 'Creating Token...' : 'Connect'}
         </Button>
       </div>
-      <p className="text-sm text-muted-foreground mt-1">
-        Last sync: {getLastSyncTime()}
-      </p>
     </div>
   );
 }

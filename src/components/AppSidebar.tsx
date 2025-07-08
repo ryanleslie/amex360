@@ -87,7 +87,7 @@ export function AppSidebar({ activeSection }: AppSidebarProps) {
       CalculationsCacheService.refreshAllCaches()
       
       toast.success("Data refreshed", {
-        description: "Latest CSV data loaded and caches cleared",
+        description: "Latest transaction data loaded and caches cleared",
         position: "top-right",
         icon: <CircleCheck size={16} style={{ color: '#006fcf' }} />
       })

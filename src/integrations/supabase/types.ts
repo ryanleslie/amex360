@@ -19,21 +19,21 @@ export type Database = {
           cardType: string
           currentBalance: number | null
           ID: string
-          last_updated: string | null
+          last_synced: string | null
           plaid_account_id: string | null
         }
         Insert: {
           cardType: string
           currentBalance?: number | null
           ID?: string
-          last_updated?: string | null
+          last_synced?: string | null
           plaid_account_id?: string | null
         }
         Update: {
           cardType?: string
           currentBalance?: number | null
           ID?: string
-          last_updated?: string | null
+          last_synced?: string | null
           plaid_account_id?: string | null
         }
         Relationships: []

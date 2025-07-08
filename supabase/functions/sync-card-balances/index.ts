@@ -104,7 +104,7 @@ serve(async (req) => {
           .from('card_balances')
           .update({
             currentBalance: plaidAccount.current_balance,
-            last_updated: new Date().toISOString()
+            last_synced: new Date().toISOString()
           })
           .eq('plaid_account_id', plaidAccount.plaid_account_id);
 

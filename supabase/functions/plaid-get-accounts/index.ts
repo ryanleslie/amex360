@@ -148,7 +148,10 @@ serve(async (req) => {
         console.log('📊 Plaid API response:', {
           status: accountsResponse.status,
           ok: accountsResponse.ok,
-          accountCount: accountsData?.accounts?.length || 0
+          accountCount: accountsData?.accounts?.length || 0,
+          error: accountsData?.error_code || null,
+          errorMessage: accountsData?.error_message || null,
+          fullResponse: accountsData
         });
 
         if (accountsResponse.ok && accountsData.accounts) {

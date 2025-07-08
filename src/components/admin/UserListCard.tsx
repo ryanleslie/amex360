@@ -3,6 +3,7 @@ import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { UserPlus } from 'lucide-react';
 import { useAdminUsers } from '@/hooks/useAdminUsers';
 import { UserList } from './UserList';
 
@@ -41,6 +42,7 @@ export function UserListCard() {
               target="_blank" 
               rel="noopener noreferrer"
             >
+              <UserPlus className="h-4 w-4" />
               Add User
             </a>
           </Button>

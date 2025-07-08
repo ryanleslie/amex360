@@ -43,7 +43,7 @@ export function UserListCard() {
               rel="noopener noreferrer"
             >
               <UserPlus className="h-4 w-4" />
-              Add User
+              <span className="hidden sm:inline">Add User</span>
             </a>
           </Button>
         </div>

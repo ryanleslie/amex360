@@ -34,7 +34,7 @@ export function AdminBalancesCardHeader({
           className="gap-2"
         >
           <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
-          {isRefreshing ? 'Refreshing...' : 'Refresh & Sync'}
+          <span className="hidden sm:inline">{isRefreshing ? 'Refreshing...' : 'Refresh & Sync'}</span>
         </Button>
         <Button
           variant="outline"
@@ -44,7 +44,7 @@ export function AdminBalancesCardHeader({
           className="gap-2"
         >
           <Link className="h-4 w-4" />
-          {isCreatingToken ? 'Creating Token...' : 'Connect'}
+          <span className="hidden sm:inline">{isCreatingToken ? 'Creating Token...' : 'Connect'}</span>
         </Button>
       </div>
     </div>

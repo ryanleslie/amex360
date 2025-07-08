@@ -8,6 +8,7 @@ import { useCardTypeMetrics } from "./cardTypeMetrics"
 import { useDateBasedMetrics } from "./dateBasedMetrics"
 import { useFeeMetrics } from "./feeMetrics"
 import { getStaticMetrics } from "./staticMetrics"
+import { useAdminBalanceMetrics } from "./adminBalanceMetrics"
 
 export const useUnifiedMetricsData = () => {
   const { totalCurrentBalanceData, getCardBalance } = useBalanceMetrics()
@@ -16,6 +17,7 @@ export const useUnifiedMetricsData = () => {
   const { closingThisWeekData, dueThisWeekData } = useDateBasedMetrics(getCardBalance)
   const { totalAnnualFeesData } = useFeeMetrics()
   const { businessCreditLimitData } = getStaticMetrics()
+  const { highestBalanceData, lowestBalanceData, urgentBalanceData } = useAdminBalanceMetrics()
 
   // Get dynamic card count from transaction filter service
   const activeCardCount = React.useMemo(() => {
@@ -122,6 +124,33 @@ export const useUnifiedMetricsData = () => {
       lastUpdated: "Updated daily",
       calculationMethod: "Sum of annual fees for all primary card accounts",
       cardData: totalAnnualFeesData.cards
+    },
+    "Highest Balance": {
+      title: "Highest Balance",
+      value: highestBalanceData.amount!,
+      description: "Highest current balance across all cards",
+      dataSource: "Card Balance Database",
+      lastUpdated: "Real-time",
+      calculationMethod: "Maximum current balance from card_balances table",
+      cardData: highestBalanceData.cards
+    },
+    "Lowest Balance": {
+      title: "Lowest Balance",
+      value: lowestBalanceData.amount!,
+      description: "Lowest current balance across all cards",
+      dataSource: "Card Balance Database",
+      lastUpdated: "Real-time",
+      calculationMethod: "Minimum current balance from card_balances table",
+      cardData: lowestBalanceData.cards
+    },
+    "Urgent Balance": {
+      title: "Urgent Balance",
+      value: urgentBalanceData.amount!,
+      description: "Highest non-business balance closing this week",
+      dataSource: "Card Balance Database",
+      lastUpdated: "Real-time",
+      calculationMethod: "Maximum balance among non-business cards closing within 7 days",
+      cardData: urgentBalanceData.cards
     }
   }
 

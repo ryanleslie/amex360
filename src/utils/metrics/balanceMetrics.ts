@@ -50,7 +50,7 @@ export const useBalanceMetrics = () => {
     return balance?.currentBalance || 0
   }, [cardBalances])
 
-  // Calculate total current balances from Supabase data
+  // Calculate total current balances from calculated data
   const totalCurrentBalanceData = React.useMemo((): MetricResult => {
     if (cardBalances.length === 0) {
       return {

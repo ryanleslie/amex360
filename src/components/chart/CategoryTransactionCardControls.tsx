@@ -1,7 +1,7 @@
 
 import * as React from "react"
 import { Input } from "@/components/ui/input"
-import { CategoryFilterDropdown } from "./CategoryFilterDropdown"
+import { CategoryRadioDropdown } from "./CategoryRadioDropdown"
 
 interface CategoryTransactionCardControlsProps {
   globalFilter: string
@@ -26,7 +26,7 @@ export function CategoryTransactionCardControls({
         onChange={(event) => onGlobalFilterChange(event.target.value)}
         className="max-w-sm"
       />
-      <CategoryFilterDropdown
+      <CategoryRadioDropdown
         selectedCategory={selectedCategory}
         categories={categories}
         onCategoryChange={onCategoryChange}

@@ -105,10 +105,10 @@ export function AdminBalancesCardHeader({
       <p className="text-sm text-muted-foreground mt-1">
         Last calculated: {getLastCalculatedTime()}
       </p>
-      <div className="flex sm:hidden justify-center mt-3">
+      <div className="sm:hidden mt-3">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="sm" className="gap-2">
+            <Button variant="outline" size="sm" className="gap-2 w-full">
               <MoreVertical className="h-4 w-4" />
               Actions
             </Button>

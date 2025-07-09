@@ -116,7 +116,7 @@ export const useAdminBalanceMetrics = () => {
       return {
         name: balance.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : balance.cardType,
         lastFive: primaryCard ? `-${primaryCard.lastFive}` : "",
-        amount: `$${(balance.currentBalance || 0).toLocaleString()} balance`,
+        amount: `$${(balance.currentBalance || 0).toLocaleString()}`,
         type: `closing ${currentMonth} ${primaryCard?.closingDate || ''}`,
         image: getCardImage(balance.cardType.toLowerCase()),
         dueDate: primaryCard?.dueDate || 99 // Use 99 as fallback for sorting

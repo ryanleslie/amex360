@@ -60,7 +60,7 @@ export function AdminBalancesCardHeader({
             {cardCount} cards
           </Badge>
         </div>
-        <div className="ml-auto">
+        <div className="ml-auto hidden sm:block">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="sm" className="gap-2">

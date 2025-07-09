@@ -4,26 +4,34 @@ import { primaryCardsConfig } from '@/data/primaryCardsData';
 
 interface AdminBalancesCardGridProps {
   cardBalances: CardBalance[];
+  sortOrder: 'amount' | 'cardList';
 }
 
-export function AdminBalancesCardGrid({ cardBalances }: AdminBalancesCardGridProps) {
-  // Sort card balances to match the order in primary_cards.csv
+export function AdminBalancesCardGrid({ cardBalances, sortOrder }: AdminBalancesCardGridProps) {
+  // Sort card balances based on the selected order
   const sortedCardBalances = [...cardBalances].sort((a, b) => {
-    // Find the index of each card in the primary cards CSV
-    const indexA = primaryCardsConfig.findIndex(card => 
-      card.cardType === a.cardType
-    );
-    const indexB = primaryCardsConfig.findIndex(card => 
-      card.cardType === b.cardType
-    );
-    
-    // If card not found in CSV, put it at the end
-    if (indexA === -1 && indexB === -1) return 0;
-    if (indexA === -1) return 1;
-    if (indexB === -1) return -1;
-    
-    // Sort by CSV order
-    return indexA - indexB;
+    if (sortOrder === 'amount') {
+      // Sort by amount (highest to lowest)
+      const balanceA = a.currentBalance || 0;
+      const balanceB = b.currentBalance || 0;
+      return balanceB - balanceA;
+    } else {
+      // Sort by card list order (primary_cards.csv)
+      const indexA = primaryCardsConfig.findIndex(card => 
+        card.cardType === a.cardType
+      );
+      const indexB = primaryCardsConfig.findIndex(card => 
+        card.cardType === b.cardType
+      );
+      
+      // If card not found in CSV, put it at the end
+      if (indexA === -1 && indexB === -1) return 0;
+      if (indexA === -1) return 1;
+      if (indexB === -1) return -1;
+      
+      // Sort by CSV order
+      return indexA - indexB;
+    }
   });
 
   if (sortedCardBalances.length === 0) {

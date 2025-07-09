@@ -1,4 +1,5 @@
 
+import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useCardBalances } from '@/hooks/useCardBalances';
@@ -9,9 +10,18 @@ import { AdminBalancesCardGrid } from './AdminBalancesCardGrid';
 
 export function AdminBalancesCard() {
   const { cardBalances, loading, error, refetch } = useCardBalances();
+  const [sortOrder, setSortOrder] = useState<'amount' | 'cardList'>('cardList');
   
   const { handleConnect, isCreatingToken } = usePlaidLinkFlow(refetch);
   const { handleRefresh, isRefreshing } = useBalanceSync(refetch);
+
+  const handleOrderByAmount = () => {
+    setSortOrder('amount');
+  };
+
+  const handleOrderByCardList = () => {
+    setSortOrder('cardList');
+  };
 
   if (loading) {
     return (
@@ -46,10 +56,12 @@ export function AdminBalancesCard() {
             isRefreshing={isRefreshing}
             isCreatingToken={isCreatingToken}
             cardBalances={cardBalances}
+            onOrderByAmount={handleOrderByAmount}
+            onOrderByCardList={handleOrderByCardList}
           />
 
           <ScrollArea className="h-[560px]">
-            <AdminBalancesCardGrid cardBalances={cardBalances} />
+            <AdminBalancesCardGrid cardBalances={cardBalances} sortOrder={sortOrder} />
           </ScrollArea>
         </div>
     </Card>

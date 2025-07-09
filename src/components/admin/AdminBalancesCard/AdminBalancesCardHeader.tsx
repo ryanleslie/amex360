@@ -1,6 +1,13 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { RefreshCw, Link } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { RefreshCw, Link, MoreVertical, ArrowUpDown, List } from 'lucide-react';
 import { CardBalance } from '@/services/cardBalanceService';
 
 interface AdminBalancesCardHeaderProps {
@@ -10,6 +17,8 @@ interface AdminBalancesCardHeaderProps {
   isRefreshing: boolean;
   isCreatingToken: boolean;
   cardBalances: CardBalance[];
+  onOrderByAmount: () => void;
+  onOrderByCardList: () => void;
 }
 
 export function AdminBalancesCardHeader({
@@ -18,7 +27,9 @@ export function AdminBalancesCardHeader({
   onConnect,
   isRefreshing,
   isCreatingToken,
-  cardBalances
+  cardBalances,
+  onOrderByAmount,
+  onOrderByCardList
 }: AdminBalancesCardHeaderProps) {
   
   // Get the Business Platinum Card's last calculated timestamp
@@ -49,53 +60,91 @@ export function AdminBalancesCardHeader({
             {cardCount} cards
           </Badge>
         </div>
-        <div className="ml-auto hidden sm:flex items-center gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            // onClick={onRefresh} // Commented out for future use
-            disabled={true}
-            className="gap-2"
-          >
-            <RefreshCw className="h-4 w-4" />
-            Refresh & Sync
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            // onClick={onConnect} // Commented out for future use
-            disabled={true}
-            className="gap-2"
-          >
-            <Link className="h-4 w-4" />
-            Connect
-          </Button>
+        <div className="ml-auto">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="sm" className="gap-2">
+                <MoreVertical className="h-4 w-4" />
+                Actions
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuItem 
+                disabled={true}
+                className="gap-2"
+              >
+                <RefreshCw className="h-4 w-4" />
+                Refresh & Sync
+              </DropdownMenuItem>
+              <DropdownMenuItem 
+                disabled={true}
+                className="gap-2"
+              >
+                <Link className="h-4 w-4" />
+                Connect
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem 
+                onClick={onOrderByAmount}
+                className="gap-2"
+              >
+                <ArrowUpDown className="h-4 w-4" />
+                Order by amount
+              </DropdownMenuItem>
+              <DropdownMenuItem 
+                onClick={onOrderByCardList}
+                className="gap-2"
+              >
+                <List className="h-4 w-4" />
+                Order by card list
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
       <p className="text-sm text-muted-foreground mt-1">
         Last calculated: {getLastCalculatedTime()}
       </p>
-      <div className="flex sm:hidden items-center gap-2 mt-3">
-        <Button
-          variant="outline"
-          size="sm"
-          // onClick={onRefresh} // Commented out for future use
-          disabled={true}
-          className="gap-2 flex-1"
-        >
-          <RefreshCw className="h-4 w-4" />
-          Refresh & Sync
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          // onClick={onConnect} // Commented out for future use
-          disabled={true}
-          className="gap-2 flex-1"
-        >
-          <Link className="h-4 w-4" />
-          Connect
-        </Button>
+      <div className="flex sm:hidden justify-center mt-3">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" size="sm" className="gap-2">
+              <MoreVertical className="h-4 w-4" />
+              Actions
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="center" className="w-56">
+            <DropdownMenuItem 
+              disabled={true}
+              className="gap-2"
+            >
+              <RefreshCw className="h-4 w-4" />
+              Refresh & Sync
+            </DropdownMenuItem>
+            <DropdownMenuItem 
+              disabled={true}
+              className="gap-2"
+            >
+              <Link className="h-4 w-4" />
+              Connect
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem 
+              onClick={onOrderByAmount}
+              className="gap-2"
+            >
+              <ArrowUpDown className="h-4 w-4" />
+              Order by amount
+            </DropdownMenuItem>
+            <DropdownMenuItem 
+              onClick={onOrderByCardList}
+              className="gap-2"
+            >
+              <List className="h-4 w-4" />
+              Order by card list
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </div>
   );

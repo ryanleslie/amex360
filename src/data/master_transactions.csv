@@ -7,8 +7,8 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-06-04,BE MORE DO MORE APP GLENDALE            CA,-1000.00,Business Platinum Card,-51066,Contractors,1.5
 2025-06-04,ONLINE PAYMENT - THANK YOU,1000.00,Business Platinum Card,-52007,,
 2025-06-02,PAYPAL *WOLT        1748854307          DE,-25.76,Business Platinum Card,-51066,Delivery,
-2025-06-01,IU INTERNATIONALE HOERFURT              DE,-395.65,Business Platinum Card,-51066,Education,
-2025-06-01,IU INTERNATIONALE HOERFURT              DE,-395.65,Business Platinum Card,-51066,Education,
+2025-06-01,IU INTERNATIONALE HOERFURT              DE,-395.65,Business Platinum Card,-51066,Administrative,
+2025-06-01,IU INTERNATIONALE HOERFURT              DE,-395.65,Business Platinum Card,-51066,Administrative,
 2025-05-27,PAYPAL *SUNDAY      15122497210         DE,-53.30,Business Platinum Card,-51066,Personal,
 2025-05-25,PAYPAL *MILES       3083799699          DE,-3.40,Business Platinum Card,-51066,Rideshare & taxi,
 2025-05-24,ONLINE PAYMENT - THANK YOU,18134.31,Business Platinum Card,-52007,,
@@ -708,7 +708,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-06-01,ONLINE PAYMENT - THANK YOU,195.00,Hilton Honors Business,-91003,,
 2025-06-01,PAYPAL *LINDAJANEKAN4029357733          DE,-4750.00,Hilton Honors Business,-91003,Administrative,5
 2025-05-20,MEMBERSHIP FEE,-195.00,Hilton Honors Business,-91003,Card membership,
-2025-07-09,AMAZON PAY YOUR CHARGES CREDIT,90.13,Amazon Business Prime,-52002,Office supplies,
+2025-07-09,AMAZON PAY YOUR CHARGES CREDIT,90.13,Amazon Business Prime,-52003,Office supplies,
 2025-07-04,AMAZON PAY YOUR CHARGES CREDIT,27.7,Amazon Business Prime,-52003,Office supplies,
 2025-07-04,AMZN MKTP DE        AMAZON.DE,-27.7,Amazon Business Prime,-52003,Office supplies,
 2025-07-03,ONLINE PAYMENT - THANK YOU,4512.12,Amazon Business Prime,-52003,,

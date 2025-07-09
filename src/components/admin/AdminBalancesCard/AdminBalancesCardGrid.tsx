@@ -68,6 +68,7 @@ export function AdminBalancesCardGrid({ cardBalances, sortOrder }: AdminBalances
                 src={getCardImage(balance.cardType)} 
                 alt={balance.cardType}
                 className="w-12 h-8 object-cover rounded border flex-shrink-0"
+                style={{ imageRendering: 'crisp-edges' }}
               />
               <div className="text-lg font-semibold tabular-nums min-w-0 flex-1">
                 {balance.currentBalance !== null 

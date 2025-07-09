@@ -4,7 +4,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-06-15,ONLINE PAYMENT - THANK YOU,3100.00,Business Platinum Card,-52007,,
 2025-06-15,ONLINE PAYMENT - THANK YOU,998.99,Business Platinum Card,-52007,,
 2025-06-05,ABC*5959-CRUNCH FITNBROOKLYN            NY,-87.67,Business Platinum Card,-52007,Marketing,
-2025-06-04,BE MORE DO MORE APP GLENDALE            CA,-1000.00,Business Platinum Card,-51066,HR - Operations,1.5
+2025-06-04,BE MORE DO MORE APP GLENDALE            CA,-1000.00,Business Platinum Card,-51066,Contractors,1.5
 2025-06-04,ONLINE PAYMENT - THANK YOU,1000.00,Business Platinum Card,-52007,,
 2025-06-02,PAYPAL *WOLT        1748854307          DE,-25.76,Business Platinum Card,-51066,Delivery,
 2025-06-01,IU INTERNATIONALE HOERFURT              DE,-395.65,Business Platinum Card,-51066,Education,
@@ -84,13 +84,13 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-05-09,TWILIO INC          SAN FRANCISCO       CA,-594.72,Business Platinum Card,-52197,SuperPhone®,1.5
 2025-05-08,ONLINE PAYMENT - THANK YOU,5626.52,Business Platinum Card,-52007,,
 2025-05-08,ONLINE PAYMENT - THANK YOU,904.12,Business Platinum Card,-52007,,
-2025-05-08,PAYPAL *TWENTYFOURA 4029357733          NY,-1000.00,Business Platinum Card,-52189,HR - Creative,
+2025-05-08,PAYPAL *TWENTYFOURA 4029357733          NY,-1000.00,Business Platinum Card,-52189,Creative services,
 2025-05-08,TWILIO INC          SAN FRANCISCO       CA,-405.00,Business Platinum Card,-51116,SuperPhone®,1.5
 2025-05-08,TWILIO INC          SAN FRANCISCO       CA,-540.73,Business Platinum Card,-52189,SuperPhone®,1.5
 2025-05-08,VITAL AI            PEEKSKILL,-998.99,Business Platinum Card,-52189,Commissions,1.5
 2025-05-07,ONLINE PAYMENT - THANK YOU,2429.22,Business Platinum Card,-52007,,
 2025-05-07,ONLINE PAYMENT - THANK YOU,912.20,Business Platinum Card,-52007,,
-2025-05-07,PAYPAL *LINDAJANEKAN4029357733          DE,-3100.00,Business Platinum Card,-51116,HR - Internal,
+2025-05-07,PAYPAL *LINDAJANEKAN4029357733          DE,-3100.00,Business Platinum Card,-51116,Administrative,
 2025-05-07,TWILIO INC          SAN FRANCISCO       CA,-590.55,Business Platinum Card,-52189,SuperPhone®,1.5
 2025-05-07,TWILIO INC          SAN FRANCISCO       CA,-590.88,Business Platinum Card,-52189,SuperPhone®,1.5
 2025-05-06,ONLINE PAYMENT - THANK YOU,1235.73,Business Platinum Card,-52007,,
@@ -99,9 +99,9 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-05-05,ABC*5959-CRUNCH FITNBROOKLYN            NY,-24.98,Business Platinum Card,-52007,Marketing,
 2025-05-05,TWILIO INC          SAN FRANCISCO       CA,-590.64,Business Platinum Card,-52171,SuperPhone®,1.5
 2025-05-05,TWILIO INC          SAN FRANCISCO       CA,-896.35,Business Platinum Card,-52171,SuperPhone®,1.5
-2025-05-04,BE MORE DO MORE APP GLENDALE            CA,-2000.00,Business Platinum Card,-52171,HR - Operations,1.5
+2025-05-04,BE MORE DO MORE APP GLENDALE            CA,-2000.00,Business Platinum Card,-52171,Contractors,1.5
 2025-05-04,ONLINE PAYMENT - THANK YOU,5000.00,Business Platinum Card,-52007,,
-2025-05-03,BE MORE DO MORE APP GLENDALE            CA,-3000.00,Business Platinum Card,-52163,HR - Operations,1.5
+2025-05-03,BE MORE DO MORE APP GLENDALE            CA,-3000.00,Business Platinum Card,-52163,Contractors,1.5
 2025-05-03,TWILIO INC          SAN FRANCISCO       CA,-415.02,Business Platinum Card,-52163,SuperPhone®,1.5
 2025-05-02,TWILIO INC          SAN FRANCISCO       CA,-30.00,Business Platinum Card,-52155,SuperPhone®,1.5
 2025-05-02,TWILIO INC          SAN FRANCISCO       CA,-590.31,Business Platinum Card,-52163,SuperPhone®,1.5
@@ -123,12 +123,12 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-04-25,TWILIO INC          SAN FRANCISCO       CA,-591.18,Business Platinum Card,-52148,SuperPhone®,1.5
 2025-04-22,SP ADAPT NATURALS   LAS VEGAS           NV,-190.05,Business Platinum Card,-52148,Personal,
 2025-04-20,ONLINE PAYMENT - THANK YOU,617.40,Business Platinum Card,-52007,,
-2025-04-20,PAYPAL *FINKS LLC   4029357733          AZ,-617.40,Business Platinum Card,-52130,HR - Operations,
-2025-04-20,PAYPAL *MIRIAMSTOLL 4029357733          DE,-825.00,Business Platinum Card,-52148,HR - Operations,
+2025-04-20,PAYPAL *FINKS LLC   4029357733          AZ,-617.40,Business Platinum Card,-52130,Contractors,
+2025-04-20,PAYPAL *MIRIAMSTOLL 4029357733          DE,-825.00,Business Platinum Card,-52148,Contractors,
 2025-04-16,BE MORE DO MORE APP,-2329.84,Business Platinum Card,-52130,Commissions,1.5
 2025-04-16,ONLINE PAYMENT - THANK YOU,2329.84,Business Platinum Card,-52007,,
 2025-04-12,ONLINE PAYMENT - THANK YOU,1000.00,Business Platinum Card,-52007,,
-2025-04-12,PAYPAL *TWENTYFOURA 4029357733          NY,-1000.00,Business Platinum Card,-52130,HR - Creative,
+2025-04-12,PAYPAL *TWENTYFOURA 4029357733          NY,-1000.00,Business Platinum Card,-52130,Creative services,
 2025-04-05,ABC*5959-CRUNCH FITNBROOKLYN            NY,-24.98,Business Platinum Card,-52007,Marketing,
 2025-03-27,PAYPAL *WEARETALALI 07908716915         GB,88.59,Business Platinum Card,-51066,Personal,
 2025-03-26,PAYPAL *WOLT        1748854307          DE,-24.57,Business Platinum Card,-51066,Delivery,
@@ -146,7 +146,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-03-06,PAYPAL *WOLT        1748854307          DE,-26.49,Business Platinum Card,-51066,Delivery,
 2025-03-05,ABC*5959-CRUNCH FITNBROOKLYN            NY,-24.98,Business Platinum Card,-52007,Marketing,
 2025-03-05,ONLINE PAYMENT - THANK YOU,3437.94,Business Platinum Card,-52007,,
-2025-03-05,PAYPAL *LINDAJANEKAN4029357733          DE,-3581.07,Business Platinum Card,-51116,HR - Internal,
+2025-03-05,PAYPAL *LINDAJANEKAN4029357733          DE,-3581.07,Business Platinum Card,-51116,Administrative,
 2025-03-03,ONLINE PAYMENT - THANK YOU,997.00,Business Platinum Card,-52007,,
 2025-03-03,ONLINE PAYMENT - THANK YOU,497.00,Business Platinum Card,-52007,,
 2025-03-03,PAYPAL *FREE2MOVE   30330831110         DE,-4.28,Business Platinum Card,-51066,Rideshare & taxi,
@@ -175,12 +175,12 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-02-05,ABC*5959-CRUNCH FITNBROOKLYN            NY,-24.98,Business Platinum Card,-52007,Marketing,
 2025-02-05,ONLINE PAYMENT - THANK YOU,1000.00,Business Platinum Card,-52007,,
 2025-02-05,ONLINE PAYMENT - THANK YOU,997.00,Business Platinum Card,-52007,,
-2025-02-05,PAYPAL *LINDAJANEKAN4029357733          DE,-3581.07,Business Platinum Card,-51108,HR - Internal,
+2025-02-05,PAYPAL *LINDAJANEKAN4029357733          DE,-3581.07,Business Platinum Card,-51108,Administrative,
 2025-02-04,CON-STRUC-TION      CULVER CITY         CA,-1000.00,Business Platinum Card,-51090,CreditMax,1.5
 2025-02-04,N4NM7Y TECHNOLOGIES ALLENTOWN           PA,-1500.00,Business Platinum Card,-51090,CreditMax,1.5
 2025-02-04,ONLINE PAYMENT - THANK YOU,1350.00,Business Platinum Card,-52007,,
 2025-02-04,PAYPAL *DILARASALIM14029357733          DE,-51.94,Business Platinum Card,-51066,Personal,
-2025-02-04,PAYPAL *MIRIAMSTOLL 4029357733          DE,-1350.00,Business Platinum Card,-51090,HR - Operations,
+2025-02-04,PAYPAL *MIRIAMSTOLL 4029357733          DE,-1350.00,Business Platinum Card,-51090,Contractors,
 2025-02-02,ONLINE PAYMENT - THANK YOU,2500.00,Business Platinum Card,-52007,,
 2025-02-02,ONLINE PAYMENT - THANK YOU,1500.00,Business Platinum Card,-52007,,
 2025-02-02,PAYPAL *FREE2MOVE   30330831110         DE,-4.22,Business Platinum Card,-51066,Rideshare & taxi,
@@ -223,7 +223,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-04,BLOOMBERG* B25351119NEW YORK            NY,-34.99,Business Platinum Card,-51017,News & media,
 2025-01-04,NETFLIX.COM         866-579-7172        CA,-25.03,Business Platinum Card,-51017,Streaming services,
 2025-01-04,ONLINE PAYMENT - THANK YOU,9000.00,Business Platinum Card,-52007,,
-2025-01-03,PAYPAL *LINDAJANEKAN4029357733          DE,-3436.60,Business Platinum Card,-51017,HR - Internal,
+2025-01-03,PAYPAL *LINDAJANEKAN4029357733          DE,-3436.60,Business Platinum Card,-51017,Administrative,
 2025-01-03,PAYPAL *SPXOPTIONTR 5418961779          OR,-199.95,Business Platinum Card,-51017,Charting & journaling,
 2025-01-02,WOJO MEDIA 567140113DAYTONA BEACH       FL,-54.00,Business Platinum Card,-51017,Advertising,
 2025-07-08,REWE CZERLINSKI,-28.56,Platinum Card,-71003,Personal,
@@ -577,7 +577,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-05-25,GEICO AUTO          (800)841-3000       DC,-163.60,Business Blue Plus I,-01158,Insurance,2
 2025-05-25,ONLINE PAYMENT - THANK YOU,1000.00,Business Blue Plus I,-01000,,
 2025-05-25,ONLINE PAYMENT - THANK YOU,505.00,Business Blue Plus I,-01000,,
-2025-05-25,PAYPAL *TWENTYFOURA 4029357733          NY,-1000.00,Business Blue Plus I,-01109,HR - Creative,2
+2025-05-25,PAYPAL *TWENTYFOURA 4029357733          NY,-1000.00,Business Blue Plus I,-01109,Creative services,2
 2025-05-25,TWILIO INC          SAN FRANCISCO       CA,-276.20,Business Blue Plus I,-01109,SuperPhone®,2
 2025-05-25,TWILIO INC          SAN FRANCISCO       CA,-590.02,Business Blue Plus I,-01109,SuperPhone®,2
 2025-05-25,TWILIO INC          SAN FRANCISCO       CA,-609.57,Business Blue Plus I,-01109,SuperPhone®,2
@@ -593,7 +593,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-04-18,PAYPAL *SUPERPHONE  4029357733          NY,-2000.00,Business Blue Plus I,-01091,Software,2
 2025-04-18,PAYPAL *SUPERPHONE  4029357733          NY,-2495.00,Business Blue Plus I,-01091,Software,2
 2025-04-11,GEICO AUTO          (800)841-3000       DC,-322.20,Business Blue Plus I,-01091,Insurance,2
-2025-04-09,PAYPAL *LINDAJANEKAN4029357733          DE,-3581.07,Business Blue Plus I,-01158,HR - Internal,0
+2025-04-09,PAYPAL *LINDAJANEKAN4029357733          DE,-3581.07,Business Blue Plus I,-01158,Administrative,0
 2025-04-04,ONLINE PAYMENT - THANK YOU,3654.81,Business Blue Plus I,-01000,,
 2025-04-02,BIBERK INSURANCE 066WILKES BARRE        PA,-60.57,Business Blue Plus I,-01000,Insurance,2
 2025-03-11,TMOBILE WEB ORDER   800-672-5390        WA,-141.19,Business Blue Plus I,-01091,Telephone & internet,2
@@ -615,12 +615,12 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-02-06,QVELOCITY           SAN LEANDRO         CA,-997.00,Business Blue Plus I,-01117,CreditMax,2
 2025-02-05,KAJABI              NEWPORT BEACH       CA,-498.00,Business Blue Plus I,-01091,Software,2
 2025-02-05,ONLINE PAYMENT - THANK YOU,1175.00,Business Blue Plus I,-01000,,
-2025-02-05,PAYPAL *MIRIAMSTOLL 4029357733          DE,-1175.00,Business Blue Plus I,-01117,HR - Operations,2
+2025-02-05,PAYPAL *MIRIAMSTOLL 4029357733          DE,-1175.00,Business Blue Plus I,-01117,Contractors,2
 2025-02-04,ONLINE PAYMENT - THANK YOU,1000.00,Business Blue Plus I,-01000,,
 2025-02-04,SP QUIP NYC INC     BROOKLYN            NY,-21.25,Business Blue Plus I,-01000,Personal,2
 2025-02-02,ENGINEROOM AUDIO 000NEW YORK            NY,-1000.00,Business Blue Plus I,-01117,Studio,2
 2025-02-02,ONLINE PAYMENT - THANK YOU,637.10,Business Blue Plus I,-01000,,
-2025-02-02,PAYPAL *FINKS LLC   4029357733          AZ,-637.10,Business Blue Plus I,-01117,HR - Operations,2
+2025-02-02,PAYPAL *FINKS LLC   4029357733          AZ,-637.10,Business Blue Plus I,-01117,Contractors,2
 2025-01-30,PRIME VECTOR AI     OAKLAND             CA,-97.00,Business Blue Plus I,-01158,CreditMax,2
 2025-01-28,N4NM7Y TECHNOLOGIES ALLENTOWN           PA,-500.00,Business Blue Plus I,-01117,CreditMax,2
 2025-01-27,TWENTYFOUR AI,-400.00,Business Blue Plus I,-01117,CreditMax,2
@@ -649,9 +649,9 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-09,CHECKLESS PYMT RECEIVED-THANK YOU,2000.00,Business Blue Plus I,-01000,,
 2025-01-08,ONLINE PAYMENT - THANK YOU,3000.00,Business Blue Plus I,-01000,,
 2025-01-07,ONLINE PAYMENT - THANK YOU,609.40,Business Blue Plus I,-01000,,
-2025-01-07,TWENTYFOUR AI       NEW YORK            NY,-900.00,Business Blue Plus I,-01026,HR - Creative,2
+2025-01-07,TWENTYFOUR AI       NEW YORK            NY,-900.00,Business Blue Plus I,-01026,Creative services,2
 2025-01-06,BIBERK INSURANCE 066WILKES BARRE        PA,-67.30,Business Blue Plus I,-01000,Insurance,2
-2025-01-06,PAYPAL *DANIELFINKE 4029357733          AZ,-609.40,Business Blue Plus I,-01026,HR - Operations,2
+2025-01-06,PAYPAL *DANIELFINKE 4029357733          AZ,-609.40,Business Blue Plus I,-01026,Contractors,2
 2025-01-04,KAJABI              NEWPORT BEACH       CA,-498.00,Business Blue Plus I,-01026,Software,2
 2025-01-04,ONLINE PAYMENT - THANK YOU,3000.00,Business Blue Plus I,-01000,,
 2025-01-01,ENTRECENTER         MIAMI BEACH         FL,-2000.00,Business Blue Plus I,-01026,Contractors,2
@@ -660,7 +660,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-07-07,ONLINE PAYMENT - THANK YOU,680.45,Delta SkyMiles® Reserve,-41006,,
 2025-07-01,WWW.I-RUN.FR 3DS,-366.79,Delta SkyMiles® Reserve,-41006,Wardrobe,
 2025-07-01,STOCKX,-291.26,Delta SkyMiles® Reserve,-41006,Wardrobe,
-2025-06-30,PAYPAL *LINDAJANEKAN4029357733          DE,-5250.00,Delta SkyMiles® Reserve,-41006,HR - Internal,
+2025-06-30,PAYPAL *LINDAJANEKAN4029357733          DE,-5250.00,Delta SkyMiles® Reserve,-41006,Administrative,
 2025-06-17,DELTA AIR LINES,-11.20,Delta SkyMiles® Reserve,-41006,Airfare,
 2025-06-17,DELTA AIR LINES,-11.20,Delta SkyMiles® Reserve,-41006,Airfare,
 2025-05-24,ONLINE PAYMENT - THANK YOU,165.36,Delta SkyMiles® Reserve,-41006,,
@@ -701,10 +701,10 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-06-23,PAYPAL *WOLT        1748854307          DE,-44.06,Hilton Honors Business,-91003,Delivery,5
 2025-06-19,PAYPAL *FREE2MOVE 30330831110 DE,-10.10,Hilton Honors Business,-91003,Rideshare & taxi,5
 2025-06-12,PAYPAL *XXXLUTZDE 1130255493100 DE,-595.12,Hilton Honors Business,-91003,Personal,5
-2025-06-04,BE MORE DO MORE APP GLENDALE            CA,-4000.00,Hilton Honors Business,-91003,HR - Operations,5
+2025-06-04,BE MORE DO MORE APP GLENDALE            CA,-4000.00,Hilton Honors Business,-91003,Contractors,5
 2025-06-04,ONLINE PAYMENT - THANK YOU,4000.00,Hilton Honors Business,-91003,,
 2025-06-01,ONLINE PAYMENT - THANK YOU,195.00,Hilton Honors Business,-91003,,
-2025-06-01,PAYPAL *LINDAJANEKAN4029357733          DE,-4750.00,Hilton Honors Business,-91003,HR - Internal,5
+2025-06-01,PAYPAL *LINDAJANEKAN4029357733          DE,-4750.00,Hilton Honors Business,-91003,Administrative,5
 2025-05-20,MEMBERSHIP FEE,-195.00,Hilton Honors Business,-91003,Fees & adjustments,
 2025-07-09,AMAZON PAY YOUR CHARGES CREDIT,90.13,Amazon Business Prime,-52002,Office supplies,
 2025-07-04,AMAZON PAY YOUR CHARGES CREDIT,27.7,Amazon Business Prime,-52003,Office supplies,
@@ -814,8 +814,8 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-05-25,ZAPIER.COM/CHARGE   SAN FRANCISCO       CA,-29.99,Business Green,-81058,Software,
 2025-05-24,BE MORE DO MORE APP,-922.16,Business Green,-81058,Commissions,
 2025-05-24,EXPRESSVPN.COM      WILMINGTON          DE,-12.95,Business Green,-81058,Telephone & internet,
-2025-05-24,PAYPAL *FINKS LLC   4029357733          AZ,-646.80,Business Green,-81058,HR - Operations,
-2025-05-24,PAYPAL *MIRIAMSTOLL 4029357733          DE,-975.00,Business Green,-81058,HR - Operations,
+2025-05-24,PAYPAL *FINKS LLC   4029357733          AZ,-646.80,Business Green,-81058,Contractors,
+2025-05-24,PAYPAL *MIRIAMSTOLL 4029357733          DE,-975.00,Business Green,-81058,Contractors,
 2025-05-24,PAYPAL *XKEYZ AI    4029357733          IL,-412.18,Business Green,-81058,Commissions,
 2025-05-24,VITAL AI            PEEKSKILL,-998.99,Business Green,-81058,Commissions,
 2025-05-20,CLUTTER             CULVER CITY         CA,-100.00,Business Green,-81041,Professional services,
@@ -827,7 +827,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-05-01,FACEBK *GDJUANLMD2  FB.ME/ADS           CA,-13.01,Business Green,-82007,Advertising,
 2025-04-27,FACEBK *NQ46HM4ND2  FB.ME/ADS           CA,8.58,Business Green,-82007,Advertising,
 2025-04-27,FACEBK *NQ46HM4ND2  FB.ME/ADS           CA,-8.58,Business Green,-82007,Advertising,
-2025-04-18,PAYPAL *TWENTYFOURA 4029357733          NY,-1000.00,Business Green,-81041,HR - Creative,
+2025-04-18,PAYPAL *TWENTYFOURA 4029357733          NY,-1000.00,Business Green,-81041,Creative services,
 2025-04-17,FACEBK *LPUMVL4ND2  MENLO PARK,5.97,Business Green,-82007,Advertising,
 2025-04-17,FACEBK *LPUMVL4ND2  MENLO PARK,-5.97,Business Green,-82007,Advertising,
 2025-04-17,FACEBK *SY3R7PQMD2  FB.ME/ADS           CA,5.00,Business Green,-82007,Advertising,
@@ -836,10 +836,10 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-04-15,ONLINE PAYMENT - THANK YOU,875.00,Business Green,-82007,,
 2025-04-14,ONLINE PAYMENT - THANK YOU,1025.00,Business Green,-82007,,
 2025-04-13,ONLINE PAYMENT - THANK YOU,595.35,Business Green,-82007,,
-2025-04-13,PAYPAL *FINKS LLC   4029357733          AZ,-595.35,Business Green,-81041,HR - Operations,
-2025-04-13,PAYPAL *MIRIAMSTOLL 4029357733          DE,-875.00,Business Green,-81041,HR - Operations,
-2025-04-13,PAYPAL *MIRIAMSTOLL 4029357733          DE,-1025.00,Business Green,-81041,HR - Operations,
-2025-04-09,PAYPAL *LINDAJANEKAN4029357733          DE,-1445.89,Business Green,-81017,HR - Internal,
+2025-04-13,PAYPAL *FINKS LLC   4029357733          AZ,-595.35,Business Green,-81041,Contractors,
+2025-04-13,PAYPAL *MIRIAMSTOLL 4029357733          DE,-875.00,Business Green,-81041,Contractors,
+2025-04-13,PAYPAL *MIRIAMSTOLL 4029357733          DE,-1025.00,Business Green,-81041,Contractors,
+2025-04-09,PAYPAL *LINDAJANEKAN4029357733          DE,-1445.89,Business Green,-81017,Administrative,
 2025-03-26,TOPSTEPTRADER LLC   CHICAGO             IL,-49.00,Business Green,-81017,Trading,
 2025-03-11,AMEN CLINICS INC    ENCINO              CA,-500.00,Business Green,-81025,Personal,
 2025-03-06,ONLINE PAYMENT - THANK YOU,1503.89,Business Green,-82007,,
@@ -949,7 +949,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-04-02,CON-STRUC-TION      CULVER CITY         CA,-4000.00,Business Classic Gold,-72141,CreditMax,4
 2025-04-01,SLACK TBQ652RK4     SAN FRANCISCO       CA,-26.25,Business Classic Gold,-71002,Software,4
 2025-03-28,CON-STRUC-TION      CULVER CITY         CA,-1000.00,Business Classic Gold,-72109,CreditMax,4
-2025-03-28,VITAL AI,-1500.00,Business Classic Gold,-72109,HR - Operations,4
+2025-03-28,VITAL AI,-1500.00,Business Classic Gold,-72109,Contractors,4
 2025-03-27,ONLINE PAYMENT - THANK YOU,5000.00,Business Classic Gold,-71002,,
 2025-03-21,ADOBE Adobe Systems SAN JOSE            CA,-195.95,Business Classic Gold,-71002,Software,4
 2025-03-20,ADOBE Adobe Systems SAN JOSE            CA,-29.99,Business Classic Gold,-71002,Software,4
@@ -1047,7 +1047,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-07-07,LOVABLE             DOVER               DE,-50.00,Business White Gold,-41000,App development,
 2025-07-06,LOVABLE             DOVER               DE,-25.00,Business White Gold,-41000,App development,
 2025-07-05,ZAPIER.COM/CHARGE   SAN FRANCISCO       CA,-29.99,Business White Gold,-41000,Software,
-2025-07-04,PAYPAL *TWENTYFOURA,-1000.00,Business White Gold,-41000,HR - Creative,
+2025-07-04,PAYPAL *TWENTYFOURA,-1000.00,Business White Gold,-41000,Creative services,
 2025-07-04,INTUIT QUICKBOOKS   800-446-8848        CA,-235.00,Business White Gold,-41000,Finance & accounting,
 2025-07-04,INTUIT QUICKBOOKS   800-446-8848        CA,-333.15,Business White Gold,-41000,Finance & accounting,
 2025-07-04,ONLINE PAYMENT - THANK YOU,2532.01,Business White Gold,-41000,,
@@ -1065,7 +1065,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-06-28,TWILIO INC          SAN FRANCISCO       CA,-621.32,Business White Gold,-41000,SuperPhone®,
 2025-06-28,ONLINE PAYMENT - THANK YOU,1746.16,Business White Gold,-41000,,
 2025-06-28,ONLINE PAYMENT - THANK YOU,1212.26,Business White Gold,-41000,,
-2025-06-27,PAYPAL *TWENTYFOURA,-1000.00,Business White Gold,-41000,HR - Creative,
+2025-06-27,PAYPAL *TWENTYFOURA,-1000.00,Business White Gold,-41000,Creative services,
 2025-06-27,TWILIO INC          SAN FRANCISCO       CA,-429.21,Business White Gold,-41000,SuperPhone®,
 2025-06-26,TWILIO INC          SAN FRANCISCO       CA,-590.94,Business White Gold,-41000,SuperPhone®,
 2025-06-25,ONLINE PAYMENT - THANK YOU,1000.00,Business White Gold,-41000,,
@@ -1075,13 +1075,13 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-06-23,WWW.WHALESYNC.COM   MIAMI               FL,-39.00,Business White Gold,-41000,App development,
 2025-06-23,ONLINE PAYMENT - THANK YOU,1164.96,Business White Gold,-41000,,
 2025-06-23,ONLINE PAYMENT - THANK YOU,1000.00,Business White Gold,-41000,,
-2025-06-20,PAYPAL *TWENTYFOURA,-1000.00,Business White Gold,-41000,HR - Creative,
+2025-06-20,PAYPAL *TWENTYFOURA,-1000.00,Business White Gold,-41000,Creative services,
 2025-06-20,VITAL AI            PEEKSKILL,-1164.96,Business White Gold,-41000,Commissions,
 2025-06-16,CALENDLY            AVONDALE ESTATES    GA,-11.70,Business White Gold,-41000,Software,4
 2025-06-14,ONLINE PAYMENT - THANK YOU,703.12,Business White Gold,-41000,,
 2025-06-14,BE MORE DO MORE APP,-703.12,Business White Gold,-41000,Commissions,4
 2025-06-13,MANYCHAT.COM        SAN FRANCISCO       CA,-15.00,Business White Gold,-41000,Marketing,4
-2025-06-13,PAYPAL *TWENTYFOURA,-1000.00,Business White Gold,-41000,HR - Creative,
+2025-06-13,PAYPAL *TWENTYFOURA,-1000.00,Business White Gold,-41000,Creative services,
 2025-06-13,ONLINE PAYMENT - THANK YOU,29.99,Business White Gold,-41000,,
 2025-06-13,ONLINE PAYMENT - THANK YOU,2000.00,Business White Gold,-41000,,
 2025-06-13,TWILIO INC          SAN FRANCISCO       CA,-2000.00,Business White Gold,-41000,SuperPhone®,4
@@ -1192,7 +1192,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-03-19,BE MORE DO MORE APP,-218.35,Business White Gold,-41042,Commissions,4
 2025-03-19,BE MORE DO MORE APP,-1504.80,Business White Gold,-41042,Commissions,4
 2025-03-18,OPUS CLIP           PALO ALTO           CA,-174.00,Business White Gold,-41034,Marketing,4
-2025-03-18,TWENTYFOUR AI       NEW YORK            NY,-2000.00,Business White Gold,-41042,HR - Creative,4
+2025-03-18,TWENTYFOUR AI       NEW YORK            NY,-2000.00,Business White Gold,-41042,Creative services,4
 2025-03-17,LOVABLE             DOVER               DE,-50.00,Business White Gold,-41034,App development,4
 2025-03-16,CALENDLY            AVONDALE ESTATES    GA,-13.07,Business White Gold,-41000,Software,4
 2025-03-15,TESTIMONIAL.TO      SANTA CLARA         CA,-60.00,Business White Gold,-41000,Marketing,4
@@ -1303,7 +1303,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-02-05,FACEBK *RCCMYFCPA2  FB.ME/ADS           CA,-2.00,Business White Gold,-41026,Advertising,4
 2025-02-05,ZAPIER.COM/CHARGE   SAN FRANCISCO       CA,-74.74,Business White Gold,-41000,Software,4
 2025-02-04,ONLINE PAYMENT - THANK YOU,2000.00,Business White Gold,-41000,,
-2025-02-04,TWENTYFOUR AI       NEW YORK            NY,-2000.00,Business White Gold,-41018,HR - Creative,4
+2025-02-04,TWENTYFOUR AI       NEW YORK            NY,-2000.00,Business White Gold,-41018,Creative services,4
 2025-02-02,ONLINE PAYMENT - THANK YOU,309.24,Business White Gold,-41000,,
 2025-01-31,CECCONIS DUMBO 0000 BROOKLYN            NY,-267.84,Business White Gold,-41018,Restaurants,
 2025-01-31,TWILIO INC          SAN FRANCISCO       CA,-309.24,Business White Gold,-41018,SuperPhone®,4
@@ -1426,11 +1426,11 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-04-09,TWILIO INC          SAN FRANCISCO       CA,-592.25,Business Rose Gold,-01265,SuperPhone®,4
 2025-04-09,TWILIO INC          SAN FRANCISCO       CA,-623.67,Business Rose Gold,-01265,SuperPhone®,4
 2025-04-09,TWILIO INC          SAN FRANCISCO       CA,-652.13,Business Rose Gold,-01265,SuperPhone®,4
-2025-04-08,BE MORE DO MORE APP GLENDALE            CA,-1000.00,Business Rose Gold,-01257,HR - Operations,4
+2025-04-08,BE MORE DO MORE APP GLENDALE            CA,-1000.00,Business Rose Gold,-01257,Contractors,4
 2025-04-08,ONLINE PAYMENT - THANK YOU,1500.00,Business Rose Gold,-02008,,
 2025-04-08,ONLINE PAYMENT - THANK YOU,1000.00,Business Rose Gold,-02008,,
 2025-04-08,TWILIO INC          SAN FRANCISCO       CA,-591.09,Business Rose Gold,-01257,SuperPhone®,4
-2025-04-08,VITAL AI,-1500.00,Business Rose Gold,-01265,HR - Operations,4
+2025-04-08,VITAL AI,-1500.00,Business Rose Gold,-01265,Contractors,4
 2025-04-07,TWILIO INC          SAN FRANCISCO       CA,-631.44,Business Rose Gold,-01257,SuperPhone®,4
 2025-04-07,TWILIO INC          SAN FRANCISCO       CA,-750.21,Business Rose Gold,-01257,SuperPhone®,4
 2025-04-06,INTUIT QUICKBOOKS   800-446-8848        CA,-255.86,Business Rose Gold,-02008,Finance & accounting,4
@@ -1445,7 +1445,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-04-03,TWILIO INC          SAN FRANCISCO       CA,-613.37,Business Rose Gold,-01240,SuperPhone®,4
 2025-04-02,ONLINE PAYMENT - THANK YOU,1484.86,Business Rose Gold,-02008,,
 2025-04-02,TWILIO INC          SAN FRANCISCO       CA,-591.68,Business Rose Gold,-01240,SuperPhone®,4
-2025-04-01,BE MORE DO MORE APP GLENDALE            CA,-4000.00,Business Rose Gold,-01232,HR - Operations,4
+2025-04-01,BE MORE DO MORE APP GLENDALE            CA,-4000.00,Business Rose Gold,-01232,Contractors,4
 2025-03-31,GglPay ESTIATORIO LOBEVERLY HILLS       CA,-241.94,Business Rose Gold,-02008,Restaurants,4
 2025-03-31,ONLINE PAYMENT - THANK YOU,1817.64,Business Rose Gold,-02008,,
 2025-03-31,TWILIO INC          SAN FRANCISCO       CA,-590.42,Business Rose Gold,-01232,SuperPhone®,4
@@ -1507,10 +1507,10 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-03-05,TWILIO INC          SAN FRANCISCO       CA,-590.46,Business Rose Gold,-01166,SuperPhone®,4
 2025-03-05,TWILIO INC          SAN FRANCISCO       CA,-597.23,Business Rose Gold,-01158,SuperPhone®,4
 2025-03-05,TWILIO INC          SAN FRANCISCO       CA,-600.00,Business Rose Gold,-01158,SuperPhone®,4
-2025-03-04,BE MORE DO MORE APP GLENDALE            CA,-2000.00,Business Rose Gold,-01158,HR - Operations,4
+2025-03-04,BE MORE DO MORE APP GLENDALE            CA,-2000.00,Business Rose Gold,-01158,Contractors,4
 2025-03-04,TWILIO INC          SAN FRANCISCO       CA,-100.00,Business Rose Gold,-01141,SuperPhone®,4
 2025-03-04,TWILIO INC          SAN FRANCISCO       CA,-592.21,Business Rose Gold,-01158,SuperPhone®,4
-2025-03-03,BE MORE DO MORE APP GLENDALE            CA,-3000.00,Business Rose Gold,-01166,HR - Operations,4
+2025-03-03,BE MORE DO MORE APP GLENDALE            CA,-3000.00,Business Rose Gold,-01166,Contractors,4
 2025-03-03,TWILIO INC          SAN FRANCISCO       CA,-390.07,Business Rose Gold,-01158,SuperPhone®,4
 2025-03-02,TWILIO INC          SAN FRANCISCO       CA,-591.27,Business Rose Gold,-01141,SuperPhone®,4
 2025-03-02,TWILIO INC          SAN FRANCISCO       CA,-595.19,Business Rose Gold,-01141,SuperPhone®,4
@@ -1579,7 +1579,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-02-06,CON-STRUC-TION      CULVER CITY         CA,-4000.00,Business Rose Gold,-01075,CreditMax,4
 2025-02-06,ONLINE PAYMENT - THANK YOU,4000.00,Business Rose Gold,-02008,,
 2025-02-06,ONLINE PAYMENT - THANK YOU,4000.00,Business Rose Gold,-02008,,
-2025-02-04,BE MORE DO MORE APP GLENDALE            CA,-1000.00,Business Rose Gold,-01059,HR - Operations,4
+2025-02-04,BE MORE DO MORE APP GLENDALE            CA,-1000.00,Business Rose Gold,-01059,Contractors,4
 2025-02-04,ONLINE PAYMENT - THANK YOU,5000.00,Business Rose Gold,-02008,,
 2025-02-04,TWILIO INC          SAN FRANCISCO       CA,-20.00,Business Rose Gold,-01042,SuperPhone®,4
 2025-02-04,TWILIO INC          SAN FRANCISCO       CA,-408.53,Business Rose Gold,-01042,SuperPhone®,4
@@ -1587,7 +1587,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-02-04,TWILIO INC          SAN FRANCISCO       CA,-608.85,Business Rose Gold,-01059,SuperPhone®,4
 2025-02-04,TWILIO INC          SAN FRANCISCO       CA,-616.95,Business Rose Gold,-01059,SuperPhone®,4
 2025-02-01,TWILIO INC          SAN FRANCISCO       CA,-596.40,Business Rose Gold,-01059,SuperPhone®,4
-2025-01-31,BE MORE DO MORE APP GLENDALE            CA,-4000.00,Business Rose Gold,-01067,HR - Operations,4
+2025-01-31,BE MORE DO MORE APP GLENDALE            CA,-4000.00,Business Rose Gold,-01067,Contractors,4
 2025-01-29,SYNDER APP          SAN FRANCISCO       CA,-24.14,Business Rose Gold,-01042,Finance & accounting,4
 2025-01-29,TWILIO INC          SAN FRANCISCO       CA,-391.14,Business Rose Gold,-01042,SuperPhone®,4
 2025-01-29,TWILIO INC          SAN FRANCISCO       CA,-395.03,Business Rose Gold,-01042,SuperPhone®,4

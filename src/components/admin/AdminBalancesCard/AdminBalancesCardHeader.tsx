@@ -70,21 +70,6 @@ export function AdminBalancesCardHeader({
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
               <DropdownMenuItem 
-                disabled={true}
-                className="gap-2"
-              >
-                <RefreshCw className="h-4 w-4" />
-                Refresh & Sync
-              </DropdownMenuItem>
-              <DropdownMenuItem 
-                disabled={true}
-                className="gap-2"
-              >
-                <Link className="h-4 w-4" />
-                Connect
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem 
                 onClick={onOrderByAmount}
                 className="gap-2"
               >
@@ -97,6 +82,21 @@ export function AdminBalancesCardHeader({
               >
                 <List className="h-4 w-4" />
                 Order by card list
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem 
+                disabled={true}
+                className="gap-2"
+              >
+                <RefreshCw className="h-4 w-4" />
+                Refresh & Sync
+              </DropdownMenuItem>
+              <DropdownMenuItem 
+                disabled={true}
+                className="gap-2"
+              >
+                <Link className="h-4 w-4" />
+                Connect
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -115,21 +115,6 @@ export function AdminBalancesCardHeader({
           </DropdownMenuTrigger>
           <DropdownMenuContent align="center" className="w-56">
             <DropdownMenuItem 
-              disabled={true}
-              className="gap-2"
-            >
-              <RefreshCw className="h-4 w-4" />
-              Refresh & Sync
-            </DropdownMenuItem>
-            <DropdownMenuItem 
-              disabled={true}
-              className="gap-2"
-            >
-              <Link className="h-4 w-4" />
-              Connect
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem 
               onClick={onOrderByAmount}
               className="gap-2"
             >
@@ -142,6 +127,21 @@ export function AdminBalancesCardHeader({
             >
               <List className="h-4 w-4" />
               Order by card list
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem 
+              disabled={true}
+              className="gap-2"
+            >
+              <RefreshCw className="h-4 w-4" />
+              Refresh & Sync
+            </DropdownMenuItem>
+            <DropdownMenuItem 
+              disabled={true}
+              className="gap-2"
+            >
+              <Link className="h-4 w-4" />
+              Connect
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

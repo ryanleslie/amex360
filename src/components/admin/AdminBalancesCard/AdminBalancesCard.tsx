@@ -10,7 +10,7 @@ import { AdminBalancesCardGrid } from './AdminBalancesCardGrid';
 
 export function AdminBalancesCard() {
   const { cardBalances, loading, error, refetch } = useCardBalances();
-  const [sortOrder, setSortOrder] = useState<'amount' | 'cardList'>('cardList');
+  const [sortOrder, setSortOrder] = useState<'amount' | 'cardList'>('amount');
   
   const { handleConnect, isCreatingToken } = usePlaidLinkFlow(refetch);
   const { handleRefresh, isRefreshing } = useBalanceSync(refetch);

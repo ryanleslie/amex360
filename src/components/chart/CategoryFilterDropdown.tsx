@@ -24,6 +24,9 @@ export function CategoryFilterDropdown({
     return selectedCategory
   }
 
+  // Sort categories alphabetically for display
+  const sortedCategories = [...categories].sort((a, b) => a.localeCompare(b))
+
   return (
     <Select value={selectedCategory} onValueChange={onCategoryChange}>
       <SelectTrigger className="w-[200px] bg-white">
@@ -33,7 +36,7 @@ export function CategoryFilterDropdown({
         <SelectItem value="all" className="hover:bg-gray-100">
           All categories
         </SelectItem>
-        {categories.map((category) => (
+        {sortedCategories.map((category) => (
           <SelectItem 
             key={category} 
             value={category}

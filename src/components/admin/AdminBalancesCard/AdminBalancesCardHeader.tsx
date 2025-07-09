@@ -108,7 +108,7 @@ export function AdminBalancesCardHeader({
       <div className="sm:hidden mt-3">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="sm" className="gap-2 w-full">
+            <Button variant="outline" size="sm" className="gap-2 w-full justify-start">
               <MoreVertical className="h-4 w-4" />
               Actions
             </Button>

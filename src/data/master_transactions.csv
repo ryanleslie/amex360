@@ -196,7 +196,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-28,ONLINE PAYMENT - THANK YOU,168.52,Business Platinum Card,-52007,,
 2025-01-27,PAYPAL *VISME       4029357733          MD,-29.00,Business Platinum Card,-51066,App development,
 2025-01-25,PAYPAL *WEBULL TECH 31657018            HK,-11.99,Business Platinum Card,-51074,Charting & journaling,
-2025-01-23,RENEWAL MEMBERSHIP FEE,-695.00,Business Platinum Card,-52007,Fees & adjustments,
+2025-01-23,RENEWAL MEMBERSHIP FEE,-695.00,Business Platinum Card,-52007,Card membership,
 2025-01-22,PAYPAL *FACTOR MEAL 92452977            NL,-41.54,Business Platinum Card,-51066,Personal,
 2025-01-22,UBER,-74.97,Business Platinum Card,-51074,Rideshare & taxi,
 2025-01-20,WOLT                BERLIN              BE,-40.12,Business Platinum Card,-51074,Delivery,
@@ -313,13 +313,13 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-03-13,HLU*HULUPLUS HULU.COM/BILL CA,-9.99,Platinum Card,-71003,Streaming services,
 2025-03-13,Platinum Digital Entertainment Credit,9.99,Platinum Card,-71003,Streaming services,
 2025-03-04,THEBAG.SUBSTACK.COM JERSEY CITY NJ,-300.00,Platinum Card,-71003,News & media,
-2025-02-23,RENEWAL MEMBERSHIP FEE,-195.00,Platinum Card,-71003,Fees & adjustments,
+2025-02-23,RENEWAL MEMBERSHIP FEE,-195.00,Platinum Card,-71003,Card membership,
 2025-02-19,ONLINE PAYMENT - THANK YOU,695.00,Platinum Card,-71003,,
 2025-02-13,HLU*HULUPLUS HULU.COM/BILL CA,-9.99,Platinum Card,-71003,Streaming services,
 2025-02-13,Platinum Digital Entertainment Credit,9.99,Platinum Card,-71003,Streaming services,
 2025-02-08,VIMEO PRO 212-625-0668 NY,326.63,Platinum Card,-71003,Marketing,
 2025-02-07,VIMEO PRO 212-625-0668 NY,-326.63,Platinum Card,-71003,Marketing,
-2025-01-26,RENEWAL MEMBERSHIP FEE,-695.00,Platinum Card,-71003,Fees & adjustments,
+2025-01-26,RENEWAL MEMBERSHIP FEE,-695.00,Platinum Card,-71003,Card membership,
 2025-01-25,ONLINE PAYMENT - THANK YOU,392.74,Platinum Card,-71003,,
 2025-01-25,ONLINE PAYMENT - THANK YOU,196.07,Platinum Card,-71003,,
 2025-01-25,ONLINE PAYMENT - THANK YOU,147.57,Platinum Card,-71003,,
@@ -679,7 +679,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-03-29,DELTA AIR LINES     ATLANTA,850.00,Delta SkyMiles® Reserve,-41006,Airfare,
 2025-03-29,DELTA AIR LINES,-850.00,Delta SkyMiles® Reserve,-41006,Airfare,
 2025-03-01,ONLINE PAYMENT - THANK YOU,650.00,Delta SkyMiles® Reserve,-41006,,
-2025-02-05,RENEWAL MEMBERSHIP FEE,-650.00,Delta SkyMiles® Reserve,-41006,Fees & adjustments,
+2025-02-05,RENEWAL MEMBERSHIP FEE,-650.00,Delta SkyMiles® Reserve,-41006,Card membership,
 2025-01-26,ONLINE PAYMENT - THANK YOU,153.31,Delta SkyMiles® Reserve,-41006,,
 2025-01-17,DELTA AIR LINES     ATLANTA,-0.60,Delta SkyMiles® Reserve,-41006,Airfare,
 2025-01-17,DELTA AIR LINES,-152.71,Delta SkyMiles® Reserve,-41006,Airfare,
@@ -705,7 +705,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-06-04,ONLINE PAYMENT - THANK YOU,4000.00,Hilton Honors Business,-91003,,
 2025-06-01,ONLINE PAYMENT - THANK YOU,195.00,Hilton Honors Business,-91003,,
 2025-06-01,PAYPAL *LINDAJANEKAN4029357733          DE,-4750.00,Hilton Honors Business,-91003,Administrative,5
-2025-05-20,MEMBERSHIP FEE,-195.00,Hilton Honors Business,-91003,Fees & adjustments,
+2025-05-20,MEMBERSHIP FEE,-195.00,Hilton Honors Business,-91003,Card membership,
 2025-07-09,AMAZON PAY YOUR CHARGES CREDIT,90.13,Amazon Business Prime,-52002,Office supplies,
 2025-07-04,AMAZON PAY YOUR CHARGES CREDIT,27.7,Amazon Business Prime,-52003,Office supplies,
 2025-07-04,AMZN MKTP DE        AMAZON.DE,-27.7,Amazon Business Prime,-52003,Office supplies,
@@ -809,7 +809,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-06-19,ONLINE PAYMENT - THANK YOU,2591.27,Business Green,-82007,,
 2025-05-29,ONLINE PAYMENT - THANK YOU,975.00,Business Green,-82007,,
 2025-05-29,ONLINE PAYMENT - THANK YOU,646.80,Business Green,-82007,,
-2025-05-28,RENEWAL MEMBERSHIP FEE,-95.00,Business Green,-82007,Fees & adjustments,
+2025-05-28,RENEWAL MEMBERSHIP FEE,-95.00,Business Green,-82007,Card membership,
 2025-05-25,OPENAI *CHATGPT SUBSSAN FRANCISCO       CA,-20.00,Business Green,-81058,Software,
 2025-05-25,ZAPIER.COM/CHARGE   SAN FRANCISCO       CA,-29.99,Business Green,-81058,Software,
 2025-05-24,BE MORE DO MORE APP,-922.16,Business Green,-81058,Commissions,
@@ -954,7 +954,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-03-21,ADOBE Adobe Systems SAN JOSE            CA,-195.95,Business Classic Gold,-71002,Software,4
 2025-03-20,ADOBE Adobe Systems SAN JOSE            CA,-29.99,Business Classic Gold,-71002,Software,4
 2025-03-19,CON-STRUC-TION      CULVER CITY         CA,-1500.00,Business Classic Gold,-72133,CreditMax,4
-2025-03-19,RENEWAL MEMBERSHIP FEE,-375.00,Business Classic Gold,-71002,Fees & adjustments,
+2025-03-19,RENEWAL MEMBERSHIP FEE,-375.00,Business Classic Gold,-71002,Card membership,
 2025-03-11,ADOBE SYSTEMS Adobe SAN JOSE            CA,-65.31,Business Classic Gold,-71002,Software,4
 2025-03-10,FLEXIBLE BUSINESS CREDIT,19.47,Business Classic Gold,-71002,Delivery,4
 2025-03-10,GglPay GRUBHUB*BABYLNEW YORK            NY,-19.47,Business Classic Gold,-71002,Delivery,4
@@ -1373,7 +1373,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-05-25,ONLINE PAYMENT - THANK YOU,241.94,Business Rose Gold,-02008,,
 2025-05-25,ONLINE PAYMENT - THANK YOU,39.00,Business Rose Gold,-02008,,
 2025-05-25,ONLINE PAYMENT - THANK YOU,24.14,Business Rose Gold,-02008,,
-2025-05-09,RENEWAL MEMBERSHIP FEE,-375.00,Business Rose Gold,-02008,Fees & adjustments,
+2025-05-09,RENEWAL MEMBERSHIP FEE,-375.00,Business Rose Gold,-02008,Card membership,
 2025-05-08,ONLINE PAYMENT - THANK YOU,509.15,Business Rose Gold,-02008,,
 2025-05-08,ONLINE PAYMENT - THANK YOU,255.86,Business Rose Gold,-02008,,
 2025-05-08,ONLINE PAYMENT - THANK YOU,255.86,Business Rose Gold,-02008,,

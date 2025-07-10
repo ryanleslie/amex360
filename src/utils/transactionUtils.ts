@@ -6,12 +6,14 @@ export const globalFilterFn = (row: any, columnId: string, value: string) => {
     style: "currency",
     currency: "USD",
   }).format(Math.abs(parseFloat(row.getValue("amount")))).toLowerCase()
+  const pointMultiple = String(row.getValue("point_multiple") || "").toLowerCase()
   
   const searchValue = value.toLowerCase()
   
   return description.includes(searchValue) || 
          amount.includes(searchValue) || 
-         formattedAmount.includes(searchValue)
+         formattedAmount.includes(searchValue) ||
+         pointMultiple.includes(searchValue)
 }
 
 // Function to format account names according to the rules

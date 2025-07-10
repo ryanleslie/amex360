@@ -7,6 +7,7 @@ export const globalFilterFn = (row: any, columnId: string, value: string) => {
     currency: "USD",
   }).format(Math.abs(parseFloat(row.getValue("amount")))).toLowerCase()
   const pointMultiple = row.getValue("point_multiple")
+  const actualAmount = parseFloat(row.getValue("amount"))
   
   const searchValue = value.toLowerCase().trim()
   
@@ -14,6 +15,11 @@ export const globalFilterFn = (row: any, columnId: string, value: string) => {
   if (searchValue.endsWith('x') && searchValue.length > 1) {
     const numberPart = searchValue.slice(0, -1)
     if (!isNaN(Number(numberPart))) {
+      // Exclude payments and credits (positive amounts or payment descriptions)
+      const isPaymentOrCredit = actualAmount > 0 || description.includes('payment') || description.includes('credit')
+      if (isPaymentOrCredit) {
+        return false
+      }
       return pointMultiple === Number(numberPart)
     }
   }

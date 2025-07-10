@@ -9,43 +9,71 @@ export const useBalanceMetrics = () => {
 
   // Helper function to get balance for a card with specific matching logic
   const getCardBalance = React.useCallback((cardType: string) => {
-    // Handle specific card type mappings
-    const getMatchingCardType = (cardType: string) => {
-      const normalizedCardType = cardType.toLowerCase()
-      
-      // Specific mapping for Business Blue Plus cards
-      if (normalizedCardType.includes('business blue plus i') && !normalizedCardType.includes('ii')) {
-        return 'Business Blue Plus I'
-      }
-      if (normalizedCardType.includes('business blue plus ii')) {
-        return 'Business Blue Plus II'
-      }
-      
-      return cardType
-    }
+    // Normalize strings for comparison
+    const normalize = (str: string) => str.toLowerCase().trim().replace(/\s+/g, ' ')
     
-    const targetCardType = getMatchingCardType(cardType)
+    const targetNormalized = normalize(cardType)
     
     const balance = cardBalances.find(card => {
-      const cardTypeLower = card.cardType.toLowerCase()
-      const targetLower = targetCardType.toLowerCase()
+      const cardNormalized = normalize(card.cardType)
       
-      // Exact match first
-      if (cardTypeLower === targetLower) {
+      // 1. Exact match (case-insensitive, normalized spaces)
+      if (cardNormalized === targetNormalized) {
         return true
       }
       
-      // For Business Blue Plus cards, be more specific
-      if (targetLower.includes('business blue plus i') && !targetLower.includes('ii')) {
-        return cardTypeLower === 'business blue plus i'
+      // 2. Handle specific card conflicts to avoid substring matching issues
+      // Charles Schwab Platinum Card vs Platinum Card
+      if (targetNormalized.includes('charles schwab platinum card')) {
+        return cardNormalized === 'charles schwab platinum card'
       }
-      if (targetLower.includes('business blue plus ii')) {
-        return cardTypeLower === 'business blue plus ii'
+      if (targetNormalized === 'platinum card' && !targetNormalized.includes('charles schwab')) {
+        return cardNormalized === 'platinum card' && !cardNormalized.includes('charles schwab')
       }
       
-      // General matching for other cards
-      return cardTypeLower.includes(targetLower) || targetLower.includes(cardTypeLower)
+      // 3. Business Blue Plus specific handling
+      if (targetNormalized.includes('business blue plus i') && !targetNormalized.includes('ii')) {
+        return cardNormalized === 'business blue plus i'
+      }
+      if (targetNormalized.includes('business blue plus ii')) {
+        return cardNormalized === 'business blue plus ii'
+      }
+      
+      // 4. More specific fuzzy matching - only if one completely contains the other
+      // and they're not conflicting variants
+      const isConflictingPlatinum = (
+        (targetNormalized.includes('platinum') || cardNormalized.includes('platinum')) &&
+        targetNormalized !== cardNormalized
+      )
+      
+      if (!isConflictingPlatinum) {
+        // Only match if one string completely contains the other (avoiding partial matches)
+        const targetContainsCard = targetNormalized.includes(cardNormalized)
+        const cardContainsTarget = cardNormalized.includes(targetNormalized)
+        
+        // Ensure it's not a partial word match by checking word boundaries
+        if (targetContainsCard || cardContainsTarget) {
+          const words1 = targetNormalized.split(' ')
+          const words2 = cardNormalized.split(' ')
+          
+          // Check if all words from the shorter string exist in the longer string
+          const shorterWords = words1.length <= words2.length ? words1 : words2
+          const longerWords = words1.length > words2.length ? words1 : words2
+          
+          return shorterWords.every(word => longerWords.includes(word))
+        }
+      }
+      
+      return false
     })
+    
+    // Add debug logging to help identify matching issues
+    if (!balance) {
+      console.warn(`No balance found for card: "${cardType}". Available cards:`, 
+        cardBalances.map(c => c.cardType))
+    } else {
+      console.log(`Matched "${cardType}" to "${balance.cardType}" with balance: $${balance.currentBalance}`)
+    }
     
     return balance?.currentBalance || 0
   }, [cardBalances])

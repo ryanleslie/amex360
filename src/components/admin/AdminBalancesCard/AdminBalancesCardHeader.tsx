@@ -74,14 +74,14 @@ export function AdminBalancesCardHeader({
                 className="gap-2"
               >
                 <ArrowUpDown className="h-4 w-4" />
-                Order by amount
+                Sort by amount
               </DropdownMenuItem>
               <DropdownMenuItem 
                 onClick={onOrderByCardList}
                 className="gap-2"
               >
                 <List className="h-4 w-4" />
-                Order by card list
+                Sort by card list
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem 
@@ -119,14 +119,14 @@ export function AdminBalancesCardHeader({
               className="gap-2"
             >
               <ArrowUpDown className="h-4 w-4" />
-              Order by amount
+              Sort by amount
             </DropdownMenuItem>
             <DropdownMenuItem 
               onClick={onOrderByCardList}
               className="gap-2"
             >
               <List className="h-4 w-4" />
-              Order by card list
+              Sort by card list
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem 

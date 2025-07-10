@@ -6,14 +6,25 @@ export const globalFilterFn = (row: any, columnId: string, value: string) => {
     style: "currency",
     currency: "USD",
   }).format(Math.abs(parseFloat(row.getValue("amount")))).toLowerCase()
-  const pointMultiple = String(row.getValue("point_multiple") || "").toLowerCase()
+  const pointMultiple = row.getValue("point_multiple")
   
-  const searchValue = value.toLowerCase()
+  const searchValue = value.toLowerCase().trim()
+  
+  // Handle special case for point multiple search with "x" suffix
+  if (searchValue.endsWith('x') && searchValue.length > 1) {
+    const numberPart = searchValue.slice(0, -1)
+    if (!isNaN(Number(numberPart))) {
+      return pointMultiple === Number(numberPart)
+    }
+  }
+  
+  // Regular search across all fields
+  const pointMultipleStr = String(pointMultiple || "").toLowerCase()
   
   return description.includes(searchValue) || 
          amount.includes(searchValue) || 
          formattedAmount.includes(searchValue) ||
-         pointMultiple.includes(searchValue)
+         pointMultipleStr.includes(searchValue)
 }
 
 // Function to format account names according to the rules

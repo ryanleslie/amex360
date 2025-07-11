@@ -47,7 +47,7 @@ export function AdminBalancesCardGrid({ cardBalances, sortOrder }: AdminBalances
       {sortedCardBalances.map((balance, index) => (
         <div
           key={`${balance.ID}-${sortOrder}`}
-          className="p-4 border rounded-lg bg-gradient-to-b from-white to-gray-50 space-y-3 animate-fade-in overflow-hidden"
+          className="p-4 border rounded-lg bg-gradient-to-b from-white to-gray-50 space-y-4 animate-fade-in overflow-hidden"
           style={{
             animationDelay: `${index * 100}ms`,
             animationFillMode: 'both'

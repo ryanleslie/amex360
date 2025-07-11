@@ -97,12 +97,12 @@ export function AdminBalancesCardGrid({ cardBalances, sortOrder }: AdminBalances
               if (creditLimit !== null && creditLimit !== undefined) {
                 return (
                   <div className="text-sm text-muted-foreground break-words">
-                    Limit: ${creditLimit.toLocaleString('en-US', { 
+                    ${creditLimit.toLocaleString('en-US', { 
                       minimumFractionDigits: 2, 
                       maximumFractionDigits: 2 
                     })}
                     {limitType && (
-                      <span className="ml-2 text-xs">({limitType})</span>
+                      <span className="ml-1">{limitType} limit</span>
                     )}
                   </div>
                 );

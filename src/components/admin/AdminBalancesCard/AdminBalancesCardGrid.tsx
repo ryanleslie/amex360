@@ -96,7 +96,7 @@ export function AdminBalancesCardGrid({ cardBalances, sortOrder }: AdminBalances
               
               if (creditLimit !== null && creditLimit !== undefined) {
                 return (
-                  <div className="text-sm text-muted-foreground break-words">
+                  <div className="text-xs text-muted-foreground break-words">
                     ${creditLimit.toLocaleString('en-US', { 
                       minimumFractionDigits: 2, 
                       maximumFractionDigits: 2 

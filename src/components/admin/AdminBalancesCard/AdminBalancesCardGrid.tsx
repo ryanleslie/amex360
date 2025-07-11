@@ -63,7 +63,7 @@ export function AdminBalancesCardGrid({ cardBalances, sortOrder }: AdminBalances
           </div>
           
           <div className="space-y-1">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 mb-2">
               <img 
                 src={getCardImage(balance.cardType)} 
                 alt={balance.cardType}

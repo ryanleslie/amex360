@@ -226,6 +226,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-03,PAYPAL *LINDAJANEKAN4029357733          DE,-3436.60,Business Platinum Card,-51017,Administrative,
 2025-01-03,PAYPAL *SPXOPTIONTR 5418961779          OR,-199.95,Business Platinum Card,-51017,Charting & journaling,
 2025-01-02,WOJO MEDIA 567140113DAYTONA BEACH       FL,-54.00,Business Platinum Card,-51017,Advertising,
+2025-07-11,E. BREUNINGER GMBH CO.,-562.29,Platinum Card,-71003,Wardrobe,
 2025-07-08,REWE CZERLINSKI,-28.61,Platinum Card,-71003,Personal,
 2025-07-08,TWEEZO,-139.94,Platinum Card,-71003,Personal,
 2025-07-01,BEATRYCE BEAUTY SALON,-151.60,Platinum Card,-71003,Personal,
@@ -234,9 +235,9 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-06-29,TATTI STAY AND SEE,-22.01,Platinum Card,-71003,Personal,
 2025-06-25,DM-DROGERIE MARKT 70,-6.46,Platinum Card,-71003,Personal,
 2025-06-25,TEGUT 2448,-7.56,Platinum Card,-71003,Personal,
-2025-06-24,ZARAHOME.COM,-100.08,Platinum Card,-71003,Personal,
 2025-06-24,ONLINE PAYMENT - THANK YOU,217.13,Platinum Card,-71003,,
 2025-06-24,ONLINE PAYMENT - THANK YOU,167.40,Platinum Card,-71003,,
+2025-06-24,ZARAHOME.COM,-100.08,Platinum Card,-71003,Personal,
 2025-06-23,REWE CZERLINSKI,-52.80,Platinum Card,-71003,Personal,
 2025-06-21,IDEE CREATIVMARKT,-72.03,Platinum Card,-71003,Marketing,
 2025-06-20,REWE CZERLINSKI,-56.43,Platinum Card,-71003,Personal,
@@ -343,8 +344,8 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-07-09,ONLINE PAYMENT - THANK YOU,1151.37,Charles Schwab Platinum Card,-71000,,
 2025-07-05,UBER TRIP           HTTPS://HELP.UBER.COCA,-14.08,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
 2025-07-05,UBER TRIP           HTTPS://HELP.UBER.COCA,-1.18,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
-2025-07-04,UBER TRIP           HTTPS://HELP.UBER.COCA,-8.84,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
 2025-07-05,UBER TRIP           HTTPS://HELP.UBER.COCA,-19.81,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
+2025-07-04,UBER TRIP           HTTPS://HELP.UBER.COCA,-8.84,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
 2025-06-30,UBER TRIP           HTTPS://HELP.UBER.COCA,-9.99,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
 2025-06-30,UBER TRIP           HTTPS://HELP.UBER.COCA,-9.99,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
 2025-06-23,UBER TRIP           HTTPS://HELP.UBER.COCA,-360.17,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
@@ -423,8 +424,8 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-26,ONLINE PAYMENT - THANK YOU,36.16,Charles Schwab Platinum Card,-71000,,
 2025-01-18,VF GERMANY SERVICES MÜNCHEN             DE,-36.16,Charles Schwab Platinum Card,-71000,Airfare,
 2025-01-17,UBER,-103.93,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
-2025-01-16,UBER ONE            HTTPS://HELP.UBER.CONL,-5.17,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
 2025-01-16,UBER,-168.91,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
+2025-01-16,UBER ONE            HTTPS://HELP.UBER.CONL,-5.17,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
 2025-01-04,D J*WSJ             800-568-7625        NJ,-7.62,Charles Schwab Platinum Card,-71000,News & media,
 2025-01-04,Platinum Digital Entertainment Credit,7.62,Charles Schwab Platinum Card,-71000,Streaming services,
 2025-07-09,KAJABI              NEWPORT BEACH       CA,-399.00,Business Blue Plus II,-11009,Software,
@@ -441,10 +442,10 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-06-11,ONLINE PAYMENT - THANK YOU,399.00,Business Blue Plus II,-11009,,
 2025-06-11,TALLY.SO            GENT                OO,-29.00,Business Blue Plus II,-11009,Marketing,2
 2025-06-10,LOVABLE             DOVER               DE,-180.00,Business Blue Plus II,-11041,App development,2
-2025-06-08,PAYPAL *XAVIER KEYZ 4029357733          IL,-351.62,Business Blue Plus II,-11041,Commissions,2
-2025-06-08,TWILIO INC          SAN FRANCISCO       CA,-50.00,Business Blue Plus II,-11058,SuperPhone®,2
 2025-06-08,CHARGEBEE           WALNUT              CA,-1474.00,Business Blue Plus II,-11041,SuperPhone®,2
 2025-06-08,ONLINE PAYMENT - THANK YOU,1474.00,Business Blue Plus II,-11009,,
+2025-06-08,PAYPAL *XAVIER KEYZ 4029357733          IL,-351.62,Business Blue Plus II,-11041,Commissions,2
+2025-06-08,TWILIO INC          SAN FRANCISCO       CA,-50.00,Business Blue Plus II,-11058,SuperPhone®,2
 2025-06-07,LOVABLE             DOVER               DE,-148.80,Business Blue Plus II,-11041,App development,2
 2025-06-05,KJE COMPUTER SOLUTIOMINNEAPOLIS         MN,-33.99,Business Blue Plus II,-11058,App development,2
 2025-06-05,LOVABLE             DOVER               DE,-75.20,Business Blue Plus II,-11041,App development,2
@@ -453,7 +454,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-06-04,TWILIO INC          SAN FRANCISCO       CA,-400.00,Business Blue Plus II,-11041,SuperPhone®,2
 2025-06-03,PAYPAL *SPXOPTIONTR 5418961779          OR,-199.95,Business Blue Plus II,-11041,Charting & journaling,2
 2025-06-03,RETURN PAYMENT FEE,-35.00,Business Blue Plus II,-11009,Fees & adjustments,2
-2025-05-30,FACEBK *BUVQFQ4PA2  FB.ME/ADS           CA,-12.42,Business Blue Plus II,-11041,Advertising,2
+2025-05-30,FACEBK FB.ME/ADS CA,-12.42,Business Blue Plus II,-11041,Advertising,2
 2025-05-30,ONLINE PAYMENT - THANK YOU,400.00,Business Blue Plus II,-11009,,
 2025-05-30,ONLINE PAYMENT - THANK YOU,399.00,Business Blue Plus II,-11009,,
 2025-05-30,ONLINE PAYMENT - THANK YOU,160.00,Business Blue Plus II,-11009,,
@@ -464,27 +465,27 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-05-25,PAYPAL *WEBULL TECH 31657018            HK,-11.99,Business Blue Plus II,-11041,Charting & journaling,2
 2025-05-25,WWW.WHALESYNC.COM   MIAMI               FL,-39.00,Business Blue Plus II,-11041,App development,2
 2025-05-21,Con Edison Bill Paym800-752-6633        NY,-170.02,Business Blue Plus II,-11058,Utilities,2
-2025-05-21,FACEBK *3NZ9HNUNA2  FB.ME/ADS           CA,-25.00,Business Blue Plus II,-11041,Advertising,2
-2025-05-21,FACEBK *ME54QPGPA2  FB.ME/ADS           CA,-25.00,Business Blue Plus II,-11041,Advertising,2
+2025-05-21,FACEBK FB.ME/ADS CA,-25.00,Business Blue Plus II,-11041,Advertising,2
+2025-05-21,FACEBK FB.ME/ADS CA,-25.00,Business Blue Plus II,-11041,Advertising,2
 2025-05-21,NETFLIX.COM         866-579-7172        CA,-27.21,Business Blue Plus II,-11009,Streaming services,2
-2025-05-20,FACEBK *NF8MTP4PA2  FB.ME/ADS           CA,-25.00,Business Blue Plus II,-11041,Advertising,2
-2025-05-20,FACEBK *PG2MENCPA2  FB.ME/ADS           CA,-25.00,Business Blue Plus II,-11041,Advertising,2
+2025-05-20,FACEBK FB.ME/ADS CA,-25.00,Business Blue Plus II,-11041,Advertising,2
+2025-05-20,FACEBK FB.ME/ADS CA,-25.00,Business Blue Plus II,-11041,Advertising,2
 2025-05-20,LOVABLE             DOVER               DE,-20.00,Business Blue Plus II,-11058,App development,2
 2025-05-20,LOVABLE             DOVER               DE,-20.00,Business Blue Plus II,-11058,App development,2
-2025-05-19,FACEBK *BDSKDPQNA2  FB.ME/ADS           CA,-25.00,Business Blue Plus II,-11041,Advertising,2
-2025-05-19,FACEBK *C425BNCPA2  FB.ME/ADS           CA,-25.00,Business Blue Plus II,-11041,Advertising,2
-2025-05-18,FACEBK *6VXUQNLNA2  FB.ME/ADS           CA,-25.00,Business Blue Plus II,-11041,Advertising,2
-2025-05-18,FACEBK *MXMZMN8PA2  FB.ME/ADS           CA,-25.00,Business Blue Plus II,-11041,Advertising,2
-2025-05-18,FACEBK *WCQX8NCPA2  FB.ME/ADS           CA,-25.00,Business Blue Plus II,-11041,Advertising,2
-2025-05-17,FACEBK *N9YH7QYNA2  FB.ME/ADS           CA,-25.00,Business Blue Plus II,-11041,Advertising,2
-2025-05-17,FACEBK *Q84TSPLPA2  FB.ME/ADS           CA,-25.00,Business Blue Plus II,-11041,Advertising,2
-2025-05-16,FACEBK *BEVJ2NCPA2  FB.ME/ADS           CA,-25.00,Business Blue Plus II,-11041,Advertising,2
-2025-05-16,FACEBK *YKC36PQNA2  FB.ME/ADS           CA,-25.00,Business Blue Plus II,-11041,Advertising,2
+2025-05-19,FACEBK FB.ME/ADS CA,-25.00,Business Blue Plus II,-11041,Advertising,2
+2025-05-19,FACEBK FB.ME/ADS CA,-25.00,Business Blue Plus II,-11041,Advertising,2
+2025-05-18,FACEBK FB.ME/ADS CA,-25.00,Business Blue Plus II,-11041,Advertising,2
+2025-05-18,FACEBK FB.ME/ADS CA,-25.00,Business Blue Plus II,-11041,Advertising,2
+2025-05-18,FACEBK FB.ME/ADS CA,-25.00,Business Blue Plus II,-11041,Advertising,2
+2025-05-17,FACEBK FB.ME/ADS CA,-25.00,Business Blue Plus II,-11041,Advertising,2
+2025-05-17,FACEBK FB.ME/ADS CA,-25.00,Business Blue Plus II,-11041,Advertising,2
+2025-05-16,FACEBK FB.ME/ADS CA,-25.00,Business Blue Plus II,-11041,Advertising,2
+2025-05-16,FACEBK FB.ME/ADS CA,-25.00,Business Blue Plus II,-11041,Advertising,2
 2025-05-16,TESTIMONIAL.TO      SANTA CLARA         CA,-60.00,Business Blue Plus II,-11041,Marketing,2
 2025-05-16,TOPSTEPTRADER LLC   CHICAGO             IL,-49.00,Business Blue Plus II,-11041,Trading,2
-2025-05-15,FACEBK *6B5SKPLPA2  FB.ME/ADS           CA,-25.00,Business Blue Plus II,-11041,Advertising,2
-2025-05-15,FACEBK *HARC3PQNA2  FB.ME/ADS           CA,-25.00,Business Blue Plus II,-11041,Advertising,2
-2025-05-14,FACEBK *ZHB8GNLNA2  FB.ME/ADS           CA,-25.00,Business Blue Plus II,-11041,Advertising,2
+2025-05-15,FACEBK FB.ME/ADS CA,-25.00,Business Blue Plus II,-11041,Advertising,2
+2025-05-15,FACEBK FB.ME/ADS CA,-25.00,Business Blue Plus II,-11041,Advertising,2
+2025-05-14,FACEBK FB.ME/ADS CA,-25.00,Business Blue Plus II,-11041,Advertising,2
 2025-05-12,ONLINE PAYMENT - THANK YOU,998.99,Business Blue Plus II,-11009,,
 2025-05-11,MANYCHAT.COM        SAN FRANCISCO       CA,-15.00,Business Blue Plus II,-11041,Marketing,2
 2025-05-11,TALLY.SO            GENT                OO,-29.00,Business Blue Plus II,-11009,Marketing,2
@@ -664,26 +665,26 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-07-09,PAYPAL *MIRIAMSTOLL 4029357733          DE,-1200.00,Delta SkyMiles® Reserve,-41006,Contractors,
 2025-07-07,ONLINE PAYMENT - THANK YOU,5250.00,Delta SkyMiles® Reserve,-41006,,
 2025-07-07,ONLINE PAYMENT - THANK YOU,680.45,Delta SkyMiles® Reserve,-41006,,
-2025-07-01,WWW.I-RUN.FR 3DS,-366.79,Delta SkyMiles® Reserve,-41006,Wardrobe,
 2025-07-01,STOCKX,-291.26,Delta SkyMiles® Reserve,-41006,Wardrobe,
+2025-07-01,WWW.I-RUN.FR 3DS,-366.79,Delta SkyMiles® Reserve,-41006,Wardrobe,
 2025-06-30,PAYPAL *LINDAJANEKAN4029357733          DE,-5250.00,Delta SkyMiles® Reserve,-41006,Administrative,
 2025-06-17,DELTA AIR LINES,-11.20,Delta SkyMiles® Reserve,-41006,Airfare,3
 2025-06-17,DELTA AIR LINES,-11.20,Delta SkyMiles® Reserve,-41006,Airfare,3
 2025-05-24,ONLINE PAYMENT - THANK YOU,165.36,Delta SkyMiles® Reserve,-41006,,
 2025-05-17,DELTA AIR LINES     FRANKFURT           DE,-165.36,Delta SkyMiles® Reserve,-41006,Airfare,3
 2025-05-05,ONLINE PAYMENT - THANK YOU,383.48,Delta SkyMiles® Reserve,-41006,,
+2025-04-20,DELTA AIR LINES,-5.60,Delta SkyMiles® Reserve,-41006,Airfare,3
+2025-04-20,DELTA AIR LINES,-5.60,Delta SkyMiles® Reserve,-41006,Airfare,3
+2025-04-20,DELTA AIR LINES,-5.60,Delta SkyMiles® Reserve,-41006,Airfare,3
+2025-04-20,DELTA AIR LINES,-5.60,Delta SkyMiles® Reserve,-41006,Airfare,3
 2025-04-20,DELTA AIR LINES     ATLANTA,5.60,Delta SkyMiles® Reserve,-41006,Airfare,
-2025-04-20,DELTA AIR LINES,-5.60,Delta SkyMiles® Reserve,-41006,Airfare,3
-2025-04-20,DELTA AIR LINES,-5.60,Delta SkyMiles® Reserve,-41006,Airfare,3
-2025-04-20,DELTA AIR LINES,-5.60,Delta SkyMiles® Reserve,-41006,Airfare,3
 2025-04-20,DELTA AIR LINES     ATLANTA,-5.60,Delta SkyMiles® Reserve,-41006,Airfare,3
-2025-04-20,DELTA AIR LINES,-5.60,Delta SkyMiles® Reserve,-41006,Airfare,3
+2025-04-09,DELTA AIR LINES,-5.60,Delta SkyMiles® Reserve,-41006,Airfare,3
+2025-04-09,DELTA AIR LINES,-5.60,Delta SkyMiles® Reserve,-41006,Airfare,3
 2025-04-09,DELTA AIR LINES     ATLANTA,5.60,Delta SkyMiles® Reserve,-41006,Airfare,
-2025-04-09,DELTA AIR LINES,-5.60,Delta SkyMiles® Reserve,-41006,Airfare,3
-2025-04-09,DELTA AIR LINES,-5.60,Delta SkyMiles® Reserve,-41006,Airfare,3
 2025-04-09,DELTA AIR LINES     ATLANTA,-355.48,Delta SkyMiles® Reserve,-41006,Airfare,3
-2025-03-29,DELTA AIR LINES     ATLANTA,850.00,Delta SkyMiles® Reserve,-41006,Airfare,
 2025-03-29,DELTA AIR LINES,-850.00,Delta SkyMiles® Reserve,-41006,Airfare,3
+2025-03-29,DELTA AIR LINES     ATLANTA,850.00,Delta SkyMiles® Reserve,-41006,Airfare,
 2025-03-01,ONLINE PAYMENT - THANK YOU,650.00,Delta SkyMiles® Reserve,-41006,,
 2025-02-05,RENEWAL MEMBERSHIP FEE,-650.00,Delta SkyMiles® Reserve,-41006,Card membership,
 2025-01-26,ONLINE PAYMENT - THANK YOU,153.31,Delta SkyMiles® Reserve,-41006,,
@@ -719,17 +720,17 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-07-04,AMZN MKTP DE        AMAZON.DE,-27.7,Amazon Business Prime,-52003,Office supplies,
 2025-07-03,ONLINE PAYMENT - THANK YOU,4512.12,Amazon Business Prime,-52003,,
 2025-07-01,AMAZON PAY YOUR CHARGES CREDIT,95.39,Amazon Business Prime,-52003,Office supplies,
-2025-07-01,AMZN MKTP DE        AMAZON.DE,-95.39,Amazon Business Prime,-52003,Office supplies,
 2025-07-01,Amazon Web Services AWS.Amazon.com      WA,-4512.12,Amazon Business Prime,-52003,Servers,5
+2025-07-01,AMZN MKTP DE        AMAZON.DE,-95.39,Amazon Business Prime,-52003,Office supplies,
 2025-06-30,AMAZON PAY YOUR CHARGES CREDIT,90.13,Amazon Business Prime,-52003,Office supplies,
 2025-06-30,AMZN MKTP DE        AMAZON.DE,-90.13,Amazon Business Prime,-52003,Office supplies,
 2025-06-30,AMZN MKTP DE        AMAZON.DE,-154.33,Amazon Business Prime,-52003,Office supplies,
 2025-06-29,AMAZON.COM AMZN.COM/BILL WA,-16.32,Amazon Business Prime,-52003,Office supplies,
 2025-06-26,AMZN MKTP DE        AMAZON.DE,-324.75,Amazon Business Prime,-52003,Office supplies,
+2025-06-24,AMAZON PAY YOUR CHARGES CREDIT,115.34,Amazon Business Prime,-52003,Office supplies,
 2025-06-24,AMZN MKTP DE        AMAZON.DE,-10.38,Amazon Business Prime,-52003,Office supplies,
 2025-06-18,AMAZON DIGITAL DOWNLOADS,-2.99,Amazon Business Prime,-52003,Streaming services,5
 2025-06-12,AMAZON MARKEPLACE NA PA,-115.34,Amazon Business Prime,-52003,Office supplies,5
-2025-06-24,AMAZON PAY YOUR CHARGES CREDIT,115.34,Amazon Business Prime,-52003,Office supplies,
 2025-06-10,AMAZON.COM AMZN.COM/BILL WA,-5.54,Amazon Business Prime,-52003,Office supplies,5
 2025-06-10,AMAZON.COM AMZN.COM/BILL WA,-15.38,Amazon Business Prime,-52003,Office supplies,5
 2025-06-01,Amazon Web Services AWS.Amazon.com      WA,-4626.46,Amazon Business Prime,-52003,Servers,5
@@ -761,8 +762,8 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-05-01,Amazon Web Services AWS.Amazon.com      WA,-4495.75,Amazon Business Prime,-52003,Servers,5
 2025-04-29,AMAZON PAY YOUR CHARGES CREDIT,16.32,Amazon Business Prime,-52003,Office supplies,
 2025-04-29,AMAZON PAY YOUR CHARGES CREDIT,5.00,Amazon Business Prime,-52003,Office supplies,
-2025-04-29,AMAZON TIPS*LB1TN4LHAMZN.COM/BILL       WA,-5.00,Amazon Business Prime,-52003,Groceries,5
 2025-04-29,Amazon Prime        Amazon.com          WA,-16.32,Amazon Business Prime,-52003,Streaming services,5
+2025-04-29,AMAZON TIPS*LB1TN4LHAMZN.COM/BILL       WA,-5.00,Amazon Business Prime,-52003,Groceries,5
 2025-04-27,AMAZON GROCE*BI1Z81NAMZN.COM/BILL       WA,-70.21,Amazon Business Prime,-52003,Groceries,5
 2025-04-27,AMAZON PAY YOUR CHARGES CREDIT,70.21,Amazon Business Prime,-52003,Office supplies,
 2025-04-12,ONLINE PAYMENT - THANK YOU,4599.38,Amazon Business Prime,-52003,,
@@ -770,9 +771,9 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-04-09,WHOLE FOODS MARKET  CHANDLER            AZ,-56.59,Amazon Business Prime,-52003,Groceries,5
 2025-04-02,AMAZON MARKETPLACE NAMZN.COM/BILL       WA,60.14,Amazon Business Prime,-52003,Office supplies,5
 2025-04-01,AMAZON PAY YOUR CHARGES CREDIT,13.06,Amazon Business Prime,-52003,Office supplies,
+2025-04-01,Amazon Web Services AWS.Amazon.com      WA,-4599.38,Amazon Business Prime,-52003,Servers,5
 2025-04-01,AMAZON.COM          AMZN.COM/BILL       WA,-6.17,Amazon Business Prime,-52003,Office supplies,5
 2025-04-01,AMAZON.COM          AMZN.COM/BILL       WA,-13.06,Amazon Business Prime,-52003,Office supplies,5
-2025-04-01,Amazon Web Services AWS.Amazon.com      WA,-4599.38,Amazon Business Prime,-52003,Servers,5
 2025-03-30,AMAZON MARKEPLACE NA PA,-60.14,Amazon Business Prime,-52003,Office supplies,5
 2025-03-29,Amazon Prime        Amazon.com          WA,-16.32,Amazon Business Prime,-52003,Streaming services,5
 2025-03-26,AMAZON MARKEPLACE NA PA,-33.77,Amazon Business Prime,-52003,Office supplies,5
@@ -834,14 +835,14 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-05-04,CHARGEBEE           WALNUT              CA,-1474.00,Business Green,-81017,SuperPhone®,
 2025-05-02,ONLINE PAYMENT - THANK YOU,448.66,Business Green,-82007,,
 2025-05-02,PAYPAL *XAVIER KEYZ 4029357733          IL,-448.66,Business Green,-81041,Commissions,
-2025-05-01,FACEBK *GDJUANLMD2  FB.ME/ADS           CA,-13.01,Business Green,-82007,Advertising,
-2025-04-27,FACEBK *NQ46HM4ND2  FB.ME/ADS           CA,8.58,Business Green,-82007,Advertising,
-2025-04-27,FACEBK *NQ46HM4ND2  FB.ME/ADS           CA,-8.58,Business Green,-82007,Advertising,
+2025-05-01,FACEBK FB.ME/ADS CA,-13.01,Business Green,-82007,Advertising,
+2025-04-27,FACEBK FB.ME/ADS CA,8.58,Business Green,-82007,Advertising,
+2025-04-27,FACEBK FB.ME/ADS CA,-8.58,Business Green,-82007,Advertising,
 2025-04-18,PAYPAL *TWENTYFOURA 4029357733          NY,-1000.00,Business Green,-81041,Creative services,
-2025-04-17,FACEBK *LPUMVL4ND2  MENLO PARK,5.97,Business Green,-82007,Advertising,
-2025-04-17,FACEBK *LPUMVL4ND2  MENLO PARK,-5.97,Business Green,-82007,Advertising,
-2025-04-17,FACEBK *SY3R7PQMD2  FB.ME/ADS           CA,5.00,Business Green,-82007,Advertising,
-2025-04-17,FACEBK *SY3R7PQMD2  FB.ME/ADS           CA,-5.00,Business Green,-82007,Advertising,
+2025-04-17,FACEBK FB.ME/ADS CA,5.97,Business Green,-82007,Advertising,
+2025-04-17,FACEBK FB.ME/ADS CA,-5.97,Business Green,-82007,Advertising,
+2025-04-17,FACEBK FB.ME/ADS CA,5.00,Business Green,-82007,Advertising,
+2025-04-17,FACEBK FB.ME/ADS CA,-5.00,Business Green,-82007,Advertising,
 2025-04-15,INTUIT *TURBOTAX    800-446-8848        CA,-221.02,Business Green,-81041,Finance & accounting,
 2025-04-15,ONLINE PAYMENT - THANK YOU,875.00,Business Green,-82007,,
 2025-04-14,ONLINE PAYMENT - THANK YOU,1025.00,Business Green,-82007,,
@@ -884,10 +885,10 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-06-20,ADOBE Adobe Systems SAN JOSE            CA,-29.99,Business Classic Gold,-71002,Software,
 2025-06-20,TWILIO INC          SAN FRANCISCO       CA,-47.39,Business Classic Gold,-71002,SuperPhone®,
 2025-06-19,TWILIO INC          SAN FRANCISCO       CA,-40.94,Business Classic Gold,-71002,SuperPhone®,
-2025-06-18,TWILIO INC          SAN FRANCISCO       CA,-40.51,Business Classic Gold,-71002,SuperPhone®,
 2025-06-18,ONLINE PAYMENT - THANK YOU,407.70,Business Classic Gold,-71002,,
-2025-06-15,TWILIO INC          SAN FRANCISCO       CA,-40.10,Business Classic Gold,-71002,SuperPhone®,4
+2025-06-18,TWILIO INC          SAN FRANCISCO       CA,-40.51,Business Classic Gold,-71002,SuperPhone®,
 2025-06-15,ONLINE PAYMENT - THANK YOU,218.94,Business Classic Gold,-71002,,
+2025-06-15,TWILIO INC          SAN FRANCISCO       CA,-40.10,Business Classic Gold,-71002,SuperPhone®,4
 2025-06-14,ONLINE PAYMENT - THANK YOU,3104.38,Business Classic Gold,-71002,,
 2025-06-14,TWILIO INC          SAN FRANCISCO       CA,-90.00,Business Classic Gold,-71002,SuperPhone®,4
 2025-06-13,TWILIO INC          SAN FRANCISCO       CA,-40.97,Business Classic Gold,-71002,SuperPhone®,4
@@ -1059,43 +1060,43 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-07-07,LOVABLE             DOVER               DE,-50.00,Business White Gold,-41000,App development,
 2025-07-06,LOVABLE             DOVER               DE,-25.00,Business White Gold,-41000,App development,
 2025-07-05,ZAPIER.COM/CHARGE   SAN FRANCISCO       CA,-29.99,Business White Gold,-41000,Software,
-2025-07-04,PAYPAL *TWENTYFOURA,-1000.00,Business White Gold,-41000,Creative services,
 2025-07-04,INTUIT QUICKBOOKS   800-446-8848        CA,-235.00,Business White Gold,-41000,Finance & accounting,
 2025-07-04,INTUIT QUICKBOOKS   800-446-8848        CA,-333.15,Business White Gold,-41000,Finance & accounting,
 2025-07-04,ONLINE PAYMENT - THANK YOU,2532.01,Business White Gold,-41000,,
-2025-07-03,TWILIO INC          SAN FRANCISCO       CA,-394.12,Business White Gold,-41000,SuperPhone®,
+2025-07-04,PAYPAL *TWENTYFOURA,-1000.00,Business White Gold,-41000,Creative services,
 2025-07-03,OUTSIDE THE BELTWAY LLC,-2500.00,Business White Gold,-41000,Professional services,
+2025-07-03,TWILIO INC          SAN FRANCISCO       CA,-394.12,Business White Gold,-41000,SuperPhone®,
 2025-07-01,OPENAI SAN FRANCISCO CA,-100.00,Business White Gold,-41000,SuperPhone®,
 2025-06-30,TWILIO INC          SAN FRANCISCO       CA,-600.89,Business White Gold,-41000,SuperPhone®,
 2025-06-30,TWILIO INC          SAN FRANCISCO       CA,-706.63,Business White Gold,-41000,SuperPhone®,
 2025-06-30,ZAPIER.COM/CHARGE   SAN FRANCISCO       CA,-29.99,Business White Gold,-41000,Software,
 2025-06-29,TWILIO INC          SAN FRANCISCO       CA,-633.89,Business White Gold,-41000,SuperPhone®,
+2025-06-28,ONLINE PAYMENT - THANK YOU,1746.16,Business White Gold,-41000,,
+2025-06-28,ONLINE PAYMENT - THANK YOU,1212.26,Business White Gold,-41000,,
 2025-06-28,TWILIO INC          SAN FRANCISCO       CA,-421.25,Business White Gold,-41000,SuperPhone®,
 2025-06-28,TWILIO INC          SAN FRANCISCO       CA,-446.38,Business White Gold,-41000,SuperPhone®,
 2025-06-28,TWILIO INC          SAN FRANCISCO       CA,-449.32,Business White Gold,-41000,SuperPhone®,
 2025-06-28,TWILIO INC          SAN FRANCISCO       CA,-590.60,Business White Gold,-41000,SuperPhone®,
 2025-06-28,TWILIO INC          SAN FRANCISCO       CA,-621.32,Business White Gold,-41000,SuperPhone®,
-2025-06-28,ONLINE PAYMENT - THANK YOU,1746.16,Business White Gold,-41000,,
-2025-06-28,ONLINE PAYMENT - THANK YOU,1212.26,Business White Gold,-41000,,
 2025-06-27,PAYPAL *TWENTYFOURA,-1000.00,Business White Gold,-41000,Creative services,
 2025-06-27,TWILIO INC          SAN FRANCISCO       CA,-429.21,Business White Gold,-41000,SuperPhone®,
 2025-06-26,TWILIO INC          SAN FRANCISCO       CA,-590.94,Business White Gold,-41000,SuperPhone®,
 2025-06-25,ONLINE PAYMENT - THANK YOU,1000.00,Business White Gold,-41000,,
 2025-06-25,ONLINE PAYMENT - THANK YOU,303.16,Business White Gold,-41000,,
 2025-06-25,PAYPAL *XAVIER KEYZ 4029357733          IL,-303.16,Business White Gold,-41000,Commissions,
-2025-06-23,TOPSTEPTRADER LLC   CHICAGO             IL,-49.00,Business White Gold,-41000,Trading,
-2025-06-23,WWW.WHALESYNC.COM   MIAMI               FL,-39.00,Business White Gold,-41000,App development,
 2025-06-23,ONLINE PAYMENT - THANK YOU,1164.96,Business White Gold,-41000,,
 2025-06-23,ONLINE PAYMENT - THANK YOU,1000.00,Business White Gold,-41000,,
+2025-06-23,TOPSTEPTRADER LLC   CHICAGO             IL,-49.00,Business White Gold,-41000,Trading,
+2025-06-23,WWW.WHALESYNC.COM   MIAMI               FL,-39.00,Business White Gold,-41000,App development,
 2025-06-20,PAYPAL *TWENTYFOURA,-1000.00,Business White Gold,-41000,Creative services,
 2025-06-20,VITAL AI            PEEKSKILL,-1164.96,Business White Gold,-41000,Commissions,
 2025-06-16,CALENDLY            AVONDALE ESTATES    GA,-11.70,Business White Gold,-41000,Software,4
-2025-06-14,ONLINE PAYMENT - THANK YOU,703.12,Business White Gold,-41000,,
 2025-06-14,BE MORE DO MORE APP,-703.12,Business White Gold,-41000,Commissions,4
+2025-06-14,ONLINE PAYMENT - THANK YOU,703.12,Business White Gold,-41000,,
 2025-06-13,MANYCHAT.COM        SAN FRANCISCO       CA,-15.00,Business White Gold,-41000,Marketing,4
-2025-06-13,PAYPAL *TWENTYFOURA,-1000.00,Business White Gold,-41000,Creative services,
 2025-06-13,ONLINE PAYMENT - THANK YOU,29.99,Business White Gold,-41000,,
 2025-06-13,ONLINE PAYMENT - THANK YOU,2000.00,Business White Gold,-41000,,
+2025-06-13,PAYPAL *TWENTYFOURA,-1000.00,Business White Gold,-41000,Creative services,
 2025-06-13,TWILIO INC          SAN FRANCISCO       CA,-2000.00,Business White Gold,-41000,SuperPhone®,4
 2025-06-05,ZAPIER.COM/CHARGE   SAN FRANCISCO       CA,-29.99,Business White Gold,-41000,Software,4
 2025-05-30,ONLINE PAYMENT - THANK YOU,245.63,Business White Gold,-41000,,
@@ -1104,12 +1105,12 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-05-24,ONLINE PAYMENT - THANK YOU,276.20,Business White Gold,-41000,,
 2025-05-21,ONLINE PAYMENT - THANK YOU,276.20,Business White Gold,-41000,,
 2025-05-21,ONLINE PAYMENT - THANK YOU,29.99,Business White Gold,-41000,,
-2025-05-14,FACEBK *EJSM4PGPA2  FB.ME/ADS           CA,-25.00,Business White Gold,-41059,Advertising,4
-2025-05-13,FACEBK *JM9MUPYNA2  FB.ME/ADS           CA,-21.00,Business White Gold,-41059,Advertising,4
-2025-05-13,FACEBK *NAEV8N8PA2  FB.ME/ADS           CA,-24.00,Business White Gold,-41059,Advertising,4
+2025-05-14,FACEBK FB.ME/ADS CA,-25.00,Business White Gold,-41059,Advertising,4
+2025-05-13,FACEBK FB.ME/ADS CA,-21.00,Business White Gold,-41059,Advertising,4
+2025-05-13,FACEBK FB.ME/ADS CA,-24.00,Business White Gold,-41059,Advertising,4
 2025-05-13,TWILIO INC          SAN FRANCISCO       CA,-20.08,Business White Gold,-41059,SuperPhone®,4
-2025-05-12,FACEBK *KXGEANLNA2  FB.ME/ADS           CA,-17.00,Business White Gold,-41059,Advertising,4
-2025-05-12,FACEBK *W9LQTPYNA2  FB.ME/ADS           CA,-19.00,Business White Gold,-41059,Advertising,4
+2025-05-12,FACEBK FB.ME/ADS CA,-17.00,Business White Gold,-41059,Advertising,4
+2025-05-12,FACEBK FB.ME/ADS CA,-19.00,Business White Gold,-41059,Advertising,4
 2025-05-12,INTUIT QUICKBOOKS   800-446-8848        CA,-333.15,Business White Gold,-41059,Finance & accounting,4
 2025-05-12,TWILIO INC          SAN FRANCISCO       CA,-20.54,Business White Gold,-41059,SuperPhone®,4
 2025-05-12,TWILIO INC          SAN FRANCISCO       CA,-20.76,Business White Gold,-41059,SuperPhone®,4
@@ -1117,10 +1118,10 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-05-12,TWILIO INC          SAN FRANCISCO       CA,-21.91,Business White Gold,-41059,SuperPhone®,4
 2025-05-12,TWILIO INC          SAN FRANCISCO       CA,-22.97,Business White Gold,-41059,SuperPhone®,4
 2025-05-12,TWILIO INC          SAN FRANCISCO       CA,-25.22,Business White Gold,-41059,SuperPhone®,4
-2025-05-11,FACEBK *4DTKPMCPA2  FB.ME/ADS           CA,-11.00,Business White Gold,-41059,Advertising,4
-2025-05-11,FACEBK *GGXUBPLPA2  FB.ME/ADS           CA,-13.00,Business White Gold,-41059,Advertising,4
-2025-05-11,FACEBK *HDTLBPLPA2  FB.ME/ADS           CA,-11.00,Business White Gold,-41059,Advertising,4
-2025-05-11,FACEBK *HXM46P4PA2  FB.ME/ADS           CA,-15.00,Business White Gold,-41059,Advertising,4
+2025-05-11,FACEBK FB.ME/ADS CA,-11.00,Business White Gold,-41059,Advertising,4
+2025-05-11,FACEBK FB.ME/ADS CA,-13.00,Business White Gold,-41059,Advertising,4
+2025-05-11,FACEBK FB.ME/ADS CA,-11.00,Business White Gold,-41059,Advertising,4
+2025-05-11,FACEBK FB.ME/ADS CA,-15.00,Business White Gold,-41059,Advertising,4
 2025-05-11,TWILIO INC          SAN FRANCISCO       CA,-21.07,Business White Gold,-41059,SuperPhone®,4
 2025-05-09,TWILIO INC          SAN FRANCISCO       CA,-20.99,Business White Gold,-41059,SuperPhone®,4
 2025-05-08,CALENDLY            AVONDALE ESTATES    GA,-11.70,Business White Gold,-41059,Software,4
@@ -1236,7 +1237,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-02-23,"REPLIT, INC.        FOSTER CITY         CA",-10.07,Business White Gold,-41034,App development,4
 2025-02-22,SUCCESS.AI          SHERIDAN            WY,-149.00,Business White Gold,-41000,Outbound sales,4
 2025-02-21,LOVABLE             DOVER               DE,-86.35,Business White Gold,-41034,App development,4
-2025-02-20,FACEBK *74KRBHLNA2  FB.ME/ADS           CA,-10.00,Business White Gold,-41026,Advertising,4
+2025-02-20,FACEBK FB.ME/ADS CA,-10.00,Business White Gold,-41026,Advertising,4
 2025-02-20,ONLINE PAYMENT - THANK YOU,2585.40,Business White Gold,-41000,,
 2025-02-20,ONLINE PAYMENT - THANK YOU,1747.44,Business White Gold,-41000,,
 2025-02-20,ONLINE PAYMENT - THANK YOU,321.09,Business White Gold,-41000,,
@@ -1244,8 +1245,8 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-02-20,"REPLIT, INC.        FOSTER CITY         CA",-10.33,Business White Gold,-41026,App development,4
 2025-02-20,TWILIO INC          SAN FRANCISCO       CA,-321.09,Business White Gold,-41034,SuperPhone®,4
 2025-02-20,VITAL AI            PEEKSKILL,-1747.44,Business White Gold,-41034,Commissions,4
-2025-02-19,FACEBK *LJH6TGUNA2  FB.ME/ADS           CA,-10.00,Business White Gold,-41026,Advertising,4
-2025-02-19,FACEBK *R9XBSHQNA2  FB.ME/ADS           CA,-59.99,Business White Gold,-41026,Advertising,4
+2025-02-19,FACEBK FB.ME/ADS CA,-10.00,Business White Gold,-41026,Advertising,4
+2025-02-19,FACEBK FB.ME/ADS CA,-59.99,Business White Gold,-41026,Advertising,4
 2025-02-19,"REPLIT, INC.        FOSTER CITY         CA",-10.07,Business White Gold,-41026,App development,4
 2025-02-19,"REPLIT, INC.        FOSTER CITY         CA",-10.13,Business White Gold,-41026,App development,4
 2025-02-18,"REPLIT, INC.        FOSTER CITY         CA",-10.10,Business White Gold,-41026,App development,4
@@ -1296,23 +1297,23 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-02-09,SUPERHUMAN          SAN FRANCISCO       CA,-30.00,Business White Gold,-41000,Outbound sales,4
 2025-02-09,VITAL AI            PEEKSKILL,-582.48,Business White Gold,-41026,Commissions,4
 2025-02-08,CALENDLY            AVONDALE ESTATES    GA,-11.70,Business White Gold,-41000,Software,4
-2025-02-08,FACEBK *JUYV5GCPA2  FB.ME/ADS           CA,-63.00,Business White Gold,-41026,Advertising,4
-2025-02-08,FACEBK *YMSD5JYNA2  FB.ME/ADS           CA,-57.00,Business White Gold,-41026,Advertising,4
+2025-02-08,FACEBK FB.ME/ADS CA,-63.00,Business White Gold,-41026,Advertising,4
+2025-02-08,FACEBK FB.ME/ADS CA,-57.00,Business White Gold,-41026,Advertising,4
 2025-02-08,"NOTION LABS, INC.   SAN FRANCISCO       CA",-130.65,Business White Gold,-41026,App development,4
-2025-02-07,FACEBK *F3D8GG8PA2  FB.ME/ADS           CA,-46.00,Business White Gold,-41026,Advertising,4
-2025-02-07,FACEBK *NTVBLGLNA2  FB.ME/ADS           CA,-41.00,Business White Gold,-41026,Advertising,4
-2025-02-07,FACEBK *Y9MWAHGPA2  FB.ME/ADS           CA,-51.00,Business White Gold,-41026,Advertising,4
-2025-02-06,FACEBK *52PTZHYNA2  FB.ME/ADS           CA,-3.00,Business White Gold,-41026,Advertising,4
-2025-02-06,FACEBK *9NDT2GUNA2  FB.ME/ADS           CA,-5.00,Business White Gold,-41026,Advertising,4
-2025-02-06,FACEBK *9VBKKGLNA2  FB.ME/ADS           CA,-27.00,Business White Gold,-41026,Advertising,4
-2025-02-06,FACEBK *BGV3KGLNA2  FB.ME/ADS           CA,-8.00,Business White Gold,-41026,Advertising,4
-2025-02-06,FACEBK *GRK33GUNA2  FB.ME/ADS           CA,-12.00,Business White Gold,-41026,Advertising,4
-2025-02-06,FACEBK *KER6GH4PA2  FB.ME/ADS           CA,-3.00,Business White Gold,-41026,Advertising,4
-2025-02-06,FACEBK *MTPL2HQNA2  FB.ME/ADS           CA,-18.00,Business White Gold,-41026,Advertising,4
-2025-02-06,FACEBK *VSXPZHYNA2  FB.ME/ADS           CA,-2.00,Business White Gold,-41026,Advertising,4
+2025-02-07,FACEBK FB.ME/ADS CA,-46.00,Business White Gold,-41026,Advertising,4
+2025-02-07,FACEBK FB.ME/ADS CA,-41.00,Business White Gold,-41026,Advertising,4
+2025-02-07,FACEBK FB.ME/ADS CA,-51.00,Business White Gold,-41026,Advertising,4
+2025-02-06,FACEBK FB.ME/ADS CA,-3.00,Business White Gold,-41026,Advertising,4
+2025-02-06,FACEBK FB.ME/ADS CA,-5.00,Business White Gold,-41026,Advertising,4
+2025-02-06,FACEBK FB.ME/ADS CA,-27.00,Business White Gold,-41026,Advertising,4
+2025-02-06,FACEBK FB.ME/ADS CA,-8.00,Business White Gold,-41026,Advertising,4
+2025-02-06,FACEBK FB.ME/ADS CA,-12.00,Business White Gold,-41026,Advertising,4
+2025-02-06,FACEBK FB.ME/ADS CA,-3.00,Business White Gold,-41026,Advertising,4
+2025-02-06,FACEBK FB.ME/ADS CA,-18.00,Business White Gold,-41026,Advertising,4
+2025-02-06,FACEBK FB.ME/ADS CA,-2.00,Business White Gold,-41026,Advertising,4
 2025-02-06,INTUIT QUICKBOOKS   800-446-8848        CA,-255.86,Business White Gold,-41000,Finance & accounting,4
-2025-02-05,FACEBK *BZQ2LHLPA2  FB.ME/ADS           CA,-2.00,Business White Gold,-41026,Advertising,4
-2025-02-05,FACEBK *RCCMYFCPA2  FB.ME/ADS           CA,-2.00,Business White Gold,-41026,Advertising,4
+2025-02-05,FACEBK FB.ME/ADS CA,-2.00,Business White Gold,-41026,Advertising,4
+2025-02-05,FACEBK FB.ME/ADS CA,-2.00,Business White Gold,-41026,Advertising,4
 2025-02-05,ZAPIER.COM/CHARGE   SAN FRANCISCO       CA,-74.74,Business White Gold,-41000,Software,4
 2025-02-04,ONLINE PAYMENT - THANK YOU,2000.00,Business White Gold,-41000,,
 2025-02-04,TWENTYFOUR AI       NEW YORK            NY,-2000.00,Business White Gold,-41018,Creative services,4
@@ -1347,26 +1348,26 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-06-25,ONLINE PAYMENT - THANK YOU,3053.80,Business Rose Gold,-02008,,
 2025-06-25,TWILIO INC          SAN FRANCISCO       CA,-395.23,Business Rose Gold,-02008,SuperPhone®,4
 2025-06-24,TWILIO INC          SAN FRANCISCO       CA,-590.36,Business Rose Gold,-02008,SuperPhone®,4
-2025-06-23,TWILIO INC          SAN FRANCISCO       CA,-596.31,Business Rose Gold,-02008,SuperPhone®,4
-2025-06-23,TWILIO INC          SAN FRANCISCO       CA,-628.68,Business Rose Gold,-02008,SuperPhone®,4
 2025-06-23,ONLINE PAYMENT - THANK YOU,3132.51,Business Rose Gold,-02008,,
 2025-06-23,ONLINE PAYMENT - THANK YOU,1180.86,Business Rose Gold,-02008,,
+2025-06-23,TWILIO INC          SAN FRANCISCO       CA,-596.31,Business Rose Gold,-02008,SuperPhone®,4
+2025-06-23,TWILIO INC          SAN FRANCISCO       CA,-628.68,Business Rose Gold,-02008,SuperPhone®,4
 2025-06-23,TWILIO INC          SAN FRANCISCO       CA,-390.01,Business Rose Gold,-02008,SuperPhone®,4
 2025-06-22,TWILIO INC          SAN FRANCISCO       CA,-590.51,Business Rose Gold,-02008,SuperPhone®,4
 2025-06-21,TWILIO INC          SAN FRANCISCO       CA,-590.06,Business Rose Gold,-02008,SuperPhone®,4
 2025-06-20,TWILIO INC          SAN FRANCISCO       CA,-593.20,Business Rose Gold,-02008,SuperPhone®,4
 2025-06-19,TWILIO INC          SAN FRANCISCO       CA,-591.08,Business Rose Gold,-02008,SuperPhone®,4
 2025-06-19,TWILIO INC          SAN FRANCISCO       CA,-390.02,Business Rose Gold,-02008,SuperPhone®,4
+2025-06-18,ONLINE PAYMENT - THANK YOU,1193.17,Business Rose Gold,-02008,,
 2025-06-18,TWILIO INC          SAN FRANCISCO       CA,-400.83,Business Rose Gold,-02008,SuperPhone®,4
 2025-06-18,TWILIO INC          SAN FRANCISCO       CA,-593.61,Business Rose Gold,-02008,SuperPhone®,4
-2025-06-18,ONLINE PAYMENT - THANK YOU,1193.17,Business Rose Gold,-02008,,
 2025-06-17,TWILIO INC          SAN FRANCISCO       CA,-685.85,Business Rose Gold,-02008,SuperPhone®,4
 2025-06-16,TWILIO INC          SAN FRANCISCO       CA,-591.16,Business Rose Gold,-02008,SuperPhone®,4
 2025-06-16,TWILIO INC          SAN FRANCISCO       CA,-635.90,Business Rose Gold,-02008,SuperPhone®,4
 2025-06-16,TWILIO INC          SAN FRANCISCO       CA,-723.49,Business Rose Gold,-02008,SuperPhone®,4
 2025-06-15,TWILIO INC          SAN FRANCISCO       CA,-591.60,Business Rose Gold,-02008,SuperPhone®,4
-2025-06-14,TWILIO INC          SAN FRANCISCO       CA,-590.36,Business Rose Gold,-02008,SuperPhone®,4
 2025-06-14,ONLINE PAYMENT - THANK YOU,6271.04,Business Rose Gold,-02008,,
+2025-06-14,TWILIO INC          SAN FRANCISCO       CA,-590.36,Business Rose Gold,-02008,SuperPhone®,4
 2025-06-12,TWILIO INC          SAN FRANCISCO       CA,-590.04,Business Rose Gold,-02008,SuperPhone®,4
 2025-06-11,TWILIO INC          SAN FRANCISCO       CA,-390.03,Business Rose Gold,-02008,SuperPhone®,4
 2025-06-11,TWILIO INC          SAN FRANCISCO       CA,-590.38,Business Rose Gold,-02008,SuperPhone®,4

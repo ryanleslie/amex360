@@ -95,11 +95,6 @@ export function AdminBalancesCardGrid({ cardBalances, sortOrder }: AdminBalances
                 })}
               </div>
             )}
-            {balance.primaryCard?.limitType && (
-              <div className="text-sm text-muted-foreground ml-[60px] break-words">
-                Limit Type: {balance.primaryCard.limitType}
-              </div>
-            )}
           </div>
           
           {balance.accountType && balance.accountSubtype && (

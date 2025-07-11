@@ -7,7 +7,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { RefreshCw, Link, MoreVertical, ArrowUpDown, List } from 'lucide-react';
+import { RefreshCw, Link, MoreVertical, ArrowUpDown, List, CircleDollarSign } from 'lucide-react';
 import { CardBalance } from '@/services/cardBalanceService';
 
 interface AdminBalancesCardHeaderProps {
@@ -89,7 +89,7 @@ export function AdminBalancesCardHeader({
                 onClick={onOrderByLimit}
                 className="gap-2"
               >
-                <ArrowUpDown className="h-4 w-4" />
+                <CircleDollarSign className="h-4 w-4" />
                 Sort by limit
               </DropdownMenuItem>
               <DropdownMenuSeparator />
@@ -141,7 +141,7 @@ export function AdminBalancesCardHeader({
               onClick={onOrderByLimit}
               className="gap-2"
             >
-              <ArrowUpDown className="h-4 w-4" />
+              <CircleDollarSign className="h-4 w-4" />
               Sort by limit
             </DropdownMenuItem>
             <DropdownMenuSeparator />

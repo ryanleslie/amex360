@@ -76,7 +76,7 @@ export function AdminBalancesCardHeader({
                 className="gap-2"
               >
                 <ArrowUpDown className="h-4 w-4" />
-                Sort by amount
+                Sort by balance
               </DropdownMenuItem>
               <DropdownMenuItem 
                 onClick={onOrderByCardList}
@@ -128,7 +128,7 @@ export function AdminBalancesCardHeader({
               className="gap-2"
             >
               <ArrowUpDown className="h-4 w-4" />
-              Sort by amount
+              Sort by balance
             </DropdownMenuItem>
             <DropdownMenuItem 
               onClick={onOrderByCardList}

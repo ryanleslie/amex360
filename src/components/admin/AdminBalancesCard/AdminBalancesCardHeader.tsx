@@ -7,7 +7,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { RefreshCw, Link, MoreVertical, ArrowUpDown, List, CircleDollarSign } from 'lucide-react';
+import { RefreshCw, Link, MoreVertical, ArrowUpDown, List, CircleDollarSign, Percent } from 'lucide-react';
 import { CardBalance } from '@/services/cardBalanceService';
 
 interface AdminBalancesCardHeaderProps {
@@ -20,6 +20,7 @@ interface AdminBalancesCardHeaderProps {
   onOrderByAmount: () => void;
   onOrderByCardList: () => void;
   onOrderByLimit: () => void;
+  onOrderByApr: () => void;
 }
 
 export function AdminBalancesCardHeader({
@@ -31,7 +32,8 @@ export function AdminBalancesCardHeader({
   cardBalances,
   onOrderByAmount,
   onOrderByCardList,
-  onOrderByLimit
+  onOrderByLimit,
+  onOrderByApr
 }: AdminBalancesCardHeaderProps) {
   
   // Get the Business Platinum Card's last calculated timestamp
@@ -92,6 +94,13 @@ export function AdminBalancesCardHeader({
                 <CircleDollarSign className="h-4 w-4" />
                 Sort by limit
               </DropdownMenuItem>
+              <DropdownMenuItem 
+                onClick={onOrderByApr}
+                className="gap-2"
+              >
+                <Percent className="h-4 w-4" />
+                Sort by APR
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem 
                 disabled={true}
@@ -143,6 +152,13 @@ export function AdminBalancesCardHeader({
             >
               <CircleDollarSign className="h-4 w-4" />
               Sort by limit
+            </DropdownMenuItem>
+            <DropdownMenuItem 
+              onClick={onOrderByApr}
+              className="gap-2"
+            >
+              <Percent className="h-4 w-4" />
+              Sort by APR
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem 

@@ -10,7 +10,7 @@ import { AdminBalancesCardGrid } from './AdminBalancesCardGrid';
 
 export function AdminBalancesCard() {
   const { cardBalances, loading, error, refetch } = useCardBalances();
-  const [sortOrder, setSortOrder] = useState<'amount' | 'cardList' | 'limit'>('amount');
+  const [sortOrder, setSortOrder] = useState<'amount' | 'cardList' | 'limit' | 'apr'>('amount');
   
   const { handleConnect, isCreatingToken } = usePlaidLinkFlow(refetch);
   const { handleRefresh, isRefreshing } = useBalanceSync(refetch);
@@ -25,6 +25,10 @@ export function AdminBalancesCard() {
 
   const handleOrderByLimit = () => {
     setSortOrder('limit');
+  };
+
+  const handleOrderByApr = () => {
+    setSortOrder('apr');
   };
 
   if (loading) {
@@ -63,6 +67,7 @@ export function AdminBalancesCard() {
             onOrderByAmount={handleOrderByAmount}
             onOrderByCardList={handleOrderByCardList}
             onOrderByLimit={handleOrderByLimit}
+            onOrderByApr={handleOrderByApr}
           />
 
           <ScrollArea className="h-[560px]">

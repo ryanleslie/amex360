@@ -4,7 +4,7 @@ import { primaryCardsConfig } from '@/data/primaryCardsData';
 
 interface AdminBalancesCardGridProps {
   cardBalances: CardBalance[];
-  sortOrder: 'amount' | 'cardList';
+  sortOrder: 'amount' | 'cardList' | 'limit';
 }
 
 export function AdminBalancesCardGrid({ cardBalances, sortOrder }: AdminBalancesCardGridProps) {
@@ -15,6 +15,13 @@ export function AdminBalancesCardGrid({ cardBalances, sortOrder }: AdminBalances
       const balanceA = a.currentBalance || 0;
       const balanceB = b.currentBalance || 0;
       return balanceB - balanceA;
+    } else if (sortOrder === 'limit') {
+      // Sort by credit limit (highest to lowest)
+      const primaryCardA = primaryCardsConfig.find(card => card.cardType === a.cardType);
+      const primaryCardB = primaryCardsConfig.find(card => card.cardType === b.cardType);
+      const limitA = a.creditLimit || primaryCardA?.creditLimit || 0;
+      const limitB = b.creditLimit || primaryCardB?.creditLimit || 0;
+      return limitB - limitA;
     } else {
       // Sort by card list order (primary_cards.csv)
       const indexA = primaryCardsConfig.findIndex(card => 

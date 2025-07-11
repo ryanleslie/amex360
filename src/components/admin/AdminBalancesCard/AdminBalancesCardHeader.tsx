@@ -19,6 +19,7 @@ interface AdminBalancesCardHeaderProps {
   cardBalances: CardBalance[];
   onOrderByAmount: () => void;
   onOrderByCardList: () => void;
+  onOrderByLimit: () => void;
 }
 
 export function AdminBalancesCardHeader({
@@ -29,7 +30,8 @@ export function AdminBalancesCardHeader({
   isCreatingToken,
   cardBalances,
   onOrderByAmount,
-  onOrderByCardList
+  onOrderByCardList,
+  onOrderByLimit
 }: AdminBalancesCardHeaderProps) {
   
   // Get the Business Platinum Card's last calculated timestamp
@@ -83,6 +85,13 @@ export function AdminBalancesCardHeader({
                 <List className="h-4 w-4" />
                 Sort by card list
               </DropdownMenuItem>
+              <DropdownMenuItem 
+                onClick={onOrderByLimit}
+                className="gap-2"
+              >
+                <ArrowUpDown className="h-4 w-4" />
+                Sort by limit
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem 
                 disabled={true}
@@ -127,6 +136,13 @@ export function AdminBalancesCardHeader({
             >
               <List className="h-4 w-4" />
               Sort by card list
+            </DropdownMenuItem>
+            <DropdownMenuItem 
+              onClick={onOrderByLimit}
+              className="gap-2"
+            >
+              <ArrowUpDown className="h-4 w-4" />
+              Sort by limit
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem 

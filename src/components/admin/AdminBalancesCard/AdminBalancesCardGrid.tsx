@@ -87,14 +87,28 @@ export function AdminBalancesCardGrid({ cardBalances, sortOrder }: AdminBalances
                 })}
               </div>
             )}
-            {balance.creditLimit !== null && balance.creditLimit !== undefined && (
-              <div className="text-sm text-muted-foreground ml-[60px] break-words">
-                Limit: ${balance.creditLimit.toLocaleString('en-US', { 
-                  minimumFractionDigits: 2, 
-                  maximumFractionDigits: 2 
-                })}
-              </div>
-            )}
+            
+            {/* Credit limit and limit type - left justified to align with card name */}
+            {(() => {
+              const primaryCard = primaryCardsConfig.find(card => card.cardType === balance.cardType);
+              const creditLimit = balance.creditLimit || primaryCard?.creditLimit;
+              const limitType = primaryCard?.limitType;
+              
+              if (creditLimit !== null && creditLimit !== undefined) {
+                return (
+                  <div className="text-sm text-muted-foreground break-words">
+                    Limit: ${creditLimit.toLocaleString('en-US', { 
+                      minimumFractionDigits: 2, 
+                      maximumFractionDigits: 2 
+                    })}
+                    {limitType && (
+                      <span className="ml-2 text-xs">({limitType})</span>
+                    )}
+                  </div>
+                );
+              }
+              return null;
+            })()}
           </div>
           
           {balance.accountType && balance.accountSubtype && (

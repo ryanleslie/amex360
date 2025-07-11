@@ -93,6 +93,7 @@ export function AdminBalancesCardGrid({ cardBalances, sortOrder }: AdminBalances
               const primaryCard = primaryCardsConfig.find(card => card.cardType === balance.cardType);
               const creditLimit = balance.creditLimit || primaryCard?.creditLimit;
               const limitType = primaryCard?.limitType;
+              const interestRate = primaryCard?.interestRate;
               
               if (creditLimit !== null && creditLimit !== undefined) {
                 return (
@@ -103,6 +104,9 @@ export function AdminBalancesCardGrid({ cardBalances, sortOrder }: AdminBalances
                     })}
                     {limitType && (
                       <span className="ml-1">{limitType} limit</span>
+                    )}
+                    {interestRate && (
+                      <span className="ml-1">• {interestRate} APR</span>
                     )}
                   </div>
                 );

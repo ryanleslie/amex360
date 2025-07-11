@@ -47,7 +47,7 @@ export function AdminBalancesCardGrid({ cardBalances, sortOrder }: AdminBalances
       {sortedCardBalances.map((balance, index) => (
         <div
           key={`${balance.ID}-${sortOrder}`}
-          className="p-4 border rounded-lg bg-gradient-to-b from-white to-gray-50 space-y-4 animate-fade-in overflow-hidden"
+          className="p-4 border rounded-lg bg-gradient-to-b from-white to-gray-50 space-y-2 animate-fade-in overflow-hidden"
           style={{
             animationDelay: `${index * 100}ms`,
             animationFillMode: 'both'
@@ -63,7 +63,7 @@ export function AdminBalancesCardGrid({ cardBalances, sortOrder }: AdminBalances
           </div>
           
           <div className="space-y-1">
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center gap-3 mb-2">
               <img 
                 src={getCardImage(balance.cardType)} 
                 alt={balance.cardType}

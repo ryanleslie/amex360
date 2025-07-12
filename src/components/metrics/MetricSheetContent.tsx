@@ -8,6 +8,7 @@ interface MetricSheetContentProps {
 export const MetricSheetContent = ({ metric }: MetricSheetContentProps) => {
   const isClosingMetric = metric.title === "Closing this week"
   const isUrgentBalancesMetric = metric.title === "Urgent Balances"
+  const isCreditLimitMetric = metric.title === "Highest Credit Limit" || metric.title === "Lowest Pay Over Time Limit" || metric.title === "Total Preset Credit Limit" || metric.title === "Total Pay Over Time Limit"
   
   return (
     <div className="space-y-4">
@@ -41,8 +42,10 @@ export const MetricSheetContent = ({ metric }: MetricSheetContentProps) => {
                             <>
                               {card.lastFive} • {card.amount} • <span className="text-destructive font-medium">{card.type}</span>
                             </>
-                          ) : (
+                          ) : isCreditLimitMetric ? (
                             <span>{card.lastFive} • {card.amount} {card.type}</span>
+                          ) : (
+                            <span>{card.lastFive} • {card.amount} • {card.type}</span>
                           )}
                         </div>
                       )}

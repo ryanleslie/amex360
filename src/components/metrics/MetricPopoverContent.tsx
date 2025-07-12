@@ -11,7 +11,7 @@ export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
   const isUrgentBalancesMetric = metric.title === "Urgent Balances"
   const isNoAnnualFeeMetric = metric.title === "No Annual Fee"
   const isAnnualFeeMetric = metric.title === "Annual Fee" || metric.title === "Total Annual Fees"
-  const isCreditLimitMetric = metric.title === "Highest Credit Limit" || metric.title === "Lowest Pay Over Time Limit"
+  const isCreditLimitMetric = metric.title === "Highest Credit Limit" || metric.title === "Lowest Pay Over Time Limit" || metric.title === "Total Preset Credit Limit" || metric.title === "Total Pay Over Time Limit"
   const isBrandPartnerMetric = metric.title === "Brand Partner Cards"
   const isAvailableCreditMetric = metric.title === "Available Line of Credit"
   
@@ -35,7 +35,7 @@ export const MetricPopoverContent = ({ metric }: MetricPopoverContentProps) => {
             } else if (isAnnualFeeMetric) {
               cardDetails = `${card.amount} annual fee • ${card.type.split('•')[1]?.trim() || card.type.split('•')[0]?.trim()}`
             } else if (isCreditLimitMetric) {
-              cardDetails = `${card.amount} ${card.type.replace(' • ', ' ')}`
+              cardDetails = `${card.amount} ${card.type}`
             } else if (isBrandPartnerMetric) {
               cardDetails = `${card.amount} ${card.type}`
             } else if (isAvailableCreditMetric) {

@@ -81,9 +81,8 @@ export function AppSidebar({ activeSection }: AppSidebarProps) {
     // Set flag for post-reload toast
     localStorage.setItem('showRefreshToast', 'true')
     
-    // Redirect to dashboard and reload the entire app
-    window.location.href = '/dashboard'
-    window.location.reload()
+    // Redirect to dashboard and reload the entire app in one operation
+    window.location.replace('/dashboard')
   }
 
   const handleAdminClick = () => {

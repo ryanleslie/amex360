@@ -1,11 +1,11 @@
 
 import React from "react"
-import { useCardBalances } from "@/hooks/useCardBalances"
+import { useBalanceContext } from "@/contexts/BalanceContext"
 import { getCardImage } from "@/utils/cardImageUtils"
 import { MetricResult } from "./types"
 
 export const useBalanceMetrics = () => {
-  const { cardBalances } = useCardBalances()
+  const { cardBalances } = useBalanceContext()
 
   // Helper function to get balance for a card with specific matching logic
   const getCardBalance = React.useCallback((cardType: string) => {

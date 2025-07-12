@@ -2,14 +2,14 @@
 import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { useCardBalances } from '@/hooks/useCardBalances';
+import { useBalanceContext } from '@/contexts/BalanceContext';
 import { usePlaidLinkFlow } from '@/hooks/usePlaidLink';
 import { useBalanceSync } from '@/hooks/useBalanceSync';
 import { AdminBalancesCardHeader } from './AdminBalancesCardHeader';
 import { AdminBalancesCardGrid } from './AdminBalancesCardGrid';
 
 export function AdminBalancesCard() {
-  const { cardBalances, loading, error, refetch } = useCardBalances();
+  const { cardBalances, loading, error, refetch } = useBalanceContext();
   const [sortOrder, setSortOrder] = useState<'amount' | 'cardList' | 'limit' | 'apr'>('amount');
   
   const { handleConnect, isCreatingToken } = usePlaidLinkFlow(refetch);

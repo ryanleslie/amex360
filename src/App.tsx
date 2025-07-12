@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { Suspense } from "react";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { BalanceProvider } from "@/contexts/BalanceContext";
 import AuthPage from "./pages/AuthPage";
 import NotFound from "./pages/NotFound";
 import Dashboard from "./pages/Dashboard";
@@ -113,9 +114,11 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
           <AuthProvider>
-            <SidebarProvider>
-              <AppContent />
-            </SidebarProvider>
+            <BalanceProvider>
+              <SidebarProvider>
+                <AppContent />
+              </SidebarProvider>
+            </BalanceProvider>
           </AuthProvider>
         </BrowserRouter>
       </TooltipProvider>

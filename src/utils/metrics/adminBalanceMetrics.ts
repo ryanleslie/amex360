@@ -1,11 +1,11 @@
 import React from "react"
-import { useCardBalances } from "@/hooks/useCardBalances"
+import { useBalanceContext } from "@/contexts/BalanceContext"
 import { getAllPrimaryCards } from "@/data/staticPrimaryCards"
 import { getCardImage } from "@/utils/cardImageUtils"
 import { MetricResult } from "./types"
 
 export const useAdminBalanceMetrics = () => {
-  const { cardBalances } = useCardBalances()
+  const { cardBalances } = useBalanceContext()
   const primaryCards = getAllPrimaryCards()
 
   // Calculate highest balance

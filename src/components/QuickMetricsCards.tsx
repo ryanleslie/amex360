@@ -6,8 +6,8 @@ export function QuickMetricsCards() {
   const dashboardMetrics = [
     "Active Card Accounts",
     "Total Annual Fees",
-    "Total Preset Credit Limit",
     "Total Pay Over Time Limit",
+    "Total Preset Credit Limit",
     "Available Line of Credit"
   ]
 

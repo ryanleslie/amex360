@@ -78,11 +78,8 @@ export function AppSidebar({ activeSection }: AppSidebarProps) {
   const handleRefreshData = () => {
     console.log("Reloading app to refresh all data...")
     
-    toast.success("Reloading app", {
-      description: "Refreshing all data and calculations",
-      position: "top-right",
-      icon: <CircleCheck size={16} style={{ color: '#006fcf' }} />
-    })
+    // Set flag for post-reload toast
+    localStorage.setItem('showRefreshToast', 'true')
     
     // Redirect to dashboard and reload the entire app
     window.location.href = '/dashboard'

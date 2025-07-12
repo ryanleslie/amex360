@@ -1,6 +1,8 @@
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { toast } from "@/components/ui/sonner";
+import { CircleCheck } from "lucide-react";
 import { AppHeader } from "@/components/AppHeader";
 import { AppSidebar } from "@/components/AppSidebar";
 import Index from "./Index";
@@ -21,6 +23,18 @@ const Dashboard = () => {
   const location = useLocation();
   const { filters, updateFilter } = useFilterState("ytd");
   
+  // Check for refresh toast flag after component mounts
+  useEffect(() => {
+    const showRefreshToast = localStorage.getItem('showRefreshToast');
+    if (showRefreshToast === 'true') {
+      toast.success("Data refreshed", {
+        description: "All data and calculations have been updated",
+        position: "top-right",
+        icon: <CircleCheck size={16} style={{ color: '#006fcf' }} />
+      });
+      localStorage.removeItem('showRefreshToast');
+    }
+  }, []);
 
   // Determine active section from URL
   const getActiveSectionFromPath = (pathname: string): DashboardSection => {

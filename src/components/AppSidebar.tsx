@@ -4,7 +4,6 @@ import { ChartNoAxesColumn, Award, CreditCard, Crown, LogOut, RotateCw, CircleCh
 import { useNavigate, useLocation } from "react-router-dom"
 import { toast } from "@/components/ui/sonner"
 import { useAuth } from "@/contexts/AuthContext"
-import { useBalanceContext } from "@/contexts/BalanceContext"
 import { transactionFilterService } from "@/services/transactionFilterService"
 import { CalculationsCacheService } from "@/services/calculationsCache"
 import {
@@ -28,8 +27,6 @@ export function AppSidebar({ activeSection }: AppSidebarProps) {
   const location = useLocation()
   const { close } = useSidebar()
   const { signOut, isAdmin } = useAuth()
-  const { refetch } = useBalanceContext()
-
   // Base menu items available to all users
   const baseMenuItems = [
     {
@@ -78,32 +75,18 @@ export function AppSidebar({ activeSection }: AppSidebarProps) {
     close()
   }
 
-  const handleRefreshData = async () => {
-    try {
-      console.log("Rebuilding app: refreshing transaction data, clearing caches, and recalculating balances...")
-      
-      // Refresh transaction data from CSV
-      transactionFilterService.refreshData()
-      
-      // Clear all calculation caches
-      CalculationsCacheService.refreshAllCaches()
-      
-      // Recalculate card balances
-      await refetch()
-      
-      toast.success("App rebuilt", {
-        description: "CSV data reloaded, caches cleared, and balances recalculated",
-        position: "top-right",
-        icon: <CircleCheck size={16} style={{ color: '#006fcf' }} />
-      })
-    } catch (error) {
-      console.error("Failed to rebuild app:", error)
-      toast.error("Rebuild failed", {
-        description: "Could not reload data. Please try again.",
-        position: "top-right"
-      })
-    }
-    close()
+  const handleRefreshData = () => {
+    console.log("Reloading app to refresh all data...")
+    
+    toast.success("Reloading app", {
+      description: "Refreshing all data and calculations",
+      position: "top-right",
+      icon: <CircleCheck size={16} style={{ color: '#006fcf' }} />
+    })
+    
+    // Redirect to dashboard and reload the entire app
+    window.location.href = '/dashboard'
+    window.location.reload()
   }
 
   const handleAdminClick = () => {

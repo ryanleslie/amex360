@@ -9,7 +9,7 @@ import { AdminBalancesCardHeader } from './AdminBalancesCardHeader';
 import { AdminBalancesCardGrid } from './AdminBalancesCardGrid';
 
 export function AdminBalancesCard() {
-  const { cardBalances, loading, error, refetch } = useBalanceContext();
+  const { cardBalances, loading, error, refetch, lastCalculated } = useBalanceContext();
   const [sortOrder, setSortOrder] = useState<'amount' | 'cardList' | 'limit' | 'apr'>('amount');
   
   const { handleConnect, isCreatingToken } = usePlaidLinkFlow(refetch);
@@ -64,6 +64,7 @@ export function AdminBalancesCard() {
             isRefreshing={isRefreshing}
             isCreatingToken={isCreatingToken}
             cardBalances={cardBalances}
+            lastCalculated={lastCalculated}
             onOrderByAmount={handleOrderByAmount}
             onOrderByCardList={handleOrderByCardList}
             onOrderByLimit={handleOrderByLimit}

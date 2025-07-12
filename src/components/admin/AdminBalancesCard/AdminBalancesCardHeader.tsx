@@ -17,6 +17,7 @@ interface AdminBalancesCardHeaderProps {
   isRefreshing: boolean;
   isCreatingToken: boolean;
   cardBalances: CardBalance[];
+  lastCalculated: Date | null;
   onOrderByAmount: () => void;
   onOrderByCardList: () => void;
   onOrderByLimit: () => void;
@@ -30,30 +31,34 @@ export function AdminBalancesCardHeader({
   isRefreshing,
   isCreatingToken,
   cardBalances,
+  lastCalculated,
   onOrderByAmount,
   onOrderByCardList,
   onOrderByLimit,
   onOrderByApr
 }: AdminBalancesCardHeaderProps) {
   
-  // Get the Business Platinum Card's last calculated timestamp
-  const getLastCalculatedTime = () => {
-    const businessPlatinumCard = cardBalances.find(
-      card => card.cardType === 'Business Platinum Card'
-    );
+  // Calculate total balance and format timestamp
+  const getBalanceSummary = () => {
+    const totalBalance = cardBalances.reduce((sum, card) => {
+      return sum + (card.currentBalance || 0);
+    }, 0);
     
-    if (businessPlatinumCard?.last_synced) {
-      const calculatedDate = new Date(businessPlatinumCard.last_synced);
-      return calculatedDate.toLocaleString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: true
-      });
+    const formattedTotal = `$${Math.abs(totalBalance).toLocaleString()}`;
+    
+    if (!lastCalculated) {
+      return `${formattedTotal} as of never`;
     }
     
-    return 'Never';
+    const formattedDate = lastCalculated.toLocaleString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true
+    });
+    
+    return `${formattedTotal} as of ${formattedDate}`;
   };
   return (
     <div className="animate-fade-in">
@@ -121,7 +126,7 @@ export function AdminBalancesCardHeader({
         </div>
       </div>
       <p className="text-sm text-muted-foreground mt-1">
-        Last calculated: {getLastCalculatedTime()}
+        {getBalanceSummary()}
       </p>
       <div className="sm:hidden mt-3">
         <DropdownMenu>

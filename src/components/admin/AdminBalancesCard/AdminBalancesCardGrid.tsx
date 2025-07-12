@@ -23,7 +23,17 @@ export function AdminBalancesCardGrid({ cardBalances, sortOrder }: AdminBalances
       const limitB = b.creditLimit || primaryCardB?.creditLimit || 0;
       return limitB - limitA;
     } else if (sortOrder === 'apr') {
-      // Sort by APR (highest to lowest)
+      // Sort by APR: cards with balances > 0 first (highest APR to lowest), then cards with 0 balances (by APR)
+      const balanceA = a.currentBalance || 0;
+      const balanceB = b.currentBalance || 0;
+      const hasBalanceA = balanceA > 0;
+      const hasBalanceB = balanceB > 0;
+      
+      // If one has balance and other doesn't, prioritize the one with balance
+      if (hasBalanceA && !hasBalanceB) return -1;
+      if (!hasBalanceA && hasBalanceB) return 1;
+      
+      // Both have same balance status, sort by APR (highest to lowest)
       const primaryCardA = primaryCardsConfig.find(card => card.cardType === a.cardType);
       const primaryCardB = primaryCardsConfig.find(card => card.cardType === b.cardType);
       const aprA = parseFloat(primaryCardA?.interestRate?.replace('%', '') || '0');

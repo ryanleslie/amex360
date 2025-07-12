@@ -52,7 +52,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-05-17,TWILIO INC          SAN FRANCISCO       CA,-716.79,Business Platinum Card,-52213,SuperPhone®,1.5
 2025-05-17,TWILIO INC          SAN FRANCISCO       CA,-762.37,Business Platinum Card,-52213,SuperPhone®,1.5
 2025-05-17,TWILIO INC          SAN FRANCISCO       CA,-763.39,Business Platinum Card,-52213,SuperPhone®,1.5
-2025-05-16,PAYPAL *NETFLIX.COM 14085403700,-15.70,Business Platinum Card,-51066,Streaming services,
+2025-05-16,PAYPAL *NETFLIX.COM 14085403700,-15.70,Business Platinum Card,-51066,Streaming & media,
 2025-05-16,PAYPAL *SUNDAY      15122497210         DE,-14.37,Business Platinum Card,-51066,Personal,
 2025-05-16,TWILIO INC          SAN FRANCISCO       CA,-100.00,Business Platinum Card,-52205,SuperPhone®,1.5
 2025-05-16,TWILIO INC          SAN FRANCISCO       CA,-591.91,Business Platinum Card,-52213,SuperPhone®,1.5
@@ -220,8 +220,8 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-08,ONLINE PAYMENT - THANK YOU,3436.60,Business Platinum Card,-52007,,
 2025-01-08,ONLINE PAYMENT - THANK YOU,199.95,Business Platinum Card,-52007,,
 2025-01-05,ABC*5959-CRUNCH FITNBROOKLYN            NY,-24.98,Business Platinum Card,-52007,Personal,
-2025-01-04,BLOOMBERG* B25351119NEW YORK            NY,-34.99,Business Platinum Card,-51017,News & media,
-2025-01-04,NETFLIX.COM         866-579-7172        CA,-25.03,Business Platinum Card,-51017,Streaming services,
+2025-01-04,BLOOMBERG* B25351119NEW YORK            NY,-34.99,Business Platinum Card,-51017,Streaming & media,
+2025-01-04,NETFLIX.COM         866-579-7172        CA,-25.03,Business Platinum Card,-51017,Streaming & media,
 2025-01-04,ONLINE PAYMENT - THANK YOU,9000.00,Business Platinum Card,-52007,,
 2025-01-03,PAYPAL *LINDAJANEKAN4029357733          DE,-3436.60,Business Platinum Card,-51017,Administrative,
 2025-01-03,PAYPAL *SPXOPTIONTR 5418961779          OR,-199.95,Business Platinum Card,-51017,Charting & journaling,
@@ -250,7 +250,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-06-15,OPENAI *CHATGPT SUBSSAN FRANCISCO CA,-21.78,Platinum Card,-71003,Software,
 2025-06-14,ONLINE PAYMENT - THANK YOU,254.64,Platinum Card,-71003,,
 2025-06-13,DM-DROGERIE MARKT 70,-48.39,Platinum Card,-71003,Personal,
-2025-06-13,HULU,-9.99,Platinum Card,-71003,Streaming services,
+2025-06-13,HULU,-9.99,Platinum Card,-71003,Streaming & media,
 2025-06-13,REWE CZERLINSKI,-43.90,Platinum Card,-71003,Personal,
 2025-06-10,MANGO STUTTGART KONISTUTTGART BE,-95.09,Platinum Card,-71003,Personal,
 2025-06-03,Italo Disco STUTTGART DE,-57.27,Platinum Card,-71003,Restaurants,
@@ -258,10 +258,10 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-05-17,NEW BALANCE GERMANY DUSSELDORF DE,-135.19,Platinum Card,-71003,Wardrobe,
 2025-05-16,MEM RWDS AIRLINE TAX OFFSET FEE,-99.00,Platinum Card,-71003,Fees & adjustments,
 2025-05-15,OPENAI *CHATGPT SUBSSAN FRANCISCO CA,-21.78,Platinum Card,-71003,Software,
-2025-05-13,HLU*HULUPLUS HULU.COM/BILL CA,-9.99,Platinum Card,-71003,Streaming services,
-2025-05-13,Platinum Digital Entertainment Credit,9.99,Platinum Card,-71003,Streaming services,
-2025-05-09,HLU*HULUPLUS HULU.COM/BILL CA,-1.28,Platinum Card,-71003,Streaming services,
-2025-05-09,Platinum Digital Entertainment Credit,1.28,Platinum Card,-71003,Streaming services,
+2025-05-13,HLU*HULUPLUS HULU.COM/BILL CA,-9.99,Platinum Card,-71003,Streaming & media,
+2025-05-13,Platinum Digital Entertainment Credit,9.99,Platinum Card,-71003,Streaming & media,
+2025-05-09,HLU*HULUPLUS HULU.COM/BILL CA,-1.28,Platinum Card,-71003,Streaming & media,
+2025-05-09,Platinum Digital Entertainment Credit,1.28,Platinum Card,-71003,Streaming & media,
 2025-05-07,MURE + GRAND - SOHO New York NY,-30.48,Platinum Card,-71003,Personal,
 2025-04-29,ARITZIA SOHO NEW YORK NY,-280.90,Platinum Card,-71003,Wardrobe,
 2025-04-29,OMNY VENDING* NEW YORK NY,-11.00,Platinum Card,-71003,Airfare,
@@ -282,8 +282,8 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-04-16,ANTHROPOLOGIE 00423SCOTTSDALE AZ,-30.41,Platinum Card,-71003,Wardrobe,
 2025-04-15,OPENAI *CHATGPT SUBSSAN FRANCISCO CA,-21.78,Platinum Card,-71003,Software,
 2025-04-14,SPROUTS FARMERS MARKMESA AZ,-37.79,Platinum Card,-71003,Groceries,
-2025-04-13,HLU*HULUPLUS HULU.COM/BILL CA,-9.99,Platinum Card,-71003,Streaming services,
-2025-04-13,Platinum Digital Entertainment Credit,9.99,Platinum Card,-71003,Streaming services,
+2025-04-13,HLU*HULUPLUS HULU.COM/BILL CA,-9.99,Platinum Card,-71003,Streaming & media,
+2025-04-13,Platinum Digital Entertainment Credit,9.99,Platinum Card,-71003,Streaming & media,
 2025-04-13,TST* ZONA CANTINA ANMESA AZ,-145.29,Platinum Card,-71003,Takeout,
 2025-04-10,TARGET FOUNTAIN HILLS AZ,-73.70,Platinum Card,-71003,Personal,
 2025-04-08,MEM RWDS AIRLINE TAX OFFSET FEE,-5.40,Platinum Card,-71003,Fees & adjustments,
@@ -311,13 +311,13 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-03-29,GglPay T-MOBILE STORLOS ANGELES CA,-50.00,Platinum Card,-71003,Telephone & internet,
 2025-03-27,MEM RWDS AIRLINE TAX OFFSET FEE,-96.60,Platinum Card,-71003,Fees & adjustments,
 2025-03-20,ONLINE PAYMENT - THANK YOU,495.00,Platinum Card,-71003,,
-2025-03-13,HLU*HULUPLUS HULU.COM/BILL CA,-9.99,Platinum Card,-71003,Streaming services,
-2025-03-13,Platinum Digital Entertainment Credit,9.99,Platinum Card,-71003,Streaming services,
-2025-03-04,THEBAG.SUBSTACK.COM JERSEY CITY NJ,-300.00,Platinum Card,-71003,News & media,
+2025-03-13,HLU*HULUPLUS HULU.COM/BILL CA,-9.99,Platinum Card,-71003,Streaming & media,
+2025-03-13,Platinum Digital Entertainment Credit,9.99,Platinum Card,-71003,Streaming & media,
+2025-03-04,THEBAG.SUBSTACK.COM JERSEY CITY NJ,-300.00,Platinum Card,-71003,Streaming & media,
 2025-02-23,RENEWAL MEMBERSHIP FEE,-195.00,Platinum Card,-71003,Card membership,
 2025-02-19,ONLINE PAYMENT - THANK YOU,695.00,Platinum Card,-71003,,
-2025-02-13,HLU*HULUPLUS HULU.COM/BILL CA,-9.99,Platinum Card,-71003,Streaming services,
-2025-02-13,Platinum Digital Entertainment Credit,9.99,Platinum Card,-71003,Streaming services,
+2025-02-13,HLU*HULUPLUS HULU.COM/BILL CA,-9.99,Platinum Card,-71003,Streaming & media,
+2025-02-13,Platinum Digital Entertainment Credit,9.99,Platinum Card,-71003,Streaming & media,
 2025-02-08,VIMEO PRO 212-625-0668 NY,326.63,Platinum Card,-71003,Marketing,
 2025-02-07,VIMEO PRO 212-625-0668 NY,-326.63,Platinum Card,-71003,Marketing,
 2025-01-26,RENEWAL MEMBERSHIP FEE,-695.00,Platinum Card,-71003,Card membership,
@@ -327,15 +327,15 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-25,ONLINE PAYMENT - THANK YOU,123.70,Platinum Card,-71003,,
 2025-01-19,PAYPAL *FREE2MOVE 30330831110 DE,-26.95,Platinum Card,-71003,Rideshare & taxi,
 2025-01-18,GALERIA KARSTADT KAUSTUTTGART DE,-147.57,Platinum Card,-71003,Personal,
-2025-01-18,PAYPAL *DISNEYPLUS 800724235230 NL,-6.19,Platinum Card,-71003,Streaming services,
+2025-01-18,PAYPAL *DISNEYPLUS 800724235230 NL,-6.19,Platinum Card,-71003,Streaming & media,
 2025-01-18,PAYPAL *FREE2MOVE 30330831110 DE,-5.86,Platinum Card,-71003,Rideshare & taxi,
 2025-01-16,MEM RWDS AIRLINE TAX OFFSET FEE,-1.80,Platinum Card,-71003,Fees & adjustments,
 2025-01-15,MEM RWDS AIRLINE TAX OFFSET FEE,-99.00,Platinum Card,-71003,Fees & adjustments,
 2025-01-15,PAYPAL *MYMUESLI AG 85120426699 DE,-30.86,Platinum Card,-71003,Personal,
 2025-01-15,PAYPAL *SYNFORMULAS 15170264849 DE,-29.86,Platinum Card,-71003,Personal,
-2025-01-14,PAYPAL *NETFLIX.COM 14085403700,-20.59,Platinum Card,-71003,Streaming services,
-2025-01-13,HLU*HULUPLUS HULU.COM/BILL CA,-9.99,Platinum Card,-71003,Streaming services,
-2025-01-13,Platinum Digital Entertainment Credit,9.99,Platinum Card,-71003,Streaming services,
+2025-01-14,PAYPAL *NETFLIX.COM 14085403700,-20.59,Platinum Card,-71003,Streaming & media,
+2025-01-13,HLU*HULUPLUS HULU.COM/BILL CA,-9.99,Platinum Card,-71003,Streaming & media,
+2025-01-13,Platinum Digital Entertainment Credit,9.99,Platinum Card,-71003,Streaming & media,
 2025-01-12,PAYPAL *FREE2MOVE 30330831110 DE,-20.63,Platinum Card,-71003,Rideshare & taxi,
 2025-01-07,PAYPAL *FREE2MOVE 30330831110 DE,-9.99,Platinum Card,-71003,Rideshare & taxi,
 2025-01-02,GOOGLE *FITBOD WORKO G.CO/HELPPAY# CA,-17.41,Platinum Card,-71003,Personal,
@@ -351,11 +351,11 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-06-23,UBER TRIP           HTTPS://HELP.UBER.COCA,-360.17,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
 2025-06-23,UBER TRIP           HTTPS://HELP.UBER.COCA,-10.17,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
 2025-06-22,UBER TRIP           HTTPS://HELP.UBER.COCA,-81.73,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
-2025-06-21,D J*WSJ             800-568-7625        NJ,-7.62,Charles Schwab Platinum Card,-71000,News & media,
+2025-06-21,D J*WSJ             800-568-7625        NJ,-7.62,Charles Schwab Platinum Card,-71000,Streaming & media,
 2025-06-18,AMZN MKTP DE        AMAZON.DE,-1151.37,Charles Schwab Platinum Card,-71000,Office supplies,
 2025-05-30,ONLINE PAYMENT - THANK YOU,518.31,Charles Schwab Platinum Card,-71000,,
-2025-05-24,D J*WSJ ONLINE      800-568-7625        NJ,-7.62,Charles Schwab Platinum Card,-71000,News & media,
-2025-05-24,Platinum Digital Entertainment Credit,7.62,Charles Schwab Platinum Card,-71000,Streaming services,
+2025-05-24,D J*WSJ ONLINE      800-568-7625        NJ,-7.62,Charles Schwab Platinum Card,-71000,Streaming & media,
+2025-05-24,Platinum Digital Entertainment Credit,7.62,Charles Schwab Platinum Card,-71000,Streaming & media,
 2025-05-20,ONLINE PAYMENT - THANK YOU,5.60,Charles Schwab Platinum Card,-71000,,
 2025-05-18,UBER TRIP           HTTPS://HELP.UBER.COCA,-518.31,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
 2025-05-16,ONLINE PAYMENT - THANK YOU,598.24,Charles Schwab Platinum Card,-71000,,
@@ -374,8 +374,8 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-04-29,UBER,-50.50,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
 2025-04-27,UBER,-8.17,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
 2025-04-27,UBER,-81.79,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
-2025-04-26,D J*WSJ ONLINE      800-568-7625        NJ,-7.62,Charles Schwab Platinum Card,-71000,News & media,
-2025-04-26,Platinum Digital Entertainment Credit,7.62,Charles Schwab Platinum Card,-71000,Streaming services,
+2025-04-26,D J*WSJ ONLINE      800-568-7625        NJ,-7.62,Charles Schwab Platinum Card,-71000,Streaming & media,
+2025-04-26,Platinum Digital Entertainment Credit,7.62,Charles Schwab Platinum Card,-71000,Streaming & media,
 2025-04-16,UBER ONE            HTTPS://HELP.UBER.CONL,-5.68,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
 2025-04-14,UBER,-16.75,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
 2025-04-09,ONLINE PAYMENT - THANK YOU,1122.04,Charles Schwab Platinum Card,-71000,,
@@ -409,16 +409,16 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-04-01,UBER,-78.13,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
 2025-03-31,UBER,-11.98,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
 2025-03-31,UBER,-59.79,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
-2025-03-29,D J*WSJ ONLINE      800-568-7625        NJ,-7.62,Charles Schwab Platinum Card,-71000,News & media,
-2025-03-29,Platinum Digital Entertainment Credit,7.62,Charles Schwab Platinum Card,-71000,Streaming services,
+2025-03-29,D J*WSJ ONLINE      800-568-7625        NJ,-7.62,Charles Schwab Platinum Card,-71000,Streaming & media,
+2025-03-29,Platinum Digital Entertainment Credit,7.62,Charles Schwab Platinum Card,-71000,Streaming & media,
 2025-03-28,DELTA AIR LINES,-5.60,Charles Schwab Platinum Card,-71000,Airfare,5
 2025-03-19,AIR FRANCE          NEW YORK CITY,-400.51,Charles Schwab Platinum Card,-71000,Airfare,5
 2025-03-16,UBER ONE            HTTPS://HELP.UBER.CONL,-5.45,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
-2025-03-01,D J*WSJ ONLINE      800-568-7625        NJ,-7.62,Charles Schwab Platinum Card,-71000,News & media,
-2025-03-01,Platinum Digital Entertainment Credit,7.62,Charles Schwab Platinum Card,-71000,Streaming services,
+2025-03-01,D J*WSJ ONLINE      800-568-7625        NJ,-7.62,Charles Schwab Platinum Card,-71000,Streaming & media,
+2025-03-01,Platinum Digital Entertainment Credit,7.62,Charles Schwab Platinum Card,-71000,Streaming & media,
 2025-02-16,UBER ONE            HTTPS://HELP.UBER.CONL,-5.25,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
-2025-02-01,D J*WSJ ONLINE      800-568-7625        NJ,-7.62,Charles Schwab Platinum Card,-71000,News & media,
-2025-02-01,Platinum Digital Entertainment Credit,7.62,Charles Schwab Platinum Card,-71000,Streaming services,
+2025-02-01,D J*WSJ ONLINE      800-568-7625        NJ,-7.62,Charles Schwab Platinum Card,-71000,Streaming & media,
+2025-02-01,Platinum Digital Entertainment Credit,7.62,Charles Schwab Platinum Card,-71000,Streaming & media,
 2025-01-26,ONLINE PAYMENT - THANK YOU,174.08,Charles Schwab Platinum Card,-71000,,
 2025-01-26,ONLINE PAYMENT - THANK YOU,103.93,Charles Schwab Platinum Card,-71000,,
 2025-01-26,ONLINE PAYMENT - THANK YOU,36.16,Charles Schwab Platinum Card,-71000,,
@@ -426,14 +426,15 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-17,UBER,-103.93,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
 2025-01-16,UBER,-168.91,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
 2025-01-16,UBER ONE            HTTPS://HELP.UBER.CONL,-5.17,Charles Schwab Platinum Card,-71000,Rideshare & taxi,
-2025-01-04,D J*WSJ             800-568-7625        NJ,-7.62,Charles Schwab Platinum Card,-71000,News & media,
-2025-01-04,Platinum Digital Entertainment Credit,7.62,Charles Schwab Platinum Card,-71000,Streaming services,
-2025-07-09,KAJABI              NEWPORT BEACH       CA,-399.00,Business Blue Plus II,-11009,Software,
+2025-01-04,D J*WSJ             800-568-7625        NJ,-7.62,Charles Schwab Platinum Card,-71000,Streaming & media,
+2025-01-04,Platinum Digital Entertainment Credit,7.62,Charles Schwab Platinum Card,-71000,Streaming & media,
+2025-07-11,TALLY.SO            GENT                OO,-29.00,Business Blue Plus II,-11009,Marketing,
+2025-07-09,KAJABI              NEWPORT BEACH       CA,-399.00,Business Blue Plus II,-11009,Software,2
 2025-07-08,ONLINE PAYMENT - THANK YOU,199.95,Business Blue Plus II,-11009,,
 2025-07-03,ONLINE PAYMENT - THANK YOU,3250.00,Business Blue Plus II,-11009,,
 2025-07-03,PAYPAL *SPXOPTIONTR 5418961779          OR,-199.95,Business Blue Plus II,-11009,Charting & journaling,2
 2025-06-25,ONLINE PAYMENT - THANK YOU,170.02,Business Blue Plus II,-11009,,
-2025-06-21,NETFLIX.COM         866-579-7172        CA,-27.21,Business Blue Plus II,-11009,Streaming services,2
+2025-06-21,NETFLIX.COM         866-579-7172        CA,-27.21,Business Blue Plus II,-11009,Streaming & media,2
 2025-06-19,LOVABLE             DOVER               DE,180.00,Business Blue Plus II,-11041,App development,
 2025-06-19,LOVABLE             DOVER               DE,-25.00,Business Blue Plus II,-11041,App development,2
 2025-06-15,ONLINE PAYMENT - THANK YOU,50.00,Business Blue Plus II,-11009,,
@@ -467,7 +468,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-05-21,Con Edison Bill Paym800-752-6633        NY,-170.02,Business Blue Plus II,-11058,Utilities,2
 2025-05-21,FACEBK FB.ME/ADS CA,-25.00,Business Blue Plus II,-11041,Advertising,2
 2025-05-21,FACEBK FB.ME/ADS CA,-25.00,Business Blue Plus II,-11041,Advertising,2
-2025-05-21,NETFLIX.COM         866-579-7172        CA,-27.21,Business Blue Plus II,-11009,Streaming services,2
+2025-05-21,NETFLIX.COM         866-579-7172        CA,-27.21,Business Blue Plus II,-11009,Streaming & media,2
 2025-05-20,FACEBK FB.ME/ADS CA,-25.00,Business Blue Plus II,-11041,Advertising,2
 2025-05-20,FACEBK FB.ME/ADS CA,-25.00,Business Blue Plus II,-11041,Advertising,2
 2025-05-20,LOVABLE             DOVER               DE,-20.00,Business Blue Plus II,-11058,App development,2
@@ -497,7 +498,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-05-03,PAYPAL *SPXOPTIONTR 5418961779          OR,-199.95,Business Blue Plus II,-11041,Charting & journaling,2
 2025-04-26,TILLER* TRIAL OVER  WINTHROP            WA,-79.00,Business Blue Plus II,-11017,App development,2
 2025-04-25,PAYPAL *WEBULL TECH 31657018            HK,-11.99,Business Blue Plus II,-11017,Charting & journaling,2
-2025-04-21,NETFLIX.COM         866-579-7172        CA,-27.21,Business Blue Plus II,-11009,Streaming services,2
+2025-04-21,NETFLIX.COM         866-579-7172        CA,-27.21,Business Blue Plus II,-11009,Streaming & media,2
 2025-04-19,CHARGEBEE           WALNUT              CA,-1474.00,Business Blue Plus II,-11017,SuperPhone®,2
 2025-04-19,IC* INSTACART*SUBSCRSAN FRANCISCO       CA,99.00,Business Blue Plus II,-11017,Delivery,2
 2025-04-19,PAYPAL *SUPERPHONE  4029357733          NY,-1561.02,Business Blue Plus II,-11025,Software,2
@@ -524,13 +525,13 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-03-24,LEMSQZY* TYPEHEIST  SALT LAKE CITY      UT,-4.34,Business Blue Plus II,-11017,App development,2
 2025-03-23,PAYPAL *XAVIER KEYZ 4029357733          IL,-1626.66,Business Blue Plus II,-11017,Commissions,2
 2025-03-22,APL* MARKETSTACK    VIENNA              AT,-9.99,Business Blue Plus II,-11009,App development,2
-2025-03-21,NETFLIX.COM         866-579-7172        CA,-27.21,Business Blue Plus II,-11009,Streaming services,2
+2025-03-21,NETFLIX.COM         866-579-7172        CA,-27.21,Business Blue Plus II,-11009,Streaming & media,2
 2025-03-12,ONLINE PAYMENT - THANK YOU,2300.00,Business Blue Plus II,-11009,,
 2025-03-12,ONLINE PAYMENT - THANK YOU,1000.00,Business Blue Plus II,-11009,,
 2025-03-11,TALLY.SO            GENT                OO,-29.00,Business Blue Plus II,-11009,Marketing,2
 2025-03-07,ENGINEROOM AUDIO 000NEW YORK            NY,-1000.00,Business Blue Plus II,-11009,Facilities,2
 2025-02-22,APL* MARKETSTACK    VIENNA              AT,-9.99,Business Blue Plus II,-11009,App development,2
-2025-02-21,NETFLIX.COM         866-579-7172        CA,-25.03,Business Blue Plus II,-11009,Streaming services,2
+2025-02-21,NETFLIX.COM         866-579-7172        CA,-25.03,Business Blue Plus II,-11009,Streaming & media,2
 2025-02-16,TALLY.SO            GENT                OO,-29.00,Business Blue Plus II,-11009,Marketing,2
 2025-02-15,PAYPAL *XAVIER KEYZ 4029357733,-2300.00,Business Blue Plus II,-11009,CreditMax,2
 2025-07-06,ONLINE PAYMENT - THANK YOU,1901.29,Business Blue Plus I,-01000,,
@@ -692,7 +693,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-17,DELTA AIR LINES,-152.71,Delta SkyMiles® Reserve,-41006,Airfare,3
 2025-07-10,PAYPAL *FREE2MOVE 30330831110 DE,-1.00,Hilton Honors Business,-91003,Rideshare & taxi,
 2025-07-10,PAYPAL *FREE2MOVE 30330831110 DE,-16.82,Hilton Honors Business,-91003,Rideshare & taxi,
-2025-07-10,REVOLVE,-156.99,Hilton Honors Business,-91003,Wardrobe,
+2025-07-10,REVOLVE,-157.17,Hilton Honors Business,-91003,Wardrobe,
 2025-07-08,ONLINE PAYMENT - THANK YOU,4750.00,Hilton Honors Business,-91003,,
 2025-07-07,PAYPAL *FREE2MOVE 30330831110 DE,-37.43,Hilton Honors Business,-91003,Rideshare & taxi,
 2025-07-06,REVOLVE,-278.22,Hilton Honors Business,-91003,Wardrobe,
@@ -729,14 +730,14 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-06-26,AMZN MKTP DE        AMAZON.DE,-324.75,Amazon Business Prime,-52003,Office supplies,
 2025-06-24,AMAZON PAY YOUR CHARGES CREDIT,115.34,Amazon Business Prime,-52003,Office supplies,
 2025-06-24,AMZN MKTP DE        AMAZON.DE,-10.38,Amazon Business Prime,-52003,Office supplies,
-2025-06-18,AMAZON DIGITAL DOWNLOADS,-2.99,Amazon Business Prime,-52003,Streaming services,5
+2025-06-18,AMAZON DIGITAL DOWNLOADS,-2.99,Amazon Business Prime,-52003,Streaming & media,5
 2025-06-12,AMAZON MARKEPLACE NA PA,-115.34,Amazon Business Prime,-52003,Office supplies,5
 2025-06-10,AMAZON.COM AMZN.COM/BILL WA,-5.54,Amazon Business Prime,-52003,Office supplies,5
 2025-06-10,AMAZON.COM AMZN.COM/BILL WA,-15.38,Amazon Business Prime,-52003,Office supplies,5
 2025-06-01,Amazon Web Services AWS.Amazon.com      WA,-4626.46,Amazon Business Prime,-52003,Servers,5
 2025-06-01,ONLINE PAYMENT - THANK YOU,4626.46,Amazon Business Prime,-52003,,
 2025-05-29,AMAZON PAY YOUR CHARGES CREDIT,16.32,Amazon Business Prime,-52003,Office supplies,
-2025-05-29,Amazon Prime        Amazon.com          WA,-16.32,Amazon Business Prime,-52003,Streaming services,5
+2025-05-29,Amazon Prime        Amazon.com          WA,-16.32,Amazon Business Prime,-52003,Office supplies,5
 2025-05-25,AMAZON MARKETPLACE NAMZN.COM/BILL       WA,23.94,Amazon Business Prime,-52003,Office supplies,
 2025-05-25,AMZN MKTP DE        AMAZON.DE,43.76,Amazon Business Prime,-52003,Office supplies,
 2025-05-24,AMAZON PAY YOUR CHARGES CREDIT,104.61,Amazon Business Prime,-52003,Office supplies,
@@ -762,7 +763,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-05-01,Amazon Web Services AWS.Amazon.com      WA,-4495.75,Amazon Business Prime,-52003,Servers,5
 2025-04-29,AMAZON PAY YOUR CHARGES CREDIT,16.32,Amazon Business Prime,-52003,Office supplies,
 2025-04-29,AMAZON PAY YOUR CHARGES CREDIT,5.00,Amazon Business Prime,-52003,Office supplies,
-2025-04-29,Amazon Prime        Amazon.com          WA,-16.32,Amazon Business Prime,-52003,Streaming services,5
+2025-04-29,Amazon Prime        Amazon.com          WA,-16.32,Amazon Business Prime,-52003,Office supplies,5
 2025-04-29,AMAZON TIPS*LB1TN4LHAMZN.COM/BILL       WA,-5.00,Amazon Business Prime,-52003,Groceries,5
 2025-04-27,AMAZON GROCE*BI1Z81NAMZN.COM/BILL       WA,-70.21,Amazon Business Prime,-52003,Groceries,5
 2025-04-27,AMAZON PAY YOUR CHARGES CREDIT,70.21,Amazon Business Prime,-52003,Office supplies,
@@ -775,7 +776,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-04-01,AMAZON.COM          AMZN.COM/BILL       WA,-6.17,Amazon Business Prime,-52003,Office supplies,5
 2025-04-01,AMAZON.COM          AMZN.COM/BILL       WA,-13.06,Amazon Business Prime,-52003,Office supplies,5
 2025-03-30,AMAZON MARKEPLACE NA PA,-60.14,Amazon Business Prime,-52003,Office supplies,5
-2025-03-29,Amazon Prime        Amazon.com          WA,-16.32,Amazon Business Prime,-52003,Streaming services,5
+2025-03-29,Amazon Prime        Amazon.com          WA,-16.32,Amazon Business Prime,-52003,Office supplies,5
 2025-03-26,AMAZON MARKEPLACE NA PA,-33.77,Amazon Business Prime,-52003,Office supplies,5
 2025-03-26,AMAZON PAY YOUR CHARGES CREDIT,33.77,Amazon Business Prime,-52003,Office supplies,
 2025-03-21,AMAZON MARKEPLACE NA PA,-148.06,Amazon Business Prime,-52003,Office supplies,5
@@ -783,7 +784,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-03-03,ONLINE PAYMENT - THANK YOU,4985.77,Amazon Business Prime,-52003,,
 2025-03-01,Amazon Web Services AWS.Amazon.com      WA,-4985.77,Amazon Business Prime,-52003,Servers,5
 2025-02-28,AMAZON PAY YOUR CHARGES CREDIT,16.32,Amazon Business Prime,-52003,Office supplies,
-2025-02-28,Amazon Prime        Amazon.com          WA,-16.32,Amazon Business Prime,-52003,Streaming services,5
+2025-02-28,Amazon Prime        Amazon.com          WA,-16.32,Amazon Business Prime,-52003,Office supplies,5
 2025-02-26,AMAZON PAY YOUR CHARGES CREDIT,11.29,Amazon Business Prime,-52003,Office supplies,
 2025-02-26,AMAZON PAY YOUR CHARGES CREDIT,6.17,Amazon Business Prime,-52003,Office supplies,
 2025-02-26,AMAZON.COM          AMZN.COM/BILL       WA,-6.17,Amazon Business Prime,-52003,Office supplies,5
@@ -795,7 +796,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-02-02,ONLINE PAYMENT - THANK YOU,4982.38,Amazon Business Prime,-52003,,
 2025-02-01,Amazon Web Services AWS.Amazon.com      WA,-4982.38,Amazon Business Prime,-52003,Servers,5
 2025-01-29,AMAZON PAY YOUR CHARGES CREDIT,16.32,Amazon Business Prime,-52003,Office supplies,
-2025-01-29,Amazon Prime        Amazon.com          WA,-16.32,Amazon Business Prime,-52003,Streaming services,5
+2025-01-29,Amazon Prime        Amazon.com          WA,-16.32,Amazon Business Prime,-52003,Office supplies,5
 2025-01-21,AMAZON PAY YOUR CHARGES CREDIT,13.06,Amazon Business Prime,-52003,Office supplies,
 2025-01-21,AMAZON PAY YOUR CHARGES CREDIT,6.17,Amazon Business Prime,-52003,Office supplies,
 2025-01-21,AMAZON.COM          AMZN.COM/BILL       WA,-6.17,Amazon Business Prime,-52003,Office supplies,5
@@ -803,7 +804,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-05,DEBIT - MISPOSTED PYMT,-429.73,Amazon Business Prime,-52003,Fees & adjustments,5
 2025-01-05,ONLINE PAYMENT - THANK YOU,5031.65,Amazon Business Prime,-52003,,
 2025-01-04,AMAZON PAY YOUR CHARGES CREDIT,16.32,Amazon Business Prime,-52003,Office supplies,
-2025-01-04,Amazon Prime        Amazon.com          WA,-16.32,Amazon Business Prime,-52003,Streaming services,5
+2025-01-04,Amazon Prime        Amazon.com          WA,-16.32,Amazon Business Prime,-52003,Office supplies,5
 2025-01-01,Amazon Web Services AWS.Amazon.com      WA,-5031.65,Amazon Business Prime,-52003,Servers,5
 2025-05-25,ONLINE PAYMENT - THANK YOU,320.52,Bonvoy Business Amex,-31009,,
 2025-05-20,ONLINE PAYMENT - THANK YOU,2415.16,Bonvoy Business Amex,-31009,,
@@ -870,6 +871,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-23,CON-STRUC-TION      CULVER CITY         CA,-100.00,Business Green,-81017,CreditMax,
 2025-01-22,DNH*GODADDY#35397671Tempe               AZ,-32.17,Business Green,-81017,Domains & hosting,
 2025-01-13,DNH*GODADDY#35171245480-505-8855        AZ,-149.98,Business Green,-81017,Domains & hosting,
+2025-07-11,ADOBE SYSTEMS Adobe SAN JOSE            CA,-65.31,Business Classic Gold,-71002,Software,
 2025-07-09,TWILIO INC          SAN FRANCISCO       CA,-40.43,Business Classic Gold,-71002,SuperPhone®,
 2025-07-08,ONLINE PAYMENT - THANK YOU,587.85,Business Classic Gold,-71002,,
 2025-07-04,TWILIO INC          SAN FRANCISCO       CA,-40.50,Business Classic Gold,-71002,SuperPhone®,
@@ -1055,6 +1057,7 @@ date,description,amount,account_type,last_five,category,point_multiple
 2025-01-01,TWILIO INC          SAN FRANCISCO       CA,-400.00,Business Classic Gold,-71051,SuperPhone®,4
 2025-01-01,TWILIO INC          SAN FRANCISCO       CA,-590.22,Business Classic Gold,-71051,SuperPhone®,4
 2025-01-01,TWILIO INC          SAN FRANCISCO       CA,-600.00,Business Classic Gold,-71051,SuperPhone®,4
+2025-07-11,MANYCHAT.COM        SAN FRANCISCO       CA,-15.00,Business White Gold,-41000,Marketing,
 2025-07-09,LOVABLE             DOVER               DE,-100.00,Business White Gold,-41000,App development,
 2025-07-08,CALENDLY            AVONDALE ESTATES    GA,-11.70,Business White Gold,-41000,Software,
 2025-07-07,LOVABLE             DOVER               DE,-50.00,Business White Gold,-41000,App development,

@@ -23,7 +23,7 @@ export const useFeeMetrics = () => {
       name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
       lastFive: `-${card.lastFive}`,
       amount: `$${card.annualFee.toLocaleString()}`,
-      type: `annual fee • ${card.interestRate} APR`,
+      type: `annual fee`,
       image: getCardImage(card.cardType.toLowerCase())
     }))
 

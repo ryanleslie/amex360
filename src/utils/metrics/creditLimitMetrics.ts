@@ -88,7 +88,7 @@ export const useCreditLimitMetrics = () => {
       name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
       lastFive: `-${card.lastFive}`,
       amount: `$${card.creditLimit.toLocaleString()}`,
-      type: `${card.limitType} limit`,
+      type: `${card.limitType} limit • ${card.interestRate} APR`,
       image: getCardImage(card.cardType.toLowerCase())
     }))
 
@@ -123,7 +123,7 @@ export const useCreditLimitMetrics = () => {
       name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
       lastFive: `-${card.lastFive}`,
       amount: `$${card.creditLimit.toLocaleString()}`,
-      type: `${card.limitType} limit`,
+      type: `${card.limitType} limit • ${card.interestRate} APR`,
       image: getCardImage(card.cardType.toLowerCase())
     }))
 

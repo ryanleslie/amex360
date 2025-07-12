@@ -12,7 +12,12 @@ import { useAdminBalanceMetrics } from "./adminBalanceMetrics"
 
 export const useUnifiedMetricsData = () => {
   const { totalCurrentBalanceData, getCardBalance } = useBalanceMetrics()
-  const { highestCreditLimitData, lowestPayOverTimeLimitData } = useCreditLimitMetrics()
+  const { 
+    highestCreditLimitData, 
+    lowestPayOverTimeLimitData, 
+    totalPresetCreditLimitData, 
+    totalPayOverTimeLimitData 
+  } = useCreditLimitMetrics()
   const { brandPartnerCardsData, noAnnualFeeCardsData, annualFeeCardsData } = useCardTypeMetrics()
   const { closingThisWeekData, dueThisWeekData } = useDateBasedMetrics(getCardBalance)
   const { totalAnnualFeesData } = useFeeMetrics()
@@ -151,6 +156,24 @@ export const useUnifiedMetricsData = () => {
       lastUpdated: "Real-time",
       calculationMethod: "Sum of calculated balances for non-business cards closing within 7 days",
       cardData: urgentBalanceData.cards
+    },
+    "Total Preset Credit Limit": {
+      title: "Total Preset Credit Limit",
+      value: totalPresetCreditLimitData.amount!,
+      description: "Sum of all preset credit limits across active cards",
+      dataSource: "Primary Cards Configuration",
+      lastUpdated: "Updated daily",
+      calculationMethod: "Sum of preset credit limits for all primary card accounts",
+      cardData: totalPresetCreditLimitData.cards
+    },
+    "Total Pay Over Time Limit": {
+      title: "Total Pay Over Time Limit",
+      value: totalPayOverTimeLimitData.amount!,
+      description: "Sum of all pay over time limits across active cards",
+      dataSource: "Primary Cards Configuration",
+      lastUpdated: "Updated daily",
+      calculationMethod: "Sum of pay over time limits for all primary card accounts",
+      cardData: totalPayOverTimeLimitData.cards
     }
   }
 

@@ -70,8 +70,80 @@ export const useCreditLimitMetrics = () => {
     }
   }, [])
 
+  // Calculate total preset credit limit
+  const totalPresetCreditLimitData = React.useMemo((): MetricResult => {
+    const primaryCards = getAllPrimaryCards()
+    const presetCards = primaryCards.filter(card => card.limitType === "preset")
+    
+    if (presetCards.length === 0) {
+      return {
+        amount: "$0",
+        cards: []
+      }
+    }
+
+    const totalLimit = presetCards.reduce((sum, card) => sum + card.creditLimit, 0)
+    
+    const cardDetails = presetCards.map(card => ({
+      name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
+      lastFive: `-${card.lastFive}`,
+      amount: `$${card.creditLimit.toLocaleString()}`,
+      type: `${card.limitType} limit`,
+      image: getCardImage(card.cardType.toLowerCase())
+    }))
+
+    // Sort by credit limit descending
+    const sortedCardDetails = cardDetails.sort((a, b) => {
+      const amountA = parseInt(a.amount.replace(/[$,]/g, ''))
+      const amountB = parseInt(b.amount.replace(/[$,]/g, ''))
+      return amountB - amountA
+    })
+
+    return {
+      amount: `$${(totalLimit / 1000).toFixed(0)}K`,
+      cards: sortedCardDetails
+    }
+  }, [])
+
+  // Calculate total pay over time limit
+  const totalPayOverTimeLimitData = React.useMemo((): MetricResult => {
+    const primaryCards = getAllPrimaryCards()
+    const payOverTimeCards = primaryCards.filter(card => card.limitType === "pay over time")
+    
+    if (payOverTimeCards.length === 0) {
+      return {
+        amount: "$0",
+        cards: []
+      }
+    }
+
+    const totalLimit = payOverTimeCards.reduce((sum, card) => sum + card.creditLimit, 0)
+    
+    const cardDetails = payOverTimeCards.map(card => ({
+      name: card.cardType === "Bonvoy Business Amex" ? "Marriott Bonvoy Business" : card.cardType,
+      lastFive: `-${card.lastFive}`,
+      amount: `$${card.creditLimit.toLocaleString()}`,
+      type: `${card.limitType} limit`,
+      image: getCardImage(card.cardType.toLowerCase())
+    }))
+
+    // Sort by credit limit descending
+    const sortedCardDetails = cardDetails.sort((a, b) => {
+      const amountA = parseInt(a.amount.replace(/[$,]/g, ''))
+      const amountB = parseInt(b.amount.replace(/[$,]/g, ''))
+      return amountB - amountA
+    })
+
+    return {
+      amount: `$${(totalLimit / 1000).toFixed(0)}K`,
+      cards: sortedCardDetails
+    }
+  }, [])
+
   return {
     highestCreditLimitData,
-    lowestPayOverTimeLimitData
+    lowestPayOverTimeLimitData,
+    totalPresetCreditLimitData,
+    totalPayOverTimeLimitData
   }
 }
